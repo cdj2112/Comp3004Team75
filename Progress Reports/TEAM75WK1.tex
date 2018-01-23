@@ -29,6 +29,7 @@
 }
 
 \usepackage{graphicx} % Required for including pictures
+\usepackage{scrextend} %required for addmargin
 
 \usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
 \usepackage{wrapfig} % Allows in-line images such as the example fish picture
@@ -110,8 +111,6 @@ c) \\
 
 \section*{Scenerio Descriptions}
 
-Can also be found on our \href{https://github.com/cdj2112/FXTest/blob/master/progress_reports/progress_report_1}{GitHub}. \\
-
 \bgroup\obeylines
 Scenario 1
 -3 players (p1, p2, p3)
@@ -138,25 +137,29 @@ Scenario 2
 -p2 accepts the quest
 -p3 accepts the quest
 -p1 sets up the quest:\\
+\egroup
+	
+	\begin{addmargin}[1cm]{0em}
+	Stage 1: Thieves\\
+	-p2 and p3 receive 1 Adventure card.\\
+	-p2 plays a weapon and an ally (with free bids)\\
+	-p3 plays a weapon and an ally\\
+	-both players defeat the foe and advance to stage 2\\
+	
+	Stage 2: Test of Temptation\\
+	-p2 bids x cards + ally with bids\\
+	-p3 drops out\\
+	-p2 draws an adventure card\\
+	
+	Stage 3: Black Knight (foe listed on the Quest card), Sword, Horse\\
+	-p2 plays some cards\\
+	-p2 is victorious\\
+	\end{addmargin}
 
-Stage 1: Thieves
--p2 and p3 receive 1 Adventure card.
--p2 plays a weapon and an ally (with free bids)
--p3 plays a weapon and an ally
--both players defeat the foe and advance to stage 2\\
-
-Stage 2: Test of Temptation
--p2 bids x cards + ally with bids
--p3 drops out
--p2 draws an adventure card\\
-
-Stage 3: Black Knight (foe listed on the Quest card), Sword, Horse
--p2 plays some cards
--p2 is victorious\\
-
+\bgroup\obeylines
 -p2 receives 3 shields and now has 6 shields
 -p2 advances to Knight, and keeps 1 shield on his Rank card
--p1 draws $\#cards_used + \#stages (5 + 3 = 8)$ from adventure deck, and now has 13 cards.
+-p1 draws cards used + stages i.e. $5 + 3 = 8$ from adventure deck, and now has 13 cards.
 -p1 discards 1 card to get to 12 cards
 -all quest cards are discarded\\
 
@@ -176,25 +179,29 @@ Scenario 4
 -p2 accepts the quest
 -p3 accepts the quest
 -p1 sets up the quest:\\
+\egroup
+	
+	\begin{addmargin}[1cm]{0em}
+	Stage 1: Thieves\\
+	-p2 and p3 receive 1 Adventure card and now have 13 total cards. They each play 1 card instead of discarding.\\
+	-p2 plays a weapon and an ally (with free bids)\\
+	-p3 plays a weapon\\
+	-both players defeat the foe and advance to stage 2\\
+	
+	Stage 2: Test of Temptation\\
+	-p2 bids x cards + ally with bids\\
+	-p3 plays Mordred (removing the ally) + x cards\\
+	-p3 wins the bid\\
+	-p3 draws an Adventure card\\
+	
+	Stage 3: Black Knight (foe listed on the Quest card), Sword, Horse\\
+	-p2 plays some cards\\
+	-p2 is victorious\\
+	\end{addmargin}
 
-Stage 1: Thieves
--p2 and p3 receive 1 Adventure card and now have 13 total cards. They each play 1 card instead of discarding.
--p2 plays a weapon and an ally (with free bids)
--p3 plays a weapon
--both players defeat the foe and advance to stage 2\\
-
-Stage 2: Test of Temptation
--p2 bids x cards + ally with bids
--p3 plays Mordred (removing the ally) + x cards
--p3 wins the bid
--p3 draws an Adventure card\\
-
-Stage 3: Black Knight (foe listed on the Quest card), Sword, Horse
--p2 plays some cards
--p2 is victorious\\
-
+\bgroup\obeylines
 -p3 receives 3 shields and now has a total of x+3 < 5 shields (no Rank upgrade)
--p1 draws $\#cards used + \#stages (5 + 3 = 8)$ from adventure deck
+-p1 draws cardsused + stages i.e. $5 + 3 = 8$ from adventure deck
 -all quest cards are discarded\\
 
 Scenario 5
@@ -218,7 +225,7 @@ Scenario 6
 -p2 participates in the tournament
 -p3 declines to participate in the tournament
 -p1 participates in the tournament
--p2 plays armour, weapon | p1 plays weapon
+-p2 plays armour, weapon $|$ p1 plays weapon
 -p2 is victorious
 -p2 receives 2 shields and no bonus shields
 -p2 now has 3 shields (no Rank upgrade)\\
@@ -230,16 +237,16 @@ Scenario 7
 
 Scenario 8
 -3 players (p1, p2, p3)
--p1 has rank x | p2 has rank Champion Knight | p3 has rank x
+-p1 has rank x $|$ p2 has rank Champion Knight $|$ p3 has rank x
 -p1 has x shields, p2 has 7 shields, p3 has x shields
 -all players have x Adventure cards
 -p2 draws a Tournament at York (0 bonus shields)
 -p2 participates in the tournament
 -p3 participates in the tournament
 -p1 participates in the tournament
--p2 plays  cards | p3 plays cards | p1 plays cards
+-p2 plays cards $|$ p3 plays cards $|$ p1 plays cards
 -p2 and p3 are tied, p1 is eliminated
--p2 plays cards | p3 plays cards
+-p2 plays cards $|$ p3 plays cards
 -p2 and p3 are still tied
 -p2 and p3 each receive 3 shields
 -p2 has 10 shields, is upgraded to Knight of the Round Table, and wins the game\\
