@@ -1,0 +1,366 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Simple Sectioned Essay Template
+% LaTeX Template
+%
+% This template has been downloaded from:
+% http://www.latextemplates.com
+%
+% Note:
+% The \lipsum[#] commands throughout this template generate dummy text
+% to fill the template out. These commands should all be removed when 
+% writing essay content.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[12pt]{article} % Default font size is 12pt, it can be changed here
+
+\usepackage{geometry} % Required to change the page size to A4
+\geometry{a4paper} % Set the page size to be A4 as opposed to the default US Letter
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=blue,
+	filecolor=magenta,      
+	urlcolor=cyan,
+}
+
+\usepackage{graphicx} % Required for including pictures
+
+\usepackage{float} % Allows putting an [H] in \begin{figure} to specify the exact location of the figure
+\usepackage{wrapfig} % Allows in-line images such as the example fish picture
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+
+\linespread{1.2} % Line spacing
+
+\setlength\parindent{0pt} % Uncomment to remove all indentation from paragraphs
+
+\graphicspath{{Pictures/}} % Specifies the directory where pictures are stored
+
+\begin{document}
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}} % Defines a new command for the horizontal lines, change thickness here
+
+\center % Center everything on the page
+
+\textsc{\Huge Team 75}\\[0.5cm] % Name of your university/college
+\textsc{\Large COMP3004}\\[0.5cm] % Major heading such as course name
+%\textsc{\large Minor Heading}\\[0.5cm] % Minor heading such as course title
+
+\HRule \\[0.4cm]
+{ \huge \bfseries Progress Report 1}\\[0.4cm] % Title of your document
+\HRule \\[1.5cm]
+
+
+
+\emph{Team Members:}\\
+Cooper Jones, Steffen Smith, Ruicheng Song, Haiyue Sun\\[4cm]
+
+{\large January 23, 2018}\\[3cm] % Date, change the \today to a set date if you want to be precise
+
+%\includegraphics{Logo}\\[1cm] % Include a department/university logo - this will require the graphicx package
+
+\vfill % Fill the rest of the page with whitespace
+
+\end{titlepage}
+
+%----------------------------------------------------------------------------------------
+%	TABLE OF CONTENTS
+%----------------------------------------------------------------------------------------
+
+%\tableofcontents % Include a table of contents
+
+%\newpage % Begins the essay on a new page instead of on the same page as the table of contents 
+
+%----------------------------------------------------------------------------------------
+%	INTRODUCTION
+%----------------------------------------------------------------------------------------
+
+\section*{Weekly Summary} % Major section
+
+Cooper\\
+a) 10 hours\\
+b) Researched Java/JavaFX and C\#/Unity, setup GitHub repository, contributed to scenario descriptions\\
+c) \\
+
+Steffen \\
+a) 10 hours\\
+b) Researched C\#/Unity, contributed to scenario descriptions, wrote progress report \\
+c) \\
+
+Ruicheng \\
+a) 11 hours\\
+b) Researched Java/JavaFX, contributed to scenario descriptions, booked meeting room \\
+c) \\
+
+Haiyue \\
+a) 10 hours \\
+b) Researched C\#/Unity, contributed to scenario descriptions, prepared rough ERD for first meeting \\
+c) \\
+
+\section*{Scenerio Descriptions}
+
+Can also be found on our \href{https://github.com/cdj2112/FXTest/blob/master/progress_reports/progress_report_1}{GitHub}. \\
+
+\bgroup\obeylines
+Scenario 1
+-3 players (p1, p2, p3)
+-all players start with rank Squire
+-p1 receives 12 Adventure cards
+-p2 receives 12 Adventure cards
+-p3 receives 12 Adventure cards
+-p1 goes first and draws a Quest card (Rescue the Fair Maiden)
+-p1 doesn't sponsor the quest
+-p2 doesn't sponsor the quest
+-p3 doesn't sponsor the quest
+-Rescue the Fair Maiden is placed in the discard pile
+-p1's turn is over\\
+
+Scenario 2
+-3 players (p1, p2, p3)
+-all players start with rank Squire
+-p1 has x shields, p2 has 3 shields, p3 has x shields
+-p1 has 10 Adventure cards
+-p2 has x Adventure cards
+-p3 has x Adventure cards
+-p1 goes first and draws a Quest card (Rescue the Fair Maiden) from the story deck
+-p1 chooses to sponsor the quest
+-p2 accepts the quest
+-p3 accepts the quest
+-p1 sets up the quest:\\
+
+Stage 1: Thieves
+-p2 and p3 receive 1 Adventure card.
+-p2 plays a weapon and an ally (with free bids)
+-p3 plays a weapon and an ally
+-both players defeat the foe and advance to stage 2\\
+
+Stage 2: Test of Temptation
+-p2 bids x cards + ally with bids
+-p3 drops out
+-p2 draws an adventure card\\
+
+Stage 3: Black Knight (foe listed on the Quest card), Sword, Horse
+-p2 plays some cards
+-p2 is victorious\\
+
+-p2 receives 3 shields and now has 6 shields
+-p2 advances to Knight, and keeps 1 shield on his Rank card
+-p1 draws $\#cards_used + \#stages (5 + 3 = 8)$ from adventure deck, and now has 13 cards.
+-p1 discards 1 card to get to 12 cards
+-all quest cards are discarded\\
+
+Scenario 3
+-3 players (p1, p2, p3)
+-p1 draws Event: Queen's favour
+-draws 2 card for 14 cards
+-plays 1 ally and discards 1 to get 12\\
+
+Scenario 4
+-3 players (p1, p2, p3)
+-all players start with rank Squire
+-all players have x shields
+-all players have x Adventure cards
+-p1 goes first and draws a Quest card (Rescue the Fair Maiden) from the story deck
+-p1 chooses to sponsor the quest
+-p2 accepts the quest
+-p3 accepts the quest
+-p1 sets up the quest:\\
+
+Stage 1: Thieves
+-p2 and p3 receive 1 Adventure card and now have 13 total cards. They each play 1 card instead of discarding.
+-p2 plays a weapon and an ally (with free bids)
+-p3 plays a weapon
+-both players defeat the foe and advance to stage 2\\
+
+Stage 2: Test of Temptation
+-p2 bids x cards + ally with bids
+-p3 plays Mordred (removing the ally) + x cards
+-p3 wins the bid
+-p3 draws an Adventure card\\
+
+Stage 3: Black Knight (foe listed on the Quest card), Sword, Horse
+-p2 plays some cards
+-p2 is victorious\\
+
+-p3 receives 3 shields and now has a total of x+3 < 5 shields (no Rank upgrade)
+-p1 draws $\#cards used + \#stages (5 + 3 = 8)$ from adventure deck
+-all quest cards are discarded\\
+
+Scenario 5
+-3 players (p1, p2, p3)
+-all players start with rank Squire
+-p1 has x shields, p2 has 1 shield, p3 has x shields
+-all players have x Adventure cards
+-p2 draws a Tournament at Camelot card (3 bonus shields)
+-p2 participates in the tournament
+-p3 declines to participate in the tournament
+-p1 declines to participate in the tournament
+-p2 is awarded 1 shield, plus 3 bonus shields on the card
+-p2 now has 5 shields and is upgraded to Knight with 0 shields\\
+
+Scenario 6
+-3 players (p1, p2, p3)
+-all players start with rank Squire
+-p1 has x shields, p2 has 1 shield, p3 has x shields
+-all players have x Adventure cards
+-p2 draws a Tournament at York (0 bonus shields)
+-p2 participates in the tournament
+-p3 declines to participate in the tournament
+-p1 participates in the tournament
+-p2 plays armour, weapon | p1 plays weapon
+-p2 is victorious
+-p2 receives 2 shields and no bonus shields
+-p2 now has 3 shields (no Rank upgrade)\\
+
+Scenario 7
+-3 players (p1, p2, p3)
+-Event: Called to court
+-All players loose allies\\
+
+Scenario 8
+-3 players (p1, p2, p3)
+-p1 has rank x | p2 has rank Champion Knight | p3 has rank x
+-p1 has x shields, p2 has 7 shields, p3 has x shields
+-all players have x Adventure cards
+-p2 draws a Tournament at York (0 bonus shields)
+-p2 participates in the tournament
+-p3 participates in the tournament
+-p1 participates in the tournament
+-p2 plays  cards | p3 plays cards | p1 plays cards
+-p2 and p3 are tied, p1 is eliminated
+-p2 plays cards | p3 plays cards
+-p2 and p3 are still tied
+-p2 and p3 each receive 3 shields
+-p2 has 10 shields, is upgraded to Knight of the Round Table, and wins the game\\
+\egroup
+
+This week our team has \textbf{NO} issues to report in terms of participation, contributions, or distribution of work.
+
+%------------------------------------------------
+
+%\subsection{Subsection 1} % Sub-section
+
+%\lipsum[1] % Dummy text
+
+%------------------------------------------------
+
+%\subsection{Subsection 2} % Sub-section
+%
+%\lipsum[2] % Dummy text
+%
+%%------------------------------------------------
+%
+%\subsubsection{Subsubsection 1} % Sub-sub-section
+%
+%\lipsum[3] % Dummy text
+%
+%\begin{figure}[H] % Example image
+%\center{\includegraphics[width=0.5\linewidth]{placeholder}}
+%\caption{Example image.}
+%\label{fig:speciation}
+%\end{figure}
+%
+%%------------------------------------------------
+%
+%\subsubsection{Subsubsection 2} % Sub-sub-section
+%
+%\lipsum[4] % Dummy text
+%
+%%----------------------------------------------------------------------------------------
+%%	MAJOR SECTION 1
+%%----------------------------------------------------------------------------------------
+%
+%\section{Content Section} % Major section
+%
+%\lipsum[5] % Dummy text
+%
+%%------------------------------------------------
+%
+%\subsection{Subsection 1} % Sub-section
+%
+%\subsubsection{Subsubsection 1} % Sub-sub-section
+%
+%\lipsum[6] % Dummy text
+%
+%%------------------------------------------------
+%
+%\subsubsection{Subsubsection 2} % Sub-sub-section
+%
+%\lipsum[6] % Dummy text
+%\begin{wrapfigure}{l}{0.4\textwidth} % Inline image example
+%  \begin{center}
+%    \includegraphics[width=0.38\textwidth]{fish}
+%  \end{center}
+%  \caption{Fish}
+%\end{wrapfigure}
+%\lipsum[7-8] % Dummy text
+%
+%%------------------------------------------------
+%
+%\subsubsection{Subsubsection 3} % Sub-sub-section
+%
+%\begin{description} % Numbered list example
+%
+%\item[First] \hfill \\
+%\lipsum[9] % Dummy text
+%
+%\item[Second] \hfill \\
+%\lipsum[10] % Dummy text
+%
+%\item[Third] \hfill \\
+%\lipsum[11] % Dummy text
+%
+%\end{description} 
+
+%----------------------------------------------------------------------------------------
+%	MAJOR SECTION X - TEMPLATE - UNCOMMENT AND FILL IN
+%----------------------------------------------------------------------------------------
+
+%\section{Content Section}
+
+%\subsection{Subsection 1} % Sub-section
+
+% Content
+
+%------------------------------------------------
+
+%\subsection{Subsection 2} % Sub-section
+
+% Content
+
+%----------------------------------------------------------------------------------------
+%	CONCLUSION
+%----------------------------------------------------------------------------------------
+
+%\section{Conclusion} % Major section
+%
+%\lipsum[12-13]
+%
+%%----------------------------------------------------------------------------------------
+%%	BIBLIOGRAPHY
+%%----------------------------------------------------------------------------------------
+%
+%\begin{thebibliography}{99} % Bibliography - this is intentionally simple in this template
+%
+%\bibitem[Figueredo and Wolf, 2009]{Figueredo:2009dg}
+%Figueredo, A.~J. and Wolf, P. S.~A. (2009).
+%\newblock Assortative pairing and life history strategy - a cross-cultural
+%  study.
+%\newblock {\em Human Nature}, 20:317--330.
+% 
+%\end{thebibliography}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
