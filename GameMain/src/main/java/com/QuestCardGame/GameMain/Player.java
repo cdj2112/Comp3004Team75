@@ -15,7 +15,18 @@ public class Player {
 		hand.add(c);
 	}
 	
+	public void playCard(Card c) {
+		boolean removed = hand.remove(c);
+		if(removed) {
+			play.add(c);
+		}
+	}
+	
 	public ArrayList<Card> getHand() {
 		return hand;
+	}
+	
+	public ArrayList<Card> getPlay() {
+		return play;
 	}
 }

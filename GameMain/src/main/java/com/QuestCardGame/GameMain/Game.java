@@ -9,4 +9,13 @@ public class Game {
 		player = new Player();
 		deck = new Deck(10);
 	}
+	
+	public void playerDraw() {
+		Card c = deck.drawCard();
+		player.drawCard(c);
+	}
+	
+	public Player getPlayer() {
+		return player;
+	}
 }

@@ -14,4 +14,8 @@ public class Deck {
 			cards.push(new Card(i));
 		}
 	}
+
+	public Card drawCard() {
+		return cards.pop();
+	}
 }
