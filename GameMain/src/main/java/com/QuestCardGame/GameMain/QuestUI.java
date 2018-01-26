@@ -41,13 +41,11 @@ public class QuestUI extends Group {
 	}
 
 	public void update() {
-		System.out.println("update");
 		Player p = game.getPlayer();
 		ArrayList<Card> pHand = p.getHand();
 		int xOffset = 0;
 		for (Card c : pHand) {
 			Group g = findCardGroup(c);
-			System.out.println(g);
 			if (g == null) {
 				g = new Group();
 				Rectangle r = new Rectangle();
