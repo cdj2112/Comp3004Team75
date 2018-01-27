@@ -7,17 +7,17 @@ public class Deck {
 
 	private Stack<Card> cards;
 
-	Deck(int size) {
-
+	Deck() {
 		cards = new Stack<Card>();
-
-		for (int i = 0; i < size; i++) {
-			cards.push(new Card(i));
-		}
 	}
 
 	public Card drawCard() {
-		return cards.pop();
+		if (cards.size() > 0)
+			return cards.pop();
+	}
+	
+	public void addCard(Card c) {
+		cards.push(c);
 	}
 	
 	public void shuffleDeck() {
