@@ -2,13 +2,14 @@ package com.QuestCardGame.GameMain;
 
 public class Card {
 
-	private int value;
-
-	Card(int v) {
-		value = v;
+	private static int nextId = 0;
+	private int id;
+	
+	Card() {
+		id = nextId++;
 	}
 
-	public int getValue() {
-		return value;
+	public int getId() {
+		return id;
 	}
 }
