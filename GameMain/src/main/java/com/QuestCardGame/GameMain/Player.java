@@ -5,10 +5,14 @@ import java.util.ArrayList;
 public class Player {
 	private ArrayList<Card> hand;
 	private ArrayList<Card> play;
+	private String name;
+	private int numShields;
 	
-	Player(){
+	Player(String n){
 		hand = new ArrayList<Card>();
 		play = new ArrayList<Card>();
+		name = n;
+		numShields = 0;
 	}
 	
 	public void drawCard(Card c){
@@ -28,5 +32,9 @@ public class Player {
 	
 	public ArrayList<Card> getPlay() {
 		return play;
+	}
+	
+	public String getName() {
+		return name;
 	}
 }
