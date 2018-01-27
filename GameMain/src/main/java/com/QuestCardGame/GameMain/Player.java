@@ -2,16 +2,18 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 
+
 public class Player {
 	private ArrayList<Card> hand;
 	private ArrayList<Card> play;
-	private String name;
+	private int playerNumber;
 	private int numShields;
+	static int nextPlayerNumber = 1;
 	
-	Player(String n){
+	Player(){
 		hand = new ArrayList<Card>();
 		play = new ArrayList<Card>();
-		name = n;
+		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 	}
 	
@@ -34,7 +36,7 @@ public class Player {
 		return play;
 	}
 	
-	public String getName() {
-		return name;
+	public int getPlayerNumber() {
+		return playerNumber;
 	}
 }
