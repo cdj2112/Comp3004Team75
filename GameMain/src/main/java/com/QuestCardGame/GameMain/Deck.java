@@ -1,5 +1,6 @@
 package com.QuestCardGame.GameMain;
 
+import java.util.Collections;
 import java.util.Stack;
 
 public class Deck {
@@ -17,5 +18,9 @@ public class Deck {
 
 	public Card drawCard() {
 		return cards.pop();
+	}
+	
+	public void shuffleDeck() {
+		Collections.shuffle(cards);
 	}
 }
