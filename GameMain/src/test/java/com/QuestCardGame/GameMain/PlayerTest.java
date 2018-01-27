@@ -10,6 +10,5 @@ public class PlayerTest extends TestCase{
 		
 		assertEquals(1, p1.getPlayerNumber());
 		assertEquals(2, p2.getPlayerNumber());
-		
 	}
 }

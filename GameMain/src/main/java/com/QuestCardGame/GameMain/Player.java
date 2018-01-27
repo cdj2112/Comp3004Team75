@@ -1,9 +1,14 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 
 public class Player {
+	
+	private static final Logger logger = LogManager.getLogger(Player.class);
+	
 	private ArrayList<Card> hand;
 	private ArrayList<Card> play;
 	private int playerNumber;
@@ -15,6 +20,9 @@ public class Player {
 		play = new ArrayList<Card>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
+		
+		//disabled until log4j2.xml has been created
+		//logger.info("A new player has been created.");
 	}
 	
 	public void drawCard(Card c){
