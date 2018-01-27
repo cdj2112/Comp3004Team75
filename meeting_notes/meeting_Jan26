@@ -1,0 +1,38 @@
+scenario 1
+draw quest card
+-funciton to create new acive quest
+-function to get sponsor
+-discard quest card function
+No sponsor
+-end stage function
+
+scenario 2
+draw quest card
+player builds quest
+-quest class
+-player build stages
+	-card from hand to stage
+	-card from stage to hand
+player enter quest
+-ally from hand to stage
+-accept quest dialog
+-draw/discard/play
+stage subroutine
+-player prepare
+	-card from hand to play
+	-pass ot next
+-stage execute
+	-stage reveal
+	-stage play
+	-eliminate players
+-remove weapons
+-draw/discard/play
+end quest
+-remove armor
+-reward winners
+-discard/play
+-reward sponsor
+-discard/play
+check for winner
+end stage
+
