@@ -8,6 +8,8 @@ public class Hotspot extends Rectangle{
     	double h = getHeight();
     	double w = getWidth();
     	Point2D point = sceneToLocal(x,y);
-    	return w >= point.getX() && h >= point.getY();
+    	double pX = point.getX();
+    	double pY = point.getY();
+    	return  pX <= w && pY <= h && pX >= 0 && pY >= 0;
     }
 }
