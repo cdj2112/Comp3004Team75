@@ -10,9 +10,10 @@ public class Game {
 		deck = new Deck(10);
 	}
 	
-	public void playerDraw() {
+	public Card playerDraw() {
 		Card c = deck.drawCard();
 		player.drawCard(c);
+		return c;
 	}
 	
 	public Player getPlayer() {
