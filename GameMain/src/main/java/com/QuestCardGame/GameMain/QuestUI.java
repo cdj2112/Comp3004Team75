@@ -18,6 +18,7 @@ public class QuestUI extends Group {
 
 	private Game game;
 	private HashMap<Integer, Group> cardAssets;
+	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
 	private ArrayList<Hotspot> hotspots;
 
@@ -26,6 +27,7 @@ public class QuestUI extends Group {
 		game = g;
 		cardAssets = new HashMap<Integer, Group>();
 		hotspots = new ArrayList<Hotspot>();
+		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
@@ -60,6 +62,9 @@ public class QuestUI extends Group {
 			boolean hit = h.checkColision(x, y);
 			if(hit) {
 				game.getPlayer().playCard(draggingCard);
+				Group cardGroup = cardAssets.get(draggingCard.getValue());
+				EventHandler<MouseEvent> drag = dragListener.get(draggingCard.getValue());
+				cardGroup.removeEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
 		}
 	}
@@ -88,6 +93,9 @@ public class QuestUI extends Group {
 		};
 		EventHandler<MouseEvent> mouseUp = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
+				if(draggingCard != eventCard) {
+					return;
+				}
 				dropCard(e.getSceneX(), e.getSceneY());
 				System.out.println("Card Up");
 				draggingCard = null;
@@ -96,6 +104,7 @@ public class QuestUI extends Group {
 		};
 		
 		g.addEventHandler(MouseEvent.MOUSE_DRAGGED, dragged);
+		dragListener.put(c.getValue(), dragged);
 		g.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseUp);
 		
 		return g;
