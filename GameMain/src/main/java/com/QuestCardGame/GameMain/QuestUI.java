@@ -19,11 +19,13 @@ public class QuestUI extends Group {
 	private Game game;
 	private HashMap<Integer, Group> cardAssets;
 	private Card draggingCard;
+	private ArrayList<Hotspot> hotspots;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
 		game = g;
 		cardAssets = new HashMap<Integer, Group>();
+		hotspots = new ArrayList<Hotspot>();
 		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
@@ -39,9 +41,27 @@ public class QuestUI extends Group {
 			}
 		};
 		img.addEventHandler(MouseEvent.MOUSE_CLICKED, clicked);
+		
+		Hotspot hitbox = new Hotspot();
+		hitbox.setHeight(100);
+		hitbox.setWidth(600);
+		hitbox.setStroke(Color.RED);
+		hitbox.setFill(Color.TRANSPARENT);
+		hitbox.setTranslateY(500);
+		hotspots.add(hitbox);
 
 		getChildren().add(img);
+		getChildren().add(hitbox);
 		update();
+	}
+	
+	private void dropCard(double x, double y) {
+		for(Hotspot h : hotspots) {
+			boolean hit = h.checkColision(x, y);
+			if(hit) {
+				game.getPlayer().playCard(draggingCard);
+			}
+		}
 	}
 	
 	private Group makeNewCardGroup(Card c) {
@@ -61,13 +81,15 @@ public class QuestUI extends Group {
 				draggingCard = eventCard;
 				double x = e.getSceneX();
 				double y = e.getSceneY();
-				eventGroup.setTranslateX(x);
-				eventGroup.setTranslateY(y);
+				eventGroup.setTranslateX(x-50);
+				eventGroup.setTranslateY(y-50);
 				update();
 			}
 		};
 		EventHandler<MouseEvent> mouseUp = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
+				dropCard(e.getSceneX(), e.getSceneY());
+				System.out.println("Card Up");
 				draggingCard = null;
 				update();
 			}
@@ -92,6 +114,21 @@ public class QuestUI extends Group {
 				cardAssets.put(c.getValue(), g);
 			}
 			g.setTranslateY(600);
+			g.setTranslateX(xOffset * 110.0);
+			xOffset++;
+		}
+		
+		ArrayList<Card> pPlay = p.getPlay();
+		xOffset = 0;
+		for (Card c : pPlay) {
+			if(c == draggingCard) continue;
+			Group g = findCardGroup(c);
+			if(g == null) {
+				g = makeNewCardGroup(c);
+				getChildren().add(g);
+				cardAssets.put(c.getValue(), g);
+			}
+			g.setTranslateY(500);
 			g.setTranslateX(xOffset * 110.0);
 			xOffset++;
 		}
