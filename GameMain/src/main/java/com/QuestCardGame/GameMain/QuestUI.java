@@ -21,13 +21,17 @@ public class QuestUI extends Group {
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
 	private ArrayList<Hotspot> hotspots;
+	private HotspotBehaviourFactory behaviourFactory;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
+		
 		game = g;
 		cardAssets = new HashMap<Integer, Group>();
 		hotspots = new ArrayList<Hotspot>();
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
+		behaviourFactory = new HotspotBehaviourFactory(game, this);
+		
 		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
@@ -50,6 +54,7 @@ public class QuestUI extends Group {
 		hitbox.setStroke(Color.RED);
 		hitbox.setFill(Color.TRANSPARENT);
 		hitbox.setTranslateY(500);
+		hitbox.setAction(behaviourFactory.playCard);
 		hotspots.add(hitbox);
 
 		getChildren().add(img);
@@ -61,10 +66,7 @@ public class QuestUI extends Group {
 		for(Hotspot h : hotspots) {
 			boolean hit = h.checkColision(x, y);
 			if(hit) {
-				game.getPlayer().playCard(draggingCard);
-				Group cardGroup = cardAssets.get(draggingCard.getValue());
-				EventHandler<MouseEvent> drag = dragListener.get(draggingCard.getValue());
-				cardGroup.removeEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
+				h.executeAction(draggingCard);
 			}
 		}
 	}
@@ -146,6 +148,10 @@ public class QuestUI extends Group {
 
 	public Group findCardGroup(Card c) {
 		return cardAssets.get(c.getValue());
+	}
+	
+	public EventHandler<MouseEvent> findCardListener(Card c){
+		return dragListener.get(c.getValue());
 	}
 
 }
