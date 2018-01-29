@@ -10,4 +10,8 @@ public class WeaponCard extends Card {
 		name = n;
 		battlePoints = bp;
 	}
+	
+	public int getBattlePoints(){
+		return battlePoints;
+	}
 }
