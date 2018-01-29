@@ -16,5 +16,12 @@ public class DeckTest extends TestCase{
 		assertEquals(0, d.getNumCards());
 		assertEquals(c1, c2);
 	}
+	
+	public void testEmptyDeck() {
+		Deck d = new Deck();
+		Card c = d.drawCard();
+		
+		assertEquals(c, null);
+	}
 
 }
