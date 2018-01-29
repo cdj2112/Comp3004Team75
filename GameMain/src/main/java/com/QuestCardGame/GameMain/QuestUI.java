@@ -42,7 +42,7 @@ public class QuestUI extends Group {
 				Card newCard = game.playerDraw();
 				Group newCardGroup = makeNewCardGroup(newCard);
 				getChildren().add(newCardGroup);
-				cardAssets.put(newCard.getValue(), newCardGroup);
+				cardAssets.put(newCard.getId(), newCardGroup);
 				update();
 			}
 		};
@@ -77,7 +77,7 @@ public class QuestUI extends Group {
 		r.setHeight(100);
 		r.setWidth(100);
 		r.setFill(Color.RED);
-		Text t = new Text(40, 40, "" + c.getValue());
+		Text t = new Text(40, 40, "" + c.getId());
 		t.setFont(new Font(20));
 		g.getChildren().addAll(r, t);
 		
@@ -106,7 +106,7 @@ public class QuestUI extends Group {
 		};
 		
 		g.addEventHandler(MouseEvent.MOUSE_DRAGGED, dragged);
-		dragListener.put(c.getValue(), dragged);
+		dragListener.put(c.getId(), dragged);
 		g.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseUp);
 		
 		return g;
@@ -122,7 +122,7 @@ public class QuestUI extends Group {
 			if(g == null) {
 				g = makeNewCardGroup(c);
 				getChildren().add(g);
-				cardAssets.put(c.getValue(), g);
+				cardAssets.put(c.getId(), g);
 			}
 			g.setTranslateY(600);
 			g.setTranslateX(xOffset * 110.0);
@@ -137,7 +137,7 @@ public class QuestUI extends Group {
 			if(g == null) {
 				g = makeNewCardGroup(c);
 				getChildren().add(g);
-				cardAssets.put(c.getValue(), g);
+				cardAssets.put(c.getId(), g);
 			}
 			g.setTranslateY(500);
 			g.setTranslateX(xOffset * 110.0);
@@ -147,11 +147,11 @@ public class QuestUI extends Group {
 	}
 
 	public Group findCardGroup(Card c) {
-		return cardAssets.get(c.getValue());
+		return cardAssets.get(c.getId());
 	}
 	
 	public EventHandler<MouseEvent> findCardListener(Card c){
-		return dragListener.get(c.getValue());
+		return dragListener.get(c.getId());
 	}
 
 }
