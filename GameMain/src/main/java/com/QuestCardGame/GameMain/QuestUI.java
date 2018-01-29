@@ -25,13 +25,13 @@ public class QuestUI extends Group {
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
-		
+
 		game = g;
 		cardAssets = new HashMap<Integer, Group>();
 		hotspots = new ArrayList<Hotspot>();
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
-		
+
 		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
@@ -40,14 +40,16 @@ public class QuestUI extends Group {
 		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				Card newCard = game.playerDrawAdventureCard(game.getPlayer());
-				Group newCardGroup = makeNewCardGroup(newCard);
-				getChildren().add(newCardGroup);
-				cardAssets.put(newCard.getId(), newCardGroup);
-				update();
+				if (newCard != null) {
+					Group newCardGroup = makeNewCardGroup(newCard);
+					getChildren().add(newCardGroup);
+					cardAssets.put(newCard.getId(), newCardGroup);
+					update();
+				}
 			}
 		};
 		img.addEventHandler(MouseEvent.MOUSE_CLICKED, clicked);
-		
+
 		Hotspot hitbox = new Hotspot();
 		hitbox.setHeight(100);
 		hitbox.setWidth(600);
@@ -61,16 +63,16 @@ public class QuestUI extends Group {
 		getChildren().add(hitbox);
 		update();
 	}
-	
+
 	private void dropCard(double x, double y) {
-		for(Hotspot h : hotspots) {
+		for (Hotspot h : hotspots) {
 			boolean hit = h.checkColision(x, y);
-			if(hit) {
+			if (hit) {
 				h.executeAction(draggingCard);
 			}
 		}
 	}
-	
+
 	private Group makeNewCardGroup(Card c) {
 		Group g = new Group();
 		Rectangle r = new Rectangle();
@@ -80,7 +82,7 @@ public class QuestUI extends Group {
 		Text t = new Text(40, 40, "" + c.getId());
 		t.setFont(new Font(20));
 		g.getChildren().addAll(r, t);
-		
+
 		final Card eventCard = c;
 		final Group eventGroup = g;
 		EventHandler<MouseEvent> dragged = new EventHandler<MouseEvent>() {
@@ -88,14 +90,14 @@ public class QuestUI extends Group {
 				draggingCard = eventCard;
 				double x = e.getSceneX();
 				double y = e.getSceneY();
-				eventGroup.setTranslateX(x-50);
-				eventGroup.setTranslateY(y-50);
+				eventGroup.setTranslateX(x - 50);
+				eventGroup.setTranslateY(y - 50);
 				update();
 			}
 		};
 		EventHandler<MouseEvent> mouseUp = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if(draggingCard != eventCard) {
+				if (draggingCard != eventCard) {
 					return;
 				}
 				dropCard(e.getSceneX(), e.getSceneY());
@@ -104,11 +106,11 @@ public class QuestUI extends Group {
 				update();
 			}
 		};
-		
+
 		g.addEventHandler(MouseEvent.MOUSE_DRAGGED, dragged);
 		dragListener.put(c.getId(), dragged);
 		g.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseUp);
-		
+
 		return g;
 	}
 
@@ -117,9 +119,10 @@ public class QuestUI extends Group {
 		ArrayList<Card> pHand = p.getHand();
 		int xOffset = 0;
 		for (Card c : pHand) {
-			if(c == draggingCard) continue;
+			if (c == draggingCard)
+				continue;
 			Group g = findCardGroup(c);
-			if(g == null) {
+			if (g == null) {
 				g = makeNewCardGroup(c);
 				getChildren().add(g);
 				cardAssets.put(c.getId(), g);
@@ -128,13 +131,14 @@ public class QuestUI extends Group {
 			g.setTranslateX(xOffset * 110.0);
 			xOffset++;
 		}
-		
+
 		ArrayList<Card> pPlay = p.getPlay();
 		xOffset = 0;
 		for (Card c : pPlay) {
-			if(c == draggingCard) continue;
+			if (c == draggingCard)
+				continue;
 			Group g = findCardGroup(c);
-			if(g == null) {
+			if (g == null) {
 				g = makeNewCardGroup(c);
 				getChildren().add(g);
 				cardAssets.put(c.getId(), g);
@@ -149,8 +153,8 @@ public class QuestUI extends Group {
 	public Group findCardGroup(Card c) {
 		return cardAssets.get(c.getId());
 	}
-	
-	public EventHandler<MouseEvent> findCardListener(Card c){
+
+	public EventHandler<MouseEvent> findCardListener(Card c) {
 		return dragListener.get(c.getId());
 	}
 
