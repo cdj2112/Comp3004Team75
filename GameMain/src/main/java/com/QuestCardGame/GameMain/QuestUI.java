@@ -39,7 +39,7 @@ public class QuestUI extends Group {
 
 		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				Card newCard = game.playerDraw();
+				Card newCard = game.playerDrawAdventureCard(game.getPlayer());
 				Group newCardGroup = makeNewCardGroup(newCard);
 				getChildren().add(newCardGroup);
 				cardAssets.put(newCard.getId(), newCardGroup);
