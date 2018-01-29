@@ -14,12 +14,14 @@ public class Deck {
 	public Card drawCard() {
 		if (cards.size() > 0)
 			return cards.pop();
+		else
+			return null;
 	}
 	
 	public void addCard(Card c) {
 		cards.push(c);
 	}
-	
+
 	public void shuffleDeck() {
 		Collections.shuffle(cards);
 	}
