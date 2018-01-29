@@ -4,14 +4,18 @@ public class Game {
 
 	private Player player;
 	private Deck storyDeck;
+	private Deck adventureDeck;
 	
 	Game(){
 		player = new Player();
 		initStoryDeck();
 	}
 	
-	public void playerDraw(Player p, Deck d) {
-		p.drawCard(d.drawCard());
+	public void playerDrawAdventureCard(Player p) {
+		Card c = adventureDeck.drawCard();
+		
+		if(c != null)
+			p.drawCard(c);
 	}
 	
 	public Player getPlayer() {
@@ -24,5 +28,11 @@ public class Game {
 		storyDeck.addCard(new QuestCard("Journey Through the Enchanted Forest", 3));
 		storyDeck.addCard(new QuestCard("Vanquish King Arthur's Enemies", 3));
 		storyDeck.addCard(new QuestCard("Repel the Saxon Raiders", 2));		
+	}
+	
+	private void initAdventureDeck() {
+		adventureDeck = new Deck();
+		
+		//TODO: add cards
 	}
 }
