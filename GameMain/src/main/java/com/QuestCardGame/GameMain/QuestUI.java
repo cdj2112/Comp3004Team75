@@ -23,7 +23,8 @@ public class QuestUI extends Group {
 		super();
 		game = g;
 		hand = new HashMap<Integer, Group>();
-		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
+		Image pic = new Image(
+				new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
 		img.setFitWidth(100);
@@ -52,8 +53,8 @@ public class QuestUI extends Group {
 				r.setHeight(100);
 				r.setWidth(100);
 				r.setFill(Color.RED);
-				Text t = new Text(40, 40, "" + c.getId());
-				t.setFont(new Font(20));
+				Text t = new Text(20, 40, "" + c.getId() + c.getName());
+				t.setFont(new Font(10));
 				g.getChildren().addAll(r, t);
 				g.setTranslateY(600);
 				getChildren().add(g);
@@ -62,6 +63,22 @@ public class QuestUI extends Group {
 			g.setTranslateX(xOffset * 110.0);
 			xOffset++;
 		}
+
+		Rectangle r = new Rectangle();
+		r.setHeight(50);
+		r.setWidth(200);
+		r.setFill(Color.WHITE);
+		r.setX(5.0);
+		r.setY(160.0);
+		Text t = new Text();
+		t.setCache(true);
+		t.setX(10.0);
+		t.setY(200.0);
+		t.setFill(Color.BLACK);
+		t.setText("Player 1: " + p.CardAmount() + " cards");
+		t.setFont(new Font(24));
+		getChildren().add(r);
+		getChildren().add(t);
 
 	}
 

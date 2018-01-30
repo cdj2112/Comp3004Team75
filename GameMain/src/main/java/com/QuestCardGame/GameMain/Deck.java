@@ -17,7 +17,7 @@ public class Deck {
 		else
 			return null;
 	}
-	
+
 	public void addCard(Card c) {
 		cards.push(c);
 	}

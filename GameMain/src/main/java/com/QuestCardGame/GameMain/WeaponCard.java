@@ -10,8 +10,12 @@ public class WeaponCard extends Card {
 		name = n;
 		battlePoints = bp;
 	}
-	
-	public int getBattlePoints(){
+
+	public int getBattlePoints() {
 		return battlePoints;
+	}
+
+	public String getName() {
+		return name;
 	}
 }
