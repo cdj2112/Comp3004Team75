@@ -30,7 +30,7 @@ public class QuestUI extends Group {
 
 		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				game.playerDraw();
+				game.playerDrawAdventureCard(game.getPlayer());
 				update();
 			}
 		};
@@ -52,12 +52,12 @@ public class QuestUI extends Group {
 				r.setHeight(100);
 				r.setWidth(100);
 				r.setFill(Color.RED);
-				Text t = new Text(40, 40, "" + c.getValue());
+				Text t = new Text(40, 40, "" + c.getId());
 				t.setFont(new Font(20));
 				g.getChildren().addAll(r, t);
 				g.setTranslateY(600);
 				getChildren().add(g);
-				hand.put(c.getValue(), g);
+				hand.put(c.getId(), g);
 			}
 			g.setTranslateX(xOffset * 110.0);
 			xOffset++;
@@ -66,7 +66,7 @@ public class QuestUI extends Group {
 	}
 
 	public Group findCardGroup(Card c) {
-		return hand.get(c.getValue());
+		return hand.get(c.getId());
 	}
 
 }
