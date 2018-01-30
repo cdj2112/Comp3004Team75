@@ -1,6 +1,6 @@
 package com.QuestCardGame.GameMain;
 
-public class Card {
+public class abstract Card {
 
 	private static int nextId = 0;
 	private int id;
