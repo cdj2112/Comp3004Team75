@@ -2,12 +2,17 @@ package com.QuestCardGame.GameMain;
 
 public class Game {
 
-	private Player player;
+	private Player [] players;
 	private Deck storyDeck;
 	private Deck adventureDeck;
+	private int activePlayer;
 
 	Game() {
-		player = new Player();
+		players = new Player[4];
+		for(int i=0; i<4;i++) {
+			players[i] = new Player();
+		}
+		activePlayer = 0;
 		initStoryDeck();
 		initAdventureDeck();
 	}
@@ -29,7 +34,7 @@ public class Game {
 	}
 	
 	public Player getPlayer() {
-		return player;
+		return players[0];
 	}
 
 	private void initStoryDeck() {
