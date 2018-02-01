@@ -9,7 +9,7 @@ public class QuestCardGame extends Application
 {
 	public void start(Stage stage) throws Exception {
 		Game game = new Game();
-		game.playerDraw();
+		//game.playerDrawAdventureCard(game.getPlayer());
 		Group root = new QuestUI(game);
 		Scene scene = new Scene(root, 700, 700);
 		
