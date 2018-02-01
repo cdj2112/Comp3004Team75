@@ -4,11 +4,21 @@ import junit.framework.TestCase;
 
 public class PlayerTest extends TestCase{
 	
-	public void testPlayerNumber() {
-		Player p1 = new Player();
-		Player p2 = new Player();
+	
+	public void testPlayerDrawCard() {
+		Card c = new QuestCard("Test card",1);
+		Player p = new Player();
 		
-		assertEquals(1, p1.getPlayerNumber());
-		assertEquals(2, p2.getPlayerNumber());
+		p.drawCard(c);
+		assert(p.getHand().contains(c));
+	}
+	
+	public void testPlayerPlayCard() {
+		Card c = new QuestCard("Test card",1);
+		Player p = new Player();
+		
+		p.drawCard(c);
+		p.playCard(c);
+		assert(!p.getHand().contains(c));
 	}
 }
