@@ -18,7 +18,16 @@ public class Game {
 		if (c != null)
 			p.drawCard(c);
 	}
-
+	
+	public Card getStoryCard() {
+		Card c = storyDeck.drawCard();
+		
+		if(c != null)
+			return c;
+		else
+			return null;
+	}
+	
 	public Player getPlayer() {
 		return player;
 	}
