@@ -44,6 +44,7 @@ public class Game {
 	public void endTurn() {
 		currentStatus = GameStatus.IDLE;
 		sponsor = null;
+		activeQuest = null;
 		playerTurn++;
 		activePlayer = playerTurn;
 	}
