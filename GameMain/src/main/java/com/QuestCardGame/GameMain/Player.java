@@ -36,6 +36,10 @@ public class Player {
 		}
 	}
 	
+	public void useCard(Card c) {
+		hand.remove(c);
+	}
+	
 	public ArrayList<Card> getHand() {
 		return hand;
 	}

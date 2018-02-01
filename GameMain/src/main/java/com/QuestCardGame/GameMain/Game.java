@@ -65,6 +65,12 @@ public class Game {
 		}
 	}
 
+	public boolean sponsorAddCardToStage(Card c, int s) {
+		sponsor.useCard(c);
+		activeQuest.addCardToStage(c, s);
+		return true;
+	}
+
 	public void playerDrawAdventureCard(Player p) {
 		Card c = adventureDeck.drawCard();
 

@@ -22,4 +22,9 @@ public class Quest {
 		return true;
 		
 	}
+	
+	public boolean addCardToStage(Card c, int s) {
+		stages[s].addCard(c);
+		return true;
+	}
 }
