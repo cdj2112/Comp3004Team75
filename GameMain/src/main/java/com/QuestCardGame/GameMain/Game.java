@@ -8,15 +8,16 @@ public class Game {
 
 	private GameStatus currentStatus;
 
-	//Persistant Variables 
+	// Persistant Variables
 	private Player[] players;
 	private int numPlayers = 4;
 	private Deck storyDeck;
 	private Deck adventureDeck;
 	private int playerTurn;
-	
-	//Turn Variables
+
+	// Turn Variables
 	private int activePlayer;
+	// Quests
 	private Player sponsor;
 	private Quest activeQuest;
 
@@ -39,7 +40,7 @@ public class Game {
 			currentStatus = GameStatus.SPONSORING;
 		}
 	}
-	
+
 	public void endTurn() {
 		currentStatus = GameStatus.IDLE;
 		sponsor = null;
@@ -48,14 +49,18 @@ public class Game {
 	}
 
 	public void acceptSponsor() {
-		sponsor = players[activePlayer];
-		currentStatus = GameStatus.BUILDING_QUEST;
+		if (currentStatus == GameStatus.SPONSORING) {
+			sponsor = players[activePlayer];
+			currentStatus = GameStatus.BUILDING_QUEST;
+		}
 	}
 
 	public void declineSponsor() {
-		activePlayer = (activePlayer + 1) % numPlayers;
-		if(activePlayer == playerTurn) {
-			endTurn();
+		if (currentStatus == GameStatus.SPONSORING) {
+			activePlayer = (activePlayer + 1) % numPlayers;
+			if (activePlayer == playerTurn) {
+				endTurn();
+			}
 		}
 	}
 
