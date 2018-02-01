@@ -2,19 +2,61 @@ package com.QuestCardGame.GameMain;
 
 public class Game {
 
-	private Player [] players;
+	public static enum GameStatus {
+		IDLE, SPONSORING, BUILDING_QUEST
+	};
+
+	private GameStatus currentStatus;
+
+	//Persistant Variables 
+	private Player[] players;
+	private int numPlayers = 4;
 	private Deck storyDeck;
 	private Deck adventureDeck;
+	private int playerTurn;
+	
+	//Turn Variables
 	private int activePlayer;
+	private Player sponsor;
+	private Quest activeQuest;
 
 	Game() {
-		players = new Player[4];
-		for(int i=0; i<4;i++) {
+		players = new Player[numPlayers];
+		for (int i = 0; i < numPlayers; i++) {
 			players[i] = new Player();
 		}
+		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
 		initStoryDeck();
 		initAdventureDeck();
+		playTurn();
+	}
+
+	public void playTurn() {
+		Card storyCard = getStoryCard();
+		if (storyCard instanceof QuestCard) {
+			Quest activeQuest = new Quest((QuestCard) storyCard);
+			currentStatus = GameStatus.SPONSORING;
+		}
+	}
+	
+	public void endTurn() {
+		currentStatus = GameStatus.IDLE;
+		sponsor = null;
+		playerTurn++;
+		activePlayer = playerTurn;
+	}
+
+	public void acceptSponsor() {
+		sponsor = players[activePlayer];
+		currentStatus = GameStatus.BUILDING_QUEST;
+	}
+
+	public void declineSponsor() {
+		activePlayer = (activePlayer + 1) % numPlayers;
+		if(activePlayer == playerTurn) {
+			endTurn();
+		}
 	}
 
 	public void playerDrawAdventureCard(Player p) {
@@ -23,16 +65,16 @@ public class Game {
 		if (c != null)
 			p.drawCard(c);
 	}
-	
+
 	public Card getStoryCard() {
 		Card c = storyDeck.drawCard();
-		
-		if(c != null)
+
+		if (c != null)
 			return c;
 		else
 			return null;
 	}
-	
+
 	public Player getPlayer() {
 		return players[0];
 	}
