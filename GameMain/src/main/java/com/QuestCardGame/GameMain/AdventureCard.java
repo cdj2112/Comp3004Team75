@@ -12,14 +12,15 @@ public class AdventureCard extends Card{
       battlePoint = battlePoint2 = 0;
       adventureType = AdventureType.TEST;
   }
+
   public AdventureCard(String name, int bp, AdventureType at){
-    super(name, illu);
+    super(name);
     battlePoint = battlePoint2 = bp;
     adventureType = at;
   }
 
-  public AdventureCard(String name, int bp, int bp2; AdventureType at){
-    super(name, illu);
+  public AdventureCard(String name, int bp, int bp2, AdventureType at){
+    super(name);
     battlePoint = bp;
     battlePoint2 = bp2;
     adventureType = at;
