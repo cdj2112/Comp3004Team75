@@ -16,4 +16,8 @@ public class Stage {
 		}
 		return total;
 	}
+	
+	public int getNumCards() {
+		return cards.size();
+	}
 }

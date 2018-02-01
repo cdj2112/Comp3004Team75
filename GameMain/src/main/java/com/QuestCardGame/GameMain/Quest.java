@@ -9,13 +9,17 @@ public class Quest {
 	}
 	
 	public boolean validateQuest() {
-		int previousBP = -1;
+		//int previousBP = -1;
 		for(Stage s: stages) {
-			if(s.getBattlePoints()<=previousBP) {
+			/*if(s.getBattlePoints()<=previousBP) {
 				return false;
 			}
-			previousBP = s.getBattlePoints();
+			previousBP = s.getBattlePoints();*/
+			if(s.getNumCards()==0) {
+				return false;
+			}
 		}
 		return true;
+		
 	}
 }
