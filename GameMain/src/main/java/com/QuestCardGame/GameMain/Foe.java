@@ -23,8 +23,8 @@ public class Foe extends AdventureCard{
     }
   }
 
-  public int getBattlePoint(String questTarget){
-    if (questTarget == this.getName() || battlePoint1 == battlePoint2) return battlePoint2;
+  public int getBattlePoint(Boolean questTarget){
+    if (questTarget || battlePoint1 == battlePoint2) return battlePoint2;
     else return battlePoint1;
   }
 
