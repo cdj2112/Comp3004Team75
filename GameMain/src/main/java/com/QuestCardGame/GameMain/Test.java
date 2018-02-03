@@ -1,4 +1,4 @@
-package kocom.QuestCardGame.GameMainrt;
+package com.QuestCardGame.GameMain;
 
 public class Test extends AdventureCard{
   private int minBid;
