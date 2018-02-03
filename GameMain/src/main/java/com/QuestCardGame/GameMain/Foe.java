@@ -2,30 +2,25 @@ package com.QuestCardGame.GameMain;
 
 public class Foe extends AdventureCard{
 
-  private int battlePoint1;
-  private int battlePoint2;
+  private int battlePoints;
+  private int specialBattlePoints;
 
   public Foe(String name, int bp){
     super(name, AdventureType.FOE);
-    battlePoint1 = battlePoint2 = bp;
+    battlePoints = specialBattlePoints = bp;
   }
 
   public Foe(String name, int bp1, int bp2){
     super(name, AdventureType.FOE);
 
     //the greater number is signed to battlePoint2
-    if(bp1 > bp2){
-      battlePoint2 = bp1;
-      battlePoint1 = bp2;
-    }else {
-      battlePoint1 = bp1;
-      battlePoint2 = bp2;
-    }
+    battlePoints = bp1;
+    specialBattlePoints = bp2;
   }
 
   public int getBattlePoint(Boolean questTarget){
-    if (questTarget || battlePoint1 == battlePoint2) return battlePoint2;
-    else return battlePoint1;
+    if (questTarget) return specialBattlePoints;
+    else return battlePoints;
   }
 
 }
