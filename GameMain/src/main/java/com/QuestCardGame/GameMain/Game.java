@@ -11,12 +11,15 @@ public class Game {
 		initStoryDeck();
 		initAdventureDeck();
 	}
+	
+	public Card playerDrawAdventureCard(Player p) {
 
-	public void playerDrawAdventureCard(Player p) {
 		Card c = adventureDeck.drawCard();
 
 		if (c != null)
 			p.drawCard(c);
+		
+		return c;
 	}
 	
 	public Card getStoryCard() {
@@ -26,6 +29,7 @@ public class Game {
 			return c;
 		else
 			return null;
+
 	}
 	
 	public Player getPlayer() {
