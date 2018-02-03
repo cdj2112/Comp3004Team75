@@ -9,6 +9,7 @@ public class Game {
 	Game(){
 		player = new Player();
 		initStoryDeck();
+		initAdventureDeck();
 	}
 	
 	public Card playerDrawAdventureCard(Player p) {
