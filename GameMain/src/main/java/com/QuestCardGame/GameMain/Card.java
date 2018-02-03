@@ -1,15 +1,17 @@
 package com.QuestCardGame.GameMain;
 
-public class Card {
+public abstract class Card {
 
 	private static int nextId = 0;
-	private int id;
-	
-	Card() {
+	protected int id;
+	protected String cardName;
+
+
+	Card(String name) {
 		id = nextId++;
+		cardName = name;
 	}
 
-	public int getId() {
-		return id;
-	}
+	public int getId() {return id;}
+	public String getName() {return cardName;}
 }
