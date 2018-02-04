@@ -89,7 +89,10 @@ public class Game {
 		return false;		
 	}
 	
-	public boolean playerPlayCards(Player p, ArrayList<Card> cards) {
+	public boolean playerPlayCards(Player p, ArrayList<Card> cards) {		
+		if(!isValidCardPlay(cards))
+			return false;
+		
 		for(Card c: cards){
 			p.playCard(c);
 		}			
@@ -134,6 +137,15 @@ public class Game {
 	
 	private int getNextActivePlayer() {
 		return (activePlayer + 1) % numPlayers;
+	}
+	
+	private boolean isValidCardPlay(ArrayList<Card> cards) {
+		//check for same weapon type
+		
+		//check for more than 1 armour
+		
+		//for now assume all plays are valid
+		return true;
 	}
 
 }
