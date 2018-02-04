@@ -13,15 +13,18 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
+import javafx.geometry.Point2D;
 
 public class QuestUI extends Group {
 
 	private Game game;
+	private HotspotBehaviourFactory behaviourFactory;
+
 	private HashMap<Integer, Group> cardAssets;
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
 	private ArrayList<Hotspot> hotspots;
-	private HotspotBehaviourFactory behaviourFactory;
+	private PlayerGroup playerGroup;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
@@ -31,18 +34,23 @@ public class QuestUI extends Group {
 		hotspots = new ArrayList<Hotspot>();
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
+		
+		playerGroup = new PlayerGroup();
+		playerGroup.setTranslateX(0);
+		playerGroup.setTranslateY(500);
 
 		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
 		img.setFitWidth(100);
-
+		
 		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				Card newCard = game.playerDrawAdventureCard(game.getPlayer());
+				System.out.println(newCard);
 				if (newCard != null) {
 					Group newCardGroup = makeNewCardGroup(newCard);
-					getChildren().add(newCardGroup);
+					playerGroup.addCardToHand(newCardGroup);
 					cardAssets.put(newCard.getId(), newCardGroup);
 					update();
 				}
@@ -61,6 +69,7 @@ public class QuestUI extends Group {
 
 		getChildren().add(img);
 		getChildren().add(hitbox);
+		getChildren().add(playerGroup);
 		update();
 	}
 
@@ -88,10 +97,11 @@ public class QuestUI extends Group {
 		EventHandler<MouseEvent> dragged = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				draggingCard = eventCard;
-				double x = e.getSceneX();
-				double y = e.getSceneY();
-				eventGroup.setTranslateX(x - 50);
-				eventGroup.setTranslateY(y - 50);
+				double x = e.getX();
+				double y = e.getY();
+				Point2D p = eventGroup.localToParent(x, y);
+				eventGroup.setTranslateX(p.getX() - 50);
+				eventGroup.setTranslateY(p.getY() - 50);
 				update();
 			}
 		};
@@ -127,8 +137,8 @@ public class QuestUI extends Group {
 				getChildren().add(g);
 				cardAssets.put(c.getId(), g);
 			}
-			g.setTranslateY(600);
 			g.setTranslateX(xOffset * 110.0);
+			g.setTranslateY(0);
 			xOffset++;
 		}
 
@@ -143,8 +153,8 @@ public class QuestUI extends Group {
 				getChildren().add(g);
 				cardAssets.put(c.getId(), g);
 			}
-			g.setTranslateY(500);
 			g.setTranslateX(xOffset * 110.0);
+			g.setTranslateY(0);
 			xOffset++;
 		}
 
@@ -156,6 +166,10 @@ public class QuestUI extends Group {
 
 	public EventHandler<MouseEvent> findCardListener(Card c) {
 		return dragListener.get(c.getId());
+	}
+	
+	public PlayerGroup getPlayerGroup() {
+		return playerGroup;
 	}
 
 }
