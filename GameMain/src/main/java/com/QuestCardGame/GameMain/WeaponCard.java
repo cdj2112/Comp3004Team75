@@ -6,8 +6,7 @@ public class WeaponCard extends Card {
 	private int battlePoints;
 
 	WeaponCard(String n, int bp) {
-		super();
-		name = n;
+		super(n);
 		battlePoints = bp;
 	}
 	
