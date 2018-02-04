@@ -8,9 +8,12 @@ public class Quest {
 	private Stage[] stages;
 	private ArrayList<Player> players;
 	private ListIterator<Player> iter;
+	private int currentStage;
+	private int totalStages;
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
+		totalStages = qc.getStages();
 	}
 	
 	public boolean validateQuest() {
@@ -43,6 +46,7 @@ public class Quest {
 	
 	public void startQuest() {
 		iter = players.listIterator();
+		currentStage = 1;
 	}
 	
 	public Player getNextPlayer() {
@@ -50,5 +54,37 @@ public class Quest {
 			return iter.next();
 		else
 			return null;
+	}
+	
+	public void eliminateStageLosers() {
+		int pointsToBeat = stages[currentStage].getBattlePoints();
+		
+		for(Player p : players) {
+			if(p.getBattlePoints() < pointsToBeat)
+				removePlayer(p);
+		}
+		
+		currentStage++;
+		
+		//reset the current player to the first one
+		iter = players.listIterator();
+		
+		if(currentStage > totalStages) {
+			//TODO: 
+			//award battle points
+			//remove armour
+		}
+	}
+	
+	private void endOfStageCleanup() {
+		
+	}
+	
+	private void awardQuestWinners() {
+		
+	}
+	
+	private void endOfQuestCleanup() {
+		
 	}
 }
