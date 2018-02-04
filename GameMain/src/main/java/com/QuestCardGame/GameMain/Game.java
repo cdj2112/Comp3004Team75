@@ -38,7 +38,7 @@ public class Game {
 	public void playTurn() {
 		Card storyCard = getStoryCard();
 		if (storyCard instanceof QuestCard) {
-			Quest activeQuest = new Quest((QuestCard) storyCard);
+			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
 		}
 	}
