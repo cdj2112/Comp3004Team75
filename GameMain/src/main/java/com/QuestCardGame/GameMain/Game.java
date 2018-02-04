@@ -1,9 +1,11 @@
 package com.QuestCardGame.GameMain;
 
+import java.util.ArrayList;
+
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST
+		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST
 	};
 
 	private GameStatus currentStatus;
@@ -73,6 +75,26 @@ public class Game {
 		}
 		return false;
 	}
+	
+	public boolean acceptQuest(Player p) {
+		if(currentStatus == GameStatus.ACCEPTING_QUEST) {
+			activeQuest.addPlayer(players[activePlayer]);
+			activePlayer = getNextActivePlayer();
+			
+			if(activePlayer == playerTurn)
+				currentStatus = GameStatus.PLAYING_QUEST;
+			
+			return true;
+		}
+		return false;		
+	}
+	
+	public boolean playerPlayCards(Player p, ArrayList<Card> cards) {
+		for(Card c: cards){
+			p.playCard(c);
+		}			
+		return true;
+	}
 
 	public void playerDrawAdventureCard(Player p) {
 		Card c = adventureDeck.drawCard();
@@ -109,4 +131,9 @@ public class Game {
 			adventureDeck.addCard(new WeaponCard("Dagger", 5));
 		}
 	}
+	
+	private int getNextActivePlayer() {
+		return (activePlayer + 1) % numPlayers;
+	}
+
 }
