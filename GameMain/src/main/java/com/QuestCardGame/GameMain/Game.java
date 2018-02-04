@@ -132,7 +132,7 @@ public class Game {
 		adventureDeck = new Deck();
 
 		for (int i = 0; i < 6; i++) {
-			adventureDeck.addCard(new WeaponCard("Dagger", 5));
+			adventureDeck.addCard(new Weapon("Dagger", 5));
 		}
 	}
 	
