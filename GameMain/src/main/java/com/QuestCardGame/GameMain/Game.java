@@ -120,6 +120,10 @@ public class Game {
 		return players[0];
 	}
 
+	public int getNumPlayers() {
+		return numPlayers;
+	}
+	
 	private void initStoryDeck() {
 		storyDeck = new Deck();
 
@@ -138,6 +142,10 @@ public class Game {
 	
 	private int getNextActivePlayer() {
 		return (activePlayer + 1) % numPlayers;
+	}
+	
+	public GameStatus getGameStatus() {
+		return currentStatus;
 	}
 
 }

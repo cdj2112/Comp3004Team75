@@ -24,7 +24,7 @@ public class QuestUI extends Group {
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
 	private ArrayList<Hotspot> hotspots;
-	private PlayerGroup playerGroup;
+	private PlayerGroup[] playerGroups;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
@@ -34,23 +34,25 @@ public class QuestUI extends Group {
 		hotspots = new ArrayList<Hotspot>();
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
-		
-		playerGroup = new PlayerGroup();
-		playerGroup.setTranslateX(0);
-		playerGroup.setTranslateY(500);
+
+		playerGroups = new PlayerGroup[game.getNumPlayers()];
+		for (int i = 0; i < game.getNumPlayers(); i++) {
+			playerGroups[i] = new PlayerGroup();
+			playerGroups[i].setTranslateX(0);
+			playerGroups[i].setTranslateY(500);
+		}
 
 		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
 		img.setFitWidth(100);
-		
+
 		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				Card newCard = game.playerDrawAdventureCard(game.getPlayer());
-				System.out.println(newCard);
 				if (newCard != null) {
 					Group newCardGroup = makeNewCardGroup(newCard);
-					playerGroup.addCardToHand(newCardGroup);
+					playerGroups[0].addCardToHand(newCardGroup);
 					cardAssets.put(newCard.getId(), newCardGroup);
 					update();
 				}
@@ -69,7 +71,7 @@ public class QuestUI extends Group {
 
 		getChildren().add(img);
 		getChildren().add(hitbox);
-		getChildren().add(playerGroup);
+		getChildren().add(playerGroups[0]);
 		update();
 	}
 
@@ -124,7 +126,7 @@ public class QuestUI extends Group {
 		return g;
 	}
 
-	public void update() {
+	private void repositionCards() {
 		Player p = game.getPlayer();
 		ArrayList<Card> pHand = p.getHand();
 		int xOffset = 0;
@@ -157,7 +159,10 @@ public class QuestUI extends Group {
 			g.setTranslateY(0);
 			xOffset++;
 		}
+	}
 
+	public void update() {
+		repositionCards();
 	}
 
 	public Group findCardGroup(Card c) {
@@ -167,9 +172,9 @@ public class QuestUI extends Group {
 	public EventHandler<MouseEvent> findCardListener(Card c) {
 		return dragListener.get(c.getId());
 	}
-	
+
 	public PlayerGroup getPlayerGroup() {
-		return playerGroup;
+		return playerGroups[0];
 	}
 
 }
