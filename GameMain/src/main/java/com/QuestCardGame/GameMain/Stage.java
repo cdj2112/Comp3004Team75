@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Stage {
 	private ArrayList<Card> cards;
+	
+	public Stage() {
+		cards = new ArrayList<Card>();
+	}
 
 	public void addCard(Card c) {
 		cards.add(c);

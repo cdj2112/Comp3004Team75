@@ -13,6 +13,9 @@ public class Quest {
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
+		for(int i =0; i<qc.getStages();i++) {
+			stages[i] = new Stage();
+		}
 		totalStages = qc.getStages();
 	}
 	
