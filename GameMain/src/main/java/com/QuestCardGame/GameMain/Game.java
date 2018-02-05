@@ -119,8 +119,8 @@ public class Game {
 
 	}
 
-	public Player getPlayer() {
-		return players[0];
+	public Player getPlayer(int p) {
+		return players[p];
 	}
 
 	/**
@@ -168,6 +168,10 @@ public class Game {
 		} else {
 			return 0;
 		}
+	}
+	
+	public int activePlayer() {
+		return activePlayer;
 	}
 
 	private boolean isValidCardPlay(ArrayList<Card> cards) {

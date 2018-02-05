@@ -27,12 +27,12 @@ public class QuestUI extends Group {
 	private HashMap<Integer, Group> cardAssets;
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
-	
+
 	private ArrayList<Hotspot> stageHotspots;
 	private Hotspot playHotspot;
-	
+
 	private PlayerGroup[] playerGroups;
-	
+
 	private Button acceptButton;
 	private Button declineButton;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
@@ -52,7 +52,7 @@ public class QuestUI extends Group {
 			playerGroups[i] = new PlayerGroup();
 			playerGroups[i].setTranslateX(0);
 			playerGroups[i].setTranslateY(500);
-			playerGroups[i].setVisible(i==0);
+			playerGroups[i].setVisible(i == 0);
 			getChildren().add(playerGroups[i]);
 		}
 
@@ -72,7 +72,7 @@ public class QuestUI extends Group {
 		};
 		storyDeck.addEventHandler(MouseEvent.MOUSE_CLICKED, drawStory);
 		getChildren().add(storyDeck);
-		
+
 		acceptButton = new Button("Accept");
 		acceptButton.setTranslateY(200);
 		getChildren().add(acceptButton);
@@ -94,7 +94,7 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("acceptQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.acceptQuest(game.getPlayer());
+				game.acceptQuest(game.getPlayer(game.activePlayer()));
 				update();
 			}
 		});
@@ -104,14 +104,12 @@ public class QuestUI extends Group {
 			}
 		});
 
-		
 		playHotspot = new Hotspot();
 		playHotspot.setHeight(100);
 		playHotspot.setWidth(600);
 		playHotspot.setStroke(Color.RED);
 		playHotspot.setFill(Color.TRANSPARENT);
 		playHotspot.setAction(behaviourFactory.playCard);
-		playerGroups[0].getChildren().add(playHotspot);
 
 		update();
 	}
@@ -166,56 +164,58 @@ public class QuestUI extends Group {
 	}
 
 	private void repositionCards() {
-		Player p = game.getPlayer();
-		ArrayList<Card> pHand = p.getHand();
-		int xOffset = 0;
-		for (Card c : pHand) {
-			if (c == draggingCard)
-				continue;
-			Group g = findCardGroup(c);
-			if (g == null) {
-				g = makeNewCardGroup(c);
-				getPlayerGroup().addCardToHand(g);
-				cardAssets.put(c.getId(), g);
+		for (int i = 0; i < game.getNumPlayers(); i++) {
+			Player p = game.getPlayer(i);
+			ArrayList<Card> pHand = p.getHand();
+			int xOffset = 0;
+			for (Card c : pHand) {
+				if (c == draggingCard)
+					continue;
+				Group g = findCardGroup(c);
+				if (g == null) {
+					g = makeNewCardGroup(c);
+					getPlayerGroup().addCardToHand(g);
+					cardAssets.put(c.getId(), g);
+				}
+				g.setTranslateX(xOffset * 110.0);
+				g.setTranslateY(0);
+				xOffset++;
 			}
-			g.setTranslateX(xOffset * 110.0);
-			g.setTranslateY(0);
-			xOffset++;
-		}
 
-		ArrayList<Card> pPlay = p.getPlay();
-		xOffset = 0;
-		for (Card c : pPlay) {
-			if (c == draggingCard)
-				continue;
-			Group g = findCardGroup(c);
-			if (g == null) {
-				g = makeNewCardGroup(c);
-				getPlayerGroup().playCard(g);
-				cardAssets.put(c.getId(), g);
+			ArrayList<Card> pPlay = p.getPlay();
+			xOffset = 0;
+			for (Card c : pPlay) {
+				if (c == draggingCard)
+					continue;
+				Group g = findCardGroup(c);
+				if (g == null) {
+					g = makeNewCardGroup(c);
+					getPlayerGroup().playCard(g);
+					cardAssets.put(c.getId(), g);
+				}
+				g.setTranslateX(xOffset * 110.0);
+				g.setTranslateY(0);
+				xOffset++;
 			}
-			g.setTranslateX(xOffset * 110.0);
-			g.setTranslateY(0);
-			xOffset++;
 		}
 	}
 
 	private void readGameStatus() {
 		GameStatus GS = game.getGameStatus();
 		int stages = game.activeStages();
-		
-		playHotspot.setActive(GS==GameStatus.PLAYING_QUEST);
-		
-		int i=0;
-		for(Hotspot h: stageHotspots) {
-			h.setActive(GS==GameStatus.BUILDING_QUEST && i < stages);
+
+		playHotspot.setActive(GS == GameStatus.PLAYING_QUEST);
+
+		int i = 0;
+		for (Hotspot h : stageHotspots) {
+			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
-		
-		if(GS==GameStatus.SPONSORING || GS==GameStatus.ACCEPTING_QUEST) {
+
+		if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(true);
-			if(GS==GameStatus.SPONSORING) {
+			if (GS == GameStatus.SPONSORING) {
 				acceptButton.setOnAction(dialogListeners.get("acceptSponsor"));
 				declineButton.setOnAction(dialogListeners.get("declineSponsor"));
 			} else {
@@ -227,10 +227,16 @@ public class QuestUI extends Group {
 			declineButton.setVisible(false);
 		}
 	}
-	
+
 	public void update() {
+		int activePlayer = game.activePlayer();
 		repositionCards();
 		readGameStatus();
+		int i = 0;
+		for (PlayerGroup p : playerGroups) {
+			p.setVisible(i == activePlayer);
+			i++;
+		}
 	}
 
 	public Group findCardGroup(Card c) {
