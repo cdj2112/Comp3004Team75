@@ -46,7 +46,7 @@ public class Quest {
 	
 	public void startQuest() {
 		iter = players.listIterator();
-		currentStage = 1;
+		currentStage = 0;
 	}
 	
 	public Player getNextPlayer() {
@@ -69,7 +69,7 @@ public class Quest {
 		//reset the current player to the first one
 		iter = players.listIterator();
 		
-		if(currentStage > totalStages) {
+		if(currentStage > totalStages - 1) {
 			if(players.size() > 0)
 				awardQuestWinners();
 			endOfQuestCleanup();
