@@ -74,7 +74,12 @@ public class QuestUI extends Group {
 		getChildren().add(storyDeck);
 		
 		acceptButton = new Button("Accept");
+		acceptButton.setTranslateY(200);
+		getChildren().add(acceptButton);
 		declineButton = new Button("Decline");
+		declineButton.setTranslateX(200);
+		declineButton.setTranslateY(200);
+		getChildren().add(declineButton);
 		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				game.acceptSponsor();
