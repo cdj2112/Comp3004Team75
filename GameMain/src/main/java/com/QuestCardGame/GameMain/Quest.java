@@ -70,21 +70,25 @@ public class Quest {
 		iter = players.listIterator();
 		
 		if(currentStage > totalStages) {
-			//TODO: 
-			//award battle points
-			//remove armour
+			if(players.size() > 0)
+				awardQuestWinners();
+			endOfQuestCleanup();
 		}
 	}
 	
 	private void endOfStageCleanup() {
-		
+		//TODO:
+		//remove weapons
 	}
 	
 	private void awardQuestWinners() {
-		
+		int shieldsToAward = totalStages;
+		for(Player p : players)
+			p.addShields(shieldsToAward);
 	}
 	
 	private void endOfQuestCleanup() {
-		
+		//TODO:
+		//remove armour
 	}
 }

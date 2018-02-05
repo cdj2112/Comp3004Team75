@@ -6,7 +6,7 @@ import org.apache.logging.log4j.LogManager;
 
 
 public class Player {
-	
+		
 	private static final Logger logger = LogManager.getLogger(Player.class);
 	
 	private ArrayList<Card> hand;
@@ -61,5 +61,11 @@ public class Player {
 			totalBattlePoints += c.getId(); 
 		}
 		return totalBattlePoints;
+	}
+	
+	public void addShields(int s) {
+		numShields += s;
+		//TODO:
+		//upgrade rank based on number of shields
 	}
 }
