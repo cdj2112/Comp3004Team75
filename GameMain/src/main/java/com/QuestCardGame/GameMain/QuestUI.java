@@ -211,6 +211,21 @@ public class QuestUI extends Group {
 			h.setActive(GS==GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
+		
+		if(GS==GameStatus.SPONSORING || GS==GameStatus.ACCEPTING_QUEST) {
+			acceptButton.setVisible(true);
+			declineButton.setVisible(true);
+			if(GS==GameStatus.SPONSORING) {
+				acceptButton.setOnAction(dialogListeners.get("acceptSponsor"));
+				declineButton.setOnAction(dialogListeners.get("declineSponsor"));
+			} else {
+				acceptButton.setOnAction(dialogListeners.get("acceptQuest"));
+				declineButton.setOnAction(dialogListeners.get("declineQuest"));
+			}
+		} else {
+			acceptButton.setVisible(false);
+			declineButton.setVisible(false);
+		}
 	}
 	
 	public void update() {
