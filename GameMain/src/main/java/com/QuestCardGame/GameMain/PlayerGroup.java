@@ -29,4 +29,8 @@ public class PlayerGroup extends Group {
 		hand.getChildren().remove(g);
 		play.getChildren().add(g);
 	}
+	
+	public void removeCardFromHand(Group g) {
+		hand.getChildren().remove(g);
+	}
 }
