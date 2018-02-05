@@ -223,6 +223,26 @@ public class QuestUI extends Group {
 				xOffset++;
 			}
 		}
+		
+		Quest q = game.getActiveQuest();
+		if(q!=null) {
+			int stg = 0;
+			for(Stage s: q.getStages()) {
+				int xOffset = 0;
+				for(Card c: s.getCards()) {
+					Group g = findCardGroup(c);
+					if (g == null) {
+						g = makeNewCardGroup(c);
+						stageGroups[stg].addCardGroup(g);
+						cardAssets.put(c.getId(), g);
+					}
+					g.setTranslateX(xOffset * 110.0);
+					g.setTranslateY(0);
+					xOffset++;
+				}
+				stg++;
+			}
+		}
 	}
 
 	private void readGameStatus() {
