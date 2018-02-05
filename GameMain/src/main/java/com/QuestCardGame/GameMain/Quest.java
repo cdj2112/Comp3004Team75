@@ -91,4 +91,8 @@ public class Quest {
 		//TODO:
 		//remove amour
 	}
+	
+	public int getNumStages() {
+		return totalStages;
+	}
 }

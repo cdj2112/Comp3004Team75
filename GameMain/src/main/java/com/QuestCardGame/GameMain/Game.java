@@ -161,6 +161,14 @@ public class Game {
 	public GameStatus getGameStatus() {
 		return currentStatus;
 	}
+	
+	public int activeStages() {
+		if(activeQuest!=null) {
+			return activeQuest.getNumStages();
+		} else {
+			return 0;
+		}
+	}
 
 	private boolean isValidCardPlay(ArrayList<Card> cards) {
 		// check for same weapon type
