@@ -87,7 +87,7 @@ public class QuestUI extends Group {
 		r.setHeight(100);
 		r.setWidth(100);
 		r.setFill(Color.RED);
-		Text t = new Text(40, 40, "" + c.getId());
+		Text t = new Text(40, 40, "" + c.getName());
 		t.setFont(new Font(20));
 		g.getChildren().addAll(r, t);
 
