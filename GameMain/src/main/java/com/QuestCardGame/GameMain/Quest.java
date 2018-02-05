@@ -2,6 +2,7 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 import java.util.ListIterator;
+import java.util.Iterator;
 
 public class Quest {
 
@@ -57,28 +58,29 @@ public class Quest {
 	}
 	
 	public void eliminateStageLosers() {
-		int pointsToBeat = stages[currentStage].getBattlePoints();
+		int pointsToBeat = stages[currentStage++].getBattlePoints();
+		
+		//remove cards before eliminating the player
+		endOfStageCleanup();		
+		if(currentStage > totalStages - 1)
+			endOfQuestCleanup();
 		
 		for(Player p : players) {
 			if(p.getBattlePoints() < pointsToBeat)
 				removePlayer(p);
 		}
-		
-		currentStage++;
-		
+				
 		//reset the current player to the first one
 		iter = players.listIterator();
 		
 		if(currentStage > totalStages - 1) {
 			if(players.size() > 0)
 				awardQuestWinners();
-			endOfQuestCleanup();
 		}
 	}
 	
 	private void endOfStageCleanup() {
-		//TODO:
-		//remove weapons
+		removeCardsOfType(AdventureCard.AdventureType.WEAPON);
 	}
 	
 	private void awardQuestWinners() {
@@ -88,7 +90,19 @@ public class Quest {
 	}
 	
 	private void endOfQuestCleanup() {
-		//TODO:
-		//remove amour
+		removeCardsOfType(AdventureCard.AdventureType.AMOURS);
+	}
+	
+	private void removeCardsOfType(AdventureCard.AdventureType t) {
+		for(Player p : players) {
+			ArrayList<AdventureCard> playerHand = p.getPlay();
+			
+			for(Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
+				AdventureCard c = it.next();
+				
+				if(c.getCardType() == t)
+					it.remove();
+			}
+		}
 	}
 }
