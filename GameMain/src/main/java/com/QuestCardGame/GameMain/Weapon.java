@@ -9,6 +9,6 @@ public class Weapon extends AdventureCard{
     battlePoint = bp; 
   } 
  
-  public int getBattlePoint(){return battlePoint;} 
+  public int getBattlePoint(Boolean b){return battlePoint;} 
  
 } 

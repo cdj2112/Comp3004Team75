@@ -1,6 +1,6 @@
 package com.QuestCardGame.GameMain;
 
-public class AdventureCard extends Card{
+public abstract class AdventureCard extends Card{
   public enum AdventureType {WEAPON, FOE, ALLY, AMOURS,TEST};
   private AdventureType adventureType;
 
@@ -10,4 +10,6 @@ public class AdventureCard extends Card{
   }
 
   public AdventureType getCardType(){return adventureType;}
+  
+  public abstract int getBattlePoint(Boolean b);
 }
