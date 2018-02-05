@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.event.EventHandler;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,8 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
-import javafx.geometry.Point2D;
 import javafx.scene.control.Button;
+import javafx.geometry.Point2D;
 
 import com.QuestCardGame.GameMain.Game.GameStatus;
 
@@ -34,7 +35,7 @@ public class QuestUI extends Group {
 	
 	private Button acceptButton;
 	private Button declineButton;
-	private HashMap<String, EventHandler<MouseEvent>> dialogListeners;
+	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
@@ -43,6 +44,7 @@ public class QuestUI extends Group {
 		cardAssets = new HashMap<Integer, Group>();
 		stageHotspots = new ArrayList<Hotspot>();
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
+		dialogListeners = new HashMap<String, EventHandler<ActionEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
 
 		playerGroups = new PlayerGroup[game.getNumPlayers()];
@@ -69,33 +71,35 @@ public class QuestUI extends Group {
 			}
 		};
 		storyDeck.addEventHandler(MouseEvent.MOUSE_CLICKED, drawStory);
+		getChildren().add(storyDeck);
 		
 		acceptButton = new Button("Accept");
 		declineButton = new Button("Decline");
-		dialogListeners.put("acceptSponsor", new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent e) {
+		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
 				game.acceptSponsor();
 				update();
 			}
 		});
-		dialogListeners.put("declineSponsor", new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent e) {
+		dialogListeners.put("declineSponsor", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
 				game.declineSponsor();
 				update();
 			}
 		});
-		dialogListeners.put("acceptQuest", new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent e) {
+		dialogListeners.put("acceptQuest", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
 				game.acceptQuest(game.getPlayer());
 				update();
 			}
 		});
-		dialogListeners.put("declineQuest", new EventHandler<MouseEvent>() {
-			public void handle(MouseEvent e) {
+		dialogListeners.put("declineQuest", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
 				update();
 			}
 		});
 
+		
 		playHotspot = new Hotspot();
 		playHotspot.setHeight(100);
 		playHotspot.setWidth(600);
@@ -104,7 +108,6 @@ public class QuestUI extends Group {
 		playHotspot.setAction(behaviourFactory.playCard);
 		playerGroups[0].getChildren().add(playHotspot);
 
-		getChildren().add(storyDeck);
 		update();
 	}
 
