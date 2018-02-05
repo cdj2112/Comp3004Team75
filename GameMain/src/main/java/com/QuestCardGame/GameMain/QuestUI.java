@@ -28,7 +28,7 @@ public class QuestUI extends Group {
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
 
-	private ArrayList<Hotspot> stageHotspots;
+	private Hotspot[] stageHotspots;
 	private Hotspot playHotspot;
 
 	private PlayerGroup[] playerGroups;
@@ -42,7 +42,7 @@ public class QuestUI extends Group {
 
 		game = g;
 		cardAssets = new HashMap<Integer, Group>();
-		stageHotspots = new ArrayList<Hotspot>();
+		stageHotspots = new Hotspot[5];
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		dialogListeners = new HashMap<String, EventHandler<ActionEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
