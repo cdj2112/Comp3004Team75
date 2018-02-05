@@ -32,6 +32,7 @@ public class QuestUI extends Group {
 	private Hotspot[] playHotspots;
 
 	private PlayerGroup[] playerGroups;
+	private StageGroup[] stageGroups;
 
 	private Button acceptButton;
 	private Button declineButton;
@@ -116,6 +117,24 @@ public class QuestUI extends Group {
 			}
 		});
 
+		stageGroups = new StageGroup[5];
+		for (int i = 0; i < 5; i++) {
+			stageGroups[i] = new StageGroup();
+			stageGroups[i].setTranslateX(100);
+			stageGroups[i].setTranslateY(i*100);
+			stageGroups[i].setVisible(false);
+			
+			stageHotspots[i] = new Hotspot();
+			stageHotspots[i].setHeight(100);
+			stageHotspots[i].setWidth(600);
+			stageHotspots[i].setStroke(Color.RED);
+			stageHotspots[i].setFill(Color.TRANSPARENT);
+			stageHotspots[i].setAction(behaviourFactory.playCard);
+			stageHotspots[i].setActive(false);
+			
+			stageGroups[i].getChildren().add(stageHotspots[i]);
+			getChildren().add(stageGroups[i]);
+		}
 
 		update();
 	}
