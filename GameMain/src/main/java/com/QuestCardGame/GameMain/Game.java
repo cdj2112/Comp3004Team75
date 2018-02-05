@@ -118,6 +118,17 @@ public class Game {
 	public Player getPlayer() {
 		return players[0];
 	}
+	
+	/**
+	 * Return the next player to play cards if there is one
+	 * Returns null if the round is over
+	 * 
+	 * This is separate from the game's active player because not 
+	 * all players may be in a quest
+	 */
+	public Player getNextActiveQuestPlayer() {
+		return activeQuest.getNextPlayer();
+	}
 
 	private void initStoryDeck() {
 		storyDeck = new Deck();
