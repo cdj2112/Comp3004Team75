@@ -158,8 +158,22 @@ public class QuestUI extends Group {
 		}
 	}
 
+	private void readGameStatus() {
+		GameStatus GS = game.getGameStatus();
+		int stages = game.activeStages();
+		
+		playHotspot.setActive(GS==GameStatus.PLAYING_QUEST);
+		
+		int i=0;
+		for(Hotspot h: stageHotspots) {
+			h.setActive(GS==GameStatus.BUILDING_QUEST && i < stages);
+			i++;
+		}
+	}
+	
 	public void update() {
 		repositionCards();
+		readGameStatus();
 	}
 
 	public Group findCardGroup(Card c) {
