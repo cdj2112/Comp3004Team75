@@ -89,6 +89,6 @@ public class Quest {
 	
 	private void endOfQuestCleanup() {
 		//TODO:
-		//remove armour
+		//remove amour
 	}
 }
