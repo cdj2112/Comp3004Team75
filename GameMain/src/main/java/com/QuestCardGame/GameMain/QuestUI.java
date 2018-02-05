@@ -43,6 +43,8 @@ public class QuestUI extends Group {
 			playerGroups[i] = new PlayerGroup();
 			playerGroups[i].setTranslateX(0);
 			playerGroups[i].setTranslateY(500);
+			playerGroups[i].setVisible(i==0);
+			getChildren().add(playerGroups[i]);
 		}
 
 		Image storyPic = new Image(new FileInputStream("./src/resources/Cards/Backs/Story.jpg"));
@@ -70,7 +72,6 @@ public class QuestUI extends Group {
 		playerGroups[0].getChildren().add(playHotspot);
 
 		getChildren().add(storyDeck);
-		getChildren().add(playerGroups[0]);
 		update();
 	}
 
