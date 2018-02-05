@@ -256,12 +256,6 @@ public class QuestUI extends Group {
 			i++;
 		}
 
-		i = 0;
-		for (Hotspot h : stageHotspots) {
-			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
-			i++;
-		}
-
 		if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(true);
@@ -276,6 +270,15 @@ public class QuestUI extends Group {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
 		}
+		
+		
+		i = 0;
+		for (Hotspot h : stageHotspots) {
+			stageGroups[i].setVisible(GS == GameStatus.BUILDING_QUEST && i < stages);
+			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
+			i++;
+		}
+		
 	}
 
 	public void update() {
