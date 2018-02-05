@@ -15,6 +15,8 @@ import javafx.scene.paint.*;
 import javafx.scene.text.*;
 import javafx.geometry.Point2D;
 
+import com.QuestCardGame.GameMain.Game.GameStatus;
+
 public class QuestUI extends Group {
 
 	private Game game;
@@ -42,23 +44,21 @@ public class QuestUI extends Group {
 			playerGroups[i].setTranslateY(500);
 		}
 
-		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
-		ImageView img = new ImageView(pic);
-		img.setFitHeight(100);
-		img.setFitWidth(100);
+		Image storyPic = new Image(new FileInputStream("./src/resources/Cards/Backs/Story.jpg"));
+		ImageView storyDeck = new ImageView(storyPic);
+		storyDeck.setFitHeight(100);
+		storyDeck.setFitWidth(100);
 
-		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
+		EventHandler<MouseEvent> drawStory = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				Card newCard = game.playerDrawAdventureCard(game.getPlayer());
-				if (newCard != null) {
-					Group newCardGroup = makeNewCardGroup(newCard);
-					playerGroups[0].addCardToHand(newCardGroup);
-					cardAssets.put(newCard.getId(), newCardGroup);
-					update();
+				if (game.getGameStatus() != GameStatus.IDLE) {
+					return;
 				}
+				game.playTurn();
+				update();
 			}
 		};
-		img.addEventHandler(MouseEvent.MOUSE_CLICKED, clicked);
+		storyDeck.addEventHandler(MouseEvent.MOUSE_CLICKED, drawStory);
 
 		Hotspot hitbox = new Hotspot();
 		hitbox.setHeight(100);
