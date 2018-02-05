@@ -17,7 +17,7 @@ public class Deck {
 		else
 			return null;
 	}
-	
+
 	public void addCard(Card c) {
 		cards.push(c);
 	}
@@ -25,7 +25,7 @@ public class Deck {
 	public void shuffleDeck() {
 		Collections.shuffle(cards);
 	}
-	
+
 	public int getNumCards() {
 		return cards.size();
 	}

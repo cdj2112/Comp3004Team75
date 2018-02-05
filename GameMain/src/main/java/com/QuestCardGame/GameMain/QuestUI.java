@@ -1,10 +1,13 @@
 package com.QuestCardGame.GameMain;
 
+import javafx.scene.control.Button;
+import javafx.scene.layout.StackPane;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -22,6 +25,7 @@ public class QuestUI extends Group {
 	private Card draggingCard;
 	private ArrayList<Hotspot> hotspots;
 	private HotspotBehaviourFactory behaviourFactory;
+	boolean round = false;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
@@ -32,14 +36,31 @@ public class QuestUI extends Group {
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
 
-		Image pic = new Image(new FileInputStream("./src/resources/card back blue.png"));
+		Image pic = new Image(
+				new FileInputStream("./src/resources/card back blue.png"));
 		ImageView img = new ImageView(pic);
 		img.setFitHeight(100);
 		img.setFitWidth(100);
 
+		// next round not yet implenmented
+		Button button = new Button("end turn");
+		EventHandler<MouseEvent> btn = new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				round = true;
+			}
+		};
+		button.setLayoutX(100);
+		button.setLayoutY(10);
+		getChildren().add(button);
+		button.addEventHandler(MouseEvent.MOUSE_CLICKED, btn);
+
 		EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				Card newCard = game.playerDrawAdventureCard(game.getPlayer());
+				Card newCard = null;
+				if(round == true) {
+				newCard = game.playerDrawAdventureCard(game.getPlayer());
+				}
+				round = false;
 				if (newCard != null) {
 					Group newCardGroup = makeNewCardGroup(newCard);
 					getChildren().add(newCardGroup);
@@ -79,8 +100,9 @@ public class QuestUI extends Group {
 		r.setHeight(100);
 		r.setWidth(100);
 		r.setFill(Color.RED);
-		Text t = new Text(40, 40, "" + c.getId());
-		t.setFont(new Font(20));
+
+		Text t = new Text(20, 40, "" + c.getId() + " " + c.getName());
+		t.setFont(new Font(10));
 		g.getChildren().addAll(r, t);
 
 		final Card eventCard = c;
@@ -142,12 +164,45 @@ public class QuestUI extends Group {
 				g = makeNewCardGroup(c);
 				getChildren().add(g);
 				cardAssets.put(c.getId(), g);
+
 			}
 			g.setTranslateY(500);
 			g.setTranslateX(xOffset * 110.0);
 			xOffset++;
 		}
 
+		Rectangle r = new Rectangle();
+		r.setHeight(50);
+		r.setWidth(300);
+		r.setFill(Color.WHITE);
+		r.setX(5.0);
+		r.setY(160.0);
+		Text t = new Text();
+		t.setCache(true);
+		t.setX(10.0);
+		t.setY(200.0);
+		t.setFill(Color.BLACK);
+		t.setText("Player 1: " + p.CardAmount() + " cards");
+		t.setFont(new Font(24));
+
+		Rectangle r1 = new Rectangle();
+		r1.setHeight(60);
+		r1.setWidth(300);
+		r1.setFill(Color.WHITE);
+		r1.setX(10.0);
+		r1.setY(230.0);
+		Text t1 = new Text();
+		t1.setCache(true);
+		t1.setX(10.0);
+		t1.setY(260.0);
+		t1.setFill(Color.BLACK);
+		t1.setText("Player 1 BP: " + p.getBattlePoint() + ".");
+		t1.setFont(new Font(24));
+
+		getChildren().add(r);
+		getChildren().add(t);
+		getChildren().add(r1);
+		getChildren().add(t1);
 	}
 
 	public Group findCardGroup(Card c) {

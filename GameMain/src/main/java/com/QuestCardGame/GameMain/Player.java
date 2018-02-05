@@ -4,47 +4,56 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-
 public class Player {
-	
+
 	private static final Logger logger = LogManager.getLogger(Player.class);
-	
+
 	private ArrayList<Card> hand;
 	private ArrayList<Card> play;
 	private int playerNumber;
 	private int numShields;
 	static int nextPlayerNumber = 1;
-	
-	Player(){
+	private int bp;
+
+	Player() {
 		hand = new ArrayList<Card>();
 		play = new ArrayList<Card>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
-		
-		//disabled until log4j2.xml has been created
-		//logger.info("A new player has been created.");
+		// disabled until log4j2.xml has been created
+		// logger.info("A new player has been created.");
 	}
-	
-	public void drawCard(Card c){
+
+	public void drawCard(Card c) {
 		hand.add(c);
 	}
-	
+
 	public void playCard(Card c) {
 		boolean removed = hand.remove(c);
-		if(removed) {
+		if (removed) {
 			play.add(c);
+			bp = c.getBattlePoint() + bp;
 		}
 	}
-	
+
 	public ArrayList<Card> getHand() {
 		return hand;
 	}
-	
+
 	public ArrayList<Card> getPlay() {
+
 		return play;
 	}
-	
+
 	public int getPlayerNumber() {
 		return playerNumber;
+	}
+
+	public int CardAmount() {
+		return hand.size();
+	}
+
+	public int getBattlePoint() {
+		return bp;
 	}
 }
