@@ -129,7 +129,7 @@ public class QuestUI extends Group {
 			stageHotspots[i].setWidth(600);
 			stageHotspots[i].setStroke(Color.RED);
 			stageHotspots[i].setFill(Color.TRANSPARENT);
-			stageHotspots[i].setAction(behaviourFactory.playCard);
+			stageHotspots[i].setAction((HotspotBehaviour)behaviourFactory.getPlayToStage(i));
 			stageHotspots[i].setActive(false);
 			
 			stageGroups[i].getChildren().add(stageHotspots[i]);
@@ -304,4 +304,7 @@ public class QuestUI extends Group {
 		return playerGroups[i];
 	}
 
+	public StageGroup getStageGroup(int i) {
+		return stageGroups[i];
+	}
 }

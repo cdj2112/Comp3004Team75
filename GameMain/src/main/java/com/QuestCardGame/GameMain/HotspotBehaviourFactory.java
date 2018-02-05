@@ -31,6 +31,7 @@ public class HotspotBehaviourFactory{
 				game.sponsorAddCardToStage(c, s);
 				Group cardGroup = gameUI.findCardGroup(c);
 				gameUI.getPlayerGroup(game.activePlayer()).removeCardFromHand(cardGroup);
+				gameUI.getStageGroup(s).addCardGroup(cardGroup);
 				EventHandler<MouseEvent> drag = gameUI.findCardListener(c);
 				cardGroup.removeEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
