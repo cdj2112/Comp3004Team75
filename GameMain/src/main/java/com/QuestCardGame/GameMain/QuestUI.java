@@ -14,6 +14,7 @@ import javafx.scene.shape.*;
 import javafx.scene.paint.*;
 import javafx.scene.text.*;
 import javafx.geometry.Point2D;
+import javafx.scene.control.Button;
 
 import com.QuestCardGame.GameMain.Game.GameStatus;
 
@@ -25,9 +26,15 @@ public class QuestUI extends Group {
 	private HashMap<Integer, Group> cardAssets;
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
+	
 	private ArrayList<Hotspot> stageHotspots;
 	private Hotspot playHotspot;
+	
 	private PlayerGroup[] playerGroups;
+	
+	private Button acceptButton;
+	private Button declineButton;
+	private HashMap<String, EventHandler<MouseEvent>> dialogListeners;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
@@ -62,6 +69,32 @@ public class QuestUI extends Group {
 			}
 		};
 		storyDeck.addEventHandler(MouseEvent.MOUSE_CLICKED, drawStory);
+		
+		acceptButton = new Button("Accept");
+		declineButton = new Button("Decline");
+		dialogListeners.put("acceptSponsor", new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				game.acceptSponsor();
+				update();
+			}
+		});
+		dialogListeners.put("declineSponsor", new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				game.declineSponsor();
+				update();
+			}
+		});
+		dialogListeners.put("acceptQuest", new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				game.acceptQuest(game.getPlayer());
+				update();
+			}
+		});
+		dialogListeners.put("declineQuest", new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				update();
+			}
+		});
 
 		playHotspot = new Hotspot();
 		playHotspot.setHeight(100);
