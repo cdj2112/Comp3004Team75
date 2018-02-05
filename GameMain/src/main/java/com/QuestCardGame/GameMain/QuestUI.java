@@ -29,7 +29,7 @@ public class QuestUI extends Group {
 	private Card draggingCard;
 
 	private Hotspot[] stageHotspots;
-	private Hotspot playHotspot;
+	private Hotspot[] playHotspots;
 
 	private PlayerGroup[] playerGroups;
 
@@ -41,18 +41,30 @@ public class QuestUI extends Group {
 		super();
 
 		game = g;
+		int numPlayers = game.getNumPlayers();
+
 		cardAssets = new HashMap<Integer, Group>();
 		stageHotspots = new Hotspot[5];
+		playHotspots = new Hotspot[numPlayers];
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		dialogListeners = new HashMap<String, EventHandler<ActionEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
 
-		playerGroups = new PlayerGroup[game.getNumPlayers()];
-		for (int i = 0; i < game.getNumPlayers(); i++) {
+		playerGroups = new PlayerGroup[numPlayers];
+		for (int i = 0; i < numPlayers; i++) {
 			playerGroups[i] = new PlayerGroup();
 			playerGroups[i].setTranslateX(0);
 			playerGroups[i].setTranslateY(500);
 			playerGroups[i].setVisible(i == 0);
+
+			playHotspots[i] = new Hotspot();
+			playHotspots[i].setHeight(100);
+			playHotspots[i].setWidth(600);
+			playHotspots[i].setStroke(Color.RED);
+			playHotspots[i].setFill(Color.TRANSPARENT);
+			playHotspots[i].setAction(behaviourFactory.playCard);
+
+			playerGroups[i].getChildren().add(playHotspots[i]);
 			getChildren().add(playerGroups[i]);
 		}
 
@@ -104,12 +116,6 @@ public class QuestUI extends Group {
 			}
 		});
 
-		playHotspot = new Hotspot();
-		playHotspot.setHeight(100);
-		playHotspot.setWidth(600);
-		playHotspot.setStroke(Color.RED);
-		playHotspot.setFill(Color.TRANSPARENT);
-		playHotspot.setAction(behaviourFactory.playCard);
 
 		update();
 	}
@@ -118,7 +124,7 @@ public class QuestUI extends Group {
 		for (Hotspot h : stageHotspots) {
 			h.checkColision(draggingCard, x, y);
 		}
-		playHotspot.checkColision(draggingCard, x, y);
+		playHotspots[game.activePlayer()].checkColision(draggingCard, x, y);
 	}
 
 	private Group makeNewCardGroup(Card c) {
@@ -204,9 +210,14 @@ public class QuestUI extends Group {
 		GameStatus GS = game.getGameStatus();
 		int stages = game.activeStages();
 
-		playHotspot.setActive(GS == GameStatus.PLAYING_QUEST);
-
 		int i = 0;
+		int active = game.activePlayer();
+		for (Hotspot h : playHotspots) {
+			h.setActive(i == active);
+			i++;
+		}
+
+		i = 0;
 		for (Hotspot h : stageHotspots) {
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
