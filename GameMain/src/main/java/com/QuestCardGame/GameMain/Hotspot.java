@@ -6,8 +6,10 @@ import javafx.scene.shape.Rectangle;
 public class Hotspot extends Rectangle{
 	
 	private HotspotBehaviour action;
+	private boolean active = true;
 	
     public void checkColision(Card c, double x, double y) {
+    	if (!active) return;
     	double h = getHeight();
     	double w = getWidth();
     	Point2D point = sceneToLocal(x,y);
