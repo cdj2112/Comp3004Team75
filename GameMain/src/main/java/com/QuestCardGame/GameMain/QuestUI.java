@@ -25,7 +25,8 @@ public class QuestUI extends Group {
 	private HashMap<Integer, Group> cardAssets;
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener;
 	private Card draggingCard;
-	private ArrayList<Hotspot> hotspots;
+	private ArrayList<Hotspot> stageHotspots;
+	private Hotspot playHotspot;
 	private PlayerGroup[] playerGroups;
 
 	QuestUI(Game g) throws FileNotFoundException {
@@ -33,7 +34,7 @@ public class QuestUI extends Group {
 
 		game = g;
 		cardAssets = new HashMap<Integer, Group>();
-		hotspots = new ArrayList<Hotspot>();
+		stageHotspots = new ArrayList<Hotspot>();
 		dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
 		behaviourFactory = new HotspotBehaviourFactory(game, this);
 
@@ -60,28 +61,24 @@ public class QuestUI extends Group {
 		};
 		storyDeck.addEventHandler(MouseEvent.MOUSE_CLICKED, drawStory);
 
-		Hotspot hitbox = new Hotspot();
-		hitbox.setHeight(100);
-		hitbox.setWidth(600);
-		hitbox.setStroke(Color.RED);
-		hitbox.setFill(Color.TRANSPARENT);
-		hitbox.setTranslateY(500);
-		hitbox.setAction(behaviourFactory.playCard);
-		hotspots.add(hitbox);
+		playHotspot = new Hotspot();
+		playHotspot.setHeight(100);
+		playHotspot.setWidth(600);
+		playHotspot.setStroke(Color.RED);
+		playHotspot.setFill(Color.TRANSPARENT);
+		playHotspot.setAction(behaviourFactory.playCard);
+		playerGroups[0].getChildren().add(playHotspot);
 
-		getChildren().add(img);
-		getChildren().add(hitbox);
+		getChildren().add(storyDeck);
 		getChildren().add(playerGroups[0]);
 		update();
 	}
 
 	private void dropCard(double x, double y) {
-		for (Hotspot h : hotspots) {
-			boolean hit = h.checkColision(x, y);
-			if (hit) {
-				h.executeAction(draggingCard);
-			}
+		for (Hotspot h : stageHotspots) {
+			h.checkColision(draggingCard, x, y);
 		}
+		playHotspot.checkColision(draggingCard, x, y);
 	}
 
 	private Group makeNewCardGroup(Card c) {
