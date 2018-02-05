@@ -6,13 +6,14 @@ import org.apache.logging.log4j.LogManager;
 
 
 public class Player {
-	
+		
 	private static final Logger logger = LogManager.getLogger(Player.class);
 	
 	private ArrayList<Card> hand;
 	private ArrayList<Card> play;
 	private int playerNumber;
 	private int numShields;
+	private int rank;
 	static int nextPlayerNumber = 1;
 	
 	Player(){
@@ -20,6 +21,7 @@ public class Player {
 		play = new ArrayList<Card>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
+		rank = 5; //squire
 		
 		//disabled until log4j2.xml has been created
 		//logger.info("A new player has been created.");
@@ -50,5 +52,20 @@ public class Player {
 	
 	public int getPlayerNumber() {
 		return playerNumber;
+	}
+	
+	public int getBattlePoints() {
+		int totalBattlePoints = rank + numShields;
+		for(Card c : play) {
+			// get BP instead of id when adventure cards are added
+			totalBattlePoints += c.getId(); 
+		}
+		return totalBattlePoints;
+	}
+	
+	public void addShields(int s) {
+		numShields += s;
+		//TODO:
+		//upgrade rank based on number of shields
 	}
 }

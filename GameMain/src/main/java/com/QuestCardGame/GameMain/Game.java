@@ -38,7 +38,7 @@ public class Game {
 	public void playTurn() {
 		Card storyCard = getStoryCard();
 		if (storyCard instanceof QuestCard) {
-			Quest activeQuest = new Quest((QuestCard) storyCard);
+			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
 		}
 	}
@@ -75,34 +75,37 @@ public class Game {
 		}
 		return false;
 	}
-	
+
 	public boolean acceptQuest(Player p) {
-		if(currentStatus == GameStatus.ACCEPTING_QUEST) {
+		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			activeQuest.addPlayer(players[activePlayer]);
 			activePlayer = getNextActivePlayer();
-			
-			if(activePlayer == playerTurn)
+
+			if (activePlayer == playerTurn)
 				currentStatus = GameStatus.PLAYING_QUEST;
-			
+
 			return true;
 		}
-		return false;		
+		return false;
 	}
-	
+
 	public boolean playerPlayCards(Player p, ArrayList<Card> cards) {
-		for(Card c: cards){
+		if (!isValidCardPlay(cards))
+			return false;
+
+		for (Card c : cards) {
 			p.playCard(c);
-		}			
+		}
 		return true;
 	}
-	
+
 	public Card playerDrawAdventureCard(Player p) {
 
 		Card c = adventureDeck.drawCard();
 
 		if (c != null)
 			p.drawCard(c);
-		
+
 		return c;
 	}
 
@@ -120,10 +123,21 @@ public class Game {
 		return players[0];
 	}
 
+	/**
+	 * Return the next player to play cards if there is one Returns null if the
+	 * round is over
+	 * 
+	 * This is separate from the game's active player because not all players may be
+	 * in a quest
+	 */
+	public Player getNextActiveQuestPlayer() {
+		return activeQuest.getNextPlayer();
+	}
+
 	public int getNumPlayers() {
 		return numPlayers;
 	}
-	
+
 	private void initStoryDeck() {
 		storyDeck = new Deck();
 
@@ -136,16 +150,25 @@ public class Game {
 		adventureDeck = new Deck();
 
 		for (int i = 0; i < 6; i++) {
-			adventureDeck.addCard(new WeaponCard("Dagger", 5));
+			adventureDeck.addCard(new Weapon("Dagger", 5));
 		}
 	}
-	
+
 	private int getNextActivePlayer() {
 		return (activePlayer + 1) % numPlayers;
 	}
-	
+
 	public GameStatus getGameStatus() {
 		return currentStatus;
+	}
+
+	private boolean isValidCardPlay(ArrayList<Card> cards) {
+		// check for same weapon type
+
+		// check for more than 1 armour
+
+		// for now assume all plays are valid
+		return true;
 	}
 
 }

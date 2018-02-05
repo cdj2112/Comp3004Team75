@@ -24,4 +24,8 @@ public class Test extends AdventureCard{
     if (target != null && bouns) return 4;
     return minBid;
   }
+  
+  public int getBattlePoint(Boolean b) {
+	  return 0;
+  }
 }
