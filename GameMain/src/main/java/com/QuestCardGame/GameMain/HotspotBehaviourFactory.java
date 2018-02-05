@@ -16,9 +16,10 @@ public class HotspotBehaviourFactory{
 	
 	public final HotspotBehaviour playCard = new HotspotBehaviour(){
 		public void onHit(Card c) {
-			game.getPlayer().playCard(c);			
+			int active = game.activePlayer();
+			game.getPlayer(active).playCard(c);			
 			Group cardGroup = gameUI.findCardGroup(c);
-			gameUI.getPlayerGroup().playCard(cardGroup);
+			gameUI.getPlayerGroup(active).playCard(cardGroup);
 			EventHandler<MouseEvent> drag = gameUI.findCardListener(c);
 			cardGroup.removeEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 		}
