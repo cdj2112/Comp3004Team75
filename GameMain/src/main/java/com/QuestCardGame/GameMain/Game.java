@@ -38,7 +38,7 @@ public class Game {
 	public void playTurn() {
 		Card storyCard = getStoryCard();
 		if (storyCard instanceof QuestCard) {
-			Quest activeQuest = new Quest((QuestCard) storyCard);
+			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
 		}
 	}
@@ -98,12 +98,15 @@ public class Game {
 		}			
 		return true;
 	}
+	
+	public Card playerDrawAdventureCard(Player p) {
 
-	public void playerDrawAdventureCard(Player p) {
 		Card c = adventureDeck.drawCard();
 
 		if (c != null)
 			p.drawCard(c);
+		
+		return c;
 	}
 
 	public Card getStoryCard() {
@@ -113,6 +116,7 @@ public class Game {
 			return c;
 		else
 			return null;
+
 	}
 
 	public Player getPlayer() {
@@ -142,7 +146,7 @@ public class Game {
 		adventureDeck = new Deck();
 
 		for (int i = 0; i < 6; i++) {
-			adventureDeck.addCard(new WeaponCard("Dagger", 5));
+			adventureDeck.addCard(new Weapon("Dagger", 5));
 		}
 	}
 	
