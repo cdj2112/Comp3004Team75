@@ -174,7 +174,7 @@ public class QuestUI extends Group {
 				Group g = findCardGroup(c);
 				if (g == null) {
 					g = makeNewCardGroup(c);
-					getPlayerGroup().addCardToHand(g);
+					getPlayerGroup(i).addCardToHand(g);
 					cardAssets.put(c.getId(), g);
 				}
 				g.setTranslateX(xOffset * 110.0);
@@ -190,7 +190,7 @@ public class QuestUI extends Group {
 				Group g = findCardGroup(c);
 				if (g == null) {
 					g = makeNewCardGroup(c);
-					getPlayerGroup().playCard(g);
+					getPlayerGroup(i).playCard(g);
 					cardAssets.put(c.getId(), g);
 				}
 				g.setTranslateX(xOffset * 110.0);
@@ -247,8 +247,8 @@ public class QuestUI extends Group {
 		return dragListener.get(c.getId());
 	}
 
-	public PlayerGroup getPlayerGroup() {
-		return playerGroups[0];
+	public PlayerGroup getPlayerGroup(int i) {
+		return playerGroups[i];
 	}
 
 }
