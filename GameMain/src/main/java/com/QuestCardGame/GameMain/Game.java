@@ -162,8 +162,12 @@ public class Game {
 		return currentStatus;
 	}
 	
+	public Quest getActiveQuest() {
+		return activeQuest;
+	}
+
 	public int activeStages() {
-		if(activeQuest!=null) {
+		if (activeQuest != null) {
 			return activeQuest.getNumStages();
 		} else {
 			return 0;

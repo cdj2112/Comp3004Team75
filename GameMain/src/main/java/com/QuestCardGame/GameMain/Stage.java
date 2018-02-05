@@ -20,4 +20,8 @@ public class Stage {
 	public int getNumCards() {
 		return cards.size();
 	}
+	
+	public ArrayList<Card> getCards() {
+		return cards;
+	}
 }

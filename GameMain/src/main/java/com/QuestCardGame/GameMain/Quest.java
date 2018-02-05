@@ -95,4 +95,8 @@ public class Quest {
 	public int getNumStages() {
 		return totalStages;
 	}
+	
+	public Stage[] getStages() {
+		return stages;
+	}
 }
