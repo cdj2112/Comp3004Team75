@@ -89,19 +89,19 @@ public class Game {
 		return false;		
 	}
 	
-	public boolean playerPlayCards(Player p, ArrayList<Card> cards) {		
+	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {		
 		if(!isValidCardPlay(cards))
 			return false;
 		
-		for(Card c: cards){
+		for(AdventureCard c: cards){
 			p.playCard(c);
 		}			
 		return true;
 	}
 	
-	public Card playerDrawAdventureCard(Player p) {
+	public AdventureCard playerDrawAdventureCard(Player p) {
 
-		Card c = adventureDeck.drawCard();
+		AdventureCard c = (AdventureCard)adventureDeck.drawCard();
 
 		if (c != null)
 			p.drawCard(c);
@@ -154,7 +154,7 @@ public class Game {
 		return (activePlayer + 1) % numPlayers;
 	}
 	
-	private boolean isValidCardPlay(ArrayList<Card> cards) {
+	private boolean isValidCardPlay(ArrayList<AdventureCard> cards) {
 		//check for same weapon type
 		
 		//check for more than 1 armour

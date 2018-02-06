@@ -9,16 +9,16 @@ public class Player {
 		
 	private static final Logger logger = LogManager.getLogger(Player.class);
 	
-	private ArrayList<Card> hand;
-	private ArrayList<Card> play;
+	private ArrayList<AdventureCard> hand;
+	private ArrayList<AdventureCard> play;
 	private int playerNumber;
 	private int numShields;
 	private int rank;
 	static int nextPlayerNumber = 1;
 	
 	Player(){
-		hand = new ArrayList<Card>();
-		play = new ArrayList<Card>();
+		hand = new ArrayList<AdventureCard>();
+		play = new ArrayList<AdventureCard>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 5; //squire
@@ -27,11 +27,11 @@ public class Player {
 		//logger.info("A new player has been created.");
 	}
 	
-	public void drawCard(Card c){
+	public void drawCard(AdventureCard c){
 		hand.add(c);
 	}
 	
-	public void playCard(Card c) {
+	public void playCard(AdventureCard c) {
 		boolean removed = hand.remove(c);
 		if(removed) {
 			play.add(c);
@@ -42,11 +42,11 @@ public class Player {
 		hand.remove(c);
 	}
 	
-	public ArrayList<Card> getHand() {
+	public ArrayList<AdventureCard> getHand() {
 		return hand;
 	}
 	
-	public ArrayList<Card> getPlay() {
+	public ArrayList<AdventureCard> getPlay() {
 		return play;
 	}
 	
@@ -56,9 +56,8 @@ public class Player {
 	
 	public int getBattlePoints() {
 		int totalBattlePoints = rank + numShields;
-		for(Card c : play) {
-			// get BP instead of id when adventure cards are added
-			totalBattlePoints += c.getId(); 
+		for(AdventureCard c : play) {
+			totalBattlePoints += c.getBattlePoint(false); //no special ability
 		}
 		return totalBattlePoints;
 	}
