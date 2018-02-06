@@ -6,7 +6,7 @@ public class Stage {
 	private ArrayList<AdventureCard> cards;
 	
 	Stage(){
-		
+		cards = new ArrayList<AdventureCard>();
 	}
 
 	public void addCard(AdventureCard c) {
