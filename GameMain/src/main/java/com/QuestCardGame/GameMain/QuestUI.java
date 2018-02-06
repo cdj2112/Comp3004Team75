@@ -191,7 +191,7 @@ public class QuestUI extends Group {
 	private void repositionCards() {
 		for (int i = 0; i < game.getNumPlayers(); i++) {
 			Player p = game.getPlayer(i);
-			ArrayList<Card> pHand = p.getHand();
+			ArrayList<AdventureCard> pHand = p.getHand();
 			int xOffset = 0;
 			for (Card c : pHand) {
 				if (c == draggingCard)
@@ -207,7 +207,7 @@ public class QuestUI extends Group {
 				xOffset++;
 			}
 
-			ArrayList<Card> pPlay = p.getPlay();
+			ArrayList<AdventureCard> pPlay = p.getPlay();
 			xOffset = 0;
 			for (Card c : pPlay) {
 				if (c == draggingCard)
@@ -270,7 +270,6 @@ public class QuestUI extends Group {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
 		}
-		
 		
 		i = 0;
 		for (Hotspot h : stageHotspots) {

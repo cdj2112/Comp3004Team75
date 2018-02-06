@@ -67,7 +67,7 @@ public class Game {
 		}
 	}
 
-	public boolean sponsorAddCardToStage(Card c, int s) {
+	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			sponsor.useCard(c);
 			activeQuest.addCardToStage(c, s);
@@ -88,20 +88,21 @@ public class Game {
 		}
 		return false;
 	}
-
-	public boolean playerPlayCards(Player p, ArrayList<Card> cards) {
-		if (!isValidCardPlay(cards))
+	
+	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {		
+		if(!isValidCardPlay(cards))
 			return false;
-
-		for (Card c : cards) {
+		
+		for(AdventureCard c: cards){
 			p.playCard(c);
 		}
 		return true;
 	}
+	
+	public AdventureCard playerDrawAdventureCard(Player p) {
 
-	public Card playerDrawAdventureCard(Player p) {
 
-		Card c = adventureDeck.drawCard();
+		AdventureCard c = (AdventureCard)adventureDeck.drawCard();
 
 		if (c != null)
 			p.drawCard(c);
@@ -178,12 +179,12 @@ public class Game {
 		return activePlayer;
 	}
 
-	private boolean isValidCardPlay(ArrayList<Card> cards) {
-		// check for same weapon type
-
-		// check for more than 1 armour
-
-		// for now assume all plays are valid
+	private boolean isValidCardPlay(ArrayList<AdventureCard> cards) {
+		//check for same weapon type
+		
+		//check for more than 1 armour
+		
+		//for now assume all plays are valid
 		return true;
 	}
 
