@@ -14,16 +14,20 @@ public class Quest {
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
+		
+		for(int i = 0; i < qc.getStages(); i++)
+			stages[i] = new Stage();
+		
 		totalStages = qc.getStages();
 	}
 	
 	public boolean validateQuest() {
-		//int previousBP = -1;
+		int previousBP = -1;
 		for(Stage s: stages) {
-			/*if(s.getBattlePoints()<=previousBP) {
+			if(s.getBattlePoints() <= previousBP) {
 				return false;
 			}
-			previousBP = s.getBattlePoints();*/
+			previousBP = s.getBattlePoints();
 			if(s.getNumCards()==0) {
 				return false;
 			}
@@ -32,7 +36,7 @@ public class Quest {
 		
 	}
 	
-	public boolean addCardToStage(Card c, int s) {
+	public boolean addCardToStage(AdventureCard c, int s) {
 		stages[s].addCard(c);
 		return true;
 	}
