@@ -67,7 +67,7 @@ public class Game {
 		}
 	}
 
-	public boolean sponsorAddCardToStage(Card c, int s) {
+	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			sponsor.useCard(c);
 			activeQuest.addCardToStage(c, s);
