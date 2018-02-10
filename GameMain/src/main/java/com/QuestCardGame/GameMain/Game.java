@@ -91,10 +91,6 @@ public class Game {
 		return false;		
 	}
 	
-	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {		
-		
-	}
-	
 	public boolean playerPlayCard(Player p, AdventureCard c) {
 		if(!isValidCardPlay(p, c))
 			return false;
