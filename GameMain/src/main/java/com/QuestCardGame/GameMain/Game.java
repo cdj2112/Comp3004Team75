@@ -81,8 +81,10 @@ public class Game {
 			activeQuest.addPlayer(players[activePlayer]);
 			activePlayer = getNextActivePlayer();
 			
-			if(activePlayer == playerTurn)
+			if(activePlayer == playerTurn) {
 				currentStatus = GameStatus.PLAYING_QUEST;
+				activeQuest.startQuest();
+			}
 			
 			return true;
 		}
