@@ -9,6 +9,7 @@ public class Quest {
 	private Stage[] stages;
 	private ArrayList<Player> players;
 	private ListIterator<Player> iter;
+	private ArrayList<AdventureCard> discardPile;
 	private int currentStage;
 	private int totalStages;
 	
@@ -19,6 +20,7 @@ public class Quest {
 			stages[i] = new Stage();
 		
 		totalStages = qc.getStages();
+		discardPile = new ArrayList<AdventureCard>();
 	}
 	
 	public boolean validateQuest() {
@@ -61,7 +63,7 @@ public class Quest {
 			return null;
 	}
 	
-	public void eliminateStageLosers() {
+	public ArrayList<AdventureCard> eliminateStageLosers() {
 		int pointsToBeat = stages[currentStage++].getBattlePoints();
 		
 		//remove cards before eliminating the player
@@ -81,6 +83,7 @@ public class Quest {
 			if(players.size() > 0)
 				awardQuestWinners();
 		}
+		return discardPile;
 	}
 	
 	private void endOfStageCleanup() {
@@ -104,8 +107,10 @@ public class Quest {
 			for(Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
 				AdventureCard c = it.next();
 				
-				if(c.getCardType() == t)
+				if(c.getCardType() == t) {
+					discardPile.add(c);
 					it.remove();
+				}
 			}
 		}
 	}

@@ -15,6 +15,7 @@ public class Game {
 	private int numPlayers = 4;
 	private Deck storyDeck;
 	private Deck adventureDeck;
+	private Deck discardPile;
 	private int playerTurn;
 
 	// Turn Variables
@@ -33,6 +34,7 @@ public class Game {
 		initStoryDeck();
 		initAdventureDeck();
 		playTurn();
+		discardPile = new Deck();
 	}
 
 	public void playTurn() {
@@ -132,7 +134,22 @@ public class Game {
 	 * all players may be in a quest
 	 */
 	public Player getNextActiveQuestPlayer() {
-		return activeQuest.getNextPlayer();
+		Player p = activeQuest.getNextPlayer();
+		
+		if(p == null)
+			currentStatus = GameStatus.IDLE; //stage is over
+		else
+			currentStatus = GameStatus.PLAYING_QUEST;
+		
+		return p;
+	}
+	
+	public ArrayList<AdventureCard> evaluateEndOfStage() {
+		ArrayList<AdventureCard> discard = activeQuest.eliminateStageLosers();
+		for(AdventureCard c : discard)
+			discardPile.addCard(c);
+		
+		return discard;
 	}
 
 	private void initStoryDeck() {
@@ -163,5 +180,6 @@ public class Game {
 		
 		return true;
 	}
+	
 
 }
