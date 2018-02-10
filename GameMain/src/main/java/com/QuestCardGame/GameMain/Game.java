@@ -92,12 +92,15 @@ public class Game {
 	}
 	
 	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {		
-		if(!isValidCardPlay(cards))
+		
+	}
+	
+	public boolean playerPlayCard(Player p, AdventureCard c) {
+		if(!isValidCardPlay(p, c))
 			return false;
 		
-		for(AdventureCard c: cards){
-			p.playCard(c);
-		}			
+		p.playCard(c);
+		
 		return true;
 	}
 	
@@ -156,12 +159,12 @@ public class Game {
 		return (activePlayer + 1) % numPlayers;
 	}
 	
-	private boolean isValidCardPlay(ArrayList<AdventureCard> cards) {
-		//check for same weapon type
+	private boolean isValidCardPlay(Player p, AdventureCard c) {
+		for(AdventureCard pc : p.getPlay()) {
+			if(pc.cardName.equals(c.getName()))
+				return false;
+		}
 		
-		//check for more than 1 armour
-		
-		//for now assume all plays are valid
 		return true;
 	}
 
