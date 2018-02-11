@@ -67,4 +67,8 @@ public class Player {
 		//TODO:
 		//upgrade rank based on number of shields
 	}
+	
+	public int getNumShields() {
+		return numShields;
+	}
 }
