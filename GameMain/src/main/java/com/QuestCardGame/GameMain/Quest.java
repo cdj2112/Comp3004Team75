@@ -12,6 +12,7 @@ public class Quest {
 	private ArrayList<AdventureCard> discardPile;
 	private int currentStage;
 	private int totalStages;
+	private boolean isQuestOver;
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -22,6 +23,7 @@ public class Quest {
 		totalStages = qc.getStages();
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
+		isQuestOver = false;
 	}
 	
 	public boolean validateQuest() {
@@ -87,10 +89,15 @@ public class Quest {
 		iter = players.listIterator();
 		
 		if(currentStage > totalStages - 1) {
+			isQuestOver = true;
 			if(players.size() > 0)
 				awardQuestWinners();
 		}
 		return discardPile;
+	}
+	
+	public boolean isQuestOver() {
+		return isQuestOver;
 	}
 	
 	private void awardQuestWinners() {

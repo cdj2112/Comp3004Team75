@@ -89,6 +89,7 @@ public class QuestTest extends TestCase{
 		assert discard.contains(w3);
 		
 		assert p1.getNumShields() == 2;
+		assert quest.isQuestOver();
 	}
 
 }

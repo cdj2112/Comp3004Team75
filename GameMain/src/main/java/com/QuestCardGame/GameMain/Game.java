@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST
+		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, BETWEEN_STAGES
 	};
 
 	private GameStatus currentStatus;
@@ -137,7 +137,7 @@ public class Game {
 		Player p = activeQuest.getNextPlayer();
 		
 		if(p == null)
-			currentStatus = GameStatus.IDLE; //stage is over
+			currentStatus = GameStatus.BETWEEN_STAGES;
 		else
 			currentStatus = GameStatus.PLAYING_QUEST;
 		
@@ -148,6 +148,13 @@ public class Game {
 		ArrayList<AdventureCard> discard = activeQuest.eliminateStageLosers();
 		for(AdventureCard c : discard)
 			discardPile.addCard(c);
+		
+		if(activeQuest.isQuestOver()) {
+			currentStatus = GameStatus.IDLE;
+			//TODO: perhaps the game should award winners?
+			//		game should remove any cards left except allies?
+			//		game should award adventure cards
+		}
 		
 		return discard;
 	}
