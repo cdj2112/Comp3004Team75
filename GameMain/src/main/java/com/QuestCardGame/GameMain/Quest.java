@@ -9,8 +9,10 @@ public class Quest {
 	private Stage[] stages;
 	private ArrayList<Player> players;
 	private ListIterator<Player> iter;
+	private ArrayList<AdventureCard> discardPile;
 	private int currentStage;
 	private int totalStages;
+	private boolean isQuestOver;
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -18,6 +20,9 @@ public class Quest {
 			stages[i] = new Stage();
 		}
 		totalStages = qc.getStages();
+		discardPile = new ArrayList<AdventureCard>();
+		players = new ArrayList<Player>();
+		isQuestOver = false;
 	}
 	
 	public boolean validateQuest() {
@@ -60,30 +65,38 @@ public class Quest {
 			return null;
 	}
 	
-	public void eliminateStageLosers() {
+	public ArrayList<AdventureCard> eliminateStageLosers() {
 		int pointsToBeat = stages[currentStage++].getBattlePoints();
 		
-		//remove cards before eliminating the player
-		endOfStageCleanup();		
-		if(currentStage > totalStages - 1)
-			endOfQuestCleanup();
-		
-		for(Player p : players) {
-			if(p.getBattlePoints() < pointsToBeat)
-				removePlayer(p);
+		for(Iterator<Player> it = players.iterator(); it.hasNext();) {
+			Player p = it.next();
+			if(p.getBattlePoints() < pointsToBeat) {
+				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
+				it.remove();
+			}
+			else {
+				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
+			}
 		}
+		
+		//thin this should be done in the game class
+		//if(currentStage > totalStages - 1)
+		//	endOfQuestCleanup();
+		
 				
 		//reset the current player to the first one
 		iter = players.listIterator();
 		
 		if(currentStage > totalStages - 1) {
+			isQuestOver = true;
 			if(players.size() > 0)
 				awardQuestWinners();
 		}
+		return discardPile;
 	}
 	
-	private void endOfStageCleanup() {
-		removeCardsOfType(AdventureCard.AdventureType.WEAPON);
+	public boolean isQuestOver() {
+		return isQuestOver;
 	}
 	
 	private void awardQuestWinners() {
@@ -92,19 +105,16 @@ public class Quest {
 			p.addShields(shieldsToAward);
 	}
 	
-	private void endOfQuestCleanup() {
-		removeCardsOfType(AdventureCard.AdventureType.AMOURS);
-	}
-	
-	private void removeCardsOfType(AdventureCard.AdventureType t) {
-		for(Player p : players) {
-			ArrayList<AdventureCard> playerHand = p.getPlay();
+	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
+		
+		ArrayList<AdventureCard> playerHand = p.getPlay();
+		
+		for(Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
+			AdventureCard c = it.next();
 			
-			for(Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
-				AdventureCard c = it.next();
-				
-				if(c.getCardType() == t)
-					it.remove();
+			if(c.getCardType() == t) {
+				discardPile.add(c);
+				it.remove();
 			}
 		}
 	}

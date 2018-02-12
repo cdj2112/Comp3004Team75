@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST
+		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, BETWEEN_STAGES
 	};
 
 	private GameStatus currentStatus;
@@ -15,6 +15,7 @@ public class Game {
 	private int numPlayers = 4;
 	private Deck storyDeck;
 	private Deck adventureDeck;
+	private Deck discardPile;
 	private int playerTurn;
 
 	// Turn Variables
@@ -33,6 +34,7 @@ public class Game {
 		initStoryDeck();
 		initAdventureDeck();
 		playTurn();
+		discardPile = new Deck();
 	}
 
 	public void playTurn() {
@@ -80,32 +82,35 @@ public class Game {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			activeQuest.addPlayer(players[activePlayer]);
 			activePlayer = getNextActivePlayer();
-
-			if (activePlayer == playerTurn)
+			
+			if(activePlayer == playerTurn) {
 				currentStatus = GameStatus.PLAYING_QUEST;
-
+				activeQuest.startQuest();
+			}
+			
 			return true;
 		}
 		return false;
 	}
 
-	public boolean playerPlayCard(Player p, AdventureCard c) {
-		if(!isValidCardPlay(c)) {
-			return false;
-		}
-		p.playCard(c);
-		return true;
-	}
-
 	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
 		for (AdventureCard c : cards) {
-			if (!isValidCardPlay(c))
+			if (!isValidCardPlay(p, c))
 				return false;
 		}
 
 		for (AdventureCard c : cards) {
 			p.playCard(c);
 		}
+		return true;
+	}
+	
+	public boolean playerPlayCard(Player p, AdventureCard c) {
+		if(!isValidCardPlay(p, c))
+			return false;
+		
+		p.playCard(c);
+		
 		return true;
 	}
 
@@ -141,7 +146,29 @@ public class Game {
 	 * in a quest
 	 */
 	public Player getNextActiveQuestPlayer() {
-		return activeQuest.getNextPlayer();
+		Player p = activeQuest.getNextPlayer();
+		
+		if(p == null)
+			currentStatus = GameStatus.BETWEEN_STAGES;
+		else
+			currentStatus = GameStatus.PLAYING_QUEST;
+		
+		return p;
+	}
+	
+	public ArrayList<AdventureCard> evaluateEndOfStage() {
+		ArrayList<AdventureCard> discard = activeQuest.eliminateStageLosers();
+		for(AdventureCard c : discard)
+			discardPile.addCard(c);
+		
+		if(activeQuest.isQuestOver()) {
+			currentStatus = GameStatus.IDLE;
+			//TODO: perhaps the game should award winners?
+			//		game should remove any cards left except allies?
+			//		game should award adventure cards
+		}
+		
+		return discard;
 	}
 
 	public int getNumPlayers() {
@@ -187,14 +214,15 @@ public class Game {
 	public int activePlayer() {
 		return activePlayer;
 	}
-
-	private boolean isValidCardPlay(AdventureCard cards) {
-		// check for same weapon type
-
-		// check for more than 1 armour
-
-		// for now assume all plays are valid
+	
+	private boolean isValidCardPlay(Player p, AdventureCard c) {
+		for(AdventureCard pc : p.getPlay()) {
+			if(pc.cardName.equals(c.getName()))
+				return false;
+		}
+		
 		return true;
 	}
+	
 
 }
