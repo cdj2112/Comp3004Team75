@@ -1,11 +1,12 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, BETWEEN_STAGES
+		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST
 	};
 
 	private GameStatus currentStatus;
@@ -122,6 +123,10 @@ public class Game {
 
 	}
 
+	/**
+	 * don't use. will be removed.
+	 * @return
+	 */
 	public Player getPlayer() {
 		return players[0];
 	}
@@ -136,12 +141,30 @@ public class Game {
 	public Player getNextActiveQuestPlayer() {
 		Player p = activeQuest.getNextPlayer();
 		
-		if(p == null)
-			currentStatus = GameStatus.BETWEEN_STAGES;
-		else
-			currentStatus = GameStatus.PLAYING_QUEST;
+//		if(p == null)
+//			currentStatus = GameStatus.BETWEEN_STAGES;
+//		else
+//			currentStatus = GameStatus.PLAYING_QUEST;
 		
 		return p;
+	}
+	
+	public int getCurrentActivePlayer() {
+		return activePlayer;
+	}
+	
+	/**
+	 * To get the current active quest player for the UI
+	 * @return index of the activeQuestPlayer if it exists
+	 *		   -1 otherwise
+	 */
+	public int getCurrentActiveQuestPlayer() {
+		Player p = activeQuest.getCurrentPlayer();
+		for(int i = 0; i < numPlayers; i++) {
+			if(players[i] == p)
+				return i;
+		}
+		return -1;
 	}
 	
 	public ArrayList<AdventureCard> evaluateEndOfStage() {

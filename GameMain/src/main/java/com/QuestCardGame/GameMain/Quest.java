@@ -9,6 +9,7 @@ public class Quest {
 	private Stage[] stages;
 	private ArrayList<Player> players;
 	private ListIterator<Player> iter;
+	private Player currentPlayer;
 	private ArrayList<AdventureCard> discardPile;
 	private int currentStage;
 	private int totalStages;
@@ -60,10 +61,18 @@ public class Quest {
 	}
 	
 	public Player getNextPlayer() {
-		if(iter.hasNext())
-			return iter.next();
-		else
+		if(iter.hasNext()) {
+			currentPlayer = iter.next();
+			return currentPlayer;
+		}
+		else {
+			currentPlayer = null;
 			return null;
+		}
+	}
+	
+	public Player getCurrentPlayer() {
+		return currentPlayer;
 	}
 	
 	public ArrayList<AdventureCard> eliminateStageLosers() {
