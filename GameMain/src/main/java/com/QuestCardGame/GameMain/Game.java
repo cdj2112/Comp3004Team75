@@ -1,7 +1,6 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Game {
 
@@ -165,6 +164,15 @@ public class Game {
 				return i;
 		}
 		return -1;
+	}
+	
+	public int getPlayerBattlePoints(int player) {
+		if(player < 4 && player >= 0)
+			return players[player].getBattlePoints();
+	}
+	
+	public int getQuestCurrentStageBattlePoints() {
+		return activeQuest.getCurrentStageBattlePoints();
 	}
 	
 	public ArrayList<AdventureCard> evaluateEndOfStage() {

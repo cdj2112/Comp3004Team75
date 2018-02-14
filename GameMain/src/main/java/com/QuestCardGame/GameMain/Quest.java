@@ -75,6 +75,10 @@ public class Quest {
 		return currentPlayer;
 	}
 	
+	public int getCurrentStageBattlePoints() {
+		return stages[currentStage].getBattlePoints();
+	}
+	
 	public ArrayList<AdventureCard> eliminateStageLosers() {
 		int pointsToBeat = stages[currentStage++].getBattlePoints();
 		
