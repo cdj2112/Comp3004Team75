@@ -174,7 +174,7 @@ public class Game {
 	 */
 	
 	public int getPlayerBattlePoints(int player) {
-		if(player < 4 && player >= 0)
+		if(player < numPlayers && player >= 0)
 			return players[player].getBattlePoints();
 		return -1;
 	}
