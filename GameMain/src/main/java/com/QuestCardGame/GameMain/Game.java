@@ -166,9 +166,17 @@ public class Game {
 		return -1;
 	}
 	
+	/**
+	 * Gets the battle points of the specified player
+	 * @param 	player: 0, 1, 2, 3
+	 * @return 	returns battle points of the player if exists
+	 * 			-1 	otherwise
+	 */
+	
 	public int getPlayerBattlePoints(int player) {
 		if(player < 4 && player >= 0)
 			return players[player].getBattlePoints();
+		return -1;
 	}
 	
 	public int getQuestCurrentStageBattlePoints() {
