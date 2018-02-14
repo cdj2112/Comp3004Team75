@@ -79,38 +79,42 @@ public class Quest {
 		return stages[currentStage].getBattlePoints();
 	}
 	
-	public ArrayList<AdventureCard> eliminateStageLosers() {
-		int pointsToBeat = stages[currentStage++].getBattlePoints();
+	/**
+	 * Determines whether the player advances to the next
+	 * stage of the quest, or wins the quest if it is the
+	 * last stage
+	 * @param 	p - the player to evaluate
+	 * @return 	true if the player wins
+	 * 			false otherwise
+	 */
+	
+	public boolean evaluatePlayer(Player p) {
+		int pointsToBeat = stages[currentStage].getBattlePoints();		
+		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
 		
-		for(Iterator<Player> it = players.iterator(); it.hasNext();) {
-			Player p = it.next();
-			if(p.getBattlePoints() < pointsToBeat) {
-				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-				it.remove();
-			}
-			else {
-				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-			}
-		}
-		
-		//thin this should be done in the game class
-		//if(currentStage > totalStages - 1)
-		//	endOfQuestCleanup();
-		
+		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 				
-		//reset the current player to the first one
-		iter = players.listIterator();
+		if(!playerWins)
+			players.remove(p);
 		
-		if(currentStage > totalStages - 1) {
-			isQuestOver = true;
-			if(players.size() > 0)
+		//last player, stage is over
+		if(players.indexOf(p) == players.size() - 1) {
+			currentStage++;
+			if(currentStage > totalStages) {
+				isQuestOver = true;
 				awardQuestWinners();
+			}
 		}
-		return discardPile;
+		
+		return playerWins;
 	}
 	
 	public boolean isQuestOver() {
 		return isQuestOver;
+	}
+	
+	public ArrayList<AdventureCard> getDiscardPile(){
+		return discardPile;
 	}
 	
 	private void awardQuestWinners() {

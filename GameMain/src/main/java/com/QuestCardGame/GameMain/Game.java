@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST
+		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE
 	};
 
 	private GameStatus currentStatus;
@@ -132,6 +132,8 @@ public class Game {
 	
 	/**
 	 * Return the next player to play cards if there is one
+	 * The next player then becomes the current player and
+	 * can be retrieved anytime using getCurrentActiveQuestPlayer()
 	 * Returns null if the round is over
 	 * 
 	 * This is separate from the game's active player because not 
@@ -140,14 +142,24 @@ public class Game {
 	public Player getNextActiveQuestPlayer() {
 		Player p = activeQuest.getNextPlayer();
 		
-//		if(p == null)
-//			currentStatus = GameStatus.BETWEEN_STAGES;
-//		else
-//			currentStatus = GameStatus.PLAYING_QUEST;
-		
+		//play has looped a full circle - change status accordingly
+		if(p == null) {
+			if(currentStatus == GameStatus.PLAYING_QUEST)
+				currentStatus = GameStatus.EVAL_QUEST_STAGE;
+			else if(currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver())
+				currentStatus = GameStatus.PLAYING_QUEST;
+			else
+				currentStatus = GameStatus.IDLE;		
+		}	
 		return p;
 	}
 	
+	/**
+	 * Gets the game's active player, i.e. the player whose turn it is
+	 * to draw a story card. Use getCurrentActiveQuestPlayer() if you are
+	 * looking for whose turn it is in the activeQuest.
+	 * @return int between 0-3 inclusive
+	 */
 	public int getCurrentActivePlayer() {
 		return activePlayer;
 	}
@@ -172,30 +184,38 @@ public class Game {
 	 * @return 	returns battle points of the player if exists
 	 * 			-1 	otherwise
 	 */
-	
 	public int getPlayerBattlePoints(int player) {
 		if(player < numPlayers && player >= 0)
 			return players[player].getBattlePoints();
 		return -1;
 	}
 	
+	/**
+	 * Gets the battle points of the current stage
+	 * @return the battle points of the current stage
+	 */
 	public int getQuestCurrentStageBattlePoints() {
 		return activeQuest.getCurrentStageBattlePoints();
 	}
 	
-	public ArrayList<AdventureCard> evaluateEndOfStage() {
-		ArrayList<AdventureCard> discard = activeQuest.eliminateStageLosers();
-		for(AdventureCard c : discard)
-			discardPile.addCard(c);
-		
+	/**
+	 * Determines if a player advances onto the next stage
+	 * of a quest
+	 * @param 	player to evaluate
+	 * @return	true if player wins stage
+	 * 			false otherwise
+	 */
+	public boolean evaluatePlayerEndOfStage(int player) {
+		boolean result = activeQuest.evaluatePlayer(players[player]);
+			
 		if(activeQuest.isQuestOver()) {
 			currentStatus = GameStatus.IDLE;
-			//TODO: perhaps the game should award winners?
+			//TODO: perhaps the game should award winners? for now in quest
 			//		game should remove any cards left except allies?
 			//		game should award adventure cards
 		}
 		
-		return discard;
+		return result;
 	}
 
 	private void initStoryDeck() {
