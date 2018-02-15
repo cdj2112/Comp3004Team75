@@ -155,21 +155,24 @@ public class Game {
 	}
 	
 	/**
-	 * Gets the game's active player, i.e. the player whose turn it is
-	 * to draw a story card. Use getCurrentActiveQuestPlayer() if you are
-	 * looking for whose turn it is in the activeQuest.
-	 * @return int between 0-3 inclusive
+	 * 			Gets the game's active player. If the game is playing, then this is the quest
+	 * 			active player. Otherwise it's the game player.
+	 * @return 	int between 0-3 inclusive
+	 * 			-1 if there is no active player, i.e. the game has done a full circle
 	 */
 	public int getCurrentActivePlayer() {
-		return activePlayer;
+		if(currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE)
+			return getCurrentActiveQuestPlayer();
+		else
+			return activePlayer;
 	}
 	
 	/**
-	 * To get the current active quest player for the UI
+	 * To get the current active quest player.
 	 * @return index of the activeQuestPlayer if it exists
 	 *		   -1 otherwise
 	 */
-	public int getCurrentActiveQuestPlayer() {
+	private int getCurrentActiveQuestPlayer() {
 		Player p = activeQuest.getCurrentPlayer();
 		for(int i = 0; i < numPlayers; i++) {
 			if(players[i] == p)
@@ -208,6 +211,8 @@ public class Game {
 	public boolean evaluatePlayerEndOfStage(int player) {
 		boolean result = activeQuest.evaluatePlayer(players[player]);
 			
+		getNextActiveQuestPlayer();
+		
 		if(activeQuest.isQuestOver()) {
 			currentStatus = GameStatus.IDLE;
 			//TODO: perhaps the game should award winners? for now in quest
