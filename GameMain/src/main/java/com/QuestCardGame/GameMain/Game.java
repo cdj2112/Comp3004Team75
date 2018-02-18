@@ -15,7 +15,6 @@ public class Game {
 	private int numPlayers = 4;
 	private Deck storyDeck;
 	private Deck adventureDeck;
-	private Deck discardPile;
 	private int playerTurn;
 
 	// Turn Variables
@@ -208,10 +207,15 @@ public class Game {
 	 * @return	true if player wins stage
 	 * 			false otherwise
 	 */
-	public boolean evaluatePlayerEndOfStage(int player) {
+	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
 		boolean result = activeQuest.evaluatePlayer(players[player]);
 			
 		getNextActiveQuestPlayer();
+		
+		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
+		for(AdventureCard c: questDiscard)
+			adventureDeck.discard(c);
+		
 		
 		if(activeQuest.isQuestOver()) {
 			currentStatus = GameStatus.IDLE;
