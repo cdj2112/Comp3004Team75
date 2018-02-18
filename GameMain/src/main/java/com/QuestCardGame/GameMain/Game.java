@@ -33,7 +33,6 @@ public class Game {
 		initStoryDeck();
 		initAdventureDeck();
 		playTurn();
-		discardPile = new Deck();
 	}
 
 	public void playTurn() {
