@@ -67,6 +67,7 @@ public class Quest {
 		}
 		else {
 			currentPlayer = null;
+			iter = players.listIterator(); //reset to beginning
 			return null;
 		}
 	}
@@ -91,16 +92,18 @@ public class Quest {
 	public boolean evaluatePlayer(Player p) {
 		int pointsToBeat = stages[currentStage].getBattlePoints();		
 		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
+		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
 		
+		discardPile.clear();
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 				
 		if(!playerWins)
-			players.remove(p);
+			iter.remove();
 		
-		//last player, stage is over
-		if(players.indexOf(p) == players.size() - 1) {
+		//currentStage starts at 0
+		if(isLastPlayer) {
 			currentStage++;
-			if(currentStage > totalStages) {
+			if(currentStage >= totalStages) {
 				isQuestOver = true;
 				awardQuestWinners();
 			}
@@ -116,7 +119,7 @@ public class Quest {
 	public ArrayList<AdventureCard> getDiscardPile(){
 		return discardPile;
 	}
-	
+		
 	private void awardQuestWinners() {
 		int shieldsToAward = totalStages;
 		for(Player p : players)
