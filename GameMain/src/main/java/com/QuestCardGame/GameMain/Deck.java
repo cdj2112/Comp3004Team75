@@ -6,16 +6,20 @@ import java.util.Stack;
 public class Deck {
 
 	private Stack<Card> cards;
+	private Stack<Card> discard;
 
 	Deck() {
 		cards = new Stack<Card>();
 	}
 
 	public Card drawCard() {
-		if (cards.size() > 0)
+		if (cards.size() > 0) {
 			return cards.pop();
-		else
-			return null;
+		}
+		else {
+			handleEmptyDeck();
+			return cards.pop();
+		}
 	}
 	
 	public void addCard(Card c) {
@@ -28,5 +32,17 @@ public class Deck {
 	
 	public int getNumCards() {
 		return cards.size();
+	}
+	
+	public void discard(Card c) {
+		discard.push(c);
+	}
+	
+	private void handleEmptyDeck() {
+		if(cards.size() != 0)
+			return;
+		
+		cards.addAll(discard);
+		shuffleDeck();
 	}
 }
