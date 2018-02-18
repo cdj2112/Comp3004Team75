@@ -214,16 +214,17 @@ public class Game {
 		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
 		for(AdventureCard c: questDiscard)
 			adventureDeck.discard(c);
-		
-		
-		if(activeQuest.isQuestOver()) {
-			currentStatus = GameStatus.IDLE;
+			
+		if(activeQuest.isQuestOver()) {	
 			//TODO: perhaps the game should award winners? for now in quest
 			//		game should remove any cards left except allies?
 			//		game should award adventure cards
+			//		handle max cards, force discard
+			
+			endTurn();
 		}
 		
-		return result;
+		return questDiscard;
 	}
 
 	private void initStoryDeck() {
