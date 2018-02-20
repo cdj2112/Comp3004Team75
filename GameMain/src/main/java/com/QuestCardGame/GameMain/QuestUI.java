@@ -36,6 +36,7 @@ public class QuestUI extends Group {
 
 	private Button acceptButton;
 	private Button declineButton;
+	private Text prompt;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
 
 	QuestUI(Game g) throws FileNotFoundException {
@@ -86,12 +87,18 @@ public class QuestUI extends Group {
 		storyDeck.addEventHandler(MouseEvent.MOUSE_CLICKED, drawStory);
 		getChildren().add(storyDeck);
 
+		prompt = new Text();
+		prompt.setFont(new Font(20));
+		prompt.setTranslateX(0);
+		prompt.setTranslateY(200);
+		getChildren().add(prompt);
 		acceptButton = new Button("Accept");
-		acceptButton.setTranslateY(200);
+		acceptButton.setTranslateX(0);
+		acceptButton.setTranslateY(225);
 		getChildren().add(acceptButton);
 		declineButton = new Button("Decline");
-		declineButton.setTranslateX(200);
-		declineButton.setTranslateY(200);
+		declineButton.setTranslateX(0);
+		declineButton.setTranslateY(250);
 		getChildren().add(declineButton);
 		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -259,16 +266,20 @@ public class QuestUI extends Group {
 		if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(true);
+			prompt.setVisible(true);
 			if (GS == GameStatus.SPONSORING) {
 				acceptButton.setOnAction(dialogListeners.get("acceptSponsor"));
 				declineButton.setOnAction(dialogListeners.get("declineSponsor"));
+				prompt.setText("Sponsor Quest?");
 			} else {
 				acceptButton.setOnAction(dialogListeners.get("acceptQuest"));
 				declineButton.setOnAction(dialogListeners.get("declineQuest"));
+				prompt.setText("Accept Quest?");
 			}
 		} else {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
+			prompt.setVisible(false);
 		}
 		
 		i = 0;
