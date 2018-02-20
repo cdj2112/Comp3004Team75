@@ -114,12 +114,13 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("acceptQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.acceptQuest(game.getPlayer(game.activePlayer()));
+				game.acceptDeclineQuest(game.getPlayer(game.activePlayer()), true);
 				update();
 			}
 		});
 		dialogListeners.put("declineQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				game.acceptDeclineQuest(game.getPlayer(game.activePlayer()), false);
 				update();
 			}
 		});
