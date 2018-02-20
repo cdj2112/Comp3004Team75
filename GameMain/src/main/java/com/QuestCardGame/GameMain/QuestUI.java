@@ -344,15 +344,19 @@ public class QuestUI extends Group {
 				isEvaluating = true;
 				evalTimer.schedule(new TimerTask() {
 					public void run() {
-						ArrayList<AdventureCard> discard = game.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
-						for(AdventureCard c : discard) {
-							int id = c.getId();
-							Group g = cardAssets.get(id);
-							Group p = (Group)g.getParent();
-							if(p != null) {
-								p.getChildren().remove(g);
+						final ArrayList<AdventureCard> discard = game.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
+						Platform.runLater(new Runnable() {
+							public void run() {
+								for (AdventureCard c : discard) {
+									int id = c.getId();
+									Group g = cardAssets.get(id);
+									Group p = (Group) g.getParent();
+									if (p != null) {
+										p.getChildren().remove(g);
+									}
+								}
 							}
-						}
+						});
 						isEvaluating = false;
 						update();
 					}
