@@ -126,6 +126,7 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("finalizeQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
+				game.finalizeQuest();
 				update();
 			}
 		});
