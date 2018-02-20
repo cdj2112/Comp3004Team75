@@ -29,7 +29,7 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 
 	public boolean doIJoinQuest(Player current, int numStages) {
 		ArrayList<AdventureCard> hand = current.getHand();
-		int foesToDiscard = getNumFoesToDiscard(hand)
+		int foesToDiscard = getNumFoesToDiscard(hand);
 
 		//TODO 	check can increase BP by 10 points each stage, otherwise
 		//		don't join quest
