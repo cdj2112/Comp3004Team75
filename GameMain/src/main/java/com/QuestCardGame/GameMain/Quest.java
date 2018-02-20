@@ -75,6 +75,10 @@ public class Quest {
 		return currentPlayer;
 	}
 	
+	public int getCurrentStageIndex() {
+		return currentStage;
+	}
+    
 	public int getCurrentStageBattlePoints() {
 		return stages[currentStage].getBattlePoints();
 	}

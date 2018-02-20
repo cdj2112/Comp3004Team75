@@ -310,6 +310,12 @@ public class QuestUI extends Group {
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
+		
+		if(GS == GameStatus.EVAL_QUEST_STAGE) {
+			int activeStage = game.getActiveQuest().getCurrentStageIndex();
+			int stageBP = game.getActiveQuest().getCurrentStageBattlePoints();
+			stageGroups[activeStage].setVisible(true);
+		}
 
 	}
 
