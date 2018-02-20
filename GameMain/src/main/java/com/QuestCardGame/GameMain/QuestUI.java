@@ -4,6 +4,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
@@ -38,6 +40,9 @@ public class QuestUI extends Group {
 	private Button declineButton;
 	private Text prompt;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
+
+	private Timer evalTimer = new Timer();
+	private boolean isEvaluating = false;
 
 	QuestUI(Game g) throws FileNotFoundException {
 		super();
@@ -310,11 +315,22 @@ public class QuestUI extends Group {
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
-		
-		if(GS == GameStatus.EVAL_QUEST_STAGE) {
+
+		if (GS == GameStatus.EVAL_QUEST_STAGE) {
 			int activeStage = game.getActiveQuest().getCurrentStageIndex();
 			int stageBP = game.getActiveQuest().getCurrentStageBattlePoints();
+			int playerBP = game.getPlayer(active).getBattlePoints();
 			stageGroups[activeStage].setVisible(true);
+			if (!isEvaluating) {
+				isEvaluating = true;
+				evalTimer.schedule(new TimerTask() {
+					public void run() {
+						ArrayList<AdventureCard> discard = game.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
+						isEvaluating = false;
+						update();
+					}
+				}, (long) 2 * 1000);
+			}
 		}
 
 	}
