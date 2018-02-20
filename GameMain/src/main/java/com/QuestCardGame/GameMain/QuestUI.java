@@ -289,24 +289,28 @@ public class QuestUI extends Group {
 				declineButton.setOnAction(dialogListeners.get("declineQuest"));
 				prompt.setText("Accept Quest?");
 			}
-		} else if (GS == GameStatus.BUILDING_QUEST){
+		} else if (GS == GameStatus.BUILDING_QUEST || GS == GameStatus.PLAYING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(false);
 			prompt.setVisible(false);
-			acceptButton.setOnAction(dialogListeners.get("finalizeQuest"));
+			if (GS == GameStatus.BUILDING_QUEST) {
+				acceptButton.setOnAction(dialogListeners.get("finalizeQuest"));
+			} else {
+				acceptButton.setOnAction(dialogListeners.get("finalizePlay"));
+			}
 		} else {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
 			prompt.setVisible(false);
 		}
-		
+
 		i = 0;
 		for (Hotspot h : stageHotspots) {
 			stageGroups[i].setVisible(GS == GameStatus.BUILDING_QUEST && i < stages);
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
-		
+
 	}
 
 	public void update() {
