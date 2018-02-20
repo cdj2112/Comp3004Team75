@@ -39,6 +39,7 @@ public class QuestUI extends Group {
 	private Button acceptButton;
 	private Button declineButton;
 	private Text prompt;
+	private Text playerBPDisplay, stageBPDisplay;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
 
 	private Timer evalTimer = new Timer();
@@ -97,6 +98,12 @@ public class QuestUI extends Group {
 		prompt.setTranslateX(0);
 		prompt.setTranslateY(200);
 		getChildren().add(prompt);
+		playerBPDisplay = new Text();
+		playerBPDisplay.setFont(new Font(20));
+		getChildren().add(playerBPDisplay);
+		stageBPDisplay = new Text();
+		stageBPDisplay.setFont(new Font(20));
+		getChildren().add(stageBPDisplay);
 		acceptButton = new Button("Accept");
 		acceptButton.setTranslateX(0);
 		acceptButton.setTranslateY(225);
@@ -321,7 +328,17 @@ public class QuestUI extends Group {
 		if (GS == GameStatus.EVAL_QUEST_STAGE) {
 			int activeStage = game.getActiveQuest().getCurrentStageIndex();
 			int stageBP = game.getActiveQuest().getCurrentStageBattlePoints();
+			stageBPDisplay.setVisible(true);
+			stageBPDisplay.setText("" + stageBP);
+			stageBPDisplay.setTranslateX(150);
+			stageBPDisplay.setTranslateY(activeStage * 100 + 50);
+
 			int playerBP = game.getPlayer(active).getBattlePoints();
+			playerBPDisplay.setVisible(true);
+			playerBPDisplay.setText("" + playerBP);
+			playerBPDisplay.setTranslateX(0);
+			playerBPDisplay.setTranslateY(300);
+
 			stageGroups[activeStage].setVisible(true);
 			if (!isEvaluating) {
 				isEvaluating = true;
@@ -341,6 +358,9 @@ public class QuestUI extends Group {
 					}
 				}, (long) 2 * 1000);
 			}
+		} else {
+			playerBPDisplay.setVisible(false);
+			stageBPDisplay.setVisible(false);
 		}
 
 	}
