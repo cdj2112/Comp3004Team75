@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.event.ActionEvent;
 import javafx.scene.Group;
@@ -330,8 +331,8 @@ public class QuestUI extends Group {
 			int stageBP = game.getActiveQuest().getCurrentStageBattlePoints();
 			stageBPDisplay.setVisible(true);
 			stageBPDisplay.setText("" + stageBP);
-			stageBPDisplay.setTranslateX(150);
-			stageBPDisplay.setTranslateY(activeStage * 100 + 50);
+			stageBPDisplay.setTranslateX(100);
+			stageBPDisplay.setTranslateY(300);
 
 			int playerBP = game.getPlayer(active).getBattlePoints();
 			playerBPDisplay.setVisible(true);
