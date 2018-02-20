@@ -22,13 +22,15 @@ public interface AIPlayerStrategy {
 	
 	Map<Integer, ArrayList<AdventureCard>> createQuest(Player current, QuestCard qc);
 	
-	boolean doIJoinQuest(Player current, ArrayList<Player> allPlayers);
+	boolean doIJoinQuest(Player current, int numStages);
 	
 	ArrayList<AdventureCard> playCardsForQuestStage(Player current, int currentStage, int totalStages);
 	
 	int getBidForTest(int currentBid, int currentRound, Player current);
 	
 	ArrayList<AdventureCard> discardAfterWinningTest(Player current);
+
+	
 	
 	
 	
