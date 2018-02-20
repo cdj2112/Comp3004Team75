@@ -175,9 +175,13 @@ public class Game {
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
 			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver())
 				currentStatus = GameStatus.PLAYING_QUEST;
-			else
+			else {
 				currentStatus = GameStatus.IDLE;
+				return null;
+			}
+			return getNextActiveQuestPlayer();
 		}
+		
 		return p;
 	}
 
