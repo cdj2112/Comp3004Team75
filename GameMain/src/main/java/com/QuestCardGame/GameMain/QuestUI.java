@@ -141,17 +141,17 @@ public class QuestUI extends Group {
 		for (int i = 0; i < 5; i++) {
 			stageGroups[i] = new StageGroup();
 			stageGroups[i].setTranslateX(100);
-			stageGroups[i].setTranslateY(i*100);
+			stageGroups[i].setTranslateY(i * 100);
 			stageGroups[i].setVisible(false);
-			
+
 			stageHotspots[i] = new Hotspot();
 			stageHotspots[i].setHeight(100);
 			stageHotspots[i].setWidth(600);
 			stageHotspots[i].setStroke(Color.RED);
 			stageHotspots[i].setFill(Color.TRANSPARENT);
-			stageHotspots[i].setAction((HotspotBehaviour)behaviourFactory.getPlayToStage(i));
+			stageHotspots[i].setAction((HotspotBehaviour) behaviourFactory.getPlayToStage(i));
 			stageHotspots[i].setActive(false);
-			
+
 			stageGroups[i].getChildren().add(stageHotspots[i]);
 			getChildren().add(stageGroups[i]);
 		}
@@ -243,13 +243,13 @@ public class QuestUI extends Group {
 				xOffset++;
 			}
 		}
-		
+
 		Quest q = game.getActiveQuest();
-		if(q!=null) {
+		if (q != null) {
 			int stg = 0;
-			for(Stage s: q.getStages()) {
+			for (Stage s : q.getStages()) {
 				int xOffset = 0;
-				for(Card c: s.getCards()) {
+				for (Card c : s.getCards()) {
 					Group g = findCardGroup(c);
 					if (g == null) {
 						g = makeNewCardGroup(c);
@@ -272,7 +272,7 @@ public class QuestUI extends Group {
 		int i = 0;
 		int active = game.getCurrentActivePlayer();
 		for (Hotspot h : playHotspots) {
-			h.setActive(i == active);
+			h.setActive(i == active && GS == GameStatus.PLAYING_QUEST);
 			i++;
 		}
 
