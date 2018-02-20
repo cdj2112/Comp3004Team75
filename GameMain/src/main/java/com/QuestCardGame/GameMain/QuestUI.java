@@ -124,6 +124,11 @@ public class QuestUI extends Group {
 				update();
 			}
 		});
+		dialogListeners.put("finalizeQuest", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				update();
+			}
+		});
 
 		stageGroups = new StageGroup[5];
 		for (int i = 0; i < 5; i++) {
@@ -277,6 +282,11 @@ public class QuestUI extends Group {
 				declineButton.setOnAction(dialogListeners.get("declineQuest"));
 				prompt.setText("Accept Quest?");
 			}
+		} else if (GS == GameStatus.BUILDING_QUEST){
+			acceptButton.setVisible(true);
+			declineButton.setVisible(false);
+			prompt.setVisible(false);
+			acceptButton.setOnAction(dialogListeners.get("finalizeQuest"));
 		} else {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);

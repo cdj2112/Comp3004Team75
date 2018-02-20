@@ -96,6 +96,16 @@ public class Game {
 		}
 		return false;
 	}
+	
+	public void finalizeQuest() {
+		if(currentStatus == GameStatus.BUILDING_QUEST) {
+			boolean valid = activeQuest.validateQuest();
+			if(valid) {
+				currentStatus = GameStatus.ACCEPTING_QUEST;
+				activePlayer = getNextActivePlayer();
+			}
+		}
+	}
 
 	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
 		for (AdventureCard c : cards) {
