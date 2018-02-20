@@ -114,13 +114,13 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("acceptQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.acceptDeclineQuest(game.getPlayer(game.activePlayer()), true);
+				game.acceptDeclineQuest(game.getPlayer(game.getCurrentActivePlayer()), true);
 				update();
 			}
 		});
 		dialogListeners.put("declineQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.acceptDeclineQuest(game.getPlayer(game.activePlayer()), false);
+				game.acceptDeclineQuest(game.getPlayer(game.getCurrentActivePlayer()), false);
 				update();
 			}
 		});
@@ -156,7 +156,7 @@ public class QuestUI extends Group {
 		for (Hotspot h : stageHotspots) {
 			h.checkColision(draggingCard, x, y);
 		}
-		playHotspots[game.activePlayer()].checkColision(draggingCard, x, y);
+		playHotspots[game.getCurrentActivePlayer()].checkColision(draggingCard, x, y);
 	}
 
 	private Group makeNewCardGroup(Card c) {
@@ -263,7 +263,7 @@ public class QuestUI extends Group {
 		int stages = game.activeStages();
 
 		int i = 0;
-		int active = game.activePlayer();
+		int active = game.getCurrentActivePlayer();
 		for (Hotspot h : playHotspots) {
 			h.setActive(i == active);
 			i++;
@@ -303,7 +303,7 @@ public class QuestUI extends Group {
 	}
 
 	public void update() {
-		int activePlayer = game.activePlayer();
+		int activePlayer = game.getCurrentActivePlayer();
 		repositionCards();
 		readGameStatus();
 		int i = 0;

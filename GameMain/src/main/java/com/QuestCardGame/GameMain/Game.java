@@ -293,10 +293,6 @@ public class Game {
 		}
 	}
 
-	public int activePlayer() {
-		return activePlayer;
-	}
-
 	private boolean isValidCardPlay(Player p, AdventureCard c) {
 		for (AdventureCard pc : p.getPlay()) {
 			if (pc.cardName.equals(c.getName()))
