@@ -10,6 +10,7 @@ public class Deck {
 
 	Deck() {
 		cards = new Stack<Card>();
+		discard = new Stack<Card>();
 	}
 
 	public Card drawCard() {
