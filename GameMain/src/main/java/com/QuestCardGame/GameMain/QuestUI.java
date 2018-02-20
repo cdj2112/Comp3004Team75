@@ -297,11 +297,13 @@ public class QuestUI extends Group {
 		} else if (GS == GameStatus.BUILDING_QUEST || GS == GameStatus.PLAYING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(false);
-			prompt.setVisible(false);
+			prompt.setVisible(true);
 			if (GS == GameStatus.BUILDING_QUEST) {
 				acceptButton.setOnAction(dialogListeners.get("finalizeQuest"));
+				prompt.setText("Build Quest");
 			} else {
 				acceptButton.setOnAction(dialogListeners.get("finalizePlay"));
+				prompt.setText("Play Cards for Stage");
 			}
 		} else {
 			acceptButton.setVisible(false);
