@@ -21,6 +21,7 @@ public class Game {
 	private int activePlayer;
 	// Quests
 	private Player sponsor;
+	private int sponsorIndex;
 	private Quest activeQuest;
 
 	Game() {
@@ -54,6 +55,7 @@ public class Game {
 	public void acceptSponsor() {
 		if (currentStatus == GameStatus.SPONSORING) {
 			sponsor = players[activePlayer];
+			sponsorIndex = activePlayer; 
 			currentStatus = GameStatus.BUILDING_QUEST;
 		}
 	}
@@ -76,14 +78,18 @@ public class Game {
 		return false;
 	}
 
-	public boolean acceptQuest(Player p) {
+	public boolean acceptDeclineQuest(Player p, boolean accept) {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
-			activeQuest.addPlayer(players[activePlayer]);
+			if (accept) {
+				activeQuest.addPlayer(players[activePlayer]);
+			}
+
 			activePlayer = getNextActivePlayer();
 
-			if (activePlayer == playerTurn) {
+			if (activePlayer == sponsorIndex) {
 				currentStatus = GameStatus.PLAYING_QUEST;
 				activeQuest.startQuest();
+				activeQuest.getNextPlayer();
 			}
 
 			return true;
