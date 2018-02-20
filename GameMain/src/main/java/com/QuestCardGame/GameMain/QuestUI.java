@@ -130,6 +130,12 @@ public class QuestUI extends Group {
 				update();
 			}
 		});
+		dialogListeners.put("finalizePlay", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				game.finalizePlay();
+				update();
+			}
+		});
 
 		stageGroups = new StageGroup[5];
 		for (int i = 0; i < 5; i++) {

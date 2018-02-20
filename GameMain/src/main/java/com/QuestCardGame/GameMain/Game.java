@@ -106,6 +106,12 @@ public class Game {
 			}
 		}
 	}
+	
+	public void finalizePlay() {
+		if(currentStatus == GameStatus.PLAYING_QUEST) {
+			getNextActiveQuestPlayer();
+		}
+	}
 
 	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
 		for (AdventureCard c : cards) {
