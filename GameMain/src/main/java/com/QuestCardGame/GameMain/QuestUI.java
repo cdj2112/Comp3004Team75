@@ -326,6 +326,14 @@ public class QuestUI extends Group {
 				evalTimer.schedule(new TimerTask() {
 					public void run() {
 						ArrayList<AdventureCard> discard = game.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
+						for(AdventureCard c : discard) {
+							int id = c.getId();
+							Group g = cardAssets.get(id);
+							Group p = (Group)g.getParent();
+							if(p != null) {
+								p.getChildren().remove(g);
+							}
+						}
 						isEvaluating = false;
 						update();
 					}
