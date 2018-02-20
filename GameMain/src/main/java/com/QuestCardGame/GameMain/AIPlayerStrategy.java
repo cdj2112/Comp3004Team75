@@ -1,6 +1,7 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface AIPlayerStrategy {
 	
@@ -15,13 +16,20 @@ public interface AIPlayerStrategy {
 	
 	boolean doIJoinTournament(Player current, ArrayList<Player> allPlayers);
 	
+	ArrayList<AdventureCard> playCardsForTournament(Player current);
+	
 	boolean doISponsorAQuest(Player current, ArrayList<Player> allPlayers);
+	
+	Map<Integer, ArrayList<AdventureCard>> createQuest(Player current, QuestCard qc);
 	
 	boolean doIJoinQuest(Player current, ArrayList<Player> allPlayers);
 	
-	int getBid(int currentBid, int currentRound, Player current);
+	ArrayList<AdventureCard> playCardsForQuestStage(Player current, int currentStage, int totalStages);
+	
+	int getBidForTest(int currentBid, int currentRound, Player current);
 	
 	ArrayList<AdventureCard> discardAfterWinningTest(Player current);
+	
 	
 	
 	
