@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, BETWEEN_STAGES
+		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE
 	};
 
 	private GameStatus currentStatus;
@@ -15,7 +15,6 @@ public class Game {
 	private int numPlayers = 4;
 	private Deck storyDeck;
 	private Deck adventureDeck;
-	private Deck discardPile;
 	private int playerTurn;
 
 	// Turn Variables
@@ -34,7 +33,6 @@ public class Game {
 		initStoryDeck();
 		initAdventureDeck();
 		playTurn();
-		discardPile = new Deck();
 	}
 
 	public void playTurn() {
@@ -82,12 +80,12 @@ public class Game {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			activeQuest.addPlayer(players[activePlayer]);
 			activePlayer = getNextActivePlayer();
-			
-			if(activePlayer == playerTurn) {
+
+			if (activePlayer == playerTurn) {
 				currentStatus = GameStatus.PLAYING_QUEST;
 				activeQuest.startQuest();
 			}
-			
+
 			return true;
 		}
 		return false;
@@ -104,13 +102,13 @@ public class Game {
 		}
 		return true;
 	}
-	
+
 	public boolean playerPlayCard(Player p, AdventureCard c) {
-		if(!isValidCardPlay(p, c))
+		if (!isValidCardPlay(p, c))
 			return false;
-		
+
 		p.playCard(c);
-		
+
 		return true;
 	}
 
@@ -139,36 +137,104 @@ public class Game {
 	}
 
 	/**
-	 * Return the next player to play cards if there is one Returns null if the
-	 * round is over
+	 * Return the next player to play cards if there is one The next player then
+	 * becomes the current player and can be retrieved anytime using
+	 * getCurrentActiveQuestPlayer() Returns null if the round is over
 	 * 
 	 * This is separate from the game's active player because not all players may be
 	 * in a quest
 	 */
 	public Player getNextActiveQuestPlayer() {
 		Player p = activeQuest.getNextPlayer();
-		
-		if(p == null)
-			currentStatus = GameStatus.BETWEEN_STAGES;
-		else
-			currentStatus = GameStatus.PLAYING_QUEST;
-		
+
+		// play has looped a full circle - change status accordingly
+		if (p == null) {
+			if (currentStatus == GameStatus.PLAYING_QUEST)
+				currentStatus = GameStatus.EVAL_QUEST_STAGE;
+			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver())
+				currentStatus = GameStatus.PLAYING_QUEST;
+			else
+				currentStatus = GameStatus.IDLE;
+		}
 		return p;
 	}
-	
-	public ArrayList<AdventureCard> evaluateEndOfStage() {
-		ArrayList<AdventureCard> discard = activeQuest.eliminateStageLosers();
-		for(AdventureCard c : discard)
-			discardPile.addCard(c);
-		
-		if(activeQuest.isQuestOver()) {
-			currentStatus = GameStatus.IDLE;
-			//TODO: perhaps the game should award winners?
-			//		game should remove any cards left except allies?
-			//		game should award adventure cards
+
+	/**
+	 * Gets the game's active player. If the game is playing, then this is the quest
+	 * active player. Otherwise it's the game player.
+	 * 
+	 * @return int between 0-3 inclusive -1 if there is no active player, i.e. the
+	 *         game has done a full circle
+	 */
+	public int getCurrentActivePlayer() {
+		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE)
+			return getCurrentActiveQuestPlayer();
+		else
+			return activePlayer;
+	}
+
+	/**
+	 * To get the current active quest player.
+	 * 
+	 * @return index of the activeQuestPlayer if it exists -1 otherwise
+	 */
+	private int getCurrentActiveQuestPlayer() {
+		Player p = activeQuest.getCurrentPlayer();
+		for (int i = 0; i < numPlayers; i++) {
+			if (players[i] == p)
+				return i;
 		}
-		
-		return discard;
+		return -1;
+	}
+
+	/**
+	 * Gets the battle points of the specified player
+	 * 
+	 * @param player:
+	 *            0, 1, 2, 3
+	 * @return returns battle points of the player if exists -1 otherwise
+	 */
+	public int getPlayerBattlePoints(int player) {
+		if (player < numPlayers && player >= 0)
+			return players[player].getBattlePoints();
+		return -1;
+	}
+
+	/**
+	 * Gets the battle points of the current stage
+	 * 
+	 * @return the battle points of the current stage
+	 */
+	public int getQuestCurrentStageBattlePoints() {
+		return activeQuest.getCurrentStageBattlePoints();
+	}
+
+	/**
+	 * Determines if a player advances onto the next stage of a quest
+	 * 
+	 * @param player
+	 *            to evaluate
+	 * @return true if player wins stage false otherwise
+	 */
+	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
+		boolean result = activeQuest.evaluatePlayer(players[player]);
+
+		getNextActiveQuestPlayer();
+
+		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
+		for (AdventureCard c : questDiscard)
+			adventureDeck.discard(c);
+
+		if (activeQuest.isQuestOver()) {
+			// TODO: perhaps the game should award winners? for now in quest
+			// game should remove any cards left except allies?
+			// game should award adventure cards
+			// handle max cards, force discard
+
+			endTurn();
+		}
+
+		return questDiscard;
 	}
 
 	public int getNumPlayers() {
@@ -214,15 +280,14 @@ public class Game {
 	public int activePlayer() {
 		return activePlayer;
 	}
-	
+
 	private boolean isValidCardPlay(Player p, AdventureCard c) {
-		for(AdventureCard pc : p.getPlay()) {
-			if(pc.cardName.equals(c.getName()))
+		for (AdventureCard pc : p.getPlay()) {
+			if (pc.cardName.equals(c.getName()))
 				return false;
 		}
-		
+
 		return true;
 	}
-	
 
 }
