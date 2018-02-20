@@ -127,6 +127,12 @@ public class Quest {
 		int shieldsToAward = totalStages;
 		for(Player p : players)
 			p.addShields(shieldsToAward);
+		for(Stage s: stages) {
+			ArrayList<AdventureCard> cards = s.getCards();
+			for(AdventureCard c : cards) {
+				discardPile.add(c);
+			}
+		}
 	}
 	
 	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
