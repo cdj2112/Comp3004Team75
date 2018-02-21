@@ -17,10 +17,9 @@ public class Quest {
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
-		
-		for(int i = 0; i < qc.getStages(); i++)
+		for(int i =0; i<qc.getStages();i++) {
 			stages[i] = new Stage();
-		
+		}
 		totalStages = qc.getStages();
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
@@ -76,6 +75,10 @@ public class Quest {
 		return currentPlayer;
 	}
 	
+	public int getCurrentStageIndex() {
+		return currentStage;
+	}
+    
 	public int getCurrentStageBattlePoints() {
 		return stages[currentStage].getBattlePoints();
 	}
@@ -124,6 +127,12 @@ public class Quest {
 		int shieldsToAward = totalStages;
 		for(Player p : players)
 			p.addShields(shieldsToAward);
+		for(Stage s: stages) {
+			ArrayList<AdventureCard> cards = s.getCards();
+			for(AdventureCard c : cards) {
+				discardPile.add(c);
+			}
+		}
 	}
 	
 	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
@@ -138,5 +147,13 @@ public class Quest {
 				it.remove();
 			}
 		}
+	}
+	
+	public int getNumStages() {
+		return totalStages;
+	}
+	
+	public Stage[] getStages() {
+		return stages;
 	}
 }
