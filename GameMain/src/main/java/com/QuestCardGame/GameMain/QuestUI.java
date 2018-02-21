@@ -232,7 +232,7 @@ public class QuestUI extends Group {
 				Group g = findCardGroup(c);
 				if (g == null) {
 					g = makeNewCardGroup(c);
-					getPlayerGroup(i).addCardToHand(g);
+					playerGroups[i].addCardToHand(g);
 					cardAssets.put(c.getId(), g);
 				}
 				g.setTranslateX(xOffset * 110.0);
@@ -248,7 +248,7 @@ public class QuestUI extends Group {
 				Group g = findCardGroup(c);
 				if (g == null) {
 					g = makeNewCardGroup(c);
-					getPlayerGroup(i).playCard(g);
+					playerGroups[i].playCard(g);
 					cardAssets.put(c.getId(), g);
 				}
 				g.setTranslateX(xOffset * 110.0);
