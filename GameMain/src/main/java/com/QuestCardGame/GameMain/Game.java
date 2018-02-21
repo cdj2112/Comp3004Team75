@@ -113,16 +113,18 @@ public class Game {
 		}
 	}
 
-	public boolean playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
+	public boolean[] playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
+		boolean [] played = new boolean[cards.size()];
+		int i = 0;
 		for (AdventureCard c : cards) {
-			if (!isValidCardPlay(p, c))
-				return false;
+			if (!isValidCardPlay(p, c)) {
+				played[i]=false;
+			} else {
+			    p.playCard(c);
+			    played[i]=true;
+			}
 		}
-
-		for (AdventureCard c : cards) {
-			p.playCard(c);
-		}
-		return true;
+		return played;
 	}
 
 	public boolean playerPlayCard(Player p, AdventureCard c) {
