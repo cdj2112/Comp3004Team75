@@ -7,12 +7,10 @@ public interface AIPlayerStrategy {
 	
 	// interface proposal for strategy
 	//
-	// need player objects to decide if the current player can evolve/win
-	// and to check if anyone else in the game can evolve/win right now.
-	// 
-	// maybe we don't need the entire player objects, and it's probably bad design
-	// but this leaves the door open for advanced strategies which examine
-	// the cards each player has played on the table, their current rank etc.
+	// the way i'm envisioning this is the UI will query the ai player for 
+	// the cards to play/decision to make, and the player will send back the info.
+	// then the flow of control will go through the game as it normally would for 
+	// the other players.
 	
 	boolean doIJoinTournament(Game g);
 	

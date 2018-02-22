@@ -12,9 +12,17 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 		return true;
 	}
 
+	//Play 50 BP or best possible hand
 	public ArrayList<AdventureCard> playCardsForTournament(Game g) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
+		ArrayList<AdventureCard> hand = g.getCurrentActivePlayerObj().getHand();
+
+//		TODO
+//		cardsToPlay = getCardsForPoints(50);
+//		if(cardsToPlay.size() == 0)
+//			cardsToPlay = getBestPossibleHand(hand);
+		
+		return cardsToPlay;
 	}
 
 	public boolean doISponsorAQuest(Game g) {
@@ -27,29 +35,34 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 		return null;
 	}
 
+	//Can increase BP each stage by 10 pts AND
+	//has 2 foes less than 25 BP
 	public boolean doIJoinQuest(Player current, int numStages) {
 		ArrayList<AdventureCard> hand = current.getHand();
-		int foesToDiscard = getNumFoesToDiscard(hand);
+		int foesToDiscard = getNumFoesToDiscard(hand, 25);
+		boolean isValidBattlePoints = false;
 
-		//TODO 	check can increase BP by 10 points each stage, otherwise
-		//		don't join quest
+		//TODO 	check for increasing BP by 10 pts
+		//isValidBattlePoints = doIHaveIncreasingBattlePoints(hand, numStages, 10);
 		
-		return  foesToDiscard >= 2;
+		return  foesToDiscard >= 2 && isValidBattlePoints;
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage(Game g) {
-		ArrayList<AdventureCard> play = new ArrayList<AdventureCard>();
+		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
+
 //		if(currentStage == totalStages) {
-//			//TODO play strongest possible hand
+//			//TODO getBestPossibleHand(hand)
 //		}
 //		else {
 //			//TODO play +10 using amour, ally, weapon in that order
 //		}
-		return play;
+		return cardsToPlay;
 	}
 
 	public int getBidForTest(Game g) {
 		int numToBid = 0;
+		//int currentRound = g.getActiveQuest().getTestRound();
 		
 //		if(currentRound == 1) {
 //			numToBid = getNumFoesToDiscard(current.getHand());
@@ -67,13 +80,14 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 		return null;
 	}
 	
-	public int getNumFoesToDiscard(ArrayList<AdventureCard> hand) {
+	public int getNumFoesToDiscard(ArrayList<AdventureCard> hand, int maxBattlePoints) {
 		int numFoesToDiscard = 0;
 		for(AdventureCard c: hand) {
-			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) < 25)
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) < maxBattlePoints)
 				numFoesToDiscard++;
 		}
 		return numFoesToDiscard;
 	}
+
 
 }
