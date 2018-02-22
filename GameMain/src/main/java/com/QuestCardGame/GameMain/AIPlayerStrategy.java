@@ -14,19 +14,19 @@ public interface AIPlayerStrategy {
 	// but this leaves the door open for advanced strategies which examine
 	// the cards each player has played on the table, their current rank etc.
 	
-	boolean doIJoinTournament(Player current, ArrayList<Player> allPlayers);
+	boolean doIJoinTournament(Game g);
 	
 	ArrayList<AdventureCard> playCardsForTournament(Player current);
 	
-	boolean doISponsorAQuest(Player current, ArrayList<Player> allPlayers);
+	boolean doISponsorAQuest(Game g);
 	
 	Map<Integer, ArrayList<AdventureCard>> createQuest(Player current, QuestCard qc);
 	
 	boolean doIJoinQuest(Player current, int numStages);
 	
-	ArrayList<AdventureCard> playCardsForQuestStage(Player current, int currentStage, int totalStages);
+	ArrayList<AdventureCard> playCardsForQuestStage(Game g);
 	
-	int getBidForTest(int currentBid, int currentRound, Player current);
+	int getBidForTest(Game g);
 	
 	ArrayList<AdventureCard> discardAfterWinningTest(Player current);
 

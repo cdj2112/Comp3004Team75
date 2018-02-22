@@ -7,7 +7,7 @@ import java.util.Comparator;
 
 public class AIStrategyTwo implements AIPlayerStrategy {
 
-	public boolean doIJoinTournament(Player current, ArrayList<Player> allPlayers) {
+	public boolean doIJoinTournament(Game g) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -17,7 +17,7 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 		return null;
 	}
 
-	public boolean doISponsorAQuest(Player current, ArrayList<Player> allPlayers) {
+	public boolean doISponsorAQuest(Game g) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -37,27 +37,27 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 		return  foesToDiscard >= 2;
 	}
 
-	public ArrayList<AdventureCard> playCardsForQuestStage(Player current, int currentStage, int totalStages) {
+	public ArrayList<AdventureCard> playCardsForQuestStage(Game g) {
 		ArrayList<AdventureCard> play = new ArrayList<AdventureCard>();
-		if(currentStage == totalStages) {
-			//TODO play strongest possible hand
-		}
-		else {
-			//TODO play +10 using amour, ally, weapon in that order
-		}
+//		if(currentStage == totalStages) {
+//			//TODO play strongest possible hand
+//		}
+//		else {
+//			//TODO play +10 using amour, ally, weapon in that order
+//		}
 		return play;
 	}
 
-	public int getBidForTest(int currentBid, int currentRound, Player current) {
+	public int getBidForTest(Game g) {
 		int numToBid = 0;
 		
-		if(currentRound == 1) {
-			numToBid = getNumFoesToDiscard(current.getHand());
-		}
-		else if(currentRound == 2) {
-			//TODO add # duplicates to bid
-			//numToBid += getNumFoesToDiscard(current.getHand()) + getNumDuplicates(current.getHand());
-		}
+//		if(currentRound == 1) {
+//			numToBid = getNumFoesToDiscard(current.getHand());
+//		}
+//		else if(currentRound == 2) {
+//			//TODO add # duplicates to bid
+//			//numToBid += getNumFoesToDiscard(current.getHand()) + getNumDuplicates(current.getHand());
+//		}
 		
 		return numToBid;
 	}
