@@ -10,7 +10,7 @@ public class AIStrategyOne implements AIPlayerStrategy {
 		return false;
 	}
 
-	public ArrayList<AdventureCard> playCardsForTournament(Player current) {
+	public ArrayList<AdventureCard> playCardsForTournament(Game g) {
 		// TODO Auto-generated method stub
 		return null;
 	}

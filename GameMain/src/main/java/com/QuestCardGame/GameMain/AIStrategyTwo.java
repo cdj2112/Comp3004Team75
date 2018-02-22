@@ -7,12 +7,12 @@ import java.util.Comparator;
 
 public class AIStrategyTwo implements AIPlayerStrategy {
 
+	//Always participate
 	public boolean doIJoinTournament(Game g) {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	public ArrayList<AdventureCard> playCardsForTournament(Player current) {
+	public ArrayList<AdventureCard> playCardsForTournament(Game g) {
 		// TODO Auto-generated method stub
 		return null;
 	}

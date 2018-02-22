@@ -16,7 +16,7 @@ public interface AIPlayerStrategy {
 	
 	boolean doIJoinTournament(Game g);
 	
-	ArrayList<AdventureCard> playCardsForTournament(Player current);
+	ArrayList<AdventureCard> playCardsForTournament(Game g);
 	
 	boolean doISponsorAQuest(Game g);
 	
