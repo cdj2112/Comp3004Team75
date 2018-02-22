@@ -15,6 +15,7 @@ public class Player {
 	private int numShields;
 	private int rank;
 	static int nextPlayerNumber = 1;
+	private AIPlayerStrategy aiStrategy;
 	
 	Player(){
 		hand = new ArrayList<AdventureCard>();
@@ -22,6 +23,7 @@ public class Player {
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 5; //squire
+		aiStrategy = null; //only 
 		
 		//disabled until log4j2.xml has been created
 		//logger.info("A new player has been created.");
@@ -70,5 +72,13 @@ public class Player {
 	
 	public int getNumShields() {
 		return numShields;
+	}
+	
+	public void setAiStrategy(int s) {
+		//if(s == 1)
+		//	aiStrategy = new AIStrategyOne();
+		if(s == 2)
+			aiStrategy = new AIStrategyTwo();
+			
 	}
 }
