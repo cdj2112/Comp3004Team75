@@ -165,6 +165,10 @@ public class Game {
 			return activePlayer;
 	}
 	
+	public Player getCurrentActivePlayerObj() {
+		return players[getCurrentActivePlayer()];
+	}
+	
 	/**
 	 * To get the current active quest player.
 	 * @return index of the activeQuestPlayer if it exists
