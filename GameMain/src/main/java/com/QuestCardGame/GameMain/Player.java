@@ -77,7 +77,7 @@ public class Player {
 	public void setAiStrategy(int s) {
 		if(s == 1)
 			aiStrategy = new AIStrategyOne();
-		if(s == 2)
+		else if(s == 2)
 			aiStrategy = new AIStrategyTwo();
 			
 	}
