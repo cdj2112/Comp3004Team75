@@ -304,7 +304,10 @@ public class Game {
 			// game should remove any cards left except allies?
 			// game should award adventure cards
 			// handle max cards, force discard
-
+            int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
+            for(int i=0; i<backToSponsor; i++) {
+            	playerDrawAdventureCard(sponsor);
+            }
 			endTurn();
 		}
 
