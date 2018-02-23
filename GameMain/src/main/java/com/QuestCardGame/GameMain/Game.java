@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE
+		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD,
 	};
 
 	private GameStatus currentStatus;
