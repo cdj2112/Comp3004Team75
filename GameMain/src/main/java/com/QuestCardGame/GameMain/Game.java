@@ -138,11 +138,15 @@ public class Game {
 		}
 	}
 
-	public void finalizePlay() {
+	public boolean finalizePlay() {
 		Player p = players[getCurrentActivePlayer()];
 		if (currentStatus == GameStatus.PLAYING_QUEST && p.getHand().size() <= 12) {
 			getNextActiveQuestPlayer();
+			return true;
+		} else if (p.getHand().size() > 12) {
+			return false;
 		}
+		return true;
 	}
 
 	public boolean[] playerPlayCards(Player p, ArrayList<AdventureCard> cards) {

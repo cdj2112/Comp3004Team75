@@ -41,6 +41,7 @@ public class QuestUI extends Group {
 	private Button acceptButton;
 	private Button declineButton;
 	private Text prompt;
+	private boolean canAccept = true;
 	private Text playerBPDisplay, stageBPDisplay;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
 
@@ -146,7 +147,7 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("finalizePlay", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.finalizePlay();
+				canAccept = game.finalizePlay();
 				update();
 			}
 		});
@@ -323,7 +324,8 @@ public class QuestUI extends Group {
 				prompt.setText("Build Quest");
 			} else {
 				acceptButton.setOnAction(dialogListeners.get("finalizePlay"));
-				prompt.setText("Play Cards for Stage");
+				String promptText = canAccept ? "You must discard or play a card" : "Play Cards for Stage";
+				prompt.setText(promptText);
 			}
 		} else if (GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.END_TURN_DISCARD) {
 			String prefix = "You must discard ";
