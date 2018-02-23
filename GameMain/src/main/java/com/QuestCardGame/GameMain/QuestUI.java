@@ -33,6 +33,7 @@ public class QuestUI extends Group {
 
 	private Hotspot[] stageHotspots;
 	private Hotspot[] playHotspots;
+	private Hotspot discardHotspot;
 
 	private PlayerGroup[] playerGroups;
 	private StageGroup[] stageGroups;
@@ -168,6 +169,16 @@ public class QuestUI extends Group {
 			stageGroups[i].getChildren().add(stageHotspots[i]);
 			getChildren().add(stageGroups[i]);
 		}
+		
+		discardHotspot = new Hotspot();
+		discardHotspot.setHeight(100);
+		discardHotspot.setWidth(100);
+		discardHotspot.setTranslateX(800);
+		discardHotspot.setTranslateY(0);
+		discardHotspot.setStroke(Color.RED);
+		discardHotspot.setFill(Color.TRANSPARENT);
+		discardHotspot.setAction(behaviourFactory.discardCard);
+		getChildren().add(discardHotspot);
 
 		update();
 	}
@@ -177,6 +188,7 @@ public class QuestUI extends Group {
 			h.checkColision(draggingCard, x, y);
 		}
 		playHotspots[game.getCurrentActivePlayer()].checkColision(draggingCard, x, y);
+		discardHotspot.checkColision(draggingCard, x, y);
 	}
 
 	private Group makeNewCardGroup(Card c) {
