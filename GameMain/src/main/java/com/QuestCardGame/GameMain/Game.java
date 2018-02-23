@@ -364,9 +364,15 @@ public class Game {
 	private void initAdventureDeck() {
 		adventureDeck = new Deck();
 
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 50; i++) {
 			adventureDeck.addCard(new Weapon("Dagger", 5));
 		}
+
+		for (int i = 0; i < 50; i++) {
+			adventureDeck.addCard(new Foe("Bandit", 10));
+		}
+
+		adventureDeck.shuffleDeck();
 	}
 
 	private int getNextActivePlayer() {
