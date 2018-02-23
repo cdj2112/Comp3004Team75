@@ -56,6 +56,7 @@ public class Game {
 		for (Player p : players) {
 			correctCards = correctCards && p.getHand().size() <= 12;
 			toDiscard[i] = Math.max(p.getHand().size() - 12, 0);
+			i++;
 		}
 
 		if (correctCards) {
@@ -66,7 +67,13 @@ public class Game {
 			activePlayer = playerTurn;
 		} else {
 			currentStatus = GameStatus.END_TURN_DISCARD;
-			activePlayer = playerTurn;
+			for (i = 0; i < numPlayers; i++) {
+				int index = (playerTurn + i) % numPlayers;
+				if (toDiscard[index] != 0) {
+					activePlayer = index;
+					break;
+				}
+			}
 		}
 	}
 
@@ -180,15 +187,15 @@ public class Game {
 				if (players[i] == p)
 					playerIndex = i;
 			}
-			toDiscard[playerIndex] = Math.max(toDiscard[playerIndex] - 1, 0);
 			checkHandSizes();
 		}
 	}
 
 	private void checkHandSizes() {
 		boolean done = true;
-		for (int d : toDiscard) {
-			done = done && d == 0;
+		for (int d = 0; d < numPlayers; d++) {
+			done = done && players[d].getHand().size() <= 12;
+			toDiscard[d] = Math.max(players[d].getHand().size() - 12, 0);
 		}
 		if (done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
 			activePlayer = getNextActivePlayer();
@@ -204,7 +211,7 @@ public class Game {
 		} else if (currentStatus == GameStatus.END_TURN_DISCARD) {
 			for (int i = 0; i < numPlayers; i++) {
 				int index = (playerTurn + i) % numPlayers;
-				if(toDiscard[index] != 0) {
+				if (toDiscard[index] != 0) {
 					activePlayer = index;
 					break;
 				}
@@ -377,7 +384,7 @@ public class Game {
 			return 0;
 		}
 	}
-	
+
 	public int getPlayerDiscard(int i) {
 		return toDiscard[i];
 	}
