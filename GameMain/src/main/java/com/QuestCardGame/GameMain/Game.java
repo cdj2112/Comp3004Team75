@@ -33,7 +33,11 @@ public class Game {
 		activePlayer = 0;
 		initStoryDeck();
 		initAdventureDeck();
-		playTurn();
+		for (int p = 0; p < numPlayers; p++) {
+			for (int i = 0; i < 12; i++) {
+				playerDrawAdventureCard(players[p]);
+			}
+		}
 	}
 
 	public void playTurn() {
