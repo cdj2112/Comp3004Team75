@@ -19,6 +19,7 @@ public class Game {
 
 	// Turn Variables
 	private int activePlayer;
+	private int [] toDiscard;
 	// Quests
 	private Player sponsor;
 	private int sponsorIndex;
@@ -31,6 +32,7 @@ public class Game {
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
+		toDiscard = new int[numPlayers];
 		initStoryDeck();
 		initAdventureDeck();
 		for (int p = 0; p < numPlayers; p++) {
@@ -59,7 +61,7 @@ public class Game {
 	public void acceptSponsor() {
 		if (currentStatus == GameStatus.SPONSORING) {
 			sponsor = players[activePlayer];
-			sponsorIndex = activePlayer; 
+			sponsorIndex = activePlayer;
 			currentStatus = GameStatus.BUILDING_QUEST;
 		}
 	}
@@ -86,9 +88,15 @@ public class Game {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			if (accept) {
 				activeQuest.addPlayer(players[activePlayer]);
+				playerDrawAdventureCard(p);
 			}
 
-			activePlayer = getNextActivePlayer();
+			if (p.getHand().size() <= 12) {
+				activePlayer = getNextActivePlayer();
+			} else {
+                currentStatus = GameStatus.PRE_QUEST_DISCARD;
+                toDiscard[activePlayer] = p.getHand().size() - 12;
+			}
 
 			if (activePlayer == sponsorIndex) {
 				currentStatus = GameStatus.PLAYING_QUEST;
