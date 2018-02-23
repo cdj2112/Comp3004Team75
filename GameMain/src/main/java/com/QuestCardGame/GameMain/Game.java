@@ -168,22 +168,26 @@ public class Game {
 					playerIndex = i;
 			}
 			toDiscard[playerIndex] = Math.max(toDiscard[playerIndex]-1, 0);
-			boolean done = true;
-			for(int d: toDiscard) {
-				done = done && d==0;
+			checkHandSizes();
+		}
+	}
+	
+	private void checkHandSizes() {
+		boolean done = true;
+		for(int d: toDiscard) {
+			done = done && d==0;
+		}
+		if(done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
+			activePlayer = getNextActivePlayer();
+			if(activePlayer == sponsorIndex) {
+				currentStatus = GameStatus.PLAYING_QUEST;
+				activeQuest.startQuest();
+				activeQuest.getNextPlayer();
+			} else {
+				currentStatus = GameStatus.ACCEPTING_QUEST;
 			}
-			if(done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
-				activePlayer = getNextActivePlayer();
-				if(activePlayer == sponsorIndex) {
-					currentStatus = GameStatus.PLAYING_QUEST;
-					activeQuest.startQuest();
-					activeQuest.getNextPlayer();
-				} else {
-					currentStatus = GameStatus.ACCEPTING_QUEST;
-				}
-			} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
-				endTurn();
-			}
+		} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
+			endTurn();
 		}
 	}
 
