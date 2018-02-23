@@ -377,6 +377,10 @@ public class Game {
 			return 0;
 		}
 	}
+	
+	public int getPlayerDiscard(int i) {
+		return toDiscard[i];
+	}
 
 	private boolean isValidCardPlay(Player p, AdventureCard c) {
 		for (AdventureCard pc : p.getPlay()) {
