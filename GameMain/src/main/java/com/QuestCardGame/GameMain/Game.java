@@ -174,6 +174,13 @@ public class Game {
 			}
 			if(done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
 				activePlayer = getNextActivePlayer();
+				if(activePlayer == sponsorIndex) {
+					currentStatus = GameStatus.PLAYING_QUEST;
+					activeQuest.startQuest();
+					activeQuest.getNextPlayer();
+				} else {
+					currentStatus = GameStatus.ACCEPTING_QUEST;
+				}
 			} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
 				endTurn();
 			}
