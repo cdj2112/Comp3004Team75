@@ -108,32 +108,32 @@ public class Game {
 		}
 		return false;
 	}
-	
+
 	public void finalizeQuest() {
-		if(currentStatus == GameStatus.BUILDING_QUEST) {
+		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean valid = activeQuest.validateQuest();
-			if(valid) {
+			if (valid) {
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 				activePlayer = getNextActivePlayer();
 			}
 		}
 	}
-	
+
 	public void finalizePlay() {
-		if(currentStatus == GameStatus.PLAYING_QUEST) {
+		if (currentStatus == GameStatus.PLAYING_QUEST) {
 			getNextActiveQuestPlayer();
 		}
 	}
 
 	public boolean[] playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
-		boolean [] played = new boolean[cards.size()];
+		boolean[] played = new boolean[cards.size()];
 		int i = 0;
 		for (AdventureCard c : cards) {
 			if (!isValidCardPlay(p, c)) {
-				played[i]=false;
+				played[i] = false;
 			} else {
-			    p.playCard(c);
-			    played[i]=true;
+				p.playCard(c);
+				played[i] = true;
 			}
 		}
 		return played;
@@ -156,6 +156,28 @@ public class Game {
 			p.drawCard(c);
 
 		return c;
+	}
+	
+	public void playerDiscardAdventrueCard(Player p, Card c) {
+		p.useCard(c);
+		adventureDeck.discard(c);
+		if(currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.END_TURN_DISCARD) {
+			int playerIndex = -1;
+			for (int i = 0; i < numPlayers; i++) {
+				if (players[i] == p)
+					playerIndex = i;
+			}
+			toDiscard[playerIndex] = Math.max(toDiscard[playerIndex]-1, 0);
+			boolean done = true;
+			for(int d: toDiscard) {
+				done = done && d==0;
+			}
+			if(done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
+				activePlayer = getNextActivePlayer();
+			} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
+				endTurn();
+			}
+		}
 	}
 
 	public Card getStoryCard() {
@@ -195,7 +217,7 @@ public class Game {
 			}
 			return getNextActiveQuestPlayer();
 		}
-		
+
 		return p;
 	}
 
