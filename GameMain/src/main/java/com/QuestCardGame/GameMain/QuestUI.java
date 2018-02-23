@@ -381,10 +381,10 @@ public class QuestUI extends Group {
 										p.getChildren().remove(g);
 									}
 								}
+								update();
 							}
 						});
 						isEvaluating = false;
-						update();
 					}
 				}, (long) 2 * 1000);
 			}
