@@ -201,6 +201,14 @@ public class Game {
 			}
 		} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
 			endTurn();
+		} else if (currentStatus == GameStatus.END_TURN_DISCARD) {
+			for (int i = 0; i < numPlayers; i++) {
+				int index = (playerTurn + i) % numPlayers;
+				if(toDiscard[index] != 0) {
+					activePlayer = index;
+					break;
+				}
+			}
 		}
 	}
 
