@@ -169,7 +169,7 @@ public class QuestUI extends Group {
 			stageGroups[i].getChildren().add(stageHotspots[i]);
 			getChildren().add(stageGroups[i]);
 		}
-		
+
 		discardHotspot = new Hotspot();
 		discardHotspot.setHeight(100);
 		discardHotspot.setWidth(100);
@@ -325,6 +325,14 @@ public class QuestUI extends Group {
 				acceptButton.setOnAction(dialogListeners.get("finalizePlay"));
 				prompt.setText("Play Cards for Stage");
 			}
+		} else if (GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.END_TURN_DISCARD) {
+			String prefix = "You must discard ";
+			int num = game.getPlayerDiscard(game.getCurrentActivePlayer());
+			String suffix = num == 1 ? " card" : " cards";
+			prompt.setText(prefix + num + suffix);
+			prompt.setVisible(true);
+			acceptButton.setVisible(false);
+			declineButton.setVisible(false);
 		} else {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
@@ -337,6 +345,10 @@ public class QuestUI extends Group {
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
+		
+		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST || GS == GameStatus.END_TURN_DISCARD;
+		discardHotspot.setVisible(canDiscard);
+		discardHotspot.setActive(canDiscard);
 
 		if (GS == GameStatus.EVAL_QUEST_STAGE) {
 			int activeStage = game.getActiveQuest().getCurrentStageIndex();
@@ -357,7 +369,8 @@ public class QuestUI extends Group {
 				isEvaluating = true;
 				evalTimer.schedule(new TimerTask() {
 					public void run() {
-						final ArrayList<AdventureCard> discard = game.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
+						final ArrayList<AdventureCard> discard = game
+								.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
 						Platform.runLater(new Runnable() {
 							public void run() {
 								for (AdventureCard c : discard) {
