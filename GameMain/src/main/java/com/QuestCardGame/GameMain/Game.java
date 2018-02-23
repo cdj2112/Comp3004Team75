@@ -221,9 +221,13 @@ public class Game {
 		if (p == null) {
 			if (currentStatus == GameStatus.PLAYING_QUEST)
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
-			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver())
+			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
 				currentStatus = GameStatus.PLAYING_QUEST;
-			else {
+				ArrayList<Player> questPlayers = activeQuest.getPlayers();
+				for(Player qP : questPlayers) {
+					playerDrawAdventureCard(qP);
+				}
+			} else {
 				currentStatus = GameStatus.IDLE;
 				return null;
 			}

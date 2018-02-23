@@ -14,6 +14,7 @@ public class Quest {
 	private int currentStage;
 	private int totalStages;
 	private boolean isQuestOver;
+	private int numCardsUsed = 0;
 	
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -43,6 +44,7 @@ public class Quest {
 	
 	public boolean addCardToStage(AdventureCard c, int s) {
 		stages[s].addCard(c);
+		numCardsUsed++;
 		return true;
 	}
 	
@@ -155,5 +157,13 @@ public class Quest {
 	
 	public Stage[] getStages() {
 		return stages;
+	}
+	
+	public int getCardsUsed() {
+		return numCardsUsed;
+	}
+	
+	public ArrayList<Player> getPlayers() {
+		return players;
 	}
 }
