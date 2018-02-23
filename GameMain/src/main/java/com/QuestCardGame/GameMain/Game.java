@@ -120,7 +120,8 @@ public class Game {
 	}
 
 	public void finalizePlay() {
-		if (currentStatus == GameStatus.PLAYING_QUEST) {
+		Player p = players[getCurrentActivePlayer()];
+		if (currentStatus == GameStatus.PLAYING_QUEST && p.getHand().size()<=12) {
 			getNextActiveQuestPlayer();
 		}
 	}
