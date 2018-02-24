@@ -8,11 +8,10 @@ import javafx.stage.Stage;
 public class QuestCardGame extends Application
 {
 	public void start(Stage stage) throws Exception {
+		stage.setMaximized(true);
 		Game game = new Game();
-		//game.playerDrawAdventureCard(game.getPlayer());
 		Group root = new QuestUI(game);
-		Scene scene = new Scene(root, 700, 700);
-		
+		Scene scene = new Scene(root, stage.getWidth(), stage.getHeight());
 		stage.setScene(scene);
 		stage.setTitle("Click and Drag");
 		stage.show();

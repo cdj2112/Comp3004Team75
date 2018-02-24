@@ -33,6 +33,7 @@ public class QuestUI extends Group {
 
 	private Hotspot[] stageHotspots;
 	private Hotspot[] playHotspots;
+	private Hotspot discardHotspot;
 
 	private PlayerGroup[] playerGroups;
 	private StageGroup[] stageGroups;
@@ -40,6 +41,7 @@ public class QuestUI extends Group {
 	private Button acceptButton;
 	private Button declineButton;
 	private Text prompt;
+	private boolean canAccept = true;
 	private Text playerBPDisplay, stageBPDisplay;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
 
@@ -145,7 +147,7 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("finalizePlay", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.finalizePlay();
+				canAccept = game.finalizePlay();
 				update();
 			}
 		});
@@ -169,6 +171,16 @@ public class QuestUI extends Group {
 			getChildren().add(stageGroups[i]);
 		}
 
+		discardHotspot = new Hotspot();
+		discardHotspot.setHeight(100);
+		discardHotspot.setWidth(100);
+		discardHotspot.setTranslateX(800);
+		discardHotspot.setTranslateY(0);
+		discardHotspot.setStroke(Color.RED);
+		discardHotspot.setFill(Color.TRANSPARENT);
+		discardHotspot.setAction(behaviourFactory.discardCard);
+		getChildren().add(discardHotspot);
+
 		update();
 	}
 
@@ -177,6 +189,7 @@ public class QuestUI extends Group {
 			h.checkColision(draggingCard, x, y);
 		}
 		playHotspots[game.getCurrentActivePlayer()].checkColision(draggingCard, x, y);
+		discardHotspot.checkColision(draggingCard, x, y);
 	}
 
 	private Group makeNewCardGroup(Card c) {
@@ -311,8 +324,17 @@ public class QuestUI extends Group {
 				prompt.setText("Build Quest");
 			} else {
 				acceptButton.setOnAction(dialogListeners.get("finalizePlay"));
-				prompt.setText("Play Cards for Stage");
+				String promptText = canAccept ? "You must discard or play a card" : "Play Cards for Stage";
+				prompt.setText(promptText);
 			}
+		} else if (GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.END_TURN_DISCARD) {
+			String prefix = "You must discard ";
+			int num = game.getPlayerDiscard(game.getCurrentActivePlayer());
+			String suffix = num == 1 ? " card" : " cards";
+			prompt.setText(prefix + num + suffix);
+			prompt.setVisible(true);
+			acceptButton.setVisible(false);
+			declineButton.setVisible(false);
 		} else {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
@@ -325,6 +347,10 @@ public class QuestUI extends Group {
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
+		
+		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST || GS == GameStatus.END_TURN_DISCARD;
+		discardHotspot.setVisible(canDiscard);
+		discardHotspot.setActive(canDiscard);
 
 		if (GS == GameStatus.EVAL_QUEST_STAGE) {
 			int activeStage = game.getActiveQuest().getCurrentStageIndex();
@@ -345,7 +371,8 @@ public class QuestUI extends Group {
 				isEvaluating = true;
 				evalTimer.schedule(new TimerTask() {
 					public void run() {
-						final ArrayList<AdventureCard> discard = game.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
+						final ArrayList<AdventureCard> discard = game
+								.evaluatePlayerEndOfStage(game.getCurrentActivePlayer());
 						Platform.runLater(new Runnable() {
 							public void run() {
 								for (AdventureCard c : discard) {
@@ -356,10 +383,10 @@ public class QuestUI extends Group {
 										p.getChildren().remove(g);
 									}
 								}
+								update();
 							}
 						});
 						isEvaluating = false;
-						update();
 					}
 				}, (long) 2 * 1000);
 			}
