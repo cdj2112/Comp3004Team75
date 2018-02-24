@@ -10,6 +10,7 @@ public class Deck {
 
 	Deck() {
 		cards = new Stack<Card>();
+		discard = new Stack<Card>();
 	}
 
 	public Card drawCard() {
@@ -21,7 +22,7 @@ public class Deck {
 			return cards.pop();
 		}
 	}
-	
+
 	public void addCard(Card c) {
 		cards.push(c);
 	}
@@ -29,20 +30,21 @@ public class Deck {
 	public void shuffleDeck() {
 		Collections.shuffle(cards);
 	}
-	
+
 	public int getNumCards() {
 		return cards.size();
 	}
-	
+
 	public void discard(Card c) {
 		discard.push(c);
 	}
-	
+
 	private void handleEmptyDeck() {
 		if(cards.size() != 0)
 			return;
-		
+
 		cards.addAll(discard);
+		discard.clear();
 		shuffleDeck();
 	}
 }
