@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Comparator;
 
-public class AIStrategyTwo implements AIPlayerStrategy {
+public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
 	//Always participate
 	public boolean doIJoinTournament(Game g) {
@@ -14,13 +14,12 @@ public class AIStrategyTwo implements AIPlayerStrategy {
 
 	//Play 50 BP or best possible hand
 	public ArrayList<AdventureCard> playCardsForTournament(Game g) {
-		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
-		ArrayList<AdventureCard> hand = g.getCurrentActivePlayerObj().getHand();
+		Hand cardsToPlay;
+		Hand hand =  g.getCurrentActivePlayerObj().getHand();
 
-//		TODO
-//		cardsToPlay = getCardsForPoints(50);
-//		if(cardsToPlay.size() == 0)
-//			cardsToPlay = getBestPossibleHand(hand);
+		cardsToPlay = hand.getCardsForPoints(50);
+		if(cardsToPlay == null)
+			cardsToPlay = hand.getBestPossibleHand();
 		
 		return cardsToPlay;
 	}
