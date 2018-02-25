@@ -9,21 +9,19 @@ public class Player {
 		
 	private static final Logger logger = LogManager.getLogger(Player.class);
 	
-	private ArrayList<AdventureCard> hand;
-	private ArrayList<AdventureCard> play;
+	private Hand hand;
+	private Hand play;
 	private int playerNumber;
 	private int numShields;
 	private int rank;
 	static int nextPlayerNumber = 1;
-	private AIPlayerStrategy aiStrategy;
 	
 	Player(){
-		hand = new ArrayList<AdventureCard>();
-		play = new ArrayList<AdventureCard>();
+		hand = new Hand();
+		play = new Hand();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 5; //squire
-		aiStrategy = null; //only 
 		
 		//disabled until log4j2.xml has been created
 		//logger.info("A new player has been created.");
