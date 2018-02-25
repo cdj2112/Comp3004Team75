@@ -25,6 +25,8 @@ import javafx.geometry.Point2D;
 import com.QuestCardGame.GameMain.Game.GameStatus;
 
 public class QuestUI extends Group {
+	
+	private final double HEIGHT, WIDTH;
 
 	private Game game;
 	private HotspotBehaviourFactory behaviourFactory;
@@ -49,9 +51,11 @@ public class QuestUI extends Group {
 	private Timer evalTimer = new Timer();
 	private boolean isEvaluating = false;
 
-	QuestUI(Game g) throws FileNotFoundException {
+	QuestUI(Game g, double h, double w) throws FileNotFoundException {
 		super();
 
+		HEIGHT = h;
+		WIDTH = w;
 		game = g;
 		int numPlayers = game.getNumPlayers();
 
@@ -64,12 +68,12 @@ public class QuestUI extends Group {
 		playerGroups = new PlayerGroup[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
 			playerGroups[i] = new PlayerGroup();
-			playerGroups[i].setTranslateX(0);
-			playerGroups[i].setTranslateY(500);
+			playerGroups[i].setTranslateX(10);
+			playerGroups[i].setTranslateY(HEIGHT - 300);
 			playerGroups[i].setVisible(i == 0);
 
 			playHotspots[i] = new Hotspot();
-			playHotspots[i].setHeight(100);
+			playHotspots[i].setHeight(150);
 			playHotspots[i].setWidth(600);
 			playHotspots[i].setStroke(Color.RED);
 			playHotspots[i].setFill(Color.TRANSPARENT);

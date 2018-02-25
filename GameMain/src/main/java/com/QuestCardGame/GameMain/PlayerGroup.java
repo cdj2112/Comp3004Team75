@@ -17,7 +17,7 @@ public class PlayerGroup extends Group {
 		
 		getChildren().add(hand);
 		hand.setTranslateX(0);
-		hand.setTranslateY(100);
+		hand.setTranslateY(150);
 		
 	}
 	
