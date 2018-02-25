@@ -71,12 +71,4 @@ public class Player {
 	public int getNumShields() {
 		return numShields;
 	}
-	
-	public void setAiStrategy(int s) {
-		if(s == 1)
-			aiStrategy = new AIStrategyOne();
-		else if(s == 2)
-			aiStrategy = new AIStrategyTwo();
-			
-	}
 }
