@@ -1,0 +1,6 @@
+Excalibur;2;30
+Lance;6;20
+Battle-ax;8;15
+Sword;16;10
+Horse;11;10
+Dagger;6;5

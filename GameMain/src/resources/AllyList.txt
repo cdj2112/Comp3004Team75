@@ -1,0 +1,10 @@
+Sir Galahad;1;15;0
+Sir Lancelot;1;15;0
+King Arthur;1;10;2
+Sir Tristan;1;10;0
+Sir Pellinore;1;10;0
+Sir Gawain;1;10;0
+Sir Percival;1;5;0
+Queen Guinevere;1;0;3
+Queen Iseult;1;0;2
+Merlin;1;0;0
