@@ -21,6 +21,8 @@ public class CardList {
 	 */
 
 	public static void populateAdventureCards(Deck adventureDeck) throws FileNotFoundException {
+		
+		//Format Weapon_Name;Amount;BattlePoints
 		Scanner weaponScanner = new Scanner(new File("./src/resources/WeaponList.txt"));
 		while (weaponScanner.hasNext()) {
 			String[] cardInfo = weaponScanner.next().split(";");
@@ -31,6 +33,7 @@ public class CardList {
 			}
 		}
 		
+		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
 		Scanner foeScanner = new Scanner(new File("./src/resources/FoeList.txt"));
 		while (foeScanner.hasNext()) {
 			String[] cardInfo = foeScanner.next().split(";");
@@ -43,6 +46,8 @@ public class CardList {
 	}
 	
 	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
+		
+		//Format QuestName_Name;Amount;NumStages
 		Scanner questScanner = new Scanner(new File("./src/resources/QuestList.txt"));
 		while(questScanner.hasNext()) {
 			String[] cardInfo = questScanner.next().split(";");
