@@ -35,7 +35,6 @@ public class Player {
 		boolean removed = hand.remove(c);
 		if (removed) {
 			play.add(c);
-			//bp = c.getBattlePoint() + bp;
 		}
 	}
 	

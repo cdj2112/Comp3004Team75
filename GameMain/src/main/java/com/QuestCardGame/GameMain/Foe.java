@@ -25,8 +25,4 @@ public class Foe extends AdventureCard {
 			return battlePoints;
 	}
 
-	public int getBattlePoint() {
-		return battlePoints;
-	}
-
 }

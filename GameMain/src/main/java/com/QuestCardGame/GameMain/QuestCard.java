@@ -16,8 +16,4 @@ public class QuestCard extends Card {
 	public int getStages() {
 		return numStages;
 	}
-
-	public int getBattlePoint() {
-		return 0;
-	}
 }

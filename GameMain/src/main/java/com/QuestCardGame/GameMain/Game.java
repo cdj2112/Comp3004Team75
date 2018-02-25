@@ -365,19 +365,6 @@ public class Game {
 
 	private void initAdventureDeck() {
 		adventureDeck = new Deck();
-		int z = 0;
-		int[] values = new int[125];
-		Random random = new Random();
-
-		for (int i = 0; i < values.length; i++) {
-			int number = random.nextInt(125);
-
-			for (int j = 0; j <= i; j++) {
-				if (number != values[j]) {
-					values[i] = number;
-				}
-			}
-		}
 
 		for (int i = 0; i < 50; i++) {
 			adventureDeck.addCard(new Weapon("Dagger", 5));

@@ -396,39 +396,6 @@ public class QuestUI extends Group {
 			playerBPDisplay.setVisible(false);
 			stageBPDisplay.setVisible(false);
 		}
-
-		/*Rectangle r = new Rectangle();
-		r.setHeight(50);
-		r.setWidth(300);
-		r.setFill(Color.WHITE);
-		r.setX(5.0);
-		r.setY(160.0);
-		Text t = new Text();
-		t.setCache(true);
-		t.setX(10.0);
-		t.setY(200.0);
-		t.setFill(Color.BLACK);
-		t.setText("Player 1: " + p.CardAmount() + " cards");
-		t.setFont(new Font(24));
-
-		Rectangle r1 = new Rectangle();
-		r1.setHeight(60);
-		r1.setWidth(300);
-		r1.setFill(Color.WHITE);
-		r1.setX(10.0);
-		r1.setY(230.0);
-		Text t1 = new Text();
-		t1.setCache(true);
-		t1.setX(10.0);
-		t1.setY(260.0);
-		t1.setFill(Color.BLACK);
-		t1.setText("Player 1 BP: " + p.getBattlePoint() + ".");
-		t1.setFont(new Font(24));
-
-		getChildren().add(r);
-		getChildren().add(t);
-		getChildren().add(r1);
-		getChildren().add(t1);*/
 	}
 
 	public void update() {
