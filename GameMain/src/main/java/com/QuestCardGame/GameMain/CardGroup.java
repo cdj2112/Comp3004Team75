@@ -18,9 +18,9 @@ public class CardGroup extends Group{
 		
 		face = new ImageView(frontImg);
 		back = new ImageView(backImg);
-		face.setFitHeight(100);
+		face.setFitHeight(150);
 		face.setFitWidth(100);
-		back.setFitHeight(100);
+		back.setFitHeight(150);
 		back.setFitWidth(100);
 		
 		face.setVisible(true);
