@@ -244,11 +244,9 @@ public class QuestUI extends Group {
 			for (Card c : pHand) {
 				if (c == draggingCard)
 					continue;
-				Group g = findCardGroup(c);
-				if (g == null) {
-					g = makeNewCardGroup(c);
+				CardGroup g = AssetStore.getCardGroup(c);
+				if(!playerGroups[i].getHand().getChildren().contains(g)) {
 					playerGroups[i].addCardToHand(g);
-					cardAssets.put(c.getId(), g);
 				}
 				g.setTranslateX(xOffset * 110.0);
 				g.setTranslateY(0);
@@ -260,11 +258,9 @@ public class QuestUI extends Group {
 			for (Card c : pPlay) {
 				if (c == draggingCard)
 					continue;
-				Group g = findCardGroup(c);
-				if (g == null) {
-					g = makeNewCardGroup(c);
+				CardGroup g = AssetStore.getCardGroup(c);
+				if(!playerGroups[i].getPlay().getChildren().contains(g)) {
 					playerGroups[i].playCard(g);
-					cardAssets.put(c.getId(), g);
 				}
 				g.setTranslateX(xOffset * 110.0);
 				g.setTranslateY(0);
@@ -278,12 +274,7 @@ public class QuestUI extends Group {
 			for (Stage s : q.getStages()) {
 				int xOffset = 0;
 				for (Card c : s.getCards()) {
-					Group g = findCardGroup(c);
-					if (g == null) {
-						g = makeNewCardGroup(c);
-						stageGroups[stg].addCardGroup(g);
-						cardAssets.put(c.getId(), g);
-					}
+					CardGroup g = AssetStore.getCardGroup(c);
 					g.setTranslateX(xOffset * 110.0);
 					g.setTranslateY(0);
 					xOffset++;

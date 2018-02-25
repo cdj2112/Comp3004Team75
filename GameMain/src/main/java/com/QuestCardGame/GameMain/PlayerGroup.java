@@ -33,4 +33,12 @@ public class PlayerGroup extends Group {
 	public void removeCardFromHand(Group g) {
 		hand.getChildren().remove(g);
 	}
+	
+	public Group getHand() {
+		return hand;
+	}
+	
+	public Group getPlay() {
+		return play;
+	}
 }
