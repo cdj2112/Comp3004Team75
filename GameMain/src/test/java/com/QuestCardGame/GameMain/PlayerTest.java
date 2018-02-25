@@ -6,7 +6,7 @@ public class PlayerTest extends TestCase{
 	
 	
 	public void testPlayerDrawCard() {
-		Card c = new QuestCard("Test card",1);
+		AdventureCard c = new Foe("Test card",1);
 		Player p = new Player();
 		
 		p.drawCard(c);
@@ -14,11 +14,30 @@ public class PlayerTest extends TestCase{
 	}
 	
 	public void testPlayerPlayCard() {
-		Card c = new QuestCard("Test card",1);
+		AdventureCard c = new Foe("Test card",1);
 		Player p = new Player();
 		
 		p.drawCard(c);
 		p.playCard(c);
 		assert(!p.getHand().contains(c));
+	}
+	
+	public void testPlayerHandSortDescendingByBattlePoints() {
+		AdventureCard f1 = new Foe("TestFoe1", 6);
+		AdventureCard w1 = new Weapon("Dagger", 1);
+
+		Player p = new Player();
+		p.drawCard(w1);
+		p.drawCard(f1);
+		
+		Hand h = (Hand)p.getHand();
+		
+		assert h.indexOf(f1) == 1;
+		assert h.indexOf(w1) == 0;
+		
+		h.sortDescendingByBattlePoints();
+		
+		assert h.indexOf(f1) == 0;
+		assert h.indexOf(w1) == 1;
 	}
 }
