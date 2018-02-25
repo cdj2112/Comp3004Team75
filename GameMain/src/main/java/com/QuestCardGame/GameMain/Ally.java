@@ -36,8 +36,4 @@ public class Ally extends AdventureCard {
 		return temp;
 	}
 
-	public int getBattlePoint() {
-		return base;
-	}
-
 }
