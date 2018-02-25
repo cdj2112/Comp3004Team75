@@ -26,7 +26,7 @@ public class CardList {
 			String[] cardInfo = weaponScanner.next().split(";");
 			int amount = Integer.parseInt(cardInfo[1]);
 			for (int i = 0; i < amount; i++) {
-				Weapon w = new Weapon(cardInfo[0], Integer.parseInt(cardInfo[2]));
+				Weapon w = new Weapon(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
 				adventureDeck.addCard(w);
 			}
 		}
