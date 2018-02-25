@@ -84,7 +84,7 @@ public class QuestUI extends Group {
 
 		Image storyPic = new Image(new FileInputStream("./src/resources/Cards/Backs/Story.png"));
 		ImageView storyDeck = new ImageView(storyPic);
-		storyDeck.setFitHeight(100);
+		storyDeck.setFitHeight(150);
 		storyDeck.setFitWidth(100);
 
 		EventHandler<MouseEvent> drawStory = new EventHandler<MouseEvent>() {
@@ -102,7 +102,7 @@ public class QuestUI extends Group {
 		prompt = new Text();
 		prompt.setFont(new Font(20));
 		prompt.setTranslateX(0);
-		prompt.setTranslateY(305);
+		prompt.setTranslateY(325);
 		getChildren().add(prompt);
 		playerBPDisplay = new Text();
 		playerBPDisplay.setFont(new Font(20));
@@ -112,11 +112,11 @@ public class QuestUI extends Group {
 		getChildren().add(stageBPDisplay);
 		acceptButton = new Button("Accept");
 		acceptButton.setTranslateX(0);
-		acceptButton.setTranslateY(330);
+		acceptButton.setTranslateY(350);
 		getChildren().add(acceptButton);
 		declineButton = new Button("Decline");
 		declineButton.setTranslateX(0);
-		declineButton.setTranslateY(355);
+		declineButton.setTranslateY(375);
 		getChildren().add(declineButton);
 		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -244,7 +244,7 @@ public class QuestUI extends Group {
 		}
 		if (activeStory != null) {
 			activeStory.setTranslateX(5);
-			activeStory.setTranslateY(105);
+			activeStory.setTranslateY(155);
 		}
 
 		Quest q = game.getActiveQuest();
@@ -302,7 +302,7 @@ public class QuestUI extends Group {
 				prompt.setText("Build Quest");
 			} else {
 				acceptButton.setOnAction(dialogListeners.get("finalizePlay"));
-				String promptText = canAccept ? "You must discard or play a card" : "Play Cards for Stage";
+				String promptText = !canAccept ? "You must discard or play a card" : "Play Cards for Stage";
 				prompt.setText(promptText);
 			}
 		} else if (GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.END_TURN_DISCARD) {
