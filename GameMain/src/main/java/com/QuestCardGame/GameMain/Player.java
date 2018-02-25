@@ -42,11 +42,11 @@ public class Player {
 		hand.remove(c);
 	}
 	
-	public ArrayList<AdventureCard> getHand() {
+	public Hand getHand() {
 		return hand;
 	}
 	
-	public ArrayList<AdventureCard> getPlay() {
+	public Hand getPlay() {
 		return play;
 	}
 	

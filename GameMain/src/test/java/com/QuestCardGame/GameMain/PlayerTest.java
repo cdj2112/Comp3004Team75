@@ -30,14 +30,12 @@ public class PlayerTest extends TestCase{
 		p.drawCard(w1);
 		p.drawCard(f1);
 		
-		Hand h = (Hand)p.getHand();
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(w1) == 0;
 		
-		assert h.indexOf(f1) == 1;
-		assert h.indexOf(w1) == 0;
+		p.getHand().sortDescendingByBattlePoints();
 		
-		h.sortDescendingByBattlePoints();
-		
-		assert h.indexOf(f1) == 0;
-		assert h.indexOf(w1) == 1;
+		assert p.getHand().indexOf(f1) == 0;
+		assert p.getHand().indexOf(w1) == 1;
 	}
 }
