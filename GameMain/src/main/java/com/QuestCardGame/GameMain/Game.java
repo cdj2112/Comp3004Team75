@@ -18,6 +18,7 @@ public class Game {
 	private Deck storyDeck;
 	private Deck adventureDeck;
 	private int playerTurn;
+	private Card currentStoryCard;
 
 	// Turn Variables
 	private int activePlayer;
@@ -35,6 +36,7 @@ public class Game {
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
+		currentStoryCard = null;
 		initStoryDeck();
 		initAdventureDeck();
 		for (int p = 0; p < numPlayers; p++) {
@@ -46,6 +48,7 @@ public class Game {
 
 	public void playTurn() {
 		Card storyCard = getStoryCard();
+		currentStoryCard = storyCard;
 		if (storyCard instanceof QuestCard) {
 			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
@@ -67,6 +70,7 @@ public class Game {
 			activeQuest = null;
 			playerTurn++;
 			activePlayer = playerTurn;
+			currentStoryCard = null;
 		} else {
 			currentStatus = GameStatus.END_TURN_DISCARD;
 			for (i = 0; i < numPlayers; i++) {
@@ -408,6 +412,10 @@ public class Game {
 		}
 
 		return true;
+	}
+	
+	public Card getActiveStoryCard() {
+		return currentStoryCard;
 	}
 
 }
