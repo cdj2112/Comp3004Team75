@@ -192,6 +192,8 @@ public class QuestUI extends Group {
 	}
 
 	private void repositionCards() {
+		GameStatus GS = game.getGameStatus();
+		
 		for (int i = 0; i < game.getNumPlayers(); i++) {
 			Player p = game.getPlayer(i);
 			ArrayList<AdventureCard> pHand = p.getHand();
@@ -259,6 +261,7 @@ public class QuestUI extends Group {
 					g.setTranslateY(-25);
 					g.setScaleX(0.666);
 					g.setScaleY(0.666);
+					g.setFaceUpDown(GS == GameStatus.BUILDING_QUEST || GS == GameStatus.EVAL_QUEST_STAGE);
 					xOffset++;
 				}
 				stg++;
@@ -318,14 +321,19 @@ public class QuestUI extends Group {
 
 		i = 0;
 		for (Hotspot h : stageHotspots) {
-			stageGroups[i].setVisible(GS == GameStatus.BUILDING_QUEST && i < stages);
+			boolean show = (GS == GameStatus.BUILDING_QUEST 
+					|| GS == GameStatus.ACCEPTING_QUEST
+					|| GS == GameStatus.PRE_QUEST_DISCARD
+					|| GS == GameStatus.PLAYING_QUEST
+					|| GS == GameStatus.EVAL_QUEST_STAGE)
+					&& i < stages;
+			stageGroups[i].setVisible(show);
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
 
 		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST
 				|| GS == GameStatus.END_TURN_DISCARD;
-		discardHotspot.setVisible(canDiscard);
 		discardHotspot.setActive(canDiscard);
 
 		if (GS == GameStatus.EVAL_QUEST_STAGE) {
