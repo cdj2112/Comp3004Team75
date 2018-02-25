@@ -1,0 +1,10 @@
+Search_for_the_Holy_Grail;1;5
+Test_of_the_Green_Kight;1;4
+Search_for_the_Questing_Beast;1;4
+Defend_the_Queen's_Honor;1;4
+Rescue_the_Fair_Maiden;1;3
+Journey_Through_the_Enchanted_Forest;1;3
+Vanquish_King_Arthur's_Enemies;2;3
+Slay_the_Dragon;1;3
+Boar_Hunt;2;2
+Repel_the_Saxon_Raiders;2;2
