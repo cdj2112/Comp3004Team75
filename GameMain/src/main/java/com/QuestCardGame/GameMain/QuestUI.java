@@ -79,7 +79,7 @@ public class QuestUI extends Group {
 			getChildren().add(playerGroups[i]);
 		}
 
-		Image storyPic = new Image(new FileInputStream("./src/resources/Cards/Backs/Story.jpg"));
+		Image storyPic = new Image(new FileInputStream("./src/resources/Cards/Backs/Story.png"));
 		ImageView storyDeck = new ImageView(storyPic);
 		storyDeck.setFitHeight(100);
 		storyDeck.setFitWidth(100);

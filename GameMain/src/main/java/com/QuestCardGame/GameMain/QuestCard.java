@@ -22,6 +22,6 @@ public class QuestCard extends Card {
 	}
 
 	public String getBackImagePath() {
-		return "./src/resources/Cards/Backs/Story.jpg";
+		return "./src/resources/Cards/Backs/Story.png";
 	}
 }
