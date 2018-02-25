@@ -1,6 +1,7 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ListIterator;
 import java.util.Iterator; 
 
@@ -11,16 +12,19 @@ public class Tournaments {
 	private ArrayList<AdventureCard> discardPile;
 	private boolean isTournamentsOver;
 	private int bp;
+	private int bones;
 	
 	Tournaments(TournamentCard t) {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isTournamentsOver = false;
 		bp = t.getBonesBP();
+		bones = t.getBonesBP();
 }
 	
 	public boolean addPlayer(Player p) {
-		p.addShields(-1);
+		//p.addShields(-1);
+		bp = bp + 1;
 		return players.add(p);
 	}
 	
@@ -51,6 +55,7 @@ public class Tournaments {
 	public int[] tieBreaking(int[] temp) {		
 		int max = 0;
 		int count = 0;
+		//System.out.println(players.size());
 		temp = new int[players.size()];
 		for(int i=0; i<players.size(); i++ ) {
 			temp[i] = players.get(i).getBattlePoints();
@@ -60,29 +65,30 @@ public class Tournaments {
 			if(temp[i]>max) max=temp[i];
 			}
 		
-		for(int i=0; i<temp.length;i++){
-			if(temp[i]==max) count=count++;
+		for(int i=0; i<temp.length;i++){		
+			if(temp[i]==max) count=count + 1;
+			System.out.println(count);
 			}
 		
-	    int[] tieBreakings = new int[2];
-	    tieBreakings[0]=count;
-	    tieBreakings[1]=max;
-	    return tieBreakings;
+		int[] tie = new int[2];
+		tie[0]=count;
+		tie[1]=max;
+	    return tie;
 	}
 	
 	
-	public void evaluatePlayer(Player p) {
+	public void evaluatePlayer(ArrayList<Player> p) {
 		int[] temp = new int[2];
-		tieBreaking(temp);
+		temp = tieBreaking(temp);
 		int max = temp[1];
         int count = temp[0];
-		
         if(count == 1) {
 		for(int i=0; i<players.size(); i++ ) {
 			if(players.get(i).getBattlePoints() != max) players.remove(i);
 		}
 		    isTournamentsOver = true;
 		    awardQuestWinners(1);
+		
         }
 		
         if(count > 1) {
@@ -93,17 +99,22 @@ public class Tournaments {
     				removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
     			}
     		}
-        	tieBreaking(temp);
+        	temp = tieBreaking(temp);
         	max = temp[1];
             count = temp[0];
+
             if(count == 1) {
         		for(int i=0; i<players.size(); i++ ) {
         			if(players.get(i).getBattlePoints() != max) players.remove(i);
         		}
         		    isTournamentsOver = true;
         		    awardQuestWinners(1);
+        		    
                 }
-            if(count > 1) awardQuestWinners(2);
+            if(count > 1) {
+            	isTournamentsOver = true;
+            	awardQuestWinners(2);
+            }
         }		
 	}
 
@@ -117,9 +128,9 @@ public class Tournaments {
 	}
 		
 	private void awardQuestWinners(int awardType) {
-		int shieldsToAward1 = bp + awardType;
-		int shieldsToAward2 = bp;
-		if(awardType ==1) {
+		int shieldsToAward1 = bp;
+		int shieldsToAward2 = bp - bones ;
+		if(awardType == 1) {
 		for(Player p : players)
 			p.addShields(shieldsToAward1);
 		}else {
