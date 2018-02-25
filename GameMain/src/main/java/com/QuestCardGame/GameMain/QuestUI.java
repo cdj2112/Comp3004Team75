@@ -213,6 +213,8 @@ public class QuestUI extends Group {
 				}
 				g.setTranslateX(xOffset * 110.0);
 				g.setTranslateY(0);
+				g.setScaleX(1);
+				g.setScaleY(1);
 				xOffset++;
 			}
 
@@ -256,8 +258,13 @@ public class QuestUI extends Group {
 				int xOffset = 0;
 				for (Card c : s.getCards()) {
 					CardGroup g = assetStore.getCardGroup(c);
-					g.setTranslateX(xOffset * 110.0);
-					g.setTranslateY(0);
+					if (!stageGroups[stg].getChildren().contains(g)) {
+						stageGroups[stg].addCardGroup(g);
+					}
+					g.setTranslateX(xOffset * 75 - 15);
+					g.setTranslateY(-25);
+					g.setScaleX(0.666);
+					g.setScaleY(0.666);
 					xOffset++;
 				}
 				stg++;
