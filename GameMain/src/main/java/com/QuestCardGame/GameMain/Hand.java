@@ -45,6 +45,15 @@ public class Hand extends ArrayList<AdventureCard>{
 		return cards;
 	}
 	
+	public int getNumFoesToDiscard(int maxBattlePoints) {
+		int numFoesToDiscard = 0;
+		for(AdventureCard c: this) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) < maxBattlePoints)
+				numFoesToDiscard++;
+		}
+		return numFoesToDiscard;
+	}
+	
 	public boolean isValidPlay(Hand h, AdventureCard newCard) {
 		if(newCard.getCardType() == AdventureCard.AdventureType.FOE)
 			return false;

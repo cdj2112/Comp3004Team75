@@ -37,8 +37,8 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	//Can increase BP each stage by 10 pts AND
 	//has 2 foes less than 25 BP
 	public boolean doIJoinQuest(Player current, int numStages) {
-		ArrayList<AdventureCard> hand = current.getHand();
-		int foesToDiscard = getNumFoesToDiscard(hand, 25);
+		Hand h = current.getHand();
+		int foesToDiscard = h.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
 
 		//TODO 	check for increasing BP by 10 pts
@@ -78,15 +78,4 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public int getNumFoesToDiscard(ArrayList<AdventureCard> hand, int maxBattlePoints) {
-		int numFoesToDiscard = 0;
-		for(AdventureCard c: hand) {
-			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) < maxBattlePoints)
-				numFoesToDiscard++;
-		}
-		return numFoesToDiscard;
-	}
-
-
 }
