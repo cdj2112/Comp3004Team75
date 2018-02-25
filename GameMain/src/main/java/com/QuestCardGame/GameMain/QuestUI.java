@@ -25,7 +25,7 @@ import javafx.geometry.Point2D;
 import com.QuestCardGame.GameMain.Game.GameStatus;
 
 public class QuestUI extends Group {
-	
+
 	private final double HEIGHT, WIDTH;
 
 	private Game game;
@@ -33,6 +33,7 @@ public class QuestUI extends Group {
 	private AssetStore assetStore;
 
 	private Card draggingCard;
+	private CardGroup activeStory = null;
 
 	private Hotspot[] stageHotspots;
 	private Hotspot[] playHotspots;
@@ -103,7 +104,7 @@ public class QuestUI extends Group {
 		prompt = new Text();
 		prompt.setFont(new Font(20));
 		prompt.setTranslateX(0);
-		prompt.setTranslateY(200);
+		prompt.setTranslateY(305);
 		getChildren().add(prompt);
 		playerBPDisplay = new Text();
 		playerBPDisplay.setFont(new Font(20));
@@ -113,11 +114,11 @@ public class QuestUI extends Group {
 		getChildren().add(stageBPDisplay);
 		acceptButton = new Button("Accept");
 		acceptButton.setTranslateX(0);
-		acceptButton.setTranslateY(225);
+		acceptButton.setTranslateY(330);
 		getChildren().add(acceptButton);
 		declineButton = new Button("Decline");
 		declineButton.setTranslateX(0);
-		declineButton.setTranslateY(250);
+		declineButton.setTranslateY(355);
 		getChildren().add(declineButton);
 		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
@@ -228,6 +229,24 @@ public class QuestUI extends Group {
 				g.setTranslateY(0);
 				xOffset++;
 			}
+		}
+
+		Card sCard = game.getActiveStoryCard();
+		CardGroup sCG = sCard == null ? null : assetStore.getCardGroup(sCard);
+		if (sCG != activeStory) {
+			if (activeStory != null) {
+				getChildren().remove(activeStory);
+			}
+
+			if (sCG != null) {
+				getChildren().add(sCG);
+			}
+
+			activeStory = sCG;
+		}
+		if (activeStory != null) {
+			activeStory.setTranslateX(5);
+			activeStory.setTranslateY(105);
 		}
 
 		Quest q = game.getActiveQuest();
