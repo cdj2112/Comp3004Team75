@@ -41,8 +41,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		int foesToDiscard = h.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
 
-		//TODO 	check for increasing BP by 10 pts
-		//isValidBattlePoints = doIHaveIncreasingBattlePoints(hand, numStages, 10);
+		isValidBattlePoints = h.hasIncreasingBattlePointsForStages(numStages, 10);
 		
 		return  foesToDiscard >= 2 && isValidBattlePoints;
 	}

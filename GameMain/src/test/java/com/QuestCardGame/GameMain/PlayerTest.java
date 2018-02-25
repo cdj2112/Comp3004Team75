@@ -62,4 +62,27 @@ public class PlayerTest extends TestCase{
 		assert !h.contains(f1) && h.contains(w1) && !h.contains(w2) && h.contains(w3);
 		
 	}
+	
+	public void testIsValidHandToJoinQuest() {
+		AdventureCard f1 = new Foe("TestFoe1", 6);
+		AdventureCard w1 = new Weapon("Dagger", 1);
+		AdventureCard w2 = new Weapon("Dagger", 1);
+		AdventureCard w3 = new Weapon("BattleAxe", 10);
+		AdventureCard w4 = new Weapon("BattleAxe", 10);
+		AdventureCard w5 = new Weapon("BiggerBattleAxe", 20);
+
+		Player p = new Player();
+		p.drawCard(w1);
+		p.drawCard(w2);
+		p.drawCard(w3);
+		p.drawCard(f1);
+		
+		assert !p.getHand().hasIncreasingBattlePointsForStages(2, 10);
+		
+		p.drawCard(w4);
+		p.drawCard(w5);
+		
+		assert p.getHand().hasIncreasingBattlePointsForStages(2, 10);
+
+	}
 }
