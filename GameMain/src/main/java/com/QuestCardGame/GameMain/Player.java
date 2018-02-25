@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
-
 public class Player {
 		
 	private static final Logger logger = LogManager.getLogger(Player.class);
 	
 	private ArrayList<AdventureCard> hand;
 	private ArrayList<AdventureCard> play;
+
 	private int playerNumber;
 	private int numShields;
 	private int rank;
@@ -33,8 +33,9 @@ public class Player {
 	
 	public void playCard(AdventureCard c) {
 		boolean removed = hand.remove(c);
-		if(removed) {
+		if (removed) {
 			play.add(c);
+			//bp = c.getBattlePoint() + bp;
 		}
 	}
 	
@@ -49,7 +50,7 @@ public class Player {
 	public ArrayList<AdventureCard> getPlay() {
 		return play;
 	}
-	
+
 	public int getPlayerNumber() {
 		return playerNumber;
 	}

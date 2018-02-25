@@ -5,8 +5,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class QuestCardGame extends Application
-{
+public class QuestCardGame extends Application {
 	public void start(Stage stage) throws Exception {
 		stage.setMaximized(true);
 		Game game = new Game();
@@ -16,9 +15,8 @@ public class QuestCardGame extends Application
 		stage.setTitle("Click and Drag");
 		stage.show();
 	}
-	
-    public static void main( String[] args )
-    {
-    	launch(args);
-    }
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

@@ -3,8 +3,8 @@ package com.QuestCardGame.GameMain;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
 
-public class Hotspot extends Rectangle{
-	
+public class Hotspot extends Rectangle {
+
 	private HotspotBehaviour action;
 	private boolean active = true;
 	
