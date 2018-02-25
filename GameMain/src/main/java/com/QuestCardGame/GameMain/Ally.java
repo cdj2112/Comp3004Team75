@@ -35,5 +35,8 @@ public class Ally extends AdventureCard {
 			temp += effectBouns;
 		return temp;
 	}
-
+	
+	public String getFrontImagePath() {
+		  return "./src/resources/Cards/Ally/"+cardName+".png";
+	}
 }

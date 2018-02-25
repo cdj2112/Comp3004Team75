@@ -11,5 +11,10 @@ public abstract class AdventureCard extends Card{
 
   public AdventureType getCardType(){return adventureType;}
   
+  public String getBackImagePath() {
+	  return "./src/resources/Cards/Backs/Adventure.jpg";
+  }
+  
   public abstract int getBattlePoint(Boolean b);
+  
 }

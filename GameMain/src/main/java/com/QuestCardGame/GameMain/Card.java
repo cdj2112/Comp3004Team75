@@ -17,4 +17,7 @@ public abstract class Card {
 	public String getName() {
 		return cardName;
 	}
+	
+	public abstract String getFrontImagePath();
+	public abstract String getBackImagePath();
 }

@@ -28,4 +28,8 @@ public class Test extends AdventureCard {
   public int getBattlePoint(Boolean b) {
 	  return 0;
   }
+  
+  public String getFrontImagePath() {
+	  return "./src/resources/Cards/Test/"+cardName+".png";
+  }
 }

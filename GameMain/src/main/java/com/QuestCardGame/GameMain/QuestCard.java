@@ -16,4 +16,12 @@ public class QuestCard extends Card {
 	public int getStages() {
 		return numStages;
 	}
+
+	public String getFrontImagePath() {
+		return "./src/resources/Cards/Quest/" + cardName + ".png";
+	}
+
+	public String getBackImagePath() {
+		return "./src/resources/Cards/Backs/Story.jpg";
+	}
 }

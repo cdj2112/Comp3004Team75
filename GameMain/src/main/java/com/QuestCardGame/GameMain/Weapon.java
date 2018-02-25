@@ -10,5 +10,9 @@ public class Weapon extends AdventureCard{
   } 
  
   public int getBattlePoint(Boolean b){return battlePoint;} 
+  
+  public String getFrontImagePath() {
+	  return "./src/resources/Cards/Weapon/"+cardName+".png";
+  }
  
 } 
