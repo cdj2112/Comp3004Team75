@@ -75,9 +75,7 @@ public class QuestUI extends Group {
 
 			playHotspots[i] = new Hotspot();
 			playHotspots[i].setHeight(150);
-			playHotspots[i].setWidth(600);
-			playHotspots[i].setStroke(Color.RED);
-			playHotspots[i].setFill(Color.TRANSPARENT);
+			playHotspots[i].setWidth(1000);
 			playHotspots[i].setAction(behaviourFactory.playCard);
 
 			playerGroups[i].getChildren().add(playHotspots[i]);
@@ -160,15 +158,13 @@ public class QuestUI extends Group {
 		stageGroups = new StageGroup[5];
 		for (int i = 0; i < 5; i++) {
 			stageGroups[i] = new StageGroup();
-			stageGroups[i].setTranslateX(100);
+			stageGroups[i].setTranslateX(300);
 			stageGroups[i].setTranslateY(i * 100);
 			stageGroups[i].setVisible(false);
 
 			stageHotspots[i] = new Hotspot();
 			stageHotspots[i].setHeight(100);
 			stageHotspots[i].setWidth(600);
-			stageHotspots[i].setStroke(Color.RED);
-			stageHotspots[i].setFill(Color.TRANSPARENT);
 			stageHotspots[i].setAction((HotspotBehaviour) behaviourFactory.getPlayToStage(i));
 			stageHotspots[i].setActive(false);
 
@@ -179,10 +175,8 @@ public class QuestUI extends Group {
 		discardHotspot = new Hotspot();
 		discardHotspot.setHeight(100);
 		discardHotspot.setWidth(100);
-		discardHotspot.setTranslateX(800);
+		discardHotspot.setTranslateX(1000);
 		discardHotspot.setTranslateY(0);
-		discardHotspot.setStroke(Color.RED);
-		discardHotspot.setFill(Color.TRANSPARENT);
 		discardHotspot.setAction(behaviourFactory.discardCard);
 		getChildren().add(discardHotspot);
 
