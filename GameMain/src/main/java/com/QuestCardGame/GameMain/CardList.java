@@ -41,6 +41,18 @@ public class CardList {
 			}
 		}
 	}
+	
+	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
+		Scanner questScanner = new Scanner(new File("./src/resources/QuestList.txt"));
+		while(questScanner.hasNext()) {
+			String[] cardInfo = questScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				QuestCard f = new QuestCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				storyDeck.addCard(f);
+			}
+		}
+	}
 
 	}
 }
