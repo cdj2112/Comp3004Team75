@@ -1,4 +1,5 @@
 package com.QuestCardGame.GameMain;
+
 import java.util.*;
 
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Game {
 			}
 		}
 	}
-	
+
 	public void playTurn() {
 		Card storyCard = getStoryCard();
 		if (storyCard instanceof QuestCard) {
@@ -357,23 +358,22 @@ public class Game {
 	private void initStoryDeck() {
 		storyDeck = new Deck();
 
-		storyDeck.addCard(
-				new QuestCard("Journey Through the Enchanted Forest", 3));
-		storyDeck.addCard(new QuestCard("Vanquish King Arthur's Enemies", 3));
-		storyDeck.addCard(new QuestCard("Repel the Saxon Raiders", 2));
+		try {
+			CardList.populateStoryCards(storyDeck);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		storyDeck.shuffleDeck();
 	}
 
 	private void initAdventureDeck() {
 		adventureDeck = new Deck();
 
-		for (int i = 0; i < 50; i++) {
-			adventureDeck.addCard(new Weapon("Dagger", 5));
+		try {
+			CardList.populateAdventureCards(adventureDeck);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-
-		for (int i = 0; i < 50; i++) {
-			adventureDeck.addCard(new Foe("Bandit", 10));
-		}
-
 		adventureDeck.shuffleDeck();
 	}
 
