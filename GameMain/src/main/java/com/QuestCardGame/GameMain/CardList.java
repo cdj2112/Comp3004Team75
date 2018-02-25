@@ -33,6 +33,18 @@ public class CardList {
 				adventureDeck.addCard(w);
 			}
 		}
+		
+		Scanner foeScanner = new Scanner(new File("./src/resources/FoeList.txt"));
+		System.out.println("Open Weapon Scanner");
+		while (foeScanner.hasNext()) {
+			String[] cardInfo = foeScanner.next().split(";");
+			System.out.println(Arrays.toString(cardInfo));
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				System.out.println(i);
+				Foe f = new Foe(cardInfo[0], Integer.parseInt(cardInfo[2]), Integer.parseInt(cardInfo[3]));
+				adventureDeck.addCard(f);
+			}
 		}
 	}
 
