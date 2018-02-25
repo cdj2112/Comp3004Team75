@@ -1,11 +1,11 @@
 Dragon;1;50;70
 Giant;2;40;40
 Mordred;4;30;30
-Green Knight;2;25;40
-Black Knight;3;25;35
-Evil Knight;6;20;30
-Saxon Knight;8;15;25
-Robber Knight;7;15;15
+Green_Knight;2;25;40
+Black_Knight;3;25;35
+Evil_Knight;6;20;30
+Saxon_Knight;8;15;25
+Robber_Knight;7;15;15
 Saxons;5;10;20
 Boar;4;5;15
 Thieves;8;5;5
