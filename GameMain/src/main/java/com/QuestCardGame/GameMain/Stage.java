@@ -3,9 +3,10 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 
 public class Stage {
+
 	private ArrayList<AdventureCard> cards;
 	
-	Stage(){
+	public Stage(){
 		cards = new ArrayList<AdventureCard>();
 	}
 
@@ -23,5 +24,9 @@ public class Stage {
 	
 	public int getNumCards() {
 		return cards.size();
+	}
+	
+	public ArrayList<AdventureCard> getCards() {
+		return cards;
 	}
 }
