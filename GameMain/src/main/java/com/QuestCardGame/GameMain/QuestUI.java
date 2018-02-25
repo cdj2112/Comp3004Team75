@@ -191,7 +191,7 @@ public class QuestUI extends Group {
 		playHotspots[game.getCurrentActivePlayer()].checkColision(draggingCard, x, y);
 		discardHotspot.checkColision(draggingCard, x, y);
 	}
-	
+
 	private void repositionCards() {
 		for (int i = 0; i < game.getNumPlayers(); i++) {
 			Player p = game.getPlayer(i);
@@ -201,8 +201,10 @@ public class QuestUI extends Group {
 				if (c == draggingCard)
 					continue;
 				CardGroup g = assetStore.getCardGroup(c);
-				if(!playerGroups[i].getHand().getChildren().contains(g)) {
+				if (!playerGroups[i].getHand().getChildren().contains(g)) {
 					playerGroups[i].addCardToHand(g);
+					EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
+					g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 				}
 				g.setTranslateX(xOffset * 110.0);
 				g.setTranslateY(0);
@@ -215,7 +217,7 @@ public class QuestUI extends Group {
 				if (c == draggingCard)
 					continue;
 				CardGroup g = assetStore.getCardGroup(c);
-				if(!playerGroups[i].getPlay().getChildren().contains(g)) {
+				if (!playerGroups[i].getPlay().getChildren().contains(g)) {
 					playerGroups[i].playCard(g);
 				}
 				g.setTranslateX(xOffset * 110.0);
@@ -296,8 +298,9 @@ public class QuestUI extends Group {
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
 		}
-		
-		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST || GS == GameStatus.END_TURN_DISCARD;
+
+		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST
+				|| GS == GameStatus.END_TURN_DISCARD;
 		discardHotspot.setVisible(canDiscard);
 		discardHotspot.setActive(canDiscard);
 
@@ -358,7 +361,7 @@ public class QuestUI extends Group {
 	public Card getDraggingCard() {
 		return draggingCard;
 	}
-	
+
 	public void setDraggingCard(Card c) {
 		draggingCard = c;
 	}
@@ -374,7 +377,7 @@ public class QuestUI extends Group {
 	public StageGroup getStageGroup(int i) {
 		return stageGroups[i];
 	}
-	
+
 	public CardGroup findCardGroup(Card c) {
 		return assetStore.getCardGroup(c);
 	}
