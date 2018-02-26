@@ -261,7 +261,8 @@ public class QuestUI extends Group {
 					g.setTranslateY(-25);
 					g.setScaleX(0.666);
 					g.setScaleY(0.666);
-					g.setFaceUpDown(GS == GameStatus.BUILDING_QUEST || GS == GameStatus.EVAL_QUEST_STAGE);
+					g.setFaceUpDown(
+							GS == GameStatus.BUILDING_QUEST || (GS == GameStatus.EVAL_QUEST_STAGE && stage == stg));
 					xOffset++;
 				}
 				stg++;
@@ -321,12 +322,9 @@ public class QuestUI extends Group {
 
 		i = 0;
 		for (Hotspot h : stageHotspots) {
-			boolean show = (GS == GameStatus.BUILDING_QUEST 
-					|| GS == GameStatus.ACCEPTING_QUEST
-					|| GS == GameStatus.PRE_QUEST_DISCARD
-					|| GS == GameStatus.PLAYING_QUEST
-					|| GS == GameStatus.EVAL_QUEST_STAGE)
-					&& i < stages;
+			boolean show = (GS == GameStatus.BUILDING_QUEST || GS == GameStatus.ACCEPTING_QUEST
+					|| GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST
+					|| GS == GameStatus.EVAL_QUEST_STAGE) && i < stages;
 			stageGroups[i].setVisible(show);
 			h.setActive(GS == GameStatus.BUILDING_QUEST && i < stages);
 			i++;
