@@ -71,7 +71,7 @@ public class Game {
 
 		if (correctCards) {
 			currentStatus = GameStatus.IDLE;
-			playerTurn++;
+			playerTurn = (playerTurn + 1) % numPlayers;
 			activePlayer = playerTurn;
 		} else {
 			currentStatus = GameStatus.END_TURN_DISCARD;
