@@ -1,5 +1,5 @@
 Search_for_the_Holy_Grail;1;5
-Test_of_the_Green_Kight;1;4
+Test_of_the_Green_Knight;1;4
 Search_for_the_Questing_Beast;1;4
 Defend_the_Queen's_Honor;1;4
 Rescue_the_Fair_Maiden;1;3
