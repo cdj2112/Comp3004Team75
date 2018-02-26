@@ -139,7 +139,19 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("declineQuest", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				game.acceptDeclineQuest(game.getPlayer(game.getCurrentActivePlayer()), false);
+				ArrayList<AdventureCard> discard = game
+						.acceptDeclineQuest(game.getPlayer(game.getCurrentActivePlayer()), false);
+				if (discard != null) {
+					System.out.println("Start Discard "+discard.size());
+					for (AdventureCard c : discard) {
+						CardGroup cg = assetStore.getCardGroup(c);
+						Group p = (Group) cg.getParent();
+						if (p != null) {
+							System.out.println("Discard "+c.getName());
+							p.getChildren().remove(cg);
+						}
+					}
+				}
 				update();
 			}
 		});
@@ -191,15 +203,15 @@ public class QuestUI extends Group {
 		playHotspots[game.getCurrentActivePlayer()].checkColision(draggingCard, x, y);
 		discardHotspot.checkColision(draggingCard, x, y);
 	}
-	
+
 	private void positionInactivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
-		
+
 		playerGroups[i].setRankImage(p.getRankImagePath());
 		ImageView rank = playerGroups[i].getRankImage();
 		rank.setTranslateX(0);
 		rank.setTranslateY(0);
-		
+
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
 		for (Card c : pHand) {
@@ -226,21 +238,21 @@ public class QuestUI extends Group {
 				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
 			g.setTranslateX(xOffset % 4 * 80 + 87.5);
-			g.setTranslateY(Math.floor(xOffset/4)*115 - 18.75);
+			g.setTranslateY(Math.floor(xOffset / 4) * 115 - 18.75);
 			g.setScaleX(0.75);
 			g.setScaleY(0.75);
 			xOffset++;
 		}
 	}
-	
-	private void positionActivePlayerGroup(int i){
+
+	private void positionActivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
-		
+
 		playerGroups[i].setRankImage(p.getRankImagePath());
 		ImageView rank = playerGroups[i].getRankImage();
 		rank.setTranslateX(1050);
 		rank.setTranslateY(0);
-		
+
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
 		for (Card c : pHand) {
@@ -284,8 +296,10 @@ public class QuestUI extends Group {
 		int activePlayer = game.getCurrentActivePlayer();
 
 		for (int i = 0; i < game.getNumPlayers(); i++) {
-			if(i == activePlayer) positionActivePlayerGroup(i);
-			else positionInactivePlayerGroup(i);
+			if (i == activePlayer)
+				positionActivePlayerGroup(i);
+			else
+				positionInactivePlayerGroup(i);
 		}
 
 		Card sCard = game.getActiveStoryCard();
@@ -445,11 +459,11 @@ public class QuestUI extends Group {
 		readGameStatus();
 		int numPlayers = game.getNumPlayers();
 		for (int i = 0; i < numPlayers; i++) {
-			if(i == activePlayer) {
+			if (i == activePlayer) {
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(HEIGHT - 310);
 			} else {
-				int yOffset = 200*((activePlayer - i + numPlayers) % numPlayers - 1);
+				int yOffset = 200 * ((activePlayer - i + numPlayers) % numPlayers - 1);
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(yOffset);
 			}

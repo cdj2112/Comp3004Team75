@@ -110,7 +110,7 @@ public class Game {
 		return false;
 	}
 
-	public boolean acceptDeclineQuest(Player p, boolean accept) {
+	public ArrayList<AdventureCard> acceptDeclineQuest(Player p, boolean accept) {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			if (accept) {
 				activeQuest.addPlayer(players[activePlayer]);
@@ -125,14 +125,25 @@ public class Game {
 			}
 
 			if (activePlayer == sponsorIndex) {
-				currentStatus = GameStatus.PLAYING_QUEST;
-				activeQuest.startQuest();
-				activeQuest.getNextPlayer();
+				if (activeQuest.getPlayers().size() > 0) {
+					currentStatus = GameStatus.PLAYING_QUEST;
+					activeQuest.startQuest();
+					activeQuest.getNextPlayer();
+				} else {
+					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
+					for (int i = 0; i < backToSponsor; i++) {
+						playerDrawAdventureCard(sponsor);
+					}
+					activeQuest.clearQuest();
+					ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
+					for (AdventureCard c : questDiscard)
+						adventureDeck.discard(c);
+					endTurn();
+					return questDiscard;
+				}
 			}
-
-			return true;
 		}
-		return false;
+		return null;
 	}
 
 	public void finalizeQuest() {
@@ -414,7 +425,7 @@ public class Game {
 
 		return true;
 	}
-	
+
 	public Card getActiveStoryCard() {
 		return currentStoryCard;
 	}
