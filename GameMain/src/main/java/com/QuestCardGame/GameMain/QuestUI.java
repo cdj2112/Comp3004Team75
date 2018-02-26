@@ -196,6 +196,9 @@ public class QuestUI extends Group {
 		Player p = game.getPlayer(i);
 		
 		playerGroups[i].setRankImage(p.getRankImagePath());
+		ImageView rank = playerGroups[i].getRankImage();
+		rank.setTranslateX(0);
+		rank.setTranslateY(0);
 		
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
@@ -234,6 +237,9 @@ public class QuestUI extends Group {
 		Player p = game.getPlayer(i);
 		
 		playerGroups[i].setRankImage(p.getRankImagePath());
+		ImageView rank = playerGroups[i].getRankImage();
+		rank.setTranslateX(1050);
+		rank.setTranslateY(0);
 		
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
@@ -267,6 +273,8 @@ public class QuestUI extends Group {
 			}
 			g.setTranslateX(xOffset * 110.0);
 			g.setTranslateY(0);
+			g.setScaleX(1);
+			g.setScaleY(1);
 			xOffset++;
 		}
 	}

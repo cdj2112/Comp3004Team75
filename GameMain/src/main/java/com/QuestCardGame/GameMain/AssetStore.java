@@ -12,18 +12,18 @@ import javafx.scene.input.MouseEvent;
 public class AssetStore {
 	public HashMap<Integer, CardGroup> cardGroups = new HashMap<Integer, CardGroup>();
 	private HashMap<Integer, EventHandler<MouseEvent>> dragListener = new HashMap<Integer, EventHandler<MouseEvent>>();
-	
+
 	public static HashMap<String, Image> imageStore = new HashMap<String, Image>();
-	
+
 	private QuestUI UI;
-	
+
 	public AssetStore(QuestUI qUI) {
 		UI = qUI;
 	}
 
 	private CardGroup makeNewCardGroup(Card c) {
 		CardGroup cg = new CardGroup(c);
-		
+
 		final Card eventCard = c;
 		final Group eventGroup = cg;
 		EventHandler<MouseEvent> dragged = new EventHandler<MouseEvent>() {
@@ -55,8 +55,8 @@ public class AssetStore {
 		cardGroups.put(c.getId(), cg);
 		return cg;
 	}
-	
-	public EventHandler<MouseEvent> getCardListener(Card c){
+
+	public EventHandler<MouseEvent> getCardListener(Card c) {
 		return dragListener.get(c.getId());
 	}
 
@@ -74,7 +74,7 @@ public class AssetStore {
 		try {
 			img = new Image(new FileInputStream(path));
 		} catch (Exception e) {
-
+			System.out.println(e);
 		}
 		if (img != null) {
 			imageStore.put(path, img);

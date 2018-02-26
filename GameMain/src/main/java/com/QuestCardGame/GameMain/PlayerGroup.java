@@ -22,7 +22,10 @@ public class PlayerGroup extends Group {
 		getChildren().add(hand);
 		hand.setTranslateX(0);
 		hand.setTranslateY(150);
-
+		
+		getChildren().add(rank);
+		rank.setFitWidth(100);
+		rank.setFitHeight(150);
 	}
 
 	public void addCardToHand(Group g) {
@@ -49,5 +52,9 @@ public class PlayerGroup extends Group {
 	public void setRankImage(String path) {
 		Image img = AssetStore.getImage(path);
 		rank.setImage(img);
+	}
+	
+	public ImageView getRankImage() {
+		return rank;
 	}
 }

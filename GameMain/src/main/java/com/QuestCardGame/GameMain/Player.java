@@ -83,6 +83,6 @@ public class Player {
 	}
 	
 	public String getRankImagePath() {
-		return "./src/resources/Rank/"+getRankName()+".png";
+		return "./src/resources/Cards/Rank/"+getRankName()+".png";
 	}
 }
