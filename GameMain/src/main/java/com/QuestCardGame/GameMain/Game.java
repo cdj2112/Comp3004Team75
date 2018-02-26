@@ -64,13 +64,14 @@ public class Game {
 			i++;
 		}
 
+		sponsor = null;
+		activeQuest = null;
+		currentStoryCard = null;
+		
 		if (correctCards) {
 			currentStatus = GameStatus.IDLE;
-			sponsor = null;
-			activeQuest = null;
 			playerTurn++;
 			activePlayer = playerTurn;
-			currentStoryCard = null;
 		} else {
 			currentStatus = GameStatus.END_TURN_DISCARD;
 			for (i = 0; i < numPlayers; i++) {
