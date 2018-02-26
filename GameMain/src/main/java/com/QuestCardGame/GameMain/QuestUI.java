@@ -449,7 +449,7 @@ public class QuestUI extends Group {
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(HEIGHT - 310);
 			} else {
-				int yOffset = 200*((i - activePlayer + numPlayers) % numPlayers - 1);
+				int yOffset = 200*((activePlayer - i + numPlayers) % numPlayers - 1);
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(yOffset);
 			}
