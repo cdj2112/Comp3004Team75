@@ -7,6 +7,9 @@ import org.apache.logging.log4j.LogManager;
 public class Player {
 		
 	private static final Logger logger = LogManager.getLogger(Player.class);
+	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
+	private static final int[] battlePoints = {5, 10, 20};
+	private static final int[] shieldsNeeded = {5, 7, 10};
 	
 	private ArrayList<AdventureCard> hand;
 	private ArrayList<AdventureCard> play;
@@ -21,7 +24,7 @@ public class Player {
 		play = new ArrayList<AdventureCard>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
-		rank = 5; //squire
+		rank = 0; //squire
 		
 		//disabled until log4j2.xml has been created
 		//logger.info("A new player has been created.");
@@ -55,7 +58,7 @@ public class Player {
 	}
 	
 	public int getBattlePoints() {
-		int totalBattlePoints = rank + numShields;
+		int totalBattlePoints = battlePoints[rank] + numShields;
 		for(AdventureCard c : play) {
 			totalBattlePoints += c.getBattlePoint(false); //no special ability
 		}
@@ -64,11 +67,18 @@ public class Player {
 	
 	public void addShields(int s) {
 		numShields += s;
-		//TODO:
-		//upgrade rank based on number of shields
+
+		if(numShields >= shieldsNeeded[rank]) {
+			numShields -= shieldsNeeded[rank];
+			rank++;
+		}
 	}
 	
 	public int getNumShields() {
 		return numShields;
+	}
+	
+	public String getRankName() {
+		return rankNames[rank];
 	}
 }
