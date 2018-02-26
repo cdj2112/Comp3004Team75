@@ -194,6 +194,9 @@ public class QuestUI extends Group {
 	
 	private void positionInactivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
+		
+		playerGroups[i].setRankImage(p.getRankImagePath());
+		
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
 		for (Card c : pHand) {
@@ -229,6 +232,9 @@ public class QuestUI extends Group {
 	
 	private void positionActivePlayerGroup(int i){
 		Player p = game.getPlayer(i);
+		
+		playerGroups[i].setRankImage(p.getRankImagePath());
+		
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
 		for (Card c : pHand) {

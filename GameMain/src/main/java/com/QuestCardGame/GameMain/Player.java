@@ -81,4 +81,8 @@ public class Player {
 	public String getRankName() {
 		return rankNames[rank];
 	}
+	
+	public String getRankImagePath() {
+		return "./src/resources/Rank/"+getRankName()+".png";
+	}
 }
