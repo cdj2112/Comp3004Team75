@@ -8,21 +8,23 @@ import java.util.Comparator;
 public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
 	int previousQuestStageBattlePoints;
+	Game game;
 	
-	public AIStrategyTwo() {
+	public AIStrategyTwo(Game g) {
 		super();
+		game = g;
 		previousQuestStageBattlePoints = 0;
 	}
 	
 	//Always participate
-	public boolean doIJoinTournament(Game g) {
+	public boolean doIJoinTournament() {
 		return true;
 	}
 
 	//Play 50 BP or best possible hand
-	public ArrayList<AdventureCard> playCardsForTournament(Game g) {
+	public ArrayList<AdventureCard> playCardsForTournament() {
 		Hand cardsToPlay;
-		Hand hand =  g.getCurrentActivePlayerObj().getHand();
+		Hand hand =  game.getCurrentActivePlayerObj().getHand();
 
 		cardsToPlay = hand.getCardsForPoints(50);
 		if(cardsToPlay == null)
@@ -31,20 +33,20 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		return cardsToPlay;
 	}
 
-	public boolean doISponsorAQuest(Game g) {
+	public boolean doISponsorAQuest() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Map<Integer, ArrayList<AdventureCard>> createQuest(Player current, QuestCard qc) {
+	public Map<Integer, ArrayList<AdventureCard>> createQuest(QuestCard qc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	//Can increase BP each stage by 10 pts AND
 	//has 2 foes less than 25 BP
-	public boolean doIJoinQuest(Player current, int numStages) {
-		Hand h = current.getHand();
+	public boolean doIJoinQuest(int numStages) {
+		Hand h = this.getHand();
 		int foesToDiscard = h.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
 
@@ -53,10 +55,10 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		return  foesToDiscard >= 2 && isValidBattlePoints;
 	}
 
-	public ArrayList<AdventureCard> playCardsForQuestStage(Game g) {
+	public ArrayList<AdventureCard> playCardsForQuestStage() {
 		Hand cardsToPlay = new Hand();
-		int currentStage = g.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
-		int totalStages = g.getActiveQuest().getNumStages();
+		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
+		int totalStages = game.getActiveQuest().getNumStages();
 
 		if(currentStage == totalStages) {
 			cardsToPlay = this.getHand().getBestPossibleHand();
@@ -69,7 +71,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		return cardsToPlay.size() > 0 ? cardsToPlay : null;
 	}
 
-	public int getBidForTest(Game g) {
+	public int getBidForTest() {
 		int numToBid = 0;
 		//int currentRound = g.getActiveQuest().getTestRound();
 		
@@ -84,7 +86,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		return numToBid;
 	}
 
-	public ArrayList<AdventureCard> discardAfterWinningTest(Player current) {
+	public ArrayList<AdventureCard> discardAfterWinningTest() {
 		// TODO Auto-generated method stub
 		return null;
 	}

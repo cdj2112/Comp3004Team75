@@ -12,21 +12,21 @@ public interface AIPlayerStrategy {
 	// then the flow of control will go through the game as it normally would for 
 	// the other players.
 	
-	boolean doIJoinTournament(Game g);
+	boolean doIJoinTournament();
 	
-	ArrayList<AdventureCard> playCardsForTournament(Game g);
+	ArrayList<AdventureCard> playCardsForTournament();
 	
-	boolean doISponsorAQuest(Game g);
+	boolean doISponsorAQuest();
 	
-	Map<Integer, ArrayList<AdventureCard>> createQuest(Player current, QuestCard qc);
+	Map<Integer, ArrayList<AdventureCard>> createQuest(QuestCard qc);
 	
-	boolean doIJoinQuest(Player current, int numStages);
+	boolean doIJoinQuest(int numStages);
 	
-	ArrayList<AdventureCard> playCardsForQuestStage(Game g);
+	ArrayList<AdventureCard> playCardsForQuestStage();
 	
-	int getBidForTest(Game g);
+	int getBidForTest();
 	
-	ArrayList<AdventureCard> discardAfterWinningTest(Player current);
+	ArrayList<AdventureCard> discardAfterWinningTest();
 
 	
 	

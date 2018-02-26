@@ -3,44 +3,51 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class AIStrategyOne implements AIPlayerStrategy {
+public class AIStrategyOne extends Player implements AIPlayerStrategy {
 
-	public boolean doIJoinTournament(Game g) {
+	Game game;
+	
+	public AIStrategyOne(Game g) {
+		super();
+		game = g;
+	}
+	
+	public boolean doIJoinTournament() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public ArrayList<AdventureCard> playCardsForTournament(Game g) {
+	public ArrayList<AdventureCard> playCardsForTournament() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean doISponsorAQuest(Game g) {
+	public boolean doISponsorAQuest() {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public Map<Integer, ArrayList<AdventureCard>> createQuest(Player current, QuestCard qc) {
+	public Map<Integer, ArrayList<AdventureCard>> createQuest(QuestCard qc) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean doIJoinQuest(Player current, int numStages) {
+	public boolean doIJoinQuest(int numStages) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	public ArrayList<AdventureCard> playCardsForQuestStage(Game g) {
+	public ArrayList<AdventureCard> playCardsForQuestStage() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public int getBidForTest(Game g) {
+	public int getBidForTest() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
-	public ArrayList<AdventureCard> discardAfterWinningTest(Player current) {
+	public ArrayList<AdventureCard> discardAfterWinningTest() {
 		// TODO Auto-generated method stub
 		return null;
 	}
