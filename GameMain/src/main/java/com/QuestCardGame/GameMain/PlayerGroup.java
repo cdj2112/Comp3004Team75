@@ -3,17 +3,20 @@ package com.QuestCardGame.GameMain;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.*;
 
 public class PlayerGroup extends Group {
 	private Group hand;
 	private Group play;
 	private ImageView rank;
+	private Text battlePoints;
 
 	public PlayerGroup() {
 		super();
 		hand = new Group();
 		play = new Group();
 		rank = new ImageView();
+		battlePoints = new Text();
 
 		getChildren().add(play);
 		play.setTranslateX(0);
@@ -24,8 +27,11 @@ public class PlayerGroup extends Group {
 		hand.setTranslateY(150);
 		
 		getChildren().add(rank);
-		rank.setFitWidth(100);
-		rank.setFitHeight(150);
+		rank.setFitWidth(75);
+		rank.setFitHeight(112.5);
+		
+		getChildren().add(battlePoints);
+		battlePoints.setFont(new Font(20));
 	}
 
 	public void addCardToHand(Group g) {
@@ -56,5 +62,13 @@ public class PlayerGroup extends Group {
 	
 	public ImageView getRankImage() {
 		return rank;
+	}
+	
+	public void setBP(int bp) {
+		battlePoints.setText("Battle Points: "+bp);
+	}
+	
+	public Text getBP() {
+		return battlePoints;
 	}
 }

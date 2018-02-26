@@ -206,11 +206,17 @@ public class QuestUI extends Group {
 
 	private void positionInactivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
-
-		playerGroups[i].setRankImage(p.getRankImagePath());
-		ImageView rank = playerGroups[i].getRankImage();
+        PlayerGroup inactivePlayerGroup = playerGroups[i];
+		
+        inactivePlayerGroup.setRankImage(p.getRankImagePath());
+		ImageView rank = inactivePlayerGroup.getRankImage();
 		rank.setTranslateX(0);
 		rank.setTranslateY(0);
+		
+		inactivePlayerGroup.setBP(p.getBattlePoints());
+		Text bp = inactivePlayerGroup.getBP();
+		bp.setTranslateX(0);
+		bp.setTranslateY(140);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
@@ -218,8 +224,8 @@ public class QuestUI extends Group {
 			if (c == draggingCard)
 				continue;
 			CardGroup g = assetStore.getCardGroup(c);
-			if (!playerGroups[i].getHand().getChildren().contains(g)) {
-				playerGroups[i].addCardToHand(g);
+			if (!inactivePlayerGroup.getHand().getChildren().contains(g)) {
+				inactivePlayerGroup.addCardToHand(g);
 				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
 				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
@@ -232,8 +238,8 @@ public class QuestUI extends Group {
 			if (c == draggingCard)
 				continue;
 			CardGroup g = assetStore.getCardGroup(c);
-			if (!playerGroups[i].getPlay().getChildren().contains(g)) {
-				playerGroups[i].playCard(g);
+			if (!inactivePlayerGroup.getPlay().getChildren().contains(g)) {
+				inactivePlayerGroup.playCard(g);
 				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
 				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
@@ -247,11 +253,16 @@ public class QuestUI extends Group {
 
 	private void positionActivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
-
-		playerGroups[i].setRankImage(p.getRankImagePath());
-		ImageView rank = playerGroups[i].getRankImage();
+		PlayerGroup activePlayerGroup = playerGroups[i];
+		activePlayerGroup.setRankImage(p.getRankImagePath());
+		ImageView rank = activePlayerGroup.getRankImage();
 		rank.setTranslateX(1050);
 		rank.setTranslateY(0);
+		
+		activePlayerGroup.setBP(p.getBattlePoints());
+		Text bp = activePlayerGroup.getBP();
+		bp.setTranslateX(1050);
+		bp.setTranslateY(140);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
 		int xOffset = 0;
@@ -259,8 +270,8 @@ public class QuestUI extends Group {
 			if (c == draggingCard)
 				continue;
 			CardGroup g = assetStore.getCardGroup(c);
-			if (!playerGroups[i].getHand().getChildren().contains(g)) {
-				playerGroups[i].addCardToHand(g);
+			if (!activePlayerGroup.getHand().getChildren().contains(g)) {
+				activePlayerGroup.addCardToHand(g);
 				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
 				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
@@ -278,8 +289,8 @@ public class QuestUI extends Group {
 			if (c == draggingCard)
 				continue;
 			CardGroup g = assetStore.getCardGroup(c);
-			if (!playerGroups[i].getPlay().getChildren().contains(g)) {
-				playerGroups[i].playCard(g);
+			if (!activePlayerGroup.getPlay().getChildren().contains(g)) {
+				activePlayerGroup.playCard(g);
 				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
 				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
