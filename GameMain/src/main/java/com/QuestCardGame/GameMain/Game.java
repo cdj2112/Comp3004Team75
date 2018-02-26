@@ -66,8 +66,9 @@ public class Game {
 
 		sponsor = null;
 		activeQuest = null;
+		storyDeck.discard(currentStoryCard);
 		currentStoryCard = null;
-		
+
 		if (correctCards) {
 			currentStatus = GameStatus.IDLE;
 			playerTurn++;
