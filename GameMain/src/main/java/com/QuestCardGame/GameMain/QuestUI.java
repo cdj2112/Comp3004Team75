@@ -70,8 +70,8 @@ public class QuestUI extends Group {
 		for (int i = 0; i < numPlayers; i++) {
 			playerGroups[i] = new PlayerGroup();
 			playerGroups[i].setTranslateX(10);
-			playerGroups[i].setTranslateY(HEIGHT - 300);
-			playerGroups[i].setVisible(i == 0);
+			playerGroups[i].setTranslateY(HEIGHT - 310);
+			playerGroups[i].setVisible(true);
 
 			playHotspots[i] = new Hotspot();
 			playHotspots[i].setHeight(150);
@@ -86,6 +86,7 @@ public class QuestUI extends Group {
 		ImageView storyDeck = new ImageView(storyPic);
 		storyDeck.setFitHeight(150);
 		storyDeck.setFitWidth(100);
+		storyDeck.setTranslateX(400);
 
 		EventHandler<MouseEvent> drawStory = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
@@ -101,7 +102,7 @@ public class QuestUI extends Group {
 
 		prompt = new Text();
 		prompt.setFont(new Font(20));
-		prompt.setTranslateX(0);
+		prompt.setTranslateX(400);
 		prompt.setTranslateY(325);
 		getChildren().add(prompt);
 		playerBPDisplay = new Text();
@@ -111,11 +112,11 @@ public class QuestUI extends Group {
 		stageBPDisplay.setFont(new Font(20));
 		getChildren().add(stageBPDisplay);
 		acceptButton = new Button("Accept");
-		acceptButton.setTranslateX(0);
+		acceptButton.setTranslateX(400);
 		acceptButton.setTranslateY(350);
 		getChildren().add(acceptButton);
 		declineButton = new Button("Decline");
-		declineButton.setTranslateX(0);
+		declineButton.setTranslateX(400);
 		declineButton.setTranslateY(375);
 		getChildren().add(declineButton);
 		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
@@ -158,7 +159,7 @@ public class QuestUI extends Group {
 		stageGroups = new StageGroup[5];
 		for (int i = 0; i < 5; i++) {
 			stageGroups[i] = new StageGroup();
-			stageGroups[i].setTranslateX(300);
+			stageGroups[i].setTranslateX(600);
 			stageGroups[i].setTranslateY(i * 100);
 			stageGroups[i].setVisible(false);
 
@@ -173,9 +174,9 @@ public class QuestUI extends Group {
 		}
 
 		discardHotspot = new Hotspot();
-		discardHotspot.setHeight(100);
+		discardHotspot.setHeight(150);
 		discardHotspot.setWidth(100);
-		discardHotspot.setTranslateX(1000);
+		discardHotspot.setTranslateX(WIDTH - 150);
 		discardHotspot.setTranslateY(0);
 		discardHotspot.setAction(behaviourFactory.discardCard);
 		getChildren().add(discardHotspot);
@@ -190,43 +191,87 @@ public class QuestUI extends Group {
 		playHotspots[game.getCurrentActivePlayer()].checkColision(draggingCard, x, y);
 		discardHotspot.checkColision(draggingCard, x, y);
 	}
+	
+	private void positionInactivePlayerGroup(int i) {
+		Player p = game.getPlayer(i);
+		ArrayList<AdventureCard> pHand = p.getHand();
+		int xOffset = 0;
+		for (Card c : pHand) {
+			if (c == draggingCard)
+				continue;
+			CardGroup g = assetStore.getCardGroup(c);
+			if (!playerGroups[i].getHand().getChildren().contains(g)) {
+				playerGroups[i].addCardToHand(g);
+				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
+				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
+			}
+			g.setVisible(false);
+		}
+
+		ArrayList<AdventureCard> pPlay = p.getPlay();
+		xOffset = 0;
+		for (Card c : pPlay) {
+			if (c == draggingCard)
+				continue;
+			CardGroup g = assetStore.getCardGroup(c);
+			if (!playerGroups[i].getPlay().getChildren().contains(g)) {
+				playerGroups[i].playCard(g);
+				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
+				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
+			}
+			g.setTranslateX(xOffset % 4 * 80 + 87.5);
+			g.setTranslateY(Math.floor(xOffset/4)*115 - 18.75);
+			g.setScaleX(0.75);
+			g.setScaleY(0.75);
+			xOffset++;
+		}
+	}
+	
+	private void positionActivePlayerGroup(int i){
+		Player p = game.getPlayer(i);
+		ArrayList<AdventureCard> pHand = p.getHand();
+		int xOffset = 0;
+		for (Card c : pHand) {
+			if (c == draggingCard)
+				continue;
+			CardGroup g = assetStore.getCardGroup(c);
+			if (!playerGroups[i].getHand().getChildren().contains(g)) {
+				playerGroups[i].addCardToHand(g);
+				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
+				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
+			}
+			g.setTranslateX(xOffset * 110.0);
+			g.setTranslateY(0);
+			g.setScaleX(1);
+			g.setScaleY(1);
+			g.setVisible(true);
+			xOffset++;
+		}
+
+		ArrayList<AdventureCard> pPlay = p.getPlay();
+		xOffset = 0;
+		for (Card c : pPlay) {
+			if (c == draggingCard)
+				continue;
+			CardGroup g = assetStore.getCardGroup(c);
+			if (!playerGroups[i].getPlay().getChildren().contains(g)) {
+				playerGroups[i].playCard(g);
+				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
+				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
+			}
+			g.setTranslateX(xOffset * 110.0);
+			g.setTranslateY(0);
+			xOffset++;
+		}
+	}
 
 	private void repositionCards() {
 		GameStatus GS = game.getGameStatus();
-		
-		for (int i = 0; i < game.getNumPlayers(); i++) {
-			Player p = game.getPlayer(i);
-			ArrayList<AdventureCard> pHand = p.getHand();
-			int xOffset = 0;
-			for (Card c : pHand) {
-				if (c == draggingCard)
-					continue;
-				CardGroup g = assetStore.getCardGroup(c);
-				if (!playerGroups[i].getHand().getChildren().contains(g)) {
-					playerGroups[i].addCardToHand(g);
-					EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
-					g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
-				}
-				g.setTranslateX(xOffset * 110.0);
-				g.setTranslateY(0);
-				g.setScaleX(1);
-				g.setScaleY(1);
-				xOffset++;
-			}
+		int activePlayer = game.getCurrentActivePlayer();
 
-			ArrayList<AdventureCard> pPlay = p.getPlay();
-			xOffset = 0;
-			for (Card c : pPlay) {
-				if (c == draggingCard)
-					continue;
-				CardGroup g = assetStore.getCardGroup(c);
-				if (!playerGroups[i].getPlay().getChildren().contains(g)) {
-					playerGroups[i].playCard(g);
-				}
-				g.setTranslateX(xOffset * 110.0);
-				g.setTranslateY(0);
-				xOffset++;
-			}
+		for (int i = 0; i < game.getNumPlayers(); i++) {
+			if(i == activePlayer) positionActivePlayerGroup(i);
+			else positionInactivePlayerGroup(i);
 		}
 
 		Card sCard = game.getActiveStoryCard();
@@ -243,12 +288,13 @@ public class QuestUI extends Group {
 			activeStory = sCG;
 		}
 		if (activeStory != null) {
-			activeStory.setTranslateX(5);
+			activeStory.setTranslateX(400);
 			activeStory.setTranslateY(155);
 		}
 
 		Quest q = game.getActiveQuest();
 		if (q != null) {
+			int stage = q.getCurrentStageIndex();
 			int stg = 0;
 			for (Stage s : q.getStages()) {
 				int xOffset = 0;
@@ -256,6 +302,8 @@ public class QuestUI extends Group {
 					CardGroup g = assetStore.getCardGroup(c);
 					if (!stageGroups[stg].getChildren().contains(g)) {
 						stageGroups[stg].addCardGroup(g);
+						EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
+						g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 					}
 					g.setTranslateX(xOffset * 75 - 15);
 					g.setTranslateY(-25);
@@ -381,10 +429,16 @@ public class QuestUI extends Group {
 		int activePlayer = game.getCurrentActivePlayer();
 		repositionCards();
 		readGameStatus();
-		int i = 0;
-		for (PlayerGroup p : playerGroups) {
-			p.setVisible(i == activePlayer);
-			i++;
+		int numPlayers = game.getNumPlayers();
+		for (int i = 0; i < numPlayers; i++) {
+			if(i == activePlayer) {
+				playerGroups[i].setTranslateX(10);
+				playerGroups[i].setTranslateY(HEIGHT - 310);
+			} else {
+				int yOffset = 200*((i - activePlayer + numPlayers) % numPlayers - 1);
+				playerGroups[i].setTranslateX(10);
+				playerGroups[i].setTranslateY(yOffset);
+			}
 		}
 	}
 
