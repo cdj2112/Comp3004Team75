@@ -54,7 +54,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage(Game g) {
-		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
+		Hand cardsToPlay = new Hand();
 		int currentStage = g.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
 		int totalStages = g.getActiveQuest().getNumStages();
 
@@ -64,7 +64,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		else {
 			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10);
 		}
-		previousQuestStageBattlePoints = this.getBattlePointsForHand((Hand)cardsToPlay);
+		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
 		
 		return cardsToPlay.size() > 0 ? cardsToPlay : null;
 	}
