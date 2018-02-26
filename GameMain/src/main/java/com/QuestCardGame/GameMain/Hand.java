@@ -5,7 +5,15 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Hand extends ArrayList<AdventureCard>{
-
+	
+	public void sortAscendingByBattlePoints() {
+		Collections.sort(this, new Comparator<AdventureCard>() {
+			public int compare(AdventureCard a, AdventureCard b) {
+				return Integer.compare(a.getBattlePoint(false), b.getBattlePoint(false));
+			}
+		});
+	}
+	
 	public void sortDescendingByBattlePoints() {
 		Collections.sort(this, new Comparator<AdventureCard>() {
 			public int compare(AdventureCard a, AdventureCard b) {
@@ -14,10 +22,12 @@ public class Hand extends ArrayList<AdventureCard>{
 		});
 	}
 	
-	public void sortAscendingByBattlePoints() {
+	public void sortDescendingByCardTypeBattlePoints() {
 		Collections.sort(this, new Comparator<AdventureCard>() {
 			public int compare(AdventureCard a, AdventureCard b) {
-				return Integer.compare(a.getBattlePoint(false), b.getBattlePoint(false));
+				int battlePointCompare = Integer.compare(b.getBattlePoint(false), a.getBattlePoint(false));
+				int typeCompare = Integer.compare(b.getCardType().ordinal(), a.getCardType().ordinal());
+				return typeCompare == 0 ? battlePointCompare : typeCompare;
 			}
 		});
 	}
@@ -44,7 +54,7 @@ public class Hand extends ArrayList<AdventureCard>{
 	public Hand getBestPossibleHand() {
 		Hand cards = new Hand();
 		
-		this.sortDescendingByBattlePoints();
+		this.sortDescendingByCardTypeBattlePoints();
 		
 		for(AdventureCard c: this) {
 			if(isValidPlay(cards, c))
@@ -98,6 +108,12 @@ public class Hand extends ArrayList<AdventureCard>{
 				return false;			
 		}
 		return true;
+	}
+	
+	public Hand getHandToPlayForQuestStage(int prevStageBattlePoints) {
+		Hand h = new Hand();
+		
+		return h;
 	}
 	
 	public boolean isValidPlay(Hand h, AdventureCard newCard) {

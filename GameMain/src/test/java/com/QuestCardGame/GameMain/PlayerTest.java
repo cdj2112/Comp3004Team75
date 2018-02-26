@@ -23,20 +23,37 @@ public class PlayerTest extends TestCase{
 	}
 	
 	public void testPlayerHandSortDescendingByBattlePoints() {
-		AdventureCard f1 = new Foe("TestFoe1", 6);
 		AdventureCard w1 = new Weapon("Dagger", 1);
+		AdventureCard f1 = new Foe("TestFoe1", 6);
+		AdventureCard w2 = new Weapon("Axe",2);
+		AdventureCard a1 = new Amours();
 
 		Player p = new Player();
 		p.drawCard(w1);
 		p.drawCard(f1);
+		p.drawCard(w2);
+		p.drawCard(a1);
 		
-		assert p.getHand().indexOf(f1) == 1;
 		assert p.getHand().indexOf(w1) == 0;
+		assert p.getHand().indexOf(w2) == 2;
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(a1) == 3;
+
 		
 		p.getHand().sortDescendingByBattlePoints();
 		
-		assert p.getHand().indexOf(f1) == 0;
-		assert p.getHand().indexOf(w1) == 1;
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(w1) == 3;
+		assert p.getHand().indexOf(w2) == 2;
+		assert p.getHand().indexOf(a1) == 0;
+		
+		p.getHand().sortDescendingByCardTypeBattlePoints();
+		
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(w1) == 3;
+		assert p.getHand().indexOf(w2) == 2;
+		assert p.getHand().indexOf(a1) == 0;
+
 	}
 	
 	/**
