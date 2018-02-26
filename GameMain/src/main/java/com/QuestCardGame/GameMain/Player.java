@@ -62,6 +62,14 @@ public class Player {
 		return totalBattlePoints;
 	}
 	
+	public int getBattlePointsForHand(Hand h) {
+		int total = 0;
+		for(AdventureCard c: h) {
+			total += c.getBattlePoint(false);
+		}	
+		return total;
+	}
+	
 	public void addShields(int s) {
 		numShields += s;
 		//TODO:

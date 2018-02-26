@@ -81,7 +81,7 @@ public class Hand extends ArrayList<AdventureCard>{
 		if(this.size() < stages)
 			return false;
 		
-		this.sortDescendingByBattlePoints();
+		this.sortDescendingByCardTypeBattlePoints();
 		
 		for(int i = 0; i < stages; i++) {
 			h.clear();
@@ -110,8 +110,26 @@ public class Hand extends ArrayList<AdventureCard>{
 		return true;
 	}
 	
-	public Hand getHandToPlayForQuestStage(int prevStageBattlePoints) {
+	public Hand getHandToPlayForQuestStage(int requiredBattlePoints) {
 		Hand h = new Hand();
+		
+		boolean containsAmour = false;
+		for(AdventureCard c : this) {
+			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
+				containsAmour = true;
+		}
+				
+		for(AdventureCard c : this) {
+			if(requiredBattlePoints <= 0)
+				break;
+			
+			if(isValidPlay(h, c)) {
+				if(c.getCardType() == AdventureCard.AdventureType.AMOURS && containsAmour)
+					continue;
+				h.add(c);
+				requiredBattlePoints -= c.getBattlePoint(false);
+			}		
+		}
 		
 		return h;
 	}
@@ -127,4 +145,5 @@ public class Hand extends ArrayList<AdventureCard>{
 		
 		return true;
 	}
+	
 }

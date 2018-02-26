@@ -7,6 +7,13 @@ import java.util.Comparator;
 
 public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
+	int previousQuestStageBattlePoints;
+	
+	public AIStrategyTwo() {
+		super();
+		previousQuestStageBattlePoints = 0;
+	}
+	
 	//Always participate
 	public boolean doIJoinTournament(Game g) {
 		return true;
@@ -48,14 +55,18 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
 	public ArrayList<AdventureCard> playCardsForQuestStage(Game g) {
 		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
+		int currentStage = g.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
+		int totalStages = g.getActiveQuest().getNumStages();
 
-//		if(currentStage == totalStages) {
-//			//TODO getBestPossibleHand(hand)
-//		}
-//		else {
-//			//TODO play +10 using amour, ally, weapon in that order
-//		}
-		return cardsToPlay;
+		if(currentStage == totalStages) {
+			cardsToPlay = this.getHand().getBestPossibleHand();
+		}
+		else {
+			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10);
+		}
+		previousQuestStageBattlePoints = this.getBattlePointsForHand((Hand)cardsToPlay);
+		
+		return cardsToPlay.size() > 0 ? cardsToPlay : null;
 	}
 
 	public int getBidForTest(Game g) {
