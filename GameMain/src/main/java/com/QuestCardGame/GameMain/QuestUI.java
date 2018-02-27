@@ -229,9 +229,8 @@ public class QuestUI extends Group {
 			CardGroup g = assetStore.getCardGroup(c);
 			if (!inactivePlayerGroup.getHand().getChildren().contains(g)) {
 				inactivePlayerGroup.addCardToHand(g);
-				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
-				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
+			g.setDragCard(false);
 			g.setVisible(false);
 		}
 
@@ -243,9 +242,8 @@ public class QuestUI extends Group {
 			CardGroup g = assetStore.getCardGroup(c);
 			if (!inactivePlayerGroup.getPlay().getChildren().contains(g)) {
 				inactivePlayerGroup.playCard(g);
-				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
-				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
+			g.setDragCard(false);
 			g.setTranslateX(xOffset % 5 * 35 + 40);
 			g.setTranslateY(Math.floor(xOffset / 5) * 52 - 50);
 			g.setScaleX(1/3.0);
@@ -278,9 +276,8 @@ public class QuestUI extends Group {
 			CardGroup g = assetStore.getCardGroup(c);
 			if (!activePlayerGroup.getHand().getChildren().contains(g)) {
 				activePlayerGroup.addCardToHand(g);
-				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
-				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
+			g.setDragCard(true);
 			g.setTranslateX(xOffset * 110.0);
 			g.setTranslateY(0);
 			g.setScaleX(1);
@@ -297,9 +294,8 @@ public class QuestUI extends Group {
 			CardGroup g = assetStore.getCardGroup(c);
 			if (!activePlayerGroup.getPlay().getChildren().contains(g)) {
 				activePlayerGroup.playCard(g);
-				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
-				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
+			g.setDragCard(false);
 			g.setTranslateX(xOffset * 110.0);
 			g.setTranslateY(0);
 			g.setScaleX(1);
@@ -347,9 +343,8 @@ public class QuestUI extends Group {
 					CardGroup g = assetStore.getCardGroup(c);
 					if (!stageGroups[stg].getChildren().contains(g)) {
 						stageGroups[stg].addCardGroup(g);
-						EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
-						g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 					}
+					g.setDragCard(false);
 					g.setTranslateX(xOffset * 75 - 15);
 					g.setTranslateY(-25);
 					g.setScaleX(0.666);

@@ -9,6 +9,8 @@ public class CardGroup extends Group {
 	private boolean faceUp = true;
 	private ImageView face;
 	private ImageView back;
+	private boolean canHover;
+	private boolean canDrag;
 
 	public CardGroup(Card c) {
 		super();
@@ -32,5 +34,21 @@ public class CardGroup extends Group {
 	public void setFaceUpDown(boolean faceUp) {
 		face.setVisible(faceUp);
 		back.setVisible(!faceUp);
+	}
+	
+	public void setDragCard(boolean drag) {
+		canDrag = drag;
+	}
+	
+	public boolean getDragCard() {
+		return canDrag;
+	}
+	
+	public void setHoverCard(boolean hover) {
+		canHover = hover;
+	}
+	
+	public boolean getHoverCard() {
+		return canHover;
 	}
 }

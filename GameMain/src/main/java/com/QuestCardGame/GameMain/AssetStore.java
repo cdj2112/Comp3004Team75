@@ -25,9 +25,10 @@ public class AssetStore {
 		CardGroup cg = new CardGroup(c);
 
 		final Card eventCard = c;
-		final Group eventGroup = cg;
+		final CardGroup eventGroup = cg;
 		EventHandler<MouseEvent> dragged = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
+				if(!eventGroup.getDragCard()) return;
 				UI.setDraggingCard(eventCard);
 				double x = e.getX();
 				double y = e.getY();
