@@ -210,6 +210,8 @@ public class QuestUI extends Group {
 		
         inactivePlayerGroup.setRankImage(p.getRankImagePath());
 		ImageView rank = inactivePlayerGroup.getRankImage();
+		rank.setFitWidth(50);
+		rank.setFitHeight(75);
 		rank.setTranslateX(0);
 		rank.setTranslateY(0);
 		
@@ -219,6 +221,7 @@ public class QuestUI extends Group {
 		bp.setTranslateY(140);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
+		inactivePlayerGroup.setCardsInHand(pHand.size(), true);
 		int xOffset = 0;
 		for (Card c : pHand) {
 			if (c == draggingCard)
@@ -243,10 +246,10 @@ public class QuestUI extends Group {
 				EventHandler<MouseEvent> drag = assetStore.getCardListener(c);
 				g.addEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
-			g.setTranslateX(xOffset % 4 * 80 + 87.5);
-			g.setTranslateY(Math.floor(xOffset / 4) * 115 - 18.75);
-			g.setScaleX(0.75);
-			g.setScaleY(0.75);
+			g.setTranslateX(xOffset % 5 * 35 + 40);
+			g.setTranslateY(Math.floor(xOffset / 5) * 52 - 50);
+			g.setScaleX(1/3.0);
+			g.setScaleY(1/3.0);
 			xOffset++;
 		}
 	}
@@ -256,6 +259,8 @@ public class QuestUI extends Group {
 		PlayerGroup activePlayerGroup = playerGroups[i];
 		activePlayerGroup.setRankImage(p.getRankImagePath());
 		ImageView rank = activePlayerGroup.getRankImage();
+		rank.setFitWidth(75);
+		rank.setFitHeight(112.5);
 		rank.setTranslateX(1050);
 		rank.setTranslateY(0);
 		
@@ -265,6 +270,7 @@ public class QuestUI extends Group {
 		bp.setTranslateY(140);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
+		activePlayerGroup.setCardsInHand(pHand.size(), false);
 		int xOffset = 0;
 		for (Card c : pHand) {
 			if (c == draggingCard)
@@ -474,7 +480,7 @@ public class QuestUI extends Group {
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(HEIGHT - 310);
 			} else {
-				int yOffset = 200 * ((activePlayer - i + numPlayers) % numPlayers - 1);
+				int yOffset = 160 * ((activePlayer - i + numPlayers) % numPlayers - 1);
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(yOffset);
 			}
