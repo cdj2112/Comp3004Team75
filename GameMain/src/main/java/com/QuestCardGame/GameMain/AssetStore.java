@@ -41,15 +41,15 @@ public class AssetStore {
 		EventHandler<MouseEvent> mouseEnter = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(!eventGroup.getHoverCard()) return;
-				System.out.println("In "+eventCard.getName());
 				UI.setHoverCard(eventCard);
+				UI.update();
 			}
 		};
 		EventHandler<MouseEvent> mouseLeave = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if(!eventGroup.getHoverCard()) return;
-				System.out.println("Out "+eventCard.getName());
 				UI.setHoverCard(null);
+				UI.update();
 			}
 		};
 		EventHandler<MouseEvent> mouseUp = new EventHandler<MouseEvent>() {

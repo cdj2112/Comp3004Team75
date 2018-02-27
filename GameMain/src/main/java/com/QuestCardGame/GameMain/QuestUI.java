@@ -248,6 +248,9 @@ public class QuestUI extends Group {
 		for (Card c : pPlay) {
 			if (c == draggingCard)
 				continue;
+			if(c == hoverCard) {
+				expandCard.setTranslateY(inactivePlayerGroup.getTranslateY());
+			}
 			CardGroup g = assetStore.getCardGroup(c);
 			if (!inactivePlayerGroup.getPlay().getChildren().contains(g)) {
 				inactivePlayerGroup.playCard(g);
