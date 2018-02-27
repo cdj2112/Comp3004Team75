@@ -90,4 +90,8 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void endTurn() {
+		previousQuestStageBattlePoints = 0;
+	}
 }

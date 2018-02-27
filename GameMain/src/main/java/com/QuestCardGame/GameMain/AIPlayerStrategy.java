@@ -27,6 +27,12 @@ public interface AIPlayerStrategy {
 	int getBidForTest();
 	
 	ArrayList<AdventureCard> discardAfterWinningTest();
+	
+	/**
+	 * Called after a full round of a quest, tournament,
+	 * event to reset all variables to their beginning values 
+	 */
+	void endTurn();
 
 	
 	

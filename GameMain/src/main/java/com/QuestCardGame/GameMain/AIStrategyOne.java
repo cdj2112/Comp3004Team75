@@ -51,5 +51,9 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public void endTurn() {
+		
+	}
 
 }
