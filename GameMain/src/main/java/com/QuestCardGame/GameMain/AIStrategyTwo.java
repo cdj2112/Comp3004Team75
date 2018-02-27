@@ -91,7 +91,31 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		return null;
 	}
 	
+	/**
+	 * For now just get rid of the lowest BP cards
+	 */
+	public ArrayList<AdventureCard> getCardsToDiscard(){
+		Hand playerHand = this.getHand();
+		int numCardsToDiscard = playerHand.size() - 12;
+		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
+		
+		if(numCardsToDiscard <= 0)
+			return null;
+		
+		playerHand.sortAscendingByBattlePoints();
+		
+		for(AdventureCard c: playerHand) {
+			if(numCardsToDiscard == 0)
+				break;
+			cardsToDiscard.add(c);
+			numCardsToDiscard--;
+		}
+		return cardsToDiscard;
+	}
+	
 	public void endTurn() {
 		previousQuestStageBattlePoints = 0;
 	}
+	
+	
 }

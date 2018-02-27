@@ -28,14 +28,13 @@ public interface AIPlayerStrategy {
 	
 	ArrayList<AdventureCard> discardAfterWinningTest();
 	
+	ArrayList<AdventureCard> getCardsToDiscard();
+	
 	/**
 	 * Called after a full round of a quest, tournament,
 	 * event to reset all variables to their beginning values 
 	 */
 	void endTurn();
-
-	
-	
 	
 	
 	
