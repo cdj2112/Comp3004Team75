@@ -50,7 +50,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		int foesToDiscard = h.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
 
-		isValidBattlePoints = h.hasIncreasingBattlePointsForStages(numStages, 10);
+		isValidBattlePoints = h.hasIncreasingBattlePointsForStages(numStages, 10, this.getPlay());
 		
 		return  foesToDiscard >= 2 && isValidBattlePoints;
 	}

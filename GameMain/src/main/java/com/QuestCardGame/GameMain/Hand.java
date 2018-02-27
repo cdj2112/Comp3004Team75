@@ -80,33 +80,51 @@ public class Hand extends ArrayList<AdventureCard>{
 		return numFoesToDiscard;
 	}
 	
-	public boolean hasIncreasingBattlePointsForStages(int stages, int increaseBy) {
-		int currentStageBattlePoints = 0;
+	public boolean hasIncreasingBattlePointsForStages(int stages, int increaseBy, ArrayList<AdventureCard> cardsInPlay) {
 		int battlePointsNeededForStage = increaseBy; 	//take the first valid card with BP > increaseBy
+		int amourAndAllyBattlePoints = 0;				//track separately because carried over each stage
 		boolean isAmourPlayed = false;					//only can play 1 per quest
-		Hand h = new Hand();							//stores cards for each stage
+		Hand cardsToPlay = new Hand();					//stores cards for each stage - DOESN'T PLAY THEM
 		
 		if(this.size() < stages)
 			return false;
 		
+		//examine what's already in play (should only be allies)
+		for(AdventureCard c: cardsInPlay) {
+			if(c.getCardType() == AdventureCard.AdventureType.ALLY)
+				amourAndAllyBattlePoints += c.getBattlePoint(false);
+		}
+		
 		this.sortDescendingByCardTypeBattlePoints();
 		
+		//based on what's in play, decide what we can play at each stage
+		int currentStageBattlePoints = amourAndAllyBattlePoints;
 		for(int i = 0; i < stages; i++) {
-			h.clear();
+			cardsToPlay.clear();
 			
 			if(i != 0) {
 				battlePointsNeededForStage = currentStageBattlePoints + increaseBy;
-				currentStageBattlePoints = 0;
+				currentStageBattlePoints = amourAndAllyBattlePoints;
 			}
 			
 			for(AdventureCard c : this) {
 				if(battlePointsNeededForStage <= 0)
 					break;
 				
-				if(isValidPlay(h, c) && !isAmourPlayed) {
-					h.add(c);
-					if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
-						isAmourPlayed = true;
+				if(isValidPlay(cardsToPlay, c)) {		
+					if(c.getCardType() == AdventureCard.AdventureType.AMOURS) {
+						if(isAmourPlayed) {
+							continue;
+						}
+						else {
+							isAmourPlayed = true;
+							amourAndAllyBattlePoints += c.getBattlePoint(false);
+						}
+					}
+					else if(c.getCardType() == AdventureCard.AdventureType.ALLY) {
+						amourAndAllyBattlePoints += c.getBattlePoint(false);
+					}
+					cardsToPlay.add(c);
 					battlePointsNeededForStage -= c.getBattlePoint(false);
 					currentStageBattlePoints += c.getBattlePoint(false);
 				}		
