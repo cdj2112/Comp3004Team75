@@ -51,16 +51,24 @@ public class Hand extends ArrayList<AdventureCard>{
 		return cards.size() > 0 ? cards : null;
 	}
 	
-	public Hand getBestPossibleHand() {
-		Hand cards = new Hand();
+	public Hand getBestPossibleHand(ArrayList<AdventureCard> cardsInPlay) {
+		Hand cardsToPlay = new Hand();
+		boolean isAmourPlayed = false;
+		
+		for(AdventureCard c: cardsInPlay) {
+			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
+				isAmourPlayed = true;
+		}
 		
 		this.sortDescendingByCardTypeBattlePoints();
 		
 		for(AdventureCard c: this) {
-			if(isValidPlay(cards, c))
-				cards.add(c);
+			if(c.getCardType() == AdventureCard.AdventureType.AMOURS && isAmourPlayed)
+				continue;
+			else if(isValidPlay(cardsToPlay, c))
+				cardsToPlay.add(c);
 		}
-		return cards;
+		return cardsToPlay;
 	}
 	
 	public int getNumFoesToDiscard(int maxBattlePoints) {
@@ -110,28 +118,38 @@ public class Hand extends ArrayList<AdventureCard>{
 		return true;
 	}
 	
-	public Hand getHandToPlayForQuestStage(int requiredBattlePoints) {
-		Hand h = new Hand();
+	public Hand getHandToPlayForQuestStage(int requiredBattlePoints, ArrayList<AdventureCard> cardsInPlay) {
+		Hand handToPlay = new Hand();
 		
+		// subtract amour and ally battle points because they're 
+		// included in requiredBattlePoints. They should be included
+		// in this round too, so we only need the difference
 		boolean containsAmour = false;
-		for(AdventureCard c : this) {
-			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
+		for(AdventureCard c : cardsInPlay) {
+			if(c.getCardType() == AdventureCard.AdventureType.AMOURS) {
 				containsAmour = true;
+				requiredBattlePoints -= c.getBattlePoint(false);
+			}
+			else if(c.getCardType() == AdventureCard.AdventureType.ALLY) {
+				requiredBattlePoints -= c.getBattlePoint(false);
+			}
 		}
-				
+		
+		//this: the hand who's calling the function
+		//		it will always be the AI's hand
 		for(AdventureCard c : this) {
 			if(requiredBattlePoints <= 0)
 				break;
 			
-			if(isValidPlay(h, c)) {
+			if(isValidPlay(handToPlay, c)) {
 				if(c.getCardType() == AdventureCard.AdventureType.AMOURS && containsAmour)
 					continue;
-				h.add(c);
+				handToPlay.add(c);
 				requiredBattlePoints -= c.getBattlePoint(false);
 			}		
 		}
 		
-		return h;
+		return handToPlay;
 	}
 	
 	public boolean isValidPlay(Hand h, AdventureCard newCard) {

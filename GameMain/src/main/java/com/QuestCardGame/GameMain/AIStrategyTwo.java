@@ -28,7 +28,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
 		cardsToPlay = hand.getCardsForPoints(50);
 		if(cardsToPlay == null)
-			cardsToPlay = hand.getBestPossibleHand();
+			cardsToPlay = hand.getBestPossibleHand(this.getPlay());
 		
 		return cardsToPlay;
 	}
@@ -59,12 +59,13 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		Hand cardsToPlay = new Hand();
 		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
 		int totalStages = game.getActiveQuest().getNumStages();
+		Hand cardsInPlay = this.getPlay();
 
 		if(currentStage == totalStages) {
-			cardsToPlay = this.getHand().getBestPossibleHand();
+			cardsToPlay = this.getHand().getBestPossibleHand(cardsInPlay);
 		}
 		else {
-			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10);
+			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
 		}
 		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
 		
@@ -116,6 +117,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	public void endTurn() {
 		previousQuestStageBattlePoints = 0;
 	}
+	
 	
 	
 }
