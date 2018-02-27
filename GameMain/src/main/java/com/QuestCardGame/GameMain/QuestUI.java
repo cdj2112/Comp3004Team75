@@ -34,6 +34,8 @@ public class QuestUI extends Group {
 
 	private Card draggingCard;
 	private CardGroup activeStory = null;
+	private Card hoverCard;
+	private ImageView expandCard;
 
 	private Hotspot[] stageHotspots;
 	private Hotspot[] playHotspots;
@@ -87,6 +89,12 @@ public class QuestUI extends Group {
 		storyDeck.setFitHeight(150);
 		storyDeck.setFitWidth(100);
 		storyDeck.setTranslateX(400);
+		
+		expandCard = new ImageView();
+		expandCard.setFitWidth(100);
+		expandCard.setFitHeight(150);
+		expandCard.setTranslateX(260);
+		getChildren().add(expandCard);
 
 		EventHandler<MouseEvent> drawStory = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
@@ -231,6 +239,7 @@ public class QuestUI extends Group {
 				inactivePlayerGroup.addCardToHand(g);
 			}
 			g.setDragCard(false);
+			g.setHoverCard(false);
 			g.setVisible(false);
 		}
 
@@ -244,6 +253,7 @@ public class QuestUI extends Group {
 				inactivePlayerGroup.playCard(g);
 			}
 			g.setDragCard(false);
+			g.setHoverCard(true);
 			g.setTranslateX(xOffset % 5 * 35 + 40);
 			g.setTranslateY(Math.floor(xOffset / 5) * 52 - 50);
 			g.setScaleX(1/3.0);
@@ -278,6 +288,7 @@ public class QuestUI extends Group {
 				activePlayerGroup.addCardToHand(g);
 			}
 			g.setDragCard(true);
+			g.setHoverCard(false);
 			g.setTranslateX(xOffset * 110.0);
 			g.setTranslateY(0);
 			g.setScaleX(1);
@@ -296,6 +307,7 @@ public class QuestUI extends Group {
 				activePlayerGroup.playCard(g);
 			}
 			g.setDragCard(false);
+			g.setHoverCard(false);
 			g.setTranslateX(xOffset * 110.0);
 			g.setTranslateY(0);
 			g.setScaleX(1);
@@ -331,6 +343,8 @@ public class QuestUI extends Group {
 		if (activeStory != null) {
 			activeStory.setTranslateX(400);
 			activeStory.setTranslateY(155);
+			activeStory.setDragCard(false);
+			activeStory.setHoverCard(false);
 		}
 
 		Quest q = game.getActiveQuest();
@@ -345,6 +359,7 @@ public class QuestUI extends Group {
 						stageGroups[stg].addCardGroup(g);
 					}
 					g.setDragCard(false);
+					g.setHoverCard(false);
 					g.setTranslateX(xOffset * 75 - 15);
 					g.setTranslateY(-25);
 					g.setScaleX(0.666);
@@ -366,6 +381,7 @@ public class QuestUI extends Group {
 		int active = game.getCurrentActivePlayer();
 		for (Hotspot h : playHotspots) {
 			h.setActive(i == active && GS == GameStatus.PLAYING_QUEST);
+			h.setVisible(i == active && GS == GameStatus.PLAYING_QUEST);
 			i++;
 		}
 
@@ -421,6 +437,7 @@ public class QuestUI extends Group {
 		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST
 				|| GS == GameStatus.END_TURN_DISCARD;
 		discardHotspot.setActive(canDiscard);
+		discardHotspot.setVisible(canDiscard);
 
 		if (GS == GameStatus.EVAL_QUEST_STAGE) {
 			int activeStage = game.getActiveQuest().getCurrentStageIndex();
@@ -488,6 +505,20 @@ public class QuestUI extends Group {
 
 	public void setDraggingCard(Card c) {
 		draggingCard = c;
+	}
+	
+	public Card getHoverCard() {
+		return hoverCard;
+	}
+	
+	public void setHoverCard(Card c) {
+		hoverCard = c;
+		if(c == null) {
+			expandCard.setImage(null);
+		} else {
+			Image img = AssetStore.getImage(c.getFrontImagePath());
+			expandCard.setImage(img);
+		}
 	}
 
 	public EventHandler<MouseEvent> findCardListener(Card c) {

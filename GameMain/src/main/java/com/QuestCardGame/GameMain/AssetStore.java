@@ -38,6 +38,20 @@ public class AssetStore {
 				UI.update();
 			}
 		};
+		EventHandler<MouseEvent> mouseEnter = new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				if(!eventGroup.getHoverCard()) return;
+				System.out.println("In "+eventCard.getName());
+				UI.setHoverCard(eventCard);
+			}
+		};
+		EventHandler<MouseEvent> mouseLeave = new EventHandler<MouseEvent>() {
+			public void handle(MouseEvent e) {
+				if(!eventGroup.getHoverCard()) return;
+				System.out.println("Out "+eventCard.getName());
+				UI.setHoverCard(null);
+			}
+		};
 		EventHandler<MouseEvent> mouseUp = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
 				if (UI.getDraggingCard() != eventCard) {
@@ -52,6 +66,8 @@ public class AssetStore {
 
 		cg.addEventHandler(MouseEvent.MOUSE_DRAGGED, dragged);
 		cg.addEventHandler(MouseEvent.MOUSE_RELEASED, mouseUp);
+		cg.addEventHandler(MouseEvent.MOUSE_ENTERED, mouseEnter);
+		cg.addEventHandler(MouseEvent.MOUSE_EXITED, mouseLeave);
 		dragListener.put(c.getId(), dragged);
 		cardGroups.put(c.getId(), cg);
 		return cg;
