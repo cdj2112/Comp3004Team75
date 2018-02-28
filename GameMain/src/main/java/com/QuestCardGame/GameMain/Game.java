@@ -1,5 +1,7 @@
 package com.QuestCardGame.GameMain;
 
+import java.util.*;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -16,6 +18,7 @@ public class Game {
 	private Deck storyDeck;
 	private Deck adventureDeck;
 	private int playerTurn;
+	private Card currentStoryCard;
 
 	// Turn Variables
 	private int activePlayer;
@@ -33,6 +36,7 @@ public class Game {
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
+		currentStoryCard = null;
 		initStoryDeck();
 		initAdventureDeck();
 		for (int p = 0; p < numPlayers; p++) {
@@ -44,6 +48,7 @@ public class Game {
 
 	public void playTurn() {
 		Card storyCard = getStoryCard();
+		currentStoryCard = storyCard;
 		if (storyCard instanceof QuestCard) {
 			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
@@ -59,11 +64,14 @@ public class Game {
 			i++;
 		}
 
+		sponsor = null;
+		activeQuest = null;
+		storyDeck.discard(currentStoryCard);
+		currentStoryCard = null;
+
 		if (correctCards) {
 			currentStatus = GameStatus.IDLE;
-			sponsor = null;
-			activeQuest = null;
-			playerTurn++;
+			playerTurn = (playerTurn + 1) % numPlayers;
 			activePlayer = playerTurn;
 		} else {
 			currentStatus = GameStatus.END_TURN_DISCARD;
@@ -103,7 +111,7 @@ public class Game {
 		return false;
 	}
 
-	public boolean acceptDeclineQuest(Player p, boolean accept) {
+	public ArrayList<AdventureCard> acceptDeclineQuest(Player p, boolean accept) {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			if (accept) {
 				activeQuest.addPlayer(players[activePlayer]);
@@ -118,14 +126,25 @@ public class Game {
 			}
 
 			if (activePlayer == sponsorIndex) {
-				currentStatus = GameStatus.PLAYING_QUEST;
-				activeQuest.startQuest();
-				activeQuest.getNextPlayer();
+				if (activeQuest.getPlayers().size() > 0) {
+					currentStatus = GameStatus.PLAYING_QUEST;
+					activeQuest.startQuest();
+					activeQuest.getNextPlayer();
+				} else {
+					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
+					for (int i = 0; i < backToSponsor; i++) {
+						playerDrawAdventureCard(sponsor);
+					}
+					activeQuest.clearQuest();
+					ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
+					for (AdventureCard c : questDiscard)
+						adventureDeck.discard(c);
+					endTurn();
+					return questDiscard;
+				}
 			}
-
-			return true;
 		}
-		return false;
+		return null;
 	}
 
 	public void finalizeQuest() {
@@ -360,22 +379,22 @@ public class Game {
 	private void initStoryDeck() {
 		storyDeck = new Deck();
 
-		storyDeck.addCard(new QuestCard("Journey Through the Enchanted Forest", 3));
-		storyDeck.addCard(new QuestCard("Vanquish King Arthur's Enemies", 3));
-		storyDeck.addCard(new QuestCard("Repel the Saxon Raiders", 2));
+		try {
+			CardList.populateStoryCards(storyDeck);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		storyDeck.shuffleDeck();
 	}
 
 	private void initAdventureDeck() {
 		adventureDeck = new Deck();
 
-		for (int i = 0; i < 50; i++) {
-			adventureDeck.addCard(new Weapon("Dagger", 5));
+		try {
+			CardList.populateAdventureCards(adventureDeck);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-
-		for (int i = 0; i < 50; i++) {
-			adventureDeck.addCard(new Foe("Bandit", 10));
-		}
-
 		adventureDeck.shuffleDeck();
 	}
 
@@ -410,6 +429,10 @@ public class Game {
 		}
 
 		return true;
+	}
+
+	public Card getActiveStoryCard() {
+		return currentStoryCard;
 	}
 
 }

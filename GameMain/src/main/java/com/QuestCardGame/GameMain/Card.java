@@ -6,12 +6,18 @@ public abstract class Card {
 	protected int id;
 	protected String cardName;
 
-
 	Card(String name) {
 		id = nextId++;
 		cardName = name;
 	}
 
-	public int getId() {return id;}
-	public String getName() {return cardName;}
+	public int getId() {
+		return id;
+	}
+	public String getName() {
+		return cardName;
+	}
+	
+	public abstract String getFrontImagePath();
+	public abstract String getBackImagePath();
 }

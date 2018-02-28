@@ -1,73 +1,63 @@
 package com.QuestCardGame.GameMain;
-import java.util.Map;
+
+import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
-public class CardList{
-  private Map<String, Integer> adventureList;
-  private Map<String, Integer> storyList;
-//Integer is stand for the amount of copies of a same card
+public class CardList {
+	// Integer is stand for the amount of copies of a same card
 
+	/*
+	 * public CardList() { adventureList = new ArrayList<String>(); attributeList =
+	 * new ArrayList<String>(); storyList = new HashMap<String, Integer>(); try {
+	 * generateList(); } catch (FileNotFoundException e) { // TODO Auto-generated
+	 * catch block e.printStackTrace(); } // System.out.print(adventureList.get(1));
+	 * }
+	 * 
+	 * public List<String> getAdventureList() { return adventureList; } public
+	 * List<String> getAttributeList() { return attributeList; } public Map<String,
+	 * Integer> getStoryList() { return storyList; }
+	 */
 
-  public CardList(){
-    adventureList = new HashMap<String, Integer>();
-    storyList = new HashMap<String, Integer>();
-    generateList();
-  }
+	public static void populateAdventureCards(Deck adventureDeck) throws FileNotFoundException {
+		
+		//Format Weapon_Name;Amount;BattlePoints
+		Scanner weaponScanner = new Scanner(new File("./src/resources/WeaponList.txt"));
+		while (weaponScanner.hasNext()) {
+			String[] cardInfo = weaponScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				Weapon w = new Weapon(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				adventureDeck.addCard(w);
+			}
+		}
+		
+		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
+		Scanner foeScanner = new Scanner(new File("./src/resources/FoeList.txt"));
+		while (foeScanner.hasNext()) {
+			String[] cardInfo = foeScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				Foe f = new Foe(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]), Integer.parseInt(cardInfo[3]));
+				adventureDeck.addCard(f);
+			}
+		}
+	}
+	
+	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
+		
+		//Format QuestName_Name;Amount;NumStages
+		Scanner questScanner = new Scanner(new File("./src/resources/QuestList.txt"));
+		while(questScanner.hasNext()) {
+			String[] cardInfo = questScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				QuestCard f = new QuestCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				storyDeck.addCard(f);
+			}
+		}
+	}
 
-  public Map<String, Integer> getAdventureList() {return adventureList;}
-  public Map<String, Integer> getStoryList() {return storyList;}
-
-  private void generateList(){
-    //hardcode for now, may get from text file later
-    /*Adventure Card Initialization*/
-    //Allies
-    adventureList.put("Sir Galahad", 1);
-    adventureList.put("Sir Lancelot",1);
-    adventureList.put("King Arthur",1);
-    adventureList.put("Sir Tristan",1);
-    adventureList.put("King Pellinore", 1);
-    adventureList.put("Sir Gawain",1);
-    adventureList.put("Sir Pervival",1);
-    adventureList.put("Queen Guinevere",1);
-    adventureList.put("Queen Iseult",1);
-    adventureList.put("Merlin",1);
-    //Weapons
-    adventureList.put("Excalibur", 2);
-    adventureList.put("Lance",6);
-    adventureList.put("Battle-ax",8);
-    adventureList.put("Sword",16);
-    adventureList.put("Horse",11);
-    adventureList.put("Dagger",6);
-    //Amours
-    adventureList.put("Amour",8);
-    //Foes
-    adventureList.put("Dragon",1);
-    adventureList.put("Giant",2);
-    adventureList.put("Mordred",4);
-    adventureList.put("Green Knight",2);
-    adventureList.put("Black Knight",3);
-    adventureList.put("Evil Knight",6);
-    adventureList.put("Saxon Knight",8);
-    adventureList.put("Robber Knight",7);
-    adventureList.put("Saxons", 5);
-    adventureList.put("Boar",4);
-    adventureList.put("Thieves",8);
-    //Tests
-    adventureList.put("Test of Valor",2);
-    adventureList.put("Test of Temptation",2);
-    adventureList.put("Test of Morgan Le Fey",2);
-    adventureList.put("Test of the Questing Beast",2);
-    /*Adventure Card Initialization finished*/
-
-    /*Story Card Initialization*/
-    //Quests
-    storyList.put("Search for the Holy Grail",1);
-    storyList.put("Test of the Green Knight", 1);
-    storyList.put("Search for the Questing Beast", 1);
-    /*Strry Card Initialization finished*/
-
-  }
-  public void updateList(){
-    //not yet implenmented
-  }
 }
+
