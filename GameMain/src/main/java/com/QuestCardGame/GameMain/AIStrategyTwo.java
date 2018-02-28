@@ -59,7 +59,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		Hand cardsToPlay = new Hand();
 		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
 		int totalStages = game.getActiveQuest().getNumStages();
-		Hand cardsInPlay = this.getPlay();
+		ArrayList<AdventureCard> cardsInPlay = this.getPlay();
 
 		if(currentStage == totalStages) {
 			cardsToPlay = this.getHand().getBestPossibleHand(cardsInPlay);
