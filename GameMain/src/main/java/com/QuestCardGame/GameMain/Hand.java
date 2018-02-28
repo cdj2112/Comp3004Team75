@@ -182,4 +182,33 @@ public class Hand extends ArrayList<AdventureCard>{
 		return true;
 	}
 	
+	// This should be checking that foe + weapons can increase at each
+	// stage. I'm not entirely sure how to do that right now.
+	public boolean hasCardsToSponsorQuest(int numStages) {
+		boolean hasTestCard = false;
+		int numFoesNeededForQuest = numStages;
+		for(AdventureCard c: this) {
+			if(c.getCardType() == AdventureCard.AdventureType.TEST) {
+				hasTestCard = true;
+				break;
+			}
+		}
+		
+		if(hasTestCard)
+			numFoesNeededForQuest--;
+		
+		this.sortAscendingByBattlePoints();
+		
+		int numFoesInHand = 0;
+		int prevFoeBattlePoints = 0;
+		for(AdventureCard c: this) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) > prevFoeBattlePoints) {
+				numFoesInHand++;
+				prevFoeBattlePoints = c.getBattlePoint(false);
+			}
+		}
+		
+		return numFoesInHand >= numFoesNeededForQuest; 
+	}
+	
 }

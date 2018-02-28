@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Player {
 		
-	private static final Logger logger = LogManager.getLogger(Player.class);
+	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
 	private static final int[] battlePoints = {5, 10, 20};
 	private static final int[] shieldsNeeded = {5, 7, 10};
@@ -84,6 +84,10 @@ public class Player {
 	
 	public int getNumShields() {
 		return numShields;
+	}
+	
+	public int getShieldsNeeded() {
+		return shieldsNeeded[rank];
 	}
 	
 	public String getRankName() {

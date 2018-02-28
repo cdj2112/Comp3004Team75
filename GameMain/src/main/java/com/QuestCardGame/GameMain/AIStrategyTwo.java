@@ -36,8 +36,26 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	}
 
 	public boolean doISponsorAQuest() {
-		boolean sponsorQuest = false;
-		return false;
+		boolean sponsorQuest = true;
+		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
+		
+		for(int i = 0; i < game.getNumPlayers() && sponsorQuest; i++) {
+			Player p = game.getPlayer(i);
+			if(p == this) {
+				if(!this.getHand().hasCardsToSponsorQuest(numStages))
+					sponsorQuest = false;
+			}			
+			else if(p.getNumShields() + numStages >= p.getShieldsNeeded()) {
+				sponsorQuest = false;
+			}
+		}
+		
+		if(sponsorQuest)
+			game.acceptSponsor();
+		else
+			game.declineSponsor();
+		
+		return sponsorQuest;
 	}
 
 	public Map<Integer, ArrayList<AdventureCard>> createQuest() {
