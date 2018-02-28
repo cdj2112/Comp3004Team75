@@ -1,6 +1,7 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Game {
 
@@ -37,6 +38,28 @@ public class Game {
 		initAdventureDeck();
 		for (int p = 0; p < numPlayers; p++) {
 			for (int i = 0; i < 12; i++) {
+				playerDrawAdventureCard(players[p]);
+			}
+		}
+	}
+
+	Game(HashMap<Integer,ArrayList> testDeck) {
+		players = new Player[numPlayers];
+		for (int i = 0; i < numPlayers; i++) {
+			players[i] = new Player();
+		}
+		currentStatus = GameStatus.IDLE;
+		activePlayer = 0;
+		toDiscard = new int[numPlayers];
+		initStoryDeck();
+		initAdventureDeck();
+		for (int p = 0; p < numPlayers; p++) {
+			if (testDeck.containsKey(p)){
+				for(AdventureCard cc : testDeck.get(p)) {
+					players[p].drawCard(cc);
+				}
+			}
+			while (players[p].getHand < 12) {
 				playerDrawAdventureCard(players[p]);
 			}
 		}
@@ -241,7 +264,7 @@ public class Game {
 	 * Return the next player to play cards if there is one The next player then
 	 * becomes the current player and can be retrieved anytime using
 	 * getCurrentActiveQuestPlayer() Returns null if the round is over
-	 * 
+	 *
 	 * This is separate from the game's active player because not all players may be
 	 * in a quest
 	 */
@@ -271,7 +294,7 @@ public class Game {
 	/**
 	 * Gets the game's active player. If the game is playing, then this is the quest
 	 * active player. Otherwise it's the game player.
-	 * 
+	 *
 	 * @return int between 0-3 inclusive -1 if there is no active player, i.e. the
 	 *         game has done a full circle
 	 */
@@ -284,7 +307,7 @@ public class Game {
 
 	/**
 	 * To get the current active quest player.
-	 * 
+	 *
 	 * @return index of the activeQuestPlayer if it exists -1 otherwise
 	 */
 	private int getCurrentActiveQuestPlayer() {
@@ -298,7 +321,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the specified player
-	 * 
+	 *
 	 * @param player:
 	 *            0, 1, 2, 3
 	 * @return returns battle points of the player if exists -1 otherwise
@@ -311,7 +334,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the current stage
-	 * 
+	 *
 	 * @return the battle points of the current stage
 	 */
 	public int getQuestCurrentStageBattlePoints() {
@@ -320,7 +343,7 @@ public class Game {
 
 	/**
 	 * Determines if a player advances onto the next stage of a quest
-	 * 
+	 *
 	 * @param player
 	 *            to evaluate
 	 * @return true if player wins stage false otherwise
