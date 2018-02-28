@@ -1,0 +1,42 @@
+28 二月 2018 11:05:28 GMT: Log 'EclipseCompiler.txt' opened: 28 二月 2018 11:05:28 GMT with name H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\EclipseCompiler.txt
+28 二月 2018 11:05:44 GMT: diagnostics = javax.tools.DiagnosticCollector@3381dc
+fileManager = org.eclipse.jdt.internal.compiler.tool.EclipseFileManager@d8f9c1
+fileObjects = [H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java]
+28 二月 2018 11:05:44 GMT: Calling 'org.eclipse.jdt.internal.compiler.tool.EclipseCompiler@d46afe' with options [-Xlint:deprecation, -Xlint:unchecked, -g, -classpath, H:\3004\QuestCardGame\GameMain\src\test\java;E:\DrJava\drjava-beta-20160913-225446.exe]
+28 二月 2018 11:05:45 GMT: Compiler call returned
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@ad8371
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 11 ColNo = 9 Msg = 'Syntax error on token(s), misplaced construct(s)'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@1f3ffda
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 11 ColNo = 10 Msg = 'Syntax error on token "add", = expected after this token'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@1615a5e
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 12 ColNo = 9 Msg = 'Syntax error on token(s), misplaced construct(s)'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@1ca6e69
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 12 ColNo = 10 Msg = 'Syntax error on token "add", = expected after this token'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@12d63f7
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 13 ColNo = 9 Msg = 'Syntax error on token(s), misplaced construct(s)'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@1785027
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 13 ColNo = 10 Msg = 'Syntax error on token "add", = expected after this token'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@2253fc
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 14 ColNo = 12 Msg = 'Syntax error on token "put", invalid AnnotationName'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@75cbb7
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 14 ColNo = 3 Msg = 'Syntax error on tokens, ConstructorHeaderName expected instead'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@a53855
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 10 ColNo = 13 Msg = 'AdventureCard cannot be resolved to a type'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@14faf8e
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 9 ColNo = 26 Msg = 'AdventureCard cannot be resolved to a type'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@1d8a528
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 9 ColNo = 84 Msg = 'AdventureCard cannot be resolved to a type'
+28 二月 2018 11:05:45 GMT: Processing diagnostic org.eclipse.jdt.internal.compiler.tool.EclipseCompilerImpl$3$2@188ff57
+28 二月 2018 11:05:45 GMT:  Kind = ERROR
+28 二月 2018 11:05:45 GMT: Name = H:\3004\QuestCardGame\GameMain\src\test\java\com\QuestCardGame\GameMain\Scenario1Test.java LineNo = 10 ColNo = 51 Msg = 'AdventureCard cannot be resolved to a type'
