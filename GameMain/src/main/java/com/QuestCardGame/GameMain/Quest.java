@@ -3,8 +3,13 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Iterator;
+import java.util.ArrayList;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Quest {
+	private static final Logger logger = LogManager.getLogger(Player.class);
+
 
 	private Stage[] stages;
 	private ArrayList<Player> players;
@@ -15,7 +20,7 @@ public class Quest {
 	private int totalStages;
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
-	
+
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
 		for(int i =0; i<qc.getStages();i++) {
@@ -25,8 +30,9 @@ public class Quest {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isQuestOver = false;
+		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + "stages.");
 	}
-	
+
 	public boolean validateQuest() {
 		int previousBP = -1;
 		for(Stage s: stages) {
@@ -39,28 +45,28 @@ public class Quest {
 			}
 		}
 		return true;
-		
+
 	}
-	
+
 	public boolean addCardToStage(AdventureCard c, int s) {
 		stages[s].addCard(c);
 		numCardsUsed++;
 		return true;
 	}
-	
+
 	public boolean addPlayer(Player p) {
 		return players.add(p);
 	}
-	
+
 	public boolean removePlayer(Player p) {
 		return players.remove(p);
 	}
-	
+
 	public void startQuest() {
 		iter = players.listIterator();
 		currentStage = 0;
 	}
-	
+
 	public Player getNextPlayer() {
 		if(iter.hasNext()) {
 			currentPlayer = iter.next();
@@ -72,19 +78,19 @@ public class Quest {
 			return null;
 		}
 	}
-	
+
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	public int getCurrentStageIndex() {
 		return currentStage;
 	}
-    
+
 	public int getCurrentStageBattlePoints() {
 		return stages[currentStage].getBattlePoints();
 	}
-	
+
 	/**
 	 * Determines whether the player advances to the next
 	 * stage of the quest, or wins the quest if it is the
@@ -93,18 +99,18 @@ public class Quest {
 	 * @return 	true if the player wins
 	 * 			false otherwise
 	 */
-	
+
 	public boolean evaluatePlayer(Player p) {
-		int pointsToBeat = stages[currentStage].getBattlePoints();		
+		int pointsToBeat = stages[currentStage].getBattlePoints();
 		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
-		
+
 		discardPile.clear();
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-				
+
 		if(!playerWins)
 			iter.remove();
-		
+
 		//currentStage starts at 0
 		if(isLastPlayer) {
 			currentStage++;
@@ -113,18 +119,18 @@ public class Quest {
 				awardQuestWinners();
 			}
 		}
-		
+
 		return playerWins;
 	}
-	
+
 	public boolean isQuestOver() {
 		return isQuestOver;
 	}
-	
+
 	public ArrayList<AdventureCard> getDiscardPile(){
 		return discardPile;
 	}
-		
+
 	private void awardQuestWinners() {
 		int shieldsToAward = totalStages;
 		for(Player p : players)
@@ -136,33 +142,33 @@ public class Quest {
 			}
 		}
 	}
-	
+
 	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
-		
+
 		ArrayList<AdventureCard> playerHand = p.getPlay();
-		
+
 		for(Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
 			AdventureCard c = it.next();
-			
+
 			if(c.getCardType() == t) {
 				discardPile.add(c);
 				it.remove();
 			}
 		}
 	}
-	
+
 	public int getNumStages() {
 		return totalStages;
 	}
-	
+
 	public Stage[] getStages() {
 		return stages;
 	}
-	
+
 	public int getCardsUsed() {
 		return numCardsUsed;
 	}
-	
+
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
