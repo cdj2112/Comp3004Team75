@@ -32,9 +32,9 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 		return null;
 	}
 
-	public boolean doIJoinQuest() {
+	public ArrayList<AdventureCard> doIJoinQuest() {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {

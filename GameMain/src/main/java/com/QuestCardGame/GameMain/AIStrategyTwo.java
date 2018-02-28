@@ -30,11 +30,13 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		if(cardsToPlay == null)
 			cardsToPlay = hand.getBestPossibleHand(this.getPlay());
 		
+		game.playerPlayCards(this, cardsToPlay);
+		
 		return cardsToPlay;
 	}
 
 	public boolean doISponsorAQuest() {
-		
+		boolean sponsorQuest = false;
 		return false;
 	}
 
@@ -45,15 +47,16 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
 	//Can increase BP each stage by 10 pts AND
 	//has 2 foes less than 25 BP
-	public boolean doIJoinQuest() {
-		Hand h = this.getHand();
-		int foesToDiscard = h.getNumFoesToDiscard(25);
+	public ArrayList<AdventureCard> doIJoinQuest() {
+		Hand hand = this.getHand();
+		int foesToDiscard = hand.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
 		int numStages = game.getActiveQuest().getNumStages();
 
-		isValidBattlePoints = h.hasIncreasingBattlePointsForStages(numStages, 10, this.getPlay());
+		isValidBattlePoints = hand.hasIncreasingBattlePointsForStages(numStages, 10, this.getPlay());		
+		boolean acceptQuest = foesToDiscard >= 2 && isValidBattlePoints;
 		
-		return  foesToDiscard >= 2 && isValidBattlePoints;
+		return game.acceptDeclineQuest(this, acceptQuest);
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
@@ -69,6 +72,8 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
 		}
 		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
+		
+		game.playerPlayCards(this, cardsToPlay);
 		
 		return cardsToPlay.size() > 0 ? cardsToPlay : null;
 	}
@@ -110,6 +115,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			if(numCardsToDiscard == 0)
 				break;
 			cardsToDiscard.add(c);
+			game.playerDiscardAdventrueCard(this, c);
 			numCardsToDiscard--;
 		}
 		return cardsToDiscard;
@@ -119,38 +125,27 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		Game.GameStatus gameStatus = game.getGameStatus();
 		
 		switch (gameStatus) {
-			case PLAYING_QUEST:
-				return this.playCardsForQuestStage();
-			/*case PLAYING_TOURNAMENT:
-				return this.playCardsForTournament();*/
+			case SPONSORING:
+				this.doISponsorAQuest();
+				return null;
+			case ACCEPTING_QUEST:
+				return this.doIJoinQuest();
 			case PRE_QUEST_DISCARD:
 				return this.getCardsToDiscard();
+			case PLAYING_QUEST:
+				return this.playCardsForQuestStage();
+//			case ACCEPTING_TOURNAMENT:
+//				return this.doIJoinTournament();
+//			case PLAYING_TOURNAMENT:
+//				return this.playCardsForTournament();				
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			default:
 				return null;
 		}
 	}
-		
-	public boolean doIParticipate() {
-		Game.GameStatus gameStatus = game.getGameStatus();
-		
-		switch(gameStatus) {
-			case ACCEPTING_QUEST:
-				return this.doIJoinQuest();
-			/*case ACCEPTING_TOURNAMENT:
-				return this.doIJoinTournament();*/
-			case SPONSORING:
-				return this.doISponsorAQuest();
-			default:
-				return false;
-		}
-	}
 	
 	public void endTurn() {
 		previousQuestStageBattlePoints = 0;
 	}
-	
-	
-	
 }

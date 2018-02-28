@@ -20,7 +20,7 @@ public interface AIPlayerStrategy {
 	
 	Map<Integer, ArrayList<AdventureCard>> createQuest();
 	
-	boolean doIJoinQuest();
+	ArrayList<AdventureCard> doIJoinQuest();
 	
 	ArrayList<AdventureCard> playCardsForQuestStage();
 	

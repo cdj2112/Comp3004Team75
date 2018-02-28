@@ -70,11 +70,11 @@ public class PlayerTest extends TestCase {
 		p.drawCard(f1);
 		p.drawCard(w3);
 		
-		Hand h = p.getHand().getBestPossibleHand();
+		Hand h = p.getHand().getBestPossibleHand(p.getPlay());
 		assert !h.contains(f1) && h.contains(w1) && h.contains(w3);
 		
 		p.drawCard(w2);
-		h = p.getHand().getBestPossibleHand();
+		h = p.getHand().getBestPossibleHand(p.getPlay());
 		assert !h.contains(f1) && h.contains(w1) && !h.contains(w2) && h.contains(w3);
 		
 	}
@@ -93,12 +93,12 @@ public class PlayerTest extends TestCase {
 		p.drawCard(w3);
 		p.drawCard(f1);
 		
-		assert !p.getHand().hasIncreasingBattlePointsForStages(2, 10);
+		assert !p.getHand().hasIncreasingBattlePointsForStages(2, 10, p.getPlay());
 		
 		p.drawCard(w4);
 		p.drawCard(w5);
 		
-		assert p.getHand().hasIncreasingBattlePointsForStages(2, 10);
+		assert p.getHand().hasIncreasingBattlePointsForStages(2, 10, p.getPlay());
 
 	}
 }
