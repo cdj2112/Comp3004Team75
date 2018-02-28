@@ -18,9 +18,9 @@ public interface AIPlayerStrategy {
 	
 	boolean doISponsorAQuest();
 	
-	Map<Integer, ArrayList<AdventureCard>> createQuest(QuestCard qc);
+	Map<Integer, ArrayList<AdventureCard>> createQuest();
 	
-	boolean doIJoinQuest(int numStages);
+	boolean doIJoinQuest();
 	
 	ArrayList<AdventureCard> playCardsForQuestStage();
 	

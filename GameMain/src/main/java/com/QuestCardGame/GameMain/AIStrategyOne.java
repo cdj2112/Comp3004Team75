@@ -27,12 +27,12 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 		return false;
 	}
 
-	public Map<Integer, ArrayList<AdventureCard>> createQuest(QuestCard qc) {
+	public Map<Integer, ArrayList<AdventureCard>> createQuest() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	public boolean doIJoinQuest(int numStages) {
+	public boolean doIJoinQuest() {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -49,6 +49,10 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public ArrayList<AdventureCard> getCardsToDiscard(){
 		return null;
 	}
 	

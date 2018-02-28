@@ -34,21 +34,22 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	}
 
 	public boolean doISponsorAQuest() {
-		// TODO Auto-generated method stub
+		
 		return false;
 	}
 
-	public Map<Integer, ArrayList<AdventureCard>> createQuest(QuestCard qc) {
+	public Map<Integer, ArrayList<AdventureCard>> createQuest() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	//Can increase BP each stage by 10 pts AND
 	//has 2 foes less than 25 BP
-	public boolean doIJoinQuest(int numStages) {
+	public boolean doIJoinQuest() {
 		Hand h = this.getHand();
 		int foesToDiscard = h.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
+		int numStages = game.getActiveQuest().getNumStages();
 
 		isValidBattlePoints = h.hasIncreasingBattlePointsForStages(numStages, 10, this.getPlay());
 		
@@ -112,6 +113,38 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			numCardsToDiscard--;
 		}
 		return cardsToDiscard;
+	}
+	
+	public ArrayList<AdventureCard> playTurn(){
+		Game.GameStatus gameStatus = game.getGameStatus();
+		
+		switch (gameStatus) {
+			case PLAYING_QUEST:
+				return this.playCardsForQuestStage();
+			/*case PLAYING_TOURNAMENT:
+				return this.playCardsForTournament();*/
+			case PRE_QUEST_DISCARD:
+				return this.getCardsToDiscard();
+			case END_TURN_DISCARD:
+				return this.getCardsToDiscard();
+			default:
+				return null;
+		}
+	}
+		
+	public boolean doIParticipate() {
+		Game.GameStatus gameStatus = game.getGameStatus();
+		
+		switch(gameStatus) {
+			case ACCEPTING_QUEST:
+				return this.doIJoinQuest();
+			/*case ACCEPTING_TOURNAMENT:
+				return this.doIJoinTournament();*/
+			case SPONSORING:
+				return this.doISponsorAQuest();
+			default:
+				return false;
+		}
 	}
 	
 	public void endTurn() {
