@@ -1,16 +1,14 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
-
+//import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
 
 public class Player {
 		
-	private static final Logger logger = LogManager.getLogger(Player.class);
-	
+//	private static final Logger logger = LogManager.getLogger(Player.class);
 	private Hand hand;
-	private Hand play;
+	private ArrayList<AdventureCard> play;
 	private int playerNumber;
 	private int numShields;
 	private int rank;
@@ -46,7 +44,7 @@ public class Player {
 		return hand;
 	}
 	
-	public Hand getPlay() {
+	public ArrayList<AdventureCard> getPlay() {
 		return play;
 	}
 	
