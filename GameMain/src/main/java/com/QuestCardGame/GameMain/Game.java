@@ -43,7 +43,7 @@ public class Game {
 		}
 	}
 
-	Game(HashMap<Integer,ArrayList> testDeck) {
+	Game(HashMap<Integer,ArrayList> testDeck, QuestCard testQuest) {
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
 			players[i] = new Player();
@@ -52,6 +52,7 @@ public class Game {
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
 		initStoryDeck();
+		storyDeck.addCard(testQuest);
 		initAdventureDeck();
 		for (int p = 0; p < numPlayers; p++) {
 			if (testDeck.containsKey(p)){

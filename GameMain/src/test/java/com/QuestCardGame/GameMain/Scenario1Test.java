@@ -15,8 +15,12 @@ public class Scenario1Test extends TestCase{
   Weapon sword = new Weapon("Sword",10);
   p1Test.add(sword);
   testDeck.put(0, p1Test);
-  Game testGame = new Game(testDeck);
+  QuestCard boarHunt = new QuestCard("Boar Hunt", 2);
+  Game testGame = new Game(testDeck, boarHunt);
   assert (testGame.getPlayer(0).getHand().contions(saxons));
   assert (testGame.getPlayer(0).getHand().contions(boar));
   assert (testGame.getPlayer(0).getHand().contions(sword));
+
+  testGame.playTurn();
+  assert (testGame.getActiveQuest().getQuestName().equals(boarHunt.getName()));
 }

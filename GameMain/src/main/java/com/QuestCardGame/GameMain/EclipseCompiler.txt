@@ -1,0 +1,1 @@
+28 二月 2018 11:21:19 GMT: Log 'EclipseCompiler.txt' opened: 28 二月 2018 11:21:19 GMT with name H:\3004\QuestCardGame\GameMain\src\main\java\com\QuestCardGame\GameMain\EclipseCompiler.txt
