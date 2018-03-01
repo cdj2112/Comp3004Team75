@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.Comparator;
+import java.util.HashMap;
 
 public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 
@@ -59,8 +60,23 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	}
 
 	public Map<Integer, ArrayList<AdventureCard>> createQuest() {
-		// TODO Auto-generated method stub
-		return null;
+		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
+		int prevStageBattlePoints = 0;
+		Map<Integer, ArrayList<AdventureCard>> stageCards = new HashMap<Integer, ArrayList<AdventureCard>>();
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
+		Hand sponsorHand = this.getHand();
+		
+		for(int stage = 1; stage <= numStages; stage++) {
+			cardsForStage = sponsorHand.getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
+			prevStageBattlePoints = 0;
+			for(AdventureCard c : cardsForStage) {
+				game.sponsorAddCardToStage(c, stage);
+				prevStageBattlePoints += c.getBattlePoint(false);
+			}
+			stageCards.put(stage, cardsForStage);
+		}
+	
+		return stageCards.size() > 0 ? stageCards : null;
 	}
 
 	//Can increase BP each stage by 10 pts AND

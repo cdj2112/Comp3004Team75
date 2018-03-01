@@ -211,4 +211,66 @@ public class Hand extends ArrayList<AdventureCard>{
 		return numFoesInHand >= numFoesNeededForQuest; 
 	}
 	
+	public ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages, int requiredBattlePoints){
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
+		
+		//second last stage should be a test if possible
+		if(totalStages - stage == 1) {
+			AdventureCard test = this.getTestCard();
+			if(test != null)
+				cardsForStage.add(test);
+		}
+		else if(stage == totalStages) {
+			AdventureCard foe = this.getStrongestFoe();
+			if(foe != null)
+				cardsForStage.add(foe);
+			for(AdventureCard c : this) {
+				if(isValidForQuestStage(c, cardsForStage))
+					cardsForStage.add(c);
+			}
+		}
+		else {
+			AdventureCard foe = this.getFoe(requiredBattlePoints);
+			if(foe != null)
+				cardsForStage.add(foe);
+		}	
+		return cardsForStage.size() > 0 ? cardsForStage : null;
+	}
+	
+	public AdventureCard getTestCard() {
+		for(AdventureCard c : this) {
+			if(c.getCardType() == AdventureCard.AdventureType.TEST)
+				return c;
+		}
+		return null;
+	}
+	
+	public AdventureCard getStrongestFoe() {
+		this.sortDescendingByBattlePoints();
+		for(AdventureCard c : this) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE)
+				return c;
+		}
+		return null;
+	}
+	
+	public AdventureCard getFoe(int battlePoints) {
+		this.sortAscendingByBattlePoints();
+		for(AdventureCard c : this) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) >= battlePoints)
+				return c;
+		}
+		return null;
+	}
+	
+	public boolean isValidForQuestStage(AdventureCard newCard, ArrayList<AdventureCard> stage) {
+		for(AdventureCard c : stage) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && newCard.getCardType() == AdventureCard.AdventureType.FOE)
+				return false;
+			else if(c.getName() == newCard.getName())
+				return false;
+		}
+		return true;
+	}
+	
 }
