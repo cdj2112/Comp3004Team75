@@ -29,7 +29,6 @@ public class Game {
 	private Quest activeQuest;
 
 	private Tournaments activeTournaments;
-	int playerIndex = 1;
 	private int playerTourTurn;
 
 	Game() {
@@ -135,15 +134,12 @@ public class Game {
 
 	public boolean finalizePlayTour() {
 		Player p = players[getCurrentActivePlayer()];
-		if (activeTournaments.getPlayers().size() == playerIndex)
-			currentStatus = GameStatus.EVAL_TOUR;
-		if (currentStatus == GameStatus.PLAYING_TOUR && p.getHand().size() <= 12
-				&& activeTournaments.getPlayers().size() > playerIndex) {
+		if (currentStatus == GameStatus.PLAYING_TOUR && p.getHand().size() <= 12) {
 			getNextActiveTourPlayer();
-			playerIndex++;
 			return true;
 		} else if (p.getHand().size() > 12) {
 			return false;
+			
 		}
 		return true;
 	}
@@ -155,7 +151,6 @@ public class Game {
 			adventureDeck.discard(c);
 
 		if (activeTournaments.isTournamentsOver()) {
-			playerIndex = 1;
 			endTurn();
 			for (int i = 0; i < numPlayers; i++) {
 				System.out.println("playe" + i + " Shields:" + players[i].getNumShields());
@@ -352,6 +347,17 @@ public class Game {
 	public Player getNextActiveTourPlayer() {
 		Player p = activeTournaments.getNextPlayer();
 
+		// play has looped a full circle - change status accordingly
+		if (p == null) {
+			if (currentStatus == GameStatus.PLAYING_TOUR)
+				currentStatus = GameStatus.EVAL_TOUR;
+			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && activeQuest.isQuestOver()){
+				currentStatus = GameStatus.IDLE;
+				return null;
+			}
+			return getNextActiveQuestPlayer();
+		}
+
 		return p;
 	}
 
@@ -509,8 +515,8 @@ public class Game {
 				return false;
 		}
 
-		if (c.getCardType() == AdventureCard.AdventureType.FOE)
-			return false;
+		if(c.getCardType() == AdventureCard.AdventureType.FOE)
+						return false;
 		return true;
 	}
 

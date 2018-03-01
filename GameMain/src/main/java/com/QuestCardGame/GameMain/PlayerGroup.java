@@ -11,6 +11,7 @@ public class PlayerGroup extends Group {
 	private ImageView rank;
 	private Text battlePoints;
 	private Text cardsInHand;
+	private Text shield;
 
 	public PlayerGroup() {
 		super();
@@ -19,6 +20,7 @@ public class PlayerGroup extends Group {
 		rank = new ImageView();
 		battlePoints = new Text();
 		cardsInHand = new Text();
+		shield = new Text();
 
 		getChildren().add(play);
 		play.setTranslateX(0);
@@ -33,6 +35,9 @@ public class PlayerGroup extends Group {
 		rank.setFitHeight(112.5);
 
 		getChildren().add(battlePoints);
+		battlePoints.setFont(new Font(20));
+		
+		getChildren().add(shield);
 		battlePoints.setFont(new Font(20));
 
 		getChildren().add(cardsInHand);
@@ -77,6 +82,14 @@ public class PlayerGroup extends Group {
 
 	public Text getBP() {
 		return battlePoints;
+	}
+	
+	public void setShield(int s) {
+		shield.setText("Shield: " + s);
+	}
+
+	public Text getShield() {
+		return shield;
 	}
 
 	public void setCardsInHand(int num, boolean visible) {

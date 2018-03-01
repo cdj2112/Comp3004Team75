@@ -248,7 +248,12 @@ public class QuestUI extends Group {
 		inactivePlayerGroup.setBP(p.getBattlePoints());
 		Text bp = inactivePlayerGroup.getBP();
 		bp.setTranslateX(0);
-		bp.setTranslateY(140);
+		bp.setTranslateY(135);
+		
+		inactivePlayerGroup.setShield(p.getNumShields());
+		Text shield = inactivePlayerGroup.getShield();
+		shield.setTranslateX(0);
+		shield.setTranslateY(150);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
 		inactivePlayerGroup.setCardsInHand(pHand.size(), true);
@@ -301,6 +306,11 @@ public class QuestUI extends Group {
 		Text bp = activePlayerGroup.getBP();
 		bp.setTranslateX(1050);
 		bp.setTranslateY(140);
+		
+		activePlayerGroup.setShield(p.getNumShields());
+		Text shiell = activePlayerGroup.getShield();
+		shiell.setTranslateX(1250);
+		shiell.setTranslateY(140);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
 		activePlayerGroup.setCardsInHand(pHand.size(), false);
@@ -430,7 +440,19 @@ public class QuestUI extends Group {
 			declineButton.setVisible(false);
 			prompt.setVisible(true);
 			prompt.setText("Eval end");
-			game.EvalTour();
+			
+			
+			evalTimer.schedule(new TimerTask() {
+				public void run() {
+					game.EvalTour();
+					Platform.runLater(new Runnable() {
+						public void run() {							
+							update();
+						}
+					});
+					isEvaluating = false;
+				}
+			}, (long) 2 * 1000);			
 			System.out.printf("eval done");
 		}
 
