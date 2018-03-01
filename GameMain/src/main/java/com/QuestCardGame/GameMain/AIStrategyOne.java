@@ -56,6 +56,10 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 		return null;
 	}
 	
+	public ArrayList<AdventureCard> playTurn(){
+		return null;
+	}
+	
 	public void endTurn() {
 		
 	}

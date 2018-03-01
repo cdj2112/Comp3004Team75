@@ -30,6 +30,8 @@ public interface AIPlayerStrategy {
 	
 	ArrayList<AdventureCard> getCardsToDiscard();
 	
+	ArrayList<AdventureCard> playTurn();
+	
 	/**
 	 * Called after a full round of a quest, tournament,
 	 * event to reset all variables to their beginning values 
