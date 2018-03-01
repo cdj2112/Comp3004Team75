@@ -509,6 +509,8 @@ public class Game {
 				return false;
 		}
 
+		if (c.getCardType() == AdventureCard.AdventureType.FOE)
+			return false;
 		return true;
 	}
 
