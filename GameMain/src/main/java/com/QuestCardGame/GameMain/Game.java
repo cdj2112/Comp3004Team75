@@ -28,9 +28,9 @@ public class Game {
 	private int sponsorIndex;
 	private Quest activeQuest;
 
-	private int EnterIndex;
 	private Tournaments activeTournaments;
 	int playerIndex = 1;
+	private int playerTourTurn;
 
 	Game() {
 		players = new Player[numPlayers];
@@ -112,21 +112,14 @@ public class Game {
 
 	// tournament*************************************************************************
 	public ArrayList<AdventureCard> acceptDeclineTour(Player p, boolean accept) {
-
-		if (currentStatus == GameStatus.ENTERING_TOUR && numPlayers > EnterIndex) {
+		if (currentStatus == GameStatus.ENTERING_TOUR) {
 			if (accept) {
-				EnterIndex++;
 				activeTournaments.addPlayer(players[activePlayer]);
 				playerDrawAdventureCard(p);
-			} else {
-				EnterIndex++;
 			}
 
-			if (numPlayers > EnterIndex) {
-				activePlayer = (activePlayer + 1) % numPlayers;
-			}
-
-			if (numPlayers == EnterIndex) {
+			activePlayer = getNextActivePlayer();
+			if (playerTourTurn == numPlayers - 1) {
 				if (activeTournaments.getPlayers().size() > 0) {
 					currentStatus = GameStatus.PLAYING_TOUR;
 					activeTournaments.startTournaments();
@@ -136,6 +129,7 @@ public class Game {
 				}
 			}
 		}
+		playerTourTurn = (playerTourTurn + 1) % (numPlayers);
 		return null;
 	}
 
@@ -156,8 +150,17 @@ public class Game {
 
 	public void EvalTour() {
 		activeTournaments.evaluatePlayers(activeTournaments.getPlayers());
-		currentStatus = GameStatus.IDLE;
-		endTurn();
+		ArrayList<AdventureCard> TourDiscard = activeTournaments.getDiscardPile();
+		for (AdventureCard c : TourDiscard)
+			adventureDeck.discard(c);
+
+		if (activeTournaments.isTournamentsOver()) {
+			playerIndex = 1;
+			endTurn();
+			for (int i = 0; i < numPlayers; i++) {
+				System.out.println("playe" + i + " Shields:" + players[i].getNumShields());
+			}
+		}
 	}
 	// ***************************************************
 

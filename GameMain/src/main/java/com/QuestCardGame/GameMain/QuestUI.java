@@ -137,19 +137,7 @@ public class QuestUI extends Group {
 		});
 		dialogListeners.put("declineTour", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
-				ArrayList<AdventureCard> discard = game.acceptDeclineTour(game.getPlayer(game.getCurrentActivePlayer()),
-						false);
-				if (discard != null) {
-					System.out.println("Start Discard " + discard.size());
-					for (AdventureCard c : discard) {
-						CardGroup cg = assetStore.getCardGroup(c);
-						Group p = (Group) cg.getParent();
-						if (p != null) {
-							System.out.println("Discard " + c.getName());
-							p.getChildren().remove(cg);
-						}
-					}
-				}
+				game.acceptDeclineTour(game.getPlayer(game.getCurrentActivePlayer()), false);
 				update();
 			}
 		});
@@ -440,7 +428,8 @@ public class QuestUI extends Group {
 		} else if (GS == GameStatus.EVAL_TOUR) {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
-			prompt.setVisible(false);
+			prompt.setVisible(true);
+			prompt.setText("Eval end");
 			game.EvalTour();
 			System.out.printf("eval done");
 		}
