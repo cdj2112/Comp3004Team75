@@ -34,7 +34,7 @@ public class Quest {
 				return false;
 			}
 			previousBP = s.getBattlePoints();
-			if(s.getNumCards()==0) {
+			if(s.getNumFoes() != 1) {
 				return false;
 			}
 		}
@@ -42,10 +42,11 @@ public class Quest {
 		
 	}
 	
-	public boolean addCardToStage(AdventureCard c, int s) {
-		stages[s].addCard(c);
-		numCardsUsed++;
-		return true;
+	public boolean addCardToStage(AdventureCard newCard, int s) {	
+		boolean isAdded = stages[s].addCard(newCard);
+		if(isAdded)
+			numCardsUsed++;
+		return isAdded;
 	}
 	
 	public boolean addPlayer(Player p) {
