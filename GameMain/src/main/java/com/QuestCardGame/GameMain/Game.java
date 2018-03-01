@@ -423,6 +423,9 @@ public class Game {
 			if (pc.cardName.equals(c.getName()))
 				return false;
 		}
+		
+		if(c.getCardType() == AdventureCard.AdventureType.FOE)
+			return false;
 
 		return true;
 	}
