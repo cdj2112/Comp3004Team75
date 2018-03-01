@@ -215,12 +215,12 @@ public class Hand extends ArrayList<AdventureCard>{
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
 		
 		//second last stage should be a test if possible
-		if(totalStages - stage == 1) {
+		if(totalStages - stage + 1 == 1) {
 			AdventureCard test = this.getTestCard();
 			if(test != null)
 				cardsForStage.add(test);
 		}
-		else if(stage == totalStages) {
+		else if(stage + 1 == totalStages) {
 			AdventureCard foe = this.getStrongestFoe();
 			if(foe != null)
 				cardsForStage.add(foe);

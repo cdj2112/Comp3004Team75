@@ -66,7 +66,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
 		Hand sponsorHand = this.getHand();
 		
-		for(int stage = 1; stage <= numStages; stage++) {
+		for(int stage = 0; stage < numStages; stage++) {
 			cardsForStage = sponsorHand.getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
 			prevStageBattlePoints = 0;
 			for(AdventureCard c : cardsForStage) {
