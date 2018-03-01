@@ -10,11 +10,16 @@ public class Amours extends AdventureCard {
 		bid = 1;
 	}
 
-  public int getBid() {return bid;}
-  public int getBattlePoint(Boolean b) {return battlePoint;}
+	public int getBid() {
+		return bid;
+	}
 
-  public String getFrontImagePath() {
-	  return "./src/resources/Cards/Armour/"+cardName+".png";
-  }
-  
+	public int getBattlePoint(Boolean b) {
+		return battlePoint;
+	}
+
+	public String getFrontImagePath() {
+		return "./src/resources/Cards/Armour/" + cardName + ".png";
+	}
+
 }

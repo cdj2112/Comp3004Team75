@@ -24,7 +24,7 @@ public class HotspotBehaviourFactory {
 			}
 		}
 	};
-	
+
 	public final HotspotBehaviour discardCard = new HotspotBehaviour() {
 		public void onHit(Card c) {
 			System.out.println("Discard");
@@ -32,7 +32,8 @@ public class HotspotBehaviourFactory {
 			game.playerDiscardAdventrueCard(game.getPlayer(active), (AdventureCard) c);
 			Group cardGroup = gameUI.findCardGroup(c);
 			Group g = (Group) cardGroup.getParent();
-			if(g != null) g.getChildren().remove(cardGroup);
+			if (g != null)
+				g.getChildren().remove(cardGroup);
 		}
 	};
 

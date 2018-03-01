@@ -16,8 +16,7 @@ public class Deck {
 	public Card drawCard() {
 		if (cards.size() > 0) {
 			return cards.pop();
-		}
-		else {
+		} else {
 			handleEmptyDeck();
 			return cards.pop();
 		}
@@ -34,15 +33,15 @@ public class Deck {
 	public int getNumCards() {
 		return cards.size();
 	}
-	
+
 	public void discard(Card c) {
 		discard.push(c);
 	}
-	
+
 	private void handleEmptyDeck() {
-		if(cards.size() != 0)
+		if (cards.size() != 0)
 			return;
-		
+
 		cards.addAll(discard);
 		shuffleDeck();
 	}

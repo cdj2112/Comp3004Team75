@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Game {
 
 	public static enum GameStatus {
-		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD,
+		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, ACCEPTING_TOUR, ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR
 	};
 
 	private GameStatus currentStatus;
@@ -27,6 +27,10 @@ public class Game {
 	private Player sponsor;
 	private int sponsorIndex;
 	private Quest activeQuest;
+
+	private int EnterIndex;
+	private Tournaments activeTournaments;
+	int playerIndex = 1;
 
 	Game() {
 		players = new Player[numPlayers];
@@ -52,6 +56,9 @@ public class Game {
 		if (storyCard instanceof QuestCard) {
 			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
+		} else {
+			activeTournaments = new Tournaments((TournamentCard) storyCard);
+			currentStatus = GameStatus.ENTERING_TOUR;
 		}
 	}
 
@@ -66,6 +73,7 @@ public class Game {
 
 		sponsor = null;
 		activeQuest = null;
+		activeTournaments = null;
 		storyDeck.discard(currentStoryCard);
 		currentStoryCard = null;
 
@@ -101,6 +109,57 @@ public class Game {
 			}
 		}
 	}
+
+	// tournament*************************************************************************
+	public ArrayList<AdventureCard> acceptDeclineTour(Player p, boolean accept) {
+
+		if (currentStatus == GameStatus.ENTERING_TOUR && numPlayers > EnterIndex) {
+			if (accept) {
+				EnterIndex++;
+				activeTournaments.addPlayer(players[activePlayer]);
+				playerDrawAdventureCard(p);
+			} else {
+				EnterIndex++;
+			}
+
+			if (numPlayers > EnterIndex) {
+				activePlayer = (activePlayer + 1) % numPlayers;
+			}
+
+			if (numPlayers == EnterIndex) {
+				if (activeTournaments.getPlayers().size() > 0) {
+					currentStatus = GameStatus.PLAYING_TOUR;
+					activeTournaments.startTournaments();
+					activeTournaments.getNextPlayer();
+				} else {
+					endTurn();
+				}
+			}
+		}
+		return null;
+	}
+
+	public boolean finalizePlayTour() {
+		Player p = players[getCurrentActivePlayer()];
+		if (activeTournaments.getPlayers().size() == playerIndex)
+			currentStatus = GameStatus.EVAL_TOUR;
+		if (currentStatus == GameStatus.PLAYING_TOUR && p.getHand().size() <= 12
+				&& activeTournaments.getPlayers().size() > playerIndex) {
+			getNextActiveTourPlayer();
+			playerIndex++;
+			return true;
+		} else if (p.getHand().size() > 12) {
+			return false;
+		}
+		return true;
+	}
+
+	public void EvalTour() {
+		activeTournaments.evaluatePlayers(activeTournaments.getPlayers());
+		currentStatus = GameStatus.IDLE;
+		endTurn();
+	}
+	// ***************************************************
 
 	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
@@ -287,6 +346,12 @@ public class Game {
 		return p;
 	}
 
+	public Player getNextActiveTourPlayer() {
+		Player p = activeTournaments.getNextPlayer();
+
+		return p;
+	}
+
 	/**
 	 * Gets the game's active player. If the game is playing, then this is the quest
 	 * active player. Otherwise it's the game player.
@@ -295,10 +360,23 @@ public class Game {
 	 *         game has done a full circle
 	 */
 	public int getCurrentActivePlayer() {
-		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE)
+		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE) {
 			return getCurrentActiveQuestPlayer();
-		else
+		} else if (currentStatus == GameStatus.PLAYING_TOUR) {
+			return getCurrentActiveTourPlayer();
+		} else {
+
 			return activePlayer;
+		}
+	}
+
+	private int getCurrentActiveTourPlayer() {
+		Player p = activeTournaments.getCurrentPlayer();
+		for (int i = 0; i < numPlayers; i++) {
+			if (players[i] == p)
+				return i;
+		}
+		return -1;
 	}
 
 	/**
@@ -404,6 +482,10 @@ public class Game {
 
 	public Quest getActiveQuest() {
 		return activeQuest;
+	}
+
+	public Tournaments getActiveTour() {
+		return activeTournaments;
 	}
 
 	public int activeStages() {

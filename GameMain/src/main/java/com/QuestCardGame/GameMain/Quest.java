@@ -15,10 +15,10 @@ public class Quest {
 	private int totalStages;
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
-	
+
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
-		for(int i =0; i<qc.getStages();i++) {
+		for (int i = 0; i < qc.getStages(); i++) {
 			stages[i] = new Stage();
 		}
 		totalStages = qc.getStages();
@@ -26,146 +26,145 @@ public class Quest {
 		players = new ArrayList<Player>();
 		isQuestOver = false;
 	}
-	
+
 	public boolean validateQuest() {
 		int previousBP = -1;
-		for(Stage s: stages) {
-			if(s.getBattlePoints() <= previousBP) {
+		for (Stage s : stages) {
+			if (s.getBattlePoints() <= previousBP) {
 				return false;
 			}
 			previousBP = s.getBattlePoints();
-			if(s.getNumCards()==0) {
+			if (s.getNumCards() == 0) {
 				return false;
 			}
 		}
 		return true;
-		
+
 	}
-	
+
 	public boolean addCardToStage(AdventureCard c, int s) {
 		stages[s].addCard(c);
 		numCardsUsed++;
 		return true;
 	}
-	
+
 	public boolean addPlayer(Player p) {
 		return players.add(p);
 	}
-	
+
 	public boolean removePlayer(Player p) {
 		return players.remove(p);
 	}
-	
+
 	public void startQuest() {
 		iter = players.listIterator();
 		currentStage = 0;
 	}
-	
+
 	public Player getNextPlayer() {
-		if(iter.hasNext()) {
+		if (iter.hasNext()) {
 			currentPlayer = iter.next();
 			return currentPlayer;
-		}
-		else {
+		} else {
 			currentPlayer = null;
-			iter = players.listIterator(); //reset to beginning
+			iter = players.listIterator(); // reset to beginning
 			return null;
 		}
 	}
-	
+
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
-	
+
 	public int getCurrentStageIndex() {
 		return currentStage;
 	}
-    
+
 	public int getCurrentStageBattlePoints() {
 		return stages[currentStage].getBattlePoints();
 	}
-	
+
 	/**
-	 * Determines whether the player advances to the next
-	 * stage of the quest, or wins the quest if it is the
-	 * last stage
-	 * @param 	p - the player to evaluate
-	 * @return 	true if the player wins
-	 * 			false otherwise
+	 * Determines whether the player advances to the next stage of the quest, or
+	 * wins the quest if it is the last stage
+	 * 
+	 * @param p
+	 *            - the player to evaluate
+	 * @return true if the player wins false otherwise
 	 */
-	
+
 	public boolean evaluatePlayer(Player p) {
-		int pointsToBeat = stages[currentStage].getBattlePoints();		
+		int pointsToBeat = stages[currentStage].getBattlePoints();
 		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
-		
+
 		discardPile.clear();
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-				
-		if(!playerWins)
+
+		if (!playerWins)
 			iter.remove();
-		
-		//currentStage starts at 0
-		if(isLastPlayer) {
+
+		// currentStage starts at 0
+		if (isLastPlayer) {
 			currentStage++;
-			if(currentStage >= totalStages) {
+			if (currentStage >= totalStages) {
 				isQuestOver = true;
 				awardQuestWinners();
 			}
 		}
-		
+
 		return playerWins;
 	}
-	
+
 	public boolean isQuestOver() {
 		return isQuestOver;
 	}
-	
-	public ArrayList<AdventureCard> getDiscardPile(){
+
+	public ArrayList<AdventureCard> getDiscardPile() {
 		return discardPile;
 	}
-		
+
 	private void awardQuestWinners() {
 		int shieldsToAward = totalStages;
-		for(Player p : players)
+		for (Player p : players)
 			p.addShields(shieldsToAward);
 		clearQuest();
 	}
-	
+
 	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
-		
+
 		ArrayList<AdventureCard> playerHand = p.getPlay();
-		
-		for(Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
+
+		for (Iterator<AdventureCard> it = playerHand.iterator(); it.hasNext();) {
 			AdventureCard c = it.next();
-			
-			if(c.getCardType() == t) {
+
+			if (c.getCardType() == t) {
 				discardPile.add(c);
 				it.remove();
 			}
 		}
 	}
-	
+
 	public int getNumStages() {
 		return totalStages;
 	}
-	
+
 	public Stage[] getStages() {
 		return stages;
 	}
-	
+
 	public int getCardsUsed() {
 		return numCardsUsed;
 	}
-	
+
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public void clearQuest() {
-		for(Stage s: stages) {
+		for (Stage s : stages) {
 			ArrayList<AdventureCard> cards = s.getCards();
-			for(AdventureCard c : cards) {
+			for (AdventureCard c : cards) {
 				discardPile.add(c);
 			}
 		}

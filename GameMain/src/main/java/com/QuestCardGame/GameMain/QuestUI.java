@@ -47,6 +47,7 @@ public class QuestUI extends Group {
 	private Button acceptButton;
 	private Button declineButton;
 	private Text prompt;
+
 	private boolean canAccept = true;
 	private Text stageBPDisplay;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
@@ -89,7 +90,7 @@ public class QuestUI extends Group {
 		storyDeck.setFitHeight(150);
 		storyDeck.setFitWidth(100);
 		storyDeck.setTranslateX(400);
-		
+
 		expandCard = new ImageView();
 		expandCard.setFitWidth(100);
 		expandCard.setFitHeight(150);
@@ -113,9 +114,11 @@ public class QuestUI extends Group {
 		prompt.setTranslateX(400);
 		prompt.setTranslateY(325);
 		getChildren().add(prompt);
+
 		stageBPDisplay = new Text();
 		stageBPDisplay.setFont(new Font(20));
 		getChildren().add(stageBPDisplay);
+
 		acceptButton = new Button("Accept");
 		acceptButton.setTranslateX(400);
 		acceptButton.setTranslateY(350);
@@ -124,6 +127,33 @@ public class QuestUI extends Group {
 		declineButton.setTranslateX(400);
 		declineButton.setTranslateY(375);
 		getChildren().add(declineButton);
+
+		// tour*****************************************************************************
+		dialogListeners.put("acceptTour", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				game.acceptDeclineTour(game.getPlayer(game.getCurrentActivePlayer()), true);
+				update();
+			}
+		});
+		dialogListeners.put("declineTour", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				ArrayList<AdventureCard> discard = game.acceptDeclineTour(game.getPlayer(game.getCurrentActivePlayer()),
+						false);
+				if (discard != null) {
+					System.out.println("Start Discard " + discard.size());
+					for (AdventureCard c : discard) {
+						CardGroup cg = assetStore.getCardGroup(c);
+						Group p = (Group) cg.getParent();
+						if (p != null) {
+							System.out.println("Discard " + c.getName());
+							p.getChildren().remove(cg);
+						}
+					}
+				}
+				update();
+			}
+		});
+		// ***********************************************************************************************
 		dialogListeners.put("acceptSponsor", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				game.acceptSponsor();
@@ -147,12 +177,12 @@ public class QuestUI extends Group {
 				ArrayList<AdventureCard> discard = game
 						.acceptDeclineQuest(game.getPlayer(game.getCurrentActivePlayer()), false);
 				if (discard != null) {
-					System.out.println("Start Discard "+discard.size());
+					System.out.println("Start Discard " + discard.size());
 					for (AdventureCard c : discard) {
 						CardGroup cg = assetStore.getCardGroup(c);
 						Group p = (Group) cg.getParent();
 						if (p != null) {
-							System.out.println("Discard "+c.getName());
+							System.out.println("Discard " + c.getName());
 							p.getChildren().remove(cg);
 						}
 					}
@@ -169,6 +199,13 @@ public class QuestUI extends Group {
 		dialogListeners.put("finalizePlay", new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent e) {
 				canAccept = game.finalizePlay();
+				update();
+			}
+		});
+
+		dialogListeners.put("finalizePlayTour", new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				canAccept = game.finalizePlayTour();
 				update();
 			}
 		});
@@ -211,15 +248,15 @@ public class QuestUI extends Group {
 
 	private void positionInactivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
-        PlayerGroup inactivePlayerGroup = playerGroups[i];
-		
-        inactivePlayerGroup.setRankImage(p.getRankImagePath());
+		PlayerGroup inactivePlayerGroup = playerGroups[i];
+
+		inactivePlayerGroup.setRankImage(p.getRankImagePath());
 		ImageView rank = inactivePlayerGroup.getRankImage();
 		rank.setFitWidth(50);
 		rank.setFitHeight(75);
 		rank.setTranslateX(0);
 		rank.setTranslateY(0);
-		
+
 		inactivePlayerGroup.setBP(p.getBattlePoints());
 		Text bp = inactivePlayerGroup.getBP();
 		bp.setTranslateX(0);
@@ -245,7 +282,7 @@ public class QuestUI extends Group {
 		for (Card c : pPlay) {
 			if (c == draggingCard)
 				continue;
-			if(c == hoverCard) {
+			if (c == hoverCard) {
 				expandCard.setTranslateY(inactivePlayerGroup.getTranslateY());
 			}
 			CardGroup g = assetStore.getCardGroup(c);
@@ -256,8 +293,8 @@ public class QuestUI extends Group {
 			g.setHoverCard(true);
 			g.setTranslateX(xOffset % 5 * 35 + 40);
 			g.setTranslateY(Math.floor(xOffset / 5) * 52 - 50);
-			g.setScaleX(1/3.0);
-			g.setScaleY(1/3.0);
+			g.setScaleX(1 / 3.0);
+			g.setScaleY(1 / 3.0);
 			xOffset++;
 		}
 	}
@@ -271,7 +308,7 @@ public class QuestUI extends Group {
 		rank.setFitHeight(112.5);
 		rank.setTranslateX(1050);
 		rank.setTranslateY(0);
-		
+
 		activePlayerGroup.setBP(p.getBattlePoints());
 		Text bp = activePlayerGroup.getBP();
 		bp.setTranslateX(1050);
@@ -364,8 +401,8 @@ public class QuestUI extends Group {
 					g.setTranslateY(-25);
 					g.setScaleX(0.666);
 					g.setScaleY(0.666);
-					g.setFaceUpDown(
-							GS == GameStatus.BUILDING_QUEST || (GS == GameStatus.EVAL_QUEST_STAGE && stage == stg));
+					g.setFaceUpDown(GS == GameStatus.ENTERING_TOUR || GS == GameStatus.BUILDING_QUEST
+							|| (GS == GameStatus.EVAL_QUEST_STAGE && stage == stg));
 					xOffset++;
 				}
 				stg++;
@@ -380,12 +417,35 @@ public class QuestUI extends Group {
 		int i = 0;
 		int active = game.getCurrentActivePlayer();
 		for (Hotspot h : playHotspots) {
-			h.setActive(i == active && GS == GameStatus.PLAYING_QUEST);
-			h.setVisible(i == active && GS == GameStatus.PLAYING_QUEST);
+			h.setActive(
+					(i == active && GS == GameStatus.PLAYING_QUEST) || (i == active && GS == GameStatus.PLAYING_TOUR));
+			h.setVisible(
+					(i == active && GS == GameStatus.PLAYING_QUEST) || (i == active && GS == GameStatus.PLAYING_TOUR));
 			i++;
 		}
 
-		if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
+		if (GS == GameStatus.ENTERING_TOUR) {
+			acceptButton.setVisible(true);
+			declineButton.setVisible(true);
+			prompt.setVisible(true);
+			acceptButton.setOnAction(dialogListeners.get("acceptTour"));
+			declineButton.setOnAction(dialogListeners.get("declineTour"));
+			prompt.setText("Accept Tournament?");
+		} else if (GS == GameStatus.PLAYING_TOUR) {
+			acceptButton.setVisible(true);
+			declineButton.setVisible(false);
+			acceptButton.setOnAction(dialogListeners.get("finalizePlayTour"));
+			String promptText = !canAccept ? "You must discard or play a card" : "Play Cards for Tournaments";
+			prompt.setText(promptText);
+		} else if (GS == GameStatus.EVAL_TOUR) {
+			acceptButton.setVisible(false);
+			declineButton.setVisible(false);
+			prompt.setVisible(false);
+			game.EvalTour();
+			System.out.printf("eval done");
+		}
+
+		else if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(true);
 			prompt.setVisible(true);
@@ -435,7 +495,7 @@ public class QuestUI extends Group {
 		}
 
 		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST
-				|| GS == GameStatus.END_TURN_DISCARD;
+				|| GS == GameStatus.END_TURN_DISCARD || GS == GameStatus.PLAYING_TOUR;
 		discardHotspot.setActive(canDiscard);
 		discardHotspot.setVisible(canDiscard);
 
@@ -445,8 +505,8 @@ public class QuestUI extends Group {
 			stageBPDisplay.setVisible(true);
 			stageBPDisplay.setText("Battle Points: " + stageBP);
 			int cards = game.getActiveQuest().getStages()[activeStage].getCards().size();
-			stageBPDisplay.setTranslateX(655 + cards*75);
-			stageBPDisplay.setTranslateY(activeStage*100+60);
+			stageBPDisplay.setTranslateX(655 + cards * 75);
+			stageBPDisplay.setTranslateY(activeStage * 100 + 60);
 
 			stageGroups[activeStage].setVisible(true);
 			if (!isEvaluating) {
@@ -480,6 +540,7 @@ public class QuestUI extends Group {
 		int activePlayer = game.getCurrentActivePlayer();
 		repositionCards();
 		readGameStatus();
+		// readGameStatusTour();
 		int numPlayers = game.getNumPlayers();
 		for (int i = 0; i < numPlayers; i++) {
 			if (i == activePlayer) {
@@ -500,14 +561,14 @@ public class QuestUI extends Group {
 	public void setDraggingCard(Card c) {
 		draggingCard = c;
 	}
-	
+
 	public Card getHoverCard() {
 		return hoverCard;
 	}
-	
+
 	public void setHoverCard(Card c) {
 		hoverCard = c;
-		if(c == null) {
+		if (c == null) {
 			expandCard.setImage(null);
 		} else {
 			Image img = AssetStore.getImage(c.getFrontImagePath());
