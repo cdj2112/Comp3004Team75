@@ -27,7 +27,7 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 		return false;
 	}
 
-	public Map<Integer, ArrayList<AdventureCard>> createQuest() {
+	public ArrayList<AdventureCard> createQuest() {
 		// TODO Auto-generated method stub
 		return null;
 	}

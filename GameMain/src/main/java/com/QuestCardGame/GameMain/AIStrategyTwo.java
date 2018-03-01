@@ -59,10 +59,10 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		return sponsorQuest;
 	}
 
-	public Map<Integer, ArrayList<AdventureCard>> createQuest() {
+	public ArrayList<AdventureCard> createQuest() {
 		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
 		int prevStageBattlePoints = 0;
-		Map<Integer, ArrayList<AdventureCard>> stageCards = new HashMap<Integer, ArrayList<AdventureCard>>();
+		ArrayList<AdventureCard> allCardsForQuest = new ArrayList<AdventureCard>();
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
 		Hand sponsorHand = this.getHand();
 		
@@ -73,10 +73,10 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 				game.sponsorAddCardToStage(c, stage);
 				prevStageBattlePoints += c.getBattlePoint(false);
 			}
-			stageCards.put(stage, cardsForStage);
+			allCardsForQuest.addAll(cardsForStage);
 		}
 	
-		return stageCards.size() > 0 ? stageCards : null;
+		return allCardsForQuest.size() > 0 ? allCardsForQuest : null;
 	}
 
 	//Can increase BP each stage by 10 pts AND
@@ -166,6 +166,8 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 				return this.doIJoinQuest();
 			case PRE_QUEST_DISCARD:
 				return this.getCardsToDiscard();
+			case BUILDING_QUEST:
+				return this.createQuest();
 			case PLAYING_QUEST:
 				return this.playCardsForQuestStage();
 //			case ACCEPTING_TOURNAMENT:
