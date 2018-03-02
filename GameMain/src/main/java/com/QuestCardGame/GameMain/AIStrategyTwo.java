@@ -108,6 +108,19 @@ public class AIStrategyTwo extends AIPlayer {
 		}
 		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
 		
+		int cP = getHand().size() - cardsToPlay.size() - 12;
+		getHand().sortAscendingByBattlePoints();
+		int i = 0; 
+		while(cP > 0) {
+			AdventureCard c = getHand().get(i);
+			if(getHand().isValidPlay(cardsToPlay, c)) {
+				cardsToPlay.add(c);
+				cP--;
+			} else {
+				i++;
+			}
+		}
+		
 		game.playerPlayCards(this, cardsToPlay);
 		game.finalizePlay();
 		
