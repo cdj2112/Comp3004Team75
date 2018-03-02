@@ -107,12 +107,16 @@ public class Quest {
 			iter.remove();
 		
 		//currentStage starts at 0
-		if(isLastPlayer) {
+		if(isLastPlayer && players.size()!=0) {
 			currentStage++;
 			if(currentStage >= totalStages) {
 				isQuestOver = true;
 				awardQuestWinners();
 			}
+		} else if(players.size()==0) {
+			System.out.println("Quest Over");
+			isQuestOver = true;
+			clearQuest();
 		}
 		
 		return playerWins;

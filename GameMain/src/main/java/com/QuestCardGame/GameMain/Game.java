@@ -276,7 +276,7 @@ public class Game {
 		Player p = activeQuest.getNextPlayer();
 
 		// play has looped a full circle - change status accordingly
-		if (p == null) {
+		if (p == null && !activeQuest.isQuestOver()) {
 			if (currentStatus == GameStatus.PLAYING_QUEST)
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
 			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
