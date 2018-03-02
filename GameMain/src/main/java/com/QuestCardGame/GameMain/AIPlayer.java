@@ -30,6 +30,7 @@ public abstract class AIPlayer extends Player implements AIPlayerStrategy{
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			case IDLE:
+				game.playTurn();
 				return new ArrayList<AdventureCard>();
 			default:
 				return new ArrayList<AdventureCard>();
