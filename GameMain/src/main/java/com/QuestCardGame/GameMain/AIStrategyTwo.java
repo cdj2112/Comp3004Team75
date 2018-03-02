@@ -159,13 +159,16 @@ public class AIStrategyTwo extends AIPlayer {
 			return null;
 		
 		playerHand.sortAscendingByBattlePoints();
-		
+
 		for(AdventureCard c: playerHand) {
 			if(numCardsToDiscard == 0)
 				break;
 			cardsToDiscard.add(c);
-			game.playerDiscardAdventrueCard(this, c);
 			numCardsToDiscard--;
+		}
+		
+		for(AdventureCard c : cardsToDiscard) {
+			game.playerDiscardAdventrueCard(this, c);
 		}
 		return cardsToDiscard;
 	}
