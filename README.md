@@ -8,6 +8,10 @@ Clone the repo.
 Open the project in Eclipse.  
 Right click QuestCardGame.java -> Run As -> Java Application  
 
+OR
+
+Run JAR file iteration1.jar in GameMain folder
+
 ### Strategy Pattern
 
 See the following classes for the strategy pattern:  
