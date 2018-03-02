@@ -1,6 +1,6 @@
 ## COMP3004B - Team 75 Quest Project
 
-This program is an implementation of the Quests of the Round Table card game by Team 75 in COMP3004B.
+This program is an implementation by Team 75 in COMP3004B of the Quests of the Round Table card game .
 
 ### How to Run
 
