@@ -24,7 +24,7 @@ public class QuestCardGame extends Application {
 		mainStage.show();
 		mainStage.setResizable(false);
 
-		Game game = new Game();
+		Game game = new Game(numPlay);
 		Group root = new QuestUI(game, mainStage.getHeight(), mainStage.getWidth());
 		Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
 		mainStage.setScene(scene);

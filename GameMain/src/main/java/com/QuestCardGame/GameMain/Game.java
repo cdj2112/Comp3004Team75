@@ -28,7 +28,8 @@ public class Game {
 	private int sponsorIndex;
 	private Quest activeQuest;
 
-	Game() {
+	Game(int nP) {
+		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
 			players[i] = new Player();
