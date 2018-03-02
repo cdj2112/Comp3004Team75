@@ -1,6 +1,7 @@
 package com.QuestCardGame.GameMain;
 
 public abstract class AdventureCard extends Card{
+	//keep the order of WEAPON, ALLY, AMOURS for AI sorting/playing
   public enum AdventureType {WEAPON, FOE, ALLY, AMOURS,TEST};
   private AdventureType adventureType;
 

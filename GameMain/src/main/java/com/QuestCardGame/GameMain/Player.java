@@ -1,17 +1,17 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
 
 public class Player {
 		
-	private static final Logger logger = LogManager.getLogger(Player.class);
+	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
 	private static final int[] battlePoints = {5, 10, 20};
 	private static final int[] shieldsNeeded = {5, 7, 10};
 	
-	private ArrayList<AdventureCard> hand;
+	private Hand hand;
 	private ArrayList<AdventureCard> play;
 
 	private int playerNumber;
@@ -20,8 +20,8 @@ public class Player {
 	static int nextPlayerNumber = 1;
 	
 	Player(){
-		hand = new ArrayList<AdventureCard>();
-		play = new ArrayList<AdventureCard>();
+		hand = new Hand();
+		play = new Hand();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 0; //squire
@@ -45,7 +45,7 @@ public class Player {
 		hand.remove(c);
 	}
 	
-	public ArrayList<AdventureCard> getHand() {
+	public Hand getHand() {
 		return hand;
 	}
 	
@@ -65,6 +65,14 @@ public class Player {
 		return totalBattlePoints;
 	}
 	
+	public int getBattlePointsForHand(Hand h) {
+		int total = 0;
+		for(AdventureCard c: h) {
+			total += c.getBattlePoint(false);
+		}	
+		return total;
+	}
+	
 	public void addShields(int s) {
 		numShields += s;
 
@@ -78,11 +86,19 @@ public class Player {
 		return numShields;
 	}
 	
+	public int getShieldsNeeded() {
+		return shieldsNeeded[rank];
+	}
+	
 	public String getRankName() {
 		return rankNames[rank];
 	}
 	
 	public String getRankImagePath() {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
+	}
+	
+	public boolean isAIPlayer() {
+		return false;
 	}
 }

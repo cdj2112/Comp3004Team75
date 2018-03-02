@@ -50,9 +50,12 @@ public class QuestUI extends Group {
 	private boolean canAccept = true;
 	private Text stageBPDisplay;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
+	private Text AIMessage;
 
 	private Timer evalTimer = new Timer();
+	private Timer aiTimer = new Timer();
 	private boolean isEvaluating = false;
+	private boolean isAIPlaying = false;
 
 	QuestUI(Game g, double h, double w) throws FileNotFoundException {
 		super();
@@ -197,6 +200,14 @@ public class QuestUI extends Group {
 		discardHotspot.setTranslateY(0);
 		discardHotspot.setAction(behaviourFactory.discardCard);
 		getChildren().add(discardHotspot);
+		
+		AIMessage = new Text();
+		AIMessage.setFont(new Font(80));
+		AIMessage.setText("Waiting For AI Player...");
+		AIMessage.setTranslateX(350);
+		AIMessage.setTranslateY(HEIGHT/2 - 40);
+		AIMessage.setVisible(false);
+		getChildren().add(AIMessage);
 
 		update();
 	}
@@ -252,6 +263,7 @@ public class QuestUI extends Group {
 			if (!inactivePlayerGroup.getPlay().getChildren().contains(g)) {
 				inactivePlayerGroup.playCard(g);
 			}
+			g.setFaceUpDown(true);
 			g.setDragCard(false);
 			g.setHoverCard(true);
 			g.setTranslateX(xOffset % 5 * 35 + 40);
@@ -264,6 +276,8 @@ public class QuestUI extends Group {
 
 	private void positionActivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
+		boolean ai = p.isAIPlayer();
+		
 		PlayerGroup activePlayerGroup = playerGroups[i];
 		activePlayerGroup.setRankImage(p.getRankImagePath());
 		ImageView rank = activePlayerGroup.getRankImage();
@@ -287,8 +301,9 @@ public class QuestUI extends Group {
 			if (!activePlayerGroup.getHand().getChildren().contains(g)) {
 				activePlayerGroup.addCardToHand(g);
 			}
-			g.setDragCard(true);
+			g.setDragCard(!ai);
 			g.setHoverCard(false);
+			g.setFaceUpDown(!ai);
 			g.setTranslateX(xOffset * 110.0);
 			g.setTranslateY(0);
 			g.setScaleX(1);
@@ -490,6 +505,39 @@ public class QuestUI extends Group {
 				playerGroups[i].setTranslateX(10);
 				playerGroups[i].setTranslateY(yOffset);
 			}
+		}
+		
+		Player p = game.getPlayer(activePlayer);
+		GameStatus GS = game.getGameStatus();
+		if(p.isAIPlayer() && !isAIPlaying && GS != GameStatus.EVAL_QUEST_STAGE) {
+			final AIPlayer ai = (AIPlayer)p;
+			prompt.setVisible(false);
+			acceptButton.setVisible(false);
+			declineButton.setVisible(false);
+			AIMessage.setVisible(true);
+			isAIPlaying = true;
+			aiTimer.schedule(new TimerTask() {
+				public void run() {
+					Platform.runLater(new Runnable() {
+						public void run() {
+							final ArrayList<AdventureCard> discard = ai.playTurn();
+							if(discard != null) {
+								for (AdventureCard c : discard) {
+									Group g = assetStore.getCardGroup(c);
+									Group p = (Group) g.getParent();
+									if (p != null) {
+										p.getChildren().remove(g);
+									}
+								}
+							}
+							update();
+						}
+					});
+					isAIPlaying = false;
+				}
+			}, (long) 2 * 1000);
+		} else if(!isAIPlaying) {
+			AIMessage.setVisible(false);
 		}
 	}
 
