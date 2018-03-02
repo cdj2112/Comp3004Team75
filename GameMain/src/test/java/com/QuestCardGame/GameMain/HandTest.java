@@ -8,6 +8,7 @@ public class HandTest extends TestCase {
 	AdventureCard w1 = new Weapon("Dagger", 1);
 	AdventureCard w2 = new Weapon("Axe",2);
 	AdventureCard w3 = new Weapon("Axe",2);
+	AdventureCard w4 = new Weapon("BattleAxe", 10);
 	AdventureCard f1 = new Foe("Foe", 6);
 	AdventureCard f2 = new Foe("Foe", 12);
 	AdventureCard a1 = new Amours();
@@ -16,6 +17,54 @@ public class HandTest extends TestCase {
 	AdventureCard test = new Test("TestCard");
 
 	Player p = new Player();
+	
+	public void testPlayerHandSortDescendingByBattlePoints() {
+		p.getHand().clear();
+		p.drawCard(w1);
+		p.drawCard(f1);
+		p.drawCard(w2);
+		p.drawCard(a1);
+		
+		assert p.getHand().indexOf(w1) == 0;
+		assert p.getHand().indexOf(w2) == 2;
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(a1) == 3;
+
+		
+		p.getHand().sortDescendingByBattlePoints();
+		
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(w1) == 3;
+		assert p.getHand().indexOf(w2) == 2;
+		assert p.getHand().indexOf(a1) == 0;
+		
+		p.getHand().sortDescendingByCardTypeBattlePoints();
+		
+		assert p.getHand().indexOf(f1) == 1;
+		assert p.getHand().indexOf(w1) == 3;
+		assert p.getHand().indexOf(w2) == 2;
+		assert p.getHand().indexOf(a1) == 0;
+
+	}
+	
+	public void testIsValidHandToJoinQuest() {
+		AdventureCard w4 = new Weapon("BattleAxe", 10);
+		AdventureCard w5 = new Weapon("BiggerBattleAxe", 20);
+
+		p.getHand().clear();
+		p.drawCard(w1);
+		p.drawCard(w2);
+		p.drawCard(w3);
+		p.drawCard(f1);
+		
+		assert !p.getHand().hasIncreasingBattlePointsForStages(2, 10, p.getPlay());
+		
+		p.drawCard(w4);
+		p.drawCard(w5);
+		
+		assert p.getHand().hasIncreasingBattlePointsForStages(2, 10, p.getPlay());
+
+	}
 	
 	public void testBestPossibleHand() {
 		p.getHand().clear();
