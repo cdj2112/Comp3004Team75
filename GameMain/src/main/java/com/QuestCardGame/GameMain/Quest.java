@@ -109,7 +109,6 @@ public class Quest {
 		int pointsToBeat = stages[currentStage].getBattlePoints();
 		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
-
 		discardPile.clear();
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 

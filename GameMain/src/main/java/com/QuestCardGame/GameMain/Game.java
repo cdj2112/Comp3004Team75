@@ -161,11 +161,12 @@ public class Game {
 				return true;
 			}else {
 				for (AdventureCard c : activeQuest.returnToHand()){
-					activePlayer.drawCard(c);
+					players[activePlayer].drawCard(c);
 				}
 				return false;
 			}
 		}
+		return false;
 	}
 
 	public boolean finalizePlay() {
