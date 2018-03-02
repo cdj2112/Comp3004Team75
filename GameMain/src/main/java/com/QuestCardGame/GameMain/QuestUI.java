@@ -327,6 +327,7 @@ public class QuestUI extends Group {
 			if (!activePlayerGroup.getPlay().getChildren().contains(g)) {
 				activePlayerGroup.playCard(g);
 			}
+			g.setFaceUpDown(true);
 			g.setDragCard(false);
 			g.setHoverCard(false);
 			g.setTranslateX(xOffset * 110.0);
