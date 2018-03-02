@@ -43,7 +43,7 @@ public class Game {
 		}
 	}
 
-	Game(HashMap<Integer,ArrayList> testDeck, QuestCard testQuest) {
+	Game(HashMap<Integer,ArrayList<AdventureCard>> testDeck, QuestCard testQuest) {
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
 			players[i] = new Player();
@@ -60,7 +60,7 @@ public class Game {
 					players[p].drawCard(cc);
 				}
 			}
-			while (players[p].getHand < 12) {
+			while (players[p].getHand().size() < 12) {
 				playerDrawAdventureCard(players[p]);
 			}
 		}
