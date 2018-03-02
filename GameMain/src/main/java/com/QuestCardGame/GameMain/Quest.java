@@ -41,11 +41,20 @@ public class Quest {
 			}
 		}
 		return true;
+	}
 
+	//when a Quesr Build is NOT valid
+	public ArrayList<AdventureCard> returnToHand(){
+		ArrayList<AdventureCard> returnCards = new ArrayList<AdventureCard>();
+		for (Stage s: stages) {returnCards.addAll(s.returnAllCards());}
+		return returnCards;
 	}
 
 	public boolean addCardToStage(AdventureCard c, int s) {
-		stages[s].addCard(c);
+		boolean isSpecialBettlePoint = false;
+		if (quest.getFoe().equals("All") || quest.getFoe().equals(c.getName())) isSpecialBettlePoint = true;
+		if (quest.getFoe().equals("All Saxons") && (c.getName().equals("Saxons")||c.getName().equals("Saxon Knight"))) isSpecialBettlePoint = true;
+		stages[s].addCard(c, isSpecialBettlePoint);
 		numCardsUsed++;
 		return true;
 	}

@@ -152,12 +152,18 @@ public class Game {
 		return false;
 	}
 
-	public void finalizeQuest() {
+	public boolean finalizeQuest() {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean valid = activeQuest.validateQuest();
 			if (valid) {
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 				activePlayer = getNextActivePlayer();
+				return true;
+			}else {
+				for (AdventureCard c : activeQuest.returnToHand()){
+					activePlayer.drawCard(c);
+				}
+				return false;
 			}
 		}
 	}
@@ -380,9 +386,9 @@ public class Game {
 	private void initStoryDeck() {
 		storyDeck = new Deck();
 
-		storyDeck.addCard(new QuestCard("Journey Through the Enchanted Forest", 3));
-		storyDeck.addCard(new QuestCard("Vanquish King Arthur's Enemies", 3));
-		storyDeck.addCard(new QuestCard("Repel the Saxon Raiders", 2));
+		storyDeck.addCard(new QuestCard("Journey Through the Enchanted Forest", 3, "Evil Knight"));
+		storyDeck.addCard(new QuestCard("Vanquish King Arthur's Enemies", 3, null));
+		storyDeck.addCard(new QuestCard("Repel the Saxon Raiders", 2, "All Saxons"));
 	}
 
 	private void initAdventureDeck() {
