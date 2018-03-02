@@ -75,7 +75,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			}
 			allCardsForQuest.addAll(cardsForStage);
 		}
-	
+		game.finalizeQuest();
 		return allCardsForQuest;
 	}
 
@@ -108,6 +108,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
 		
 		game.playerPlayCards(this, cardsToPlay);
+		game.finalizePlay();
 		
 		return cardsToPlay;
 	}
@@ -176,6 +177,8 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 //				return this.playCardsForTournament();				
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
+			case IDLE:
+				return new ArrayList<AdventureCard>();
 			default:
 				return new ArrayList<AdventureCard>();
 		}
