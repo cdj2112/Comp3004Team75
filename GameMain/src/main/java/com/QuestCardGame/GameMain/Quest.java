@@ -40,18 +40,19 @@ public class Quest {
 				return false;
 			}
 			previousBP = s.getBattlePoints();
-			if(s.getNumCards()==0) {
+			if(s.getNumFoes() != 1) {
 				return false;
 			}
 		}
 		return true;
 
 	}
-
-	public boolean addCardToStage(AdventureCard c, int s) {
-		stages[s].addCard(c);
-		numCardsUsed++;
-		return true;
+	
+	public boolean addCardToStage(AdventureCard newCard, int s) {	
+		boolean isAdded = stages[s].addCard(newCard);
+		if(isAdded)
+			numCardsUsed++;
+		return isAdded;
 	}
 
 	public boolean addPlayer(Player p) {
@@ -112,12 +113,16 @@ public class Quest {
 			iter.remove();
 
 		//currentStage starts at 0
-		if(isLastPlayer) {
+		if(isLastPlayer && players.size()!=0) {
 			currentStage++;
 			if(currentStage >= totalStages) {
 				isQuestOver = true;
 				awardQuestWinners();
 			}
+		} else if(players.size()==0) {
+			System.out.println("Quest Over");
+			isQuestOver = true;
+			clearQuest();
 		}
 
 		return playerWins;
@@ -135,12 +140,7 @@ public class Quest {
 		int shieldsToAward = totalStages;
 		for(Player p : players)
 			p.addShields(shieldsToAward);
-		for(Stage s: stages) {
-			ArrayList<AdventureCard> cards = s.getCards();
-			for(AdventureCard c : cards) {
-				discardPile.add(c);
-			}
-		}
+		clearQuest();
 	}
 
 	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
@@ -171,5 +171,14 @@ public class Quest {
 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public void clearQuest() {
+		for(Stage s: stages) {
+			ArrayList<AdventureCard> cards = s.getCards();
+			for(AdventureCard c : cards) {
+				discardPile.add(c);
+			}
+		}
 	}
 }

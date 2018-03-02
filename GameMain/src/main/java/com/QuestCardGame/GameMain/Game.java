@@ -1,5 +1,7 @@
 package com.QuestCardGame.GameMain;
 
+import java.util.*;
+
 import java.util.ArrayList;
 
 public class Game {
@@ -16,6 +18,7 @@ public class Game {
 	private Deck storyDeck;
 	private Deck adventureDeck;
 	private int playerTurn;
+	private Card currentStoryCard;
 
 	// Turn Variables
 	private int activePlayer;
@@ -25,16 +28,23 @@ public class Game {
 	private int sponsorIndex;
 	private Quest activeQuest;
 
-	Game() {
+	Game(int nP, int nAIP, boolean rigged) {
+		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
-			players[i] = new Player();
+			players[i] = (numPlayers - i) > nAIP ? new Player() : new AIStrategyTwo(this);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
-		initStoryDeck();
-		initAdventureDeck();
+		currentStoryCard = null;
+		if (!rigged) {
+			initStoryDeck();
+			initAdventureDeck();
+		} else {
+			initRiggedStoryDeck();
+			initRiggedAdventureDeck();
+		}
 		for (int p = 0; p < numPlayers; p++) {
 			for (int i = 0; i < 12; i++) {
 				playerDrawAdventureCard(players[p]);
@@ -44,6 +54,7 @@ public class Game {
 
 	public void playTurn() {
 		Card storyCard = getStoryCard();
+		currentStoryCard = storyCard;
 		if (storyCard instanceof QuestCard) {
 			activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
@@ -59,11 +70,14 @@ public class Game {
 			i++;
 		}
 
+		sponsor = null;
+		activeQuest = null;
+		storyDeck.discard(currentStoryCard);
+		currentStoryCard = null;
+
 		if (correctCards) {
 			currentStatus = GameStatus.IDLE;
-			sponsor = null;
-			activeQuest = null;
-			playerTurn++;
+			playerTurn = (playerTurn + 1) % numPlayers;
 			activePlayer = playerTurn;
 		} else {
 			currentStatus = GameStatus.END_TURN_DISCARD;
@@ -96,14 +110,16 @@ public class Game {
 
 	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
-			sponsor.useCard(c);
-			activeQuest.addCardToStage(c, s);
-			return true;
+			boolean played = activeQuest.addCardToStage(c, s);
+			if (played) {
+				sponsor.useCard(c);
+			}
+			return played;
 		}
 		return false;
 	}
 
-	public boolean acceptDeclineQuest(Player p, boolean accept) {
+	public ArrayList<AdventureCard> acceptDeclineQuest(Player p, boolean accept) {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			if (accept) {
 				activeQuest.addPlayer(players[activePlayer]);
@@ -118,14 +134,25 @@ public class Game {
 			}
 
 			if (activePlayer == sponsorIndex) {
-				currentStatus = GameStatus.PLAYING_QUEST;
-				activeQuest.startQuest();
-				activeQuest.getNextPlayer();
+				if (activeQuest.getPlayers().size() > 0) {
+					currentStatus = GameStatus.PLAYING_QUEST;
+					activeQuest.startQuest();
+					activeQuest.getNextPlayer();
+				} else {
+					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
+					for (int i = 0; i < backToSponsor; i++) {
+						playerDrawAdventureCard(sponsor);
+					}
+					activeQuest.clearQuest();
+					ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
+					for (AdventureCard c : questDiscard)
+						adventureDeck.discard(c);
+					endTurn();
+					return questDiscard;
+				}
 			}
-
-			return true;
 		}
-		return false;
+		return null;
 	}
 
 	public void finalizeQuest() {
@@ -249,7 +276,7 @@ public class Game {
 		Player p = activeQuest.getNextPlayer();
 
 		// play has looped a full circle - change status accordingly
-		if (p == null) {
+		if (p == null && !activeQuest.isQuestOver()) {
 			if (currentStatus == GameStatus.PLAYING_QUEST)
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
 			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
@@ -280,6 +307,10 @@ public class Game {
 			return getCurrentActiveQuestPlayer();
 		else
 			return activePlayer;
+	}
+
+	public Player getCurrentActivePlayerObj() {
+		return players[getCurrentActivePlayer()];
 	}
 
 	/**
@@ -356,23 +387,37 @@ public class Game {
 	private void initStoryDeck() {
 		storyDeck = new Deck();
 
-		storyDeck.addCard(new QuestCard("Journey Through the Enchanted Forest", 3));
-		storyDeck.addCard(new QuestCard("Vanquish King Arthur's Enemies", 3));
-		storyDeck.addCard(new QuestCard("Repel the Saxon Raiders", 2));
+		try {
+			CardList.populateStoryCards(storyDeck);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		storyDeck.shuffleDeck();
 	}
 
 	private void initAdventureDeck() {
 		adventureDeck = new Deck();
 
-		for (int i = 0; i < 50; i++) {
-			adventureDeck.addCard(new Weapon("Dagger", 5));
+		try {
+			CardList.populateAdventureCards(adventureDeck);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
-
-		for (int i = 0; i < 50; i++) {
-			adventureDeck.addCard(new Foe("Bandit", 10));
-		}
-
 		adventureDeck.shuffleDeck();
+	}
+
+	private void initRiggedAdventureDeck() {
+		adventureDeck = new Deck();
+		CardList.populateRiggedAdventureCards(adventureDeck);
+	}
+
+	private void initRiggedStoryDeck() {
+		storyDeck = new Deck();
+		try {
+			CardList.populateRiggedStoryCards(storyDeck);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	private int getNextActivePlayer() {
@@ -405,7 +450,14 @@ public class Game {
 				return false;
 		}
 
+		if (c.getCardType() == AdventureCard.AdventureType.FOE)
+			return false;
+
 		return true;
+	}
+
+	public Card getActiveStoryCard() {
+		return currentStoryCard;
 	}
 
 }

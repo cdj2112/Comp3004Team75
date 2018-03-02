@@ -21,8 +21,6 @@ public class HotspotBehaviourFactory {
 			if (play) {
 				Group cardGroup = gameUI.findCardGroup(c);
 				gameUI.getPlayerGroup(active).playCard(cardGroup);
-				EventHandler<MouseEvent> drag = gameUI.findCardListener(c);
-				cardGroup.removeEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 			}
 		}
 	};
@@ -46,8 +44,6 @@ public class HotspotBehaviourFactory {
 					Group cardGroup = gameUI.findCardGroup(c);
 					gameUI.getPlayerGroup(game.getCurrentActivePlayer()).removeCardFromHand(cardGroup);
 					gameUI.getStageGroup(s).addCardGroup(cardGroup);
-					EventHandler<MouseEvent> drag = gameUI.findCardListener(c);
-					cardGroup.removeEventHandler(MouseEvent.MOUSE_DRAGGED, drag);
 				}
 			}
 		};
