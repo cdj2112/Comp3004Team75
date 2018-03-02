@@ -50,6 +50,7 @@ public class QuestUI extends Group {
 	private boolean canAccept = true;
 	private Text stageBPDisplay;
 	private HashMap<String, EventHandler<ActionEvent>> dialogListeners;
+	private Text AIMessage;
 
 	private Timer evalTimer = new Timer();
 	private boolean isEvaluating = false;
@@ -197,6 +198,14 @@ public class QuestUI extends Group {
 		discardHotspot.setTranslateY(0);
 		discardHotspot.setAction(behaviourFactory.discardCard);
 		getChildren().add(discardHotspot);
+		
+		AIMessage = new Text();
+		AIMessage.setFont(new Font(80));
+		AIMessage.setText("Waiting For AI Player...");
+		AIMessage.setTranslateX(350);
+		AIMessage.setTranslateY(HEIGHT/2 - 40);
+		AIMessage.setVisible(false);
+		getChildren().add(AIMessage);
 
 		update();
 	}
