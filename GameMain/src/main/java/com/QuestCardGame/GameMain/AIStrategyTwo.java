@@ -6,10 +6,9 @@ import java.util.Map;
 import java.util.Comparator;
 import java.util.HashMap;
 
-public class AIStrategyTwo extends Player implements AIPlayerStrategy {
+public class AIStrategyTwo extends AIPlayer {
 
 	int previousQuestStageBattlePoints;
-	Game game;
 	
 	public AIStrategyTwo(Game g) {
 		super();
@@ -156,36 +155,6 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			numCardsToDiscard--;
 		}
 		return cardsToDiscard;
-	}
-	
-	public ArrayList<AdventureCard> playTurn(){
-		Game.GameStatus gameStatus = game.getGameStatus();
-		
-		switch (gameStatus) {
-			case SPONSORING:
-				this.doISponsorAQuest();
-				return new ArrayList<AdventureCard>();
-			case ACCEPTING_QUEST:
-				return this.doIJoinQuest();
-			case PRE_QUEST_DISCARD:
-				return this.getCardsToDiscard();
-			case BUILDING_QUEST:
-				return this.createQuest();
-			case PLAYING_QUEST:
-				return this.playCardsForQuestStage();
-//			case ACCEPTING_TOUR:
-//				return this.doIJoinTournament();
-//			case PLAYING_TOUR:
-//				return this.playCardsForTournament();	
-//			case PRE_TOUR_DISCARD: 
-//				return this.getCardsToDiscard();
-			case END_TURN_DISCARD:
-				return this.getCardsToDiscard();
-			case IDLE:
-				return new ArrayList<AdventureCard>();
-			default:
-				return new ArrayList<AdventureCard>();
-		}
 	}
 	
 	public void endTurn() {

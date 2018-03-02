@@ -3,9 +3,7 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class AIStrategyOne extends Player implements AIPlayerStrategy {
-
-	Game game;
+public class AIStrategyOne extends AIPlayer {
 	
 	public AIStrategyOne(Game g) {
 		super();
@@ -13,33 +11,32 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 	}
 	
 	public boolean doIJoinTournament() {
-		// TODO Auto-generated method stub
+		//game.acceptDeclineTour(this, false);
 		return false;
 	}
 
 	public ArrayList<AdventureCard> playCardsForTournament() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<AdventureCard> cardsForTournament = new ArrayList<AdventureCard>();
+		return cardsForTournament;
 	}
 
 	public boolean doISponsorAQuest() {
-		// TODO Auto-generated method stub
+		game.declineSponsor();
 		return false;
 	}
 
 	public ArrayList<AdventureCard> createQuest() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<AdventureCard> cardsForQuest = new ArrayList<AdventureCard>();
+		return cardsForQuest;
 	}
 
-	public ArrayList<AdventureCard> doIJoinQuest() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<AdventureCard> doIJoinQuest() {	
+		return game.acceptDeclineQuest(this, false);
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
+		return cardsForStage;
 	}
 
 	public int getBidForTest() {
@@ -53,10 +50,6 @@ public class AIStrategyOne extends Player implements AIPlayerStrategy {
 	}
 	
 	public ArrayList<AdventureCard> getCardsToDiscard(){
-		return null;
-	}
-	
-	public ArrayList<AdventureCard> playTurn(){
 		return null;
 	}
 	
