@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public abstract class AIPlayer extends Player implements AIPlayerStrategy{
 	
-	public final boolean isAIPlayer = true;
+	public boolean isAIPlayer = true;
 
 	Game game;
 	
@@ -37,5 +37,9 @@ public abstract class AIPlayer extends Player implements AIPlayerStrategy{
 			default:
 				return new ArrayList<AdventureCard>();
 		}
+	}
+	
+	public boolean isAIPlayer() {
+		return true;
 	}
 }

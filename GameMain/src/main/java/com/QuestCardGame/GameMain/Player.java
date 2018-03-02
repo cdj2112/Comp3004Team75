@@ -5,8 +5,6 @@ import java.util.ArrayList;
 //import org.apache.logging.log4j.LogManager;
 
 public class Player {
-	
-	public final boolean isAIPlayer = false;
 		
 	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
@@ -98,5 +96,9 @@ public class Player {
 	
 	public String getRankImagePath() {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
+	}
+	
+	public boolean isAIPlayer() {
+		return false;
 	}
 }
