@@ -231,6 +231,9 @@ public class QuestUI extends Group {
 		rank.setTranslateX(0);
 		rank.setTranslateY(0);
 		
+		inactivePlayerGroup.arrangeShieldLine();
+		inactivePlayerGroup.setShields(p.getNumShields());
+		
 		inactivePlayerGroup.setBP(p.getBattlePoints());
 		Text bp = inactivePlayerGroup.getBP();
 		bp.setTranslateX(0);
@@ -285,6 +288,9 @@ public class QuestUI extends Group {
 		rank.setFitHeight(112.5);
 		rank.setTranslateX(1050);
 		rank.setTranslateY(0);
+		
+		activePlayerGroup.arrangeShieldsGrid();
+		activePlayerGroup.setShields(p.getNumShields());
 		
 		activePlayerGroup.setBP(p.getBattlePoints());
 		Text bp = activePlayerGroup.getBP();
