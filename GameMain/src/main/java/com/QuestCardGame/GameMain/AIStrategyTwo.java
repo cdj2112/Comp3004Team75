@@ -19,6 +19,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 	
 	//Always participate
 	public boolean doIJoinTournament() {
+		//game.acceptDeclineTour(this, true);
 		return true;
 	}
 
@@ -32,6 +33,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			cardsToPlay = hand.getBestPossibleHand(this.getPlay());
 		
 		game.playerPlayCards(this, cardsToPlay);
+		//game.finalizePlayTour();
 		
 		return cardsToPlay;
 	}
@@ -171,10 +173,12 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 				return this.createQuest();
 			case PLAYING_QUEST:
 				return this.playCardsForQuestStage();
-//			case ACCEPTING_TOURNAMENT:
+//			case ACCEPTING_TOUR:
 //				return this.doIJoinTournament();
-//			case PLAYING_TOURNAMENT:
-//				return this.playCardsForTournament();				
+//			case PLAYING_TOUR:
+//				return this.playCardsForTournament();	
+//			case PRE_TOUR_DISCARD: 
+//				return this.getCardsToDiscard();
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			case IDLE:
