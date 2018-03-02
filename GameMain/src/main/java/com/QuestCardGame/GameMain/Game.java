@@ -28,7 +28,7 @@ public class Game {
 	private int sponsorIndex;
 	private Quest activeQuest;
 
-	Game(int nP, int nAIP) {
+	Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
@@ -38,8 +38,13 @@ public class Game {
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
 		currentStoryCard = null;
-		initStoryDeck();
-		initAdventureDeck();
+		if (!rigged) {
+			initStoryDeck();
+			initAdventureDeck();
+		} else {
+			initRiggedStoryDeck();
+			initRiggedAdventureDeck();
+		}
 		for (int p = 0; p < numPlayers; p++) {
 			for (int i = 0; i < 12; i++) {
 				playerDrawAdventureCard(players[p]);
@@ -399,6 +404,20 @@ public class Game {
 			System.out.println(e);
 		}
 		adventureDeck.shuffleDeck();
+	}
+
+	private void initRiggedAdventureDeck() {
+		adventureDeck = new Deck();
+		CardList.populateRiggedAdventureCards(adventureDeck);
+	}
+
+	private void initRiggedStoryDeck() {
+		storyDeck = new Deck();
+		try {
+			CardList.populateRiggedStoryCards(storyDeck);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 	}
 
 	private int getNextActivePlayer() {

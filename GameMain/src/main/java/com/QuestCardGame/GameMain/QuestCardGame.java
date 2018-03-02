@@ -13,18 +13,20 @@ import javafx.scene.text.*;
 
 public class QuestCardGame extends Application {
 
-	Stage mainStage;
-	Scene menuStage;
-	final ComboBox playerNumber = new ComboBox();
-	final ComboBox aiNumber = new ComboBox();
+	private Stage mainStage;
+	private Scene menuStage;
+	private final ComboBox playerNumber = new ComboBox();
+	private final ComboBox aiNumber = new ComboBox();
+	private CheckBox rigged;
 
 	public void startGame(int numPlay, int numAi) throws FileNotFoundException{
 
 		mainStage.setMaximized(true);
 		mainStage.show();
 		mainStage.setResizable(false);
+		System.out.println();
 
-		Game game = new Game(numPlay, numAi);
+		Game game = new Game(numPlay, numAi, rigged.isSelected());
 		Group root = new QuestUI(game, mainStage.getHeight(), mainStage.getWidth());
 		Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
 		mainStage.setScene(scene);
@@ -62,10 +64,15 @@ public class QuestCardGame extends Application {
 		aiNumber.setTranslateX(400);
 		aiNumber.setTranslateY(250);
 		root.getChildren().add(aiNumber);
+		
+		rigged = new CheckBox("Rigged");
+		rigged.setTranslateX(220);
+		rigged.setTranslateY(300);
+		root.getChildren().add(rigged);
 
 		Button startGame = new Button();
 		startGame.setText("Start Game");
-		startGame.setTranslateX(200);
+		startGame.setTranslateX(210);
 		startGame.setTranslateY(400);
 		startGame.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent ae) {
