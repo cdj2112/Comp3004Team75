@@ -234,7 +234,7 @@ public class Hand extends ArrayList<AdventureCard>{
 			if(foe != null)
 				cardsForStage.add(foe);
 		}	
-		return cardsForStage.size() > 0 ? cardsForStage : null;
+		return cardsForStage;
 	}
 	
 	public AdventureCard getTestCard() {
