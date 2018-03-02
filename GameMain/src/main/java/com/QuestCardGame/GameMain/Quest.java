@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 
 public class Quest {
-	private static final Logger logger = LogManager.getLogger(Player.class);
+	private static final Logger logger = LogManager.getLogger(Quest.class);
 
 
 	private Stage[] stages;
@@ -30,7 +30,7 @@ public class Quest {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isQuestOver = false;
-		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + "stages.");
+		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
 	}
 
 	public boolean validateQuest() {
@@ -106,11 +106,16 @@ public class Quest {
 		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
 
+		
 		discardPile.clear();
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 
-		if(!playerWins)
+		if(!playerWins) {
+			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
 			iter.remove();
+		} else {
+			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
+		}
 
 		//currentStage starts at 0
 		if(isLastPlayer && players.size()!=0) {
@@ -120,7 +125,7 @@ public class Quest {
 				awardQuestWinners();
 			}
 		} else if(players.size()==0) {
-			System.out.println("Quest Over");
+			logger.info("All players have dropped out or been eliminated");
 			isQuestOver = true;
 			clearQuest();
 		}
@@ -138,8 +143,9 @@ public class Quest {
 
 	private void awardQuestWinners() {
 		int shieldsToAward = totalStages;
-		for(Player p : players)
+		for(Player p : players) {
 			p.addShields(shieldsToAward);
+		}
 		clearQuest();
 	}
 

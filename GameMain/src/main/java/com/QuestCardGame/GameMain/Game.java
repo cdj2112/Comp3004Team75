@@ -4,8 +4,13 @@ import java.util.*;
 
 import java.util.ArrayList;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Game {
 
+	private static final Logger logger = LogManager.getLogger(Game.class);
+	
 	public static enum GameStatus {
 		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD,
 	};
@@ -73,6 +78,7 @@ public class Game {
 		sponsor = null;
 		activeQuest = null;
 		storyDeck.discard(currentStoryCard);
+		logger.info("Story Card " + currentStoryCard.getName() + ": Discarded");
 		currentStoryCard = null;
 
 		if (correctCards) {
@@ -96,11 +102,13 @@ public class Game {
 			sponsor = players[activePlayer];
 			sponsorIndex = activePlayer;
 			currentStatus = GameStatus.BUILDING_QUEST;
+			logger.info("Player " + sponsor.getPlayerNumber() + ": Sponsored Quest");
 		}
 	}
 
 	public void declineSponsor() {
 		if (currentStatus == GameStatus.SPONSORING) {
+			logger.info("Player " + sponsor.getPlayerNumber() + ": Declined Sponsored Quest");
 			activePlayer = (activePlayer + 1) % numPlayers;
 			if (activePlayer == playerTurn) {
 				endTurn();
@@ -112,6 +120,7 @@ public class Game {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean played = activeQuest.addCardToStage(c, s);
 			if (played) {
+				logger.info("Player " + sponsor.getPlayerNumber() + ": Played Card "+c.getName()+" to Stage "+s);
 				sponsor.useCard(c);
 			}
 			return played;
@@ -122,8 +131,11 @@ public class Game {
 	public ArrayList<AdventureCard> acceptDeclineQuest(Player p, boolean accept) {
 		if (currentStatus == GameStatus.ACCEPTING_QUEST) {
 			if (accept) {
+				logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Entered Quest");
 				activeQuest.addPlayer(players[activePlayer]);
 				playerDrawAdventureCard(p);
+			} else {
+				logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Did Not Entered Quest");
 			}
 
 			if (p.getHand().size() <= 12) {
@@ -135,18 +147,22 @@ public class Game {
 
 			if (activePlayer == sponsorIndex) {
 				if (activeQuest.getPlayers().size() > 0) {
+					logger.info("Quest Begin");
 					currentStatus = GameStatus.PLAYING_QUEST;
 					activeQuest.startQuest();
 					activeQuest.getNextPlayer();
 				} else {
+					logger.info("Quest Has No Participants");
 					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
 					for (int i = 0; i < backToSponsor; i++) {
 						playerDrawAdventureCard(sponsor);
 					}
 					activeQuest.clearQuest();
 					ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
-					for (AdventureCard c : questDiscard)
+					for (AdventureCard c : questDiscard) {
+						logger.info("Card "+c.getName()+": Discarded");
 						adventureDeck.discard(c);
+					}
 					endTurn();
 					return questDiscard;
 				}
@@ -159,6 +175,7 @@ public class Game {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean valid = activeQuest.validateQuest();
 			if (valid) {
+				logger.info("Player " + sponsor.getPlayerNumber() + ": Finshed Quest");
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 				activePlayer = getNextActivePlayer();
 			}
@@ -169,6 +186,7 @@ public class Game {
 		Player p = players[getCurrentActivePlayer()];
 		if (currentStatus == GameStatus.PLAYING_QUEST && p.getHand().size() <= 12) {
 			getNextActiveQuestPlayer();
+			logger.info("Player " + p.getPlayerNumber() + ": Finished Playing for Stage");
 			return true;
 		} else if (p.getHand().size() > 12) {
 			return false;
@@ -212,6 +230,7 @@ public class Game {
 	public void playerDiscardAdventrueCard(Player p, Card c) {
 		p.useCard(c);
 		adventureDeck.discard(c);
+		logger.info("Player " + p.getPlayerNumber() + ": DISCARD ["+c.getName()+"]");
 		if (currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.END_TURN_DISCARD) {
 			int playerIndex = -1;
 			for (int i = 0; i < numPlayers; i++) {
@@ -362,8 +381,10 @@ public class Game {
 		getNextActiveQuestPlayer();
 
 		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
-		for (AdventureCard c : questDiscard)
+		for (AdventureCard c : questDiscard) {
+			logger.info("Card "+c.getName()+": Discarded");
 			adventureDeck.discard(c);
+		}
 
 		if (activeQuest.isQuestOver()) {
 			// TODO: perhaps the game should award winners? for now in quest
@@ -392,6 +413,7 @@ public class Game {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		logger.info("Story Deck Created");
 		storyDeck.shuffleDeck();
 	}
 
@@ -403,17 +425,20 @@ public class Game {
 		} catch (Exception e) {
 			System.out.println(e);
 		}
+		logger.info("Adventure Deck Created");
 		adventureDeck.shuffleDeck();
 	}
 
 	private void initRiggedAdventureDeck() {
 		adventureDeck = new Deck();
+		logger.info("Rigged Adventure Deck Created");
 		CardList.populateRiggedAdventureCards(adventureDeck);
 	}
 
 	private void initRiggedStoryDeck() {
 		storyDeck = new Deck();
 		try {
+			logger.info("Rigged Story Deck Created");
 			CardList.populateRiggedStoryCards(storyDeck);
 		} catch (Exception e) {
 			System.out.println(e);

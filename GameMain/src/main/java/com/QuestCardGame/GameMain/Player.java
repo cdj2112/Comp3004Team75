@@ -46,7 +46,7 @@ public class Player {
 
 	public void useCard(Card c) {
 		hand.remove(c);
-		logger.info("Player " + playerNumber + ": USED [" + c.getName() + "]");
+		//logger.info("Player " + playerNumber + ": USED [" + c.getName() + "]");
 	}
 
 	public Hand getHand() {
@@ -79,10 +79,11 @@ public class Player {
 	
 	public void addShields(int s) {
 		numShields += s;
-
+		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
 		if(numShields >= shieldsNeeded[rank]) {
 			numShields -= shieldsNeeded[rank];
 			rank++;
+			logger.info("Player "+getPlayerNumber()+": Promoted to "+rankNames[rank]+" with "+numShields+" shields");
 		}
 	}
 
