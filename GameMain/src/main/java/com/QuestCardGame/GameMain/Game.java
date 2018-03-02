@@ -28,11 +28,11 @@ public class Game {
 	private int sponsorIndex;
 	private Quest activeQuest;
 
-	Game(int nP) {
+	Game(int nP, int nAIP) {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
-			players[i] = new Player();
+			players[i] = (numPlayers - i) > nAIP ? new Player() : new AIStrategyTwo(this);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
@@ -106,7 +106,7 @@ public class Game {
 	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean played = activeQuest.addCardToStage(c, s);
-			if(played) {
+			if (played) {
 				sponsor.useCard(c);
 			}
 			return played;
@@ -303,11 +303,11 @@ public class Game {
 		else
 			return activePlayer;
 	}
-	
+
 	public Player getCurrentActivePlayerObj() {
 		return players[getCurrentActivePlayer()];
 	}
-	
+
 	/**
 	 * To get the current active quest player.
 	 * 
@@ -430,8 +430,8 @@ public class Game {
 			if (pc.cardName.equals(c.getName()))
 				return false;
 		}
-		
-		if(c.getCardType() == AdventureCard.AdventureType.FOE)
+
+		if (c.getCardType() == AdventureCard.AdventureType.FOE)
 			return false;
 
 		return true;
