@@ -104,9 +104,11 @@ public class Game {
 
 	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
-			sponsor.useCard(c);
-			activeQuest.addCardToStage(c, s);
-			return true;
+			boolean played = activeQuest.addCardToStage(c, s);
+			if(played) {
+				sponsor.useCard(c);
+			}
+			return played;
 		}
 		return false;
 	}
