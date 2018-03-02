@@ -5,6 +5,8 @@ import java.util.ArrayList;
 //import org.apache.logging.log4j.LogManager;
 
 public class Player {
+	
+	public final boolean isAIPlayer = false;
 		
 	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};

@@ -3,6 +3,8 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 
 public abstract class AIPlayer extends Player implements AIPlayerStrategy{
+	
+	public final boolean isAIPlayer = true;
 
 	Game game;
 	
