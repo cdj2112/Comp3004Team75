@@ -24,9 +24,9 @@ public class Foe extends AdventureCard {
 		else
 			return battlePoints;
 	}
-
+	
 	public String getFrontImagePath() {
-		return "./src/resources/Cards/Foe/" + cardName + ".png";
-	}
+		  return "./src/resources/Cards/Foe/"+cardName+".png";
+	  }
 
 }

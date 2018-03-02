@@ -14,12 +14,10 @@ public abstract class Card {
 	public int getId() {
 		return id;
 	}
-
 	public String getName() {
 		return cardName;
 	}
-
+	
 	public abstract String getFrontImagePath();
-
 	public abstract String getBackImagePath();
 }

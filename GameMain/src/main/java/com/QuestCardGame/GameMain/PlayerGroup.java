@@ -1,5 +1,8 @@
 package com.QuestCardGame.GameMain;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -11,16 +14,15 @@ public class PlayerGroup extends Group {
 	private ImageView rank;
 	private Text battlePoints;
 	private Text cardsInHand;
-	private Text shield;
+	private ImageView[] shields;
 
-	public PlayerGroup() {
+	public PlayerGroup() throws FileNotFoundException {
 		super();
 		hand = new Group();
 		play = new Group();
 		rank = new ImageView();
 		battlePoints = new Text();
 		cardsInHand = new Text();
-		shield = new Text();
 
 		getChildren().add(play);
 		play.setTranslateX(0);
@@ -36,14 +38,21 @@ public class PlayerGroup extends Group {
 
 		getChildren().add(battlePoints);
 		battlePoints.setFont(new Font(20));
-		
-		getChildren().add(shield);
-		battlePoints.setFont(new Font(20));
 
 		getChildren().add(cardsInHand);
 		cardsInHand.setFont(new Font(15));
 		cardsInHand.setTranslateX(0);
 		cardsInHand.setTranslateY(115);
+
+		Image shield = new Image(new FileInputStream("./src/resources/shield.png"));
+		shields = new ImageView[9];
+		for (int i = 0; i < 9; i++) {
+			shields[i] = new ImageView(shield);
+			shields[i].setFitWidth(25);
+			shields[i].setFitHeight(37.5);
+			getChildren().add(shields[i]);
+		}
+
 	}
 
 	public void addCardToHand(Group g) {
@@ -83,17 +92,35 @@ public class PlayerGroup extends Group {
 	public Text getBP() {
 		return battlePoints;
 	}
-	
-	public void setShield(int s) {
-		shield.setText("Shield: " + s);
-	}
-
-	public Text getShield() {
-		return shield;
-	}
 
 	public void setCardsInHand(int num, boolean visible) {
 		cardsInHand.setText("Cards In Hand: " + num);
 		cardsInHand.setVisible(visible);
+	}
+
+	public void arrangeShieldsGrid() {
+		for (int i = 0; i < 9; i++) {
+			ImageView s = shields[i];
+			s.setFitWidth(25);
+			s.setFitHeight(37.5);
+			s.setTranslateX(1130 + (i % 3) * 25);
+			s.setTranslateY(Math.floor(i / 3) * 38);
+		}
+	}
+
+	public void arrangeShieldLine() {
+		for (int i = 0; i < 9; i++) {
+			ImageView s = shields[i];
+			s.setFitWidth(15);
+			s.setFitHeight(22.5);
+			s.setTranslateX(i * 15);
+			s.setTranslateY(80);
+		}
+	}
+
+	public void setShields(int s) {
+		for (int i = 0; i < 9; i++) {
+			shields[i].setVisible(i<s);
+		}
 	}
 }

@@ -35,19 +35,19 @@ public class CardGroup extends Group {
 		face.setVisible(faceUp);
 		back.setVisible(!faceUp);
 	}
-
+	
 	public void setDragCard(boolean drag) {
 		canDrag = drag;
 	}
-
+	
 	public boolean getDragCard() {
 		return canDrag;
 	}
-
+	
 	public void setHoverCard(boolean hover) {
 		canHover = hover;
 	}
-
+	
 	public boolean getHoverCard() {
 		return canHover;
 	}

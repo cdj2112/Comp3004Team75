@@ -28,8 +28,7 @@ public class AssetStore {
 		final CardGroup eventGroup = cg;
 		EventHandler<MouseEvent> dragged = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (!eventGroup.getDragCard())
-					return;
+				if(!eventGroup.getDragCard()) return;
 				UI.setDraggingCard(eventCard);
 				double x = e.getX();
 				double y = e.getY();
@@ -41,16 +40,14 @@ public class AssetStore {
 		};
 		EventHandler<MouseEvent> mouseEnter = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (!eventGroup.getHoverCard())
-					return;
+				if(!eventGroup.getHoverCard()) return;
 				UI.setHoverCard(eventCard);
 				UI.update();
 			}
 		};
 		EventHandler<MouseEvent> mouseLeave = new EventHandler<MouseEvent>() {
 			public void handle(MouseEvent e) {
-				if (!eventGroup.getHoverCard())
-					return;
+				if(!eventGroup.getHoverCard()) return;
 				UI.setHoverCard(null);
 				UI.update();
 			}

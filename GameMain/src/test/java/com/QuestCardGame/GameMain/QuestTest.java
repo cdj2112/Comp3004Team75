@@ -3,9 +3,10 @@ package com.QuestCardGame.GameMain;
 import junit.framework.TestCase;
 import java.util.ArrayList;
 
-public class QuestTest extends TestCase {
-
-	public void testIsValidQuestIncreasingBattlePoints() {
+public class QuestTest extends TestCase{
+	
+	
+	public void testIsValidQuestIncreasingBattlePoints() {			
 		QuestCard c = new QuestCard("OneStageQuest", 2);
 		Quest quest = new Quest(c);
 		AdventureCard f1 = new Foe("TestFoe1", 1);
@@ -16,11 +17,11 @@ public class QuestTest extends TestCase {
 		quest.addCardToStage(w1, 0);
 		quest.addCardToStage(f2, 1);
 		quest.addCardToStage(w2, 1);
-
+		
 		assert quest.validateQuest();
 	}
-
-	public void testIsValidQuestDecreasingBattlePoints() {
+	
+	public void testIsValidQuestDecreasingBattlePoints() {			
 		QuestCard c = new QuestCard("OneStageQuest", 2);
 		Quest quest = new Quest(c);
 		AdventureCard f1 = new Foe("TestFoe1", 10);
@@ -31,13 +32,14 @@ public class QuestTest extends TestCase {
 		quest.addCardToStage(w1, 0);
 		quest.addCardToStage(f2, 1);
 		quest.addCardToStage(w2, 1);
-
+		
 		assert !quest.validateQuest();
 	}
-
+	
 	/**
-	 * Two stage quest P1 wins gets 2 shields (i.e. number of stages) P2 is
-	 * eliminated first round
+	 * Two stage quest
+	 * P1 wins gets 2 shields (i.e. number of stages)
+	 * P2 is eliminated first round
 	 */
 	public void testEvaluateStage() {
 		QuestCard c = new QuestCard("OneStageQuest", 2);
@@ -59,50 +61,50 @@ public class QuestTest extends TestCase {
 		quest.addPlayer(p1);
 		quest.addPlayer(p2);
 		quest.startQuest();
-
-		// p1 plays card for stage 1
-		Player nextPlayer = quest.getNextPlayer();
-		assert nextPlayer == p1;
+		
+		//p1 plays card for stage 1
+		Player nextPlayer = quest.getNextPlayer();		
+		assert nextPlayer == p1;		
 		nextPlayer.playCard(w2);
-
-		// p2 plays card for stage 1
+		
+		//p2 plays card for stage 1
 		nextPlayer = quest.getNextPlayer();
 		assert nextPlayer == p2;
 		nextPlayer.playCard(w1);
-
-		// playing round is done
+		
+		//playing round is done
 		nextPlayer = quest.getNextPlayer();
 		assert nextPlayer == null;
-
-		// p1 should win stage 1
+		
+		//p1 should win stage 1
 		nextPlayer = quest.getNextPlayer();
 		boolean result = quest.evaluatePlayer(nextPlayer);
 		assert result;
-
-		// p2 should lose stage 1
+		
+		//p2 should lose stage 1
 		nextPlayer = quest.getNextPlayer();
 		result = quest.evaluatePlayer(nextPlayer);
 		assert !result;
-
-		// eval round is done
+		
+		//eval round is done
 		nextPlayer = quest.getNextPlayer();
 		assert nextPlayer == null;
 
-		// p1 plays stage 2
+		//p1 plays stage 2
 		nextPlayer = quest.getNextPlayer();
 		assert nextPlayer == p1;
 		nextPlayer.playCard(w3);
-
-		// playing round is done
+		
+		//playing round is done
 		nextPlayer = quest.getNextPlayer();
 		assert nextPlayer == null;
-
-		// p1 wins stage
+		
+		//p1 wins stage
 		nextPlayer = quest.getNextPlayer();
 		result = quest.evaluatePlayer(nextPlayer);
 		assert result;
-
-		// p1 is award 2 shields
+		
+		//p1 is award 2 shields
 		assert quest.isQuestOver();
 		assert p1.getNumShields() == 2;
 	}
