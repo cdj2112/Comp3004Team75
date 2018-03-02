@@ -76,7 +76,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			allCardsForQuest.addAll(cardsForStage);
 		}
 	
-		return allCardsForQuest.size() > 0 ? allCardsForQuest : null;
+		return allCardsForQuest;
 	}
 
 	//Can increase BP each stage by 10 pts AND
@@ -109,7 +109,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		
 		game.playerPlayCards(this, cardsToPlay);
 		
-		return cardsToPlay.size() > 0 ? cardsToPlay : null;
+		return cardsToPlay;
 	}
 
 	public int getBidForTest() {
@@ -161,7 +161,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 		switch (gameStatus) {
 			case SPONSORING:
 				this.doISponsorAQuest();
-				return null;
+				return new ArrayList<AdventureCard>();
 			case ACCEPTING_QUEST:
 				return this.doIJoinQuest();
 			case PRE_QUEST_DISCARD:
@@ -177,7 +177,7 @@ public class AIStrategyTwo extends Player implements AIPlayerStrategy {
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			default:
-				return null;
+				return new ArrayList<AdventureCard>();
 		}
 	}
 	
