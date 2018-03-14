@@ -1,10 +1,12 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
-//import org.apache.logging.log4j.Logger;
-//import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Player {
+
+	private static final Logger logger = LogManager.getLogger(Player.class);
 		
 	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
@@ -18,37 +20,39 @@ public class Player {
 	private int numShields;
 	private int rank;
 	static int nextPlayerNumber = 1;
-	
+
 	Player(){
 		hand = new Hand();
 		play = new Hand();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 0; //squire
-		
 		//disabled until log4j2.xml has been created
-		//logger.info("A new player has been created.");
+		logger.info("Player " + playerNumber + ": created");
 	}
-	
+
 	public void drawCard(AdventureCard c){
 		hand.add(c);
+		logger.info("Player " + playerNumber + ": DREW [" + c.getName() + "]");
 	}
-	
+
 	public void playCard(AdventureCard c) {
 		boolean removed = hand.remove(c);
 		if (removed) {
 			play.add(c);
+			logger.info("Player " + playerNumber + ": PLAYED [" + c.getName() + "]");
 		}
 	}
-	
+
 	public void useCard(Card c) {
 		hand.remove(c);
+		//logger.info("Player " + playerNumber + ": USED [" + c.getName() + "]");
 	}
-	
+
 	public Hand getHand() {
 		return hand;
 	}
-	
+
 	public ArrayList<AdventureCard> getPlay() {
 		return play;
 	}
@@ -56,7 +60,7 @@ public class Player {
 	public int getPlayerNumber() {
 		return playerNumber;
 	}
-	
+
 	public int getBattlePoints() {
 		int totalBattlePoints = battlePoints[rank] + numShields;
 		for(AdventureCard c : play) {
@@ -75,13 +79,14 @@ public class Player {
 	
 	public void addShields(int s) {
 		numShields += s;
-
+		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
 		if(numShields >= shieldsNeeded[rank]) {
 			numShields -= shieldsNeeded[rank];
 			rank++;
+			logger.info("Player "+getPlayerNumber()+": Promoted to "+rankNames[rank]+" with "+numShields+" shields");
 		}
 	}
-	
+
 	public int getNumShields() {
 		return numShields;
 	}
@@ -96,5 +101,9 @@ public class Player {
 	
 	public String getRankImagePath() {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
+	}
+	
+	public boolean isAIPlayer() {
+		return false;
 	}
 }

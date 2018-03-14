@@ -108,6 +108,19 @@ public class AIStrategyTwo extends AIPlayer {
 		}
 		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
 		
+		int cP = getHand().size() - cardsToPlay.size() - 12;
+		getHand().sortAscendingByBattlePoints();
+		int i = 0; 
+		while(cP > 0) {
+			AdventureCard c = getHand().get(i);
+			if(getHand().isValidPlay(cardsToPlay, c)) {
+				cardsToPlay.add(c);
+				cP--;
+			} else {
+				i++;
+			}
+		}
+		
 		game.playerPlayCards(this, cardsToPlay);
 		game.finalizePlay();
 		
@@ -146,13 +159,16 @@ public class AIStrategyTwo extends AIPlayer {
 			return null;
 		
 		playerHand.sortAscendingByBattlePoints();
-		
+
 		for(AdventureCard c: playerHand) {
 			if(numCardsToDiscard == 0)
 				break;
 			cardsToDiscard.add(c);
-			game.playerDiscardAdventrueCard(this, c);
 			numCardsToDiscard--;
+		}
+		
+		for(AdventureCard c : cardsToDiscard) {
+			game.playerDiscardAdventrueCard(this, c);
 		}
 		return cardsToDiscard;
 	}
