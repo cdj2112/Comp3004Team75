@@ -23,6 +23,7 @@ public class AIStrategyOne extends AIPlayer {
 		else {
 			cardsForTournament = this.getHand().getDuplicateWeapons();
 		}
+		game.playerPlayCards(this, cardsForTournament);
 		return cardsForTournament;
 	}
 
