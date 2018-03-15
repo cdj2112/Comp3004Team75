@@ -278,6 +278,7 @@ public class Hand extends ArrayList<AdventureCard>{
 		HashSet<String> duplicateNames = new HashSet<String>();
 		ArrayList<AdventureCard> duplicateWeapons = new ArrayList<AdventureCard>();
 		String prevName = "";
+		this.sort(new AdventureCardComparator());
 		for(AdventureCard c : this) {
 			String cardName = c.getName();
 			if(c.getCardType() == AdventureCard.AdventureType.WEAPON) {
