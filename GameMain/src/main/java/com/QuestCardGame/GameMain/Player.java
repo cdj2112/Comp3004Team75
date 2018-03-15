@@ -18,12 +18,12 @@ public class Player {
 
 	private int playerNumber;
 	private int numShields;
-	private int rank;
+	protected int rank;
 	static int nextPlayerNumber = 1;
 
 	Player(){
 		hand = new Hand();
-		play = new Hand();
+		play = new ArrayList<AdventureCard>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 0; //squire

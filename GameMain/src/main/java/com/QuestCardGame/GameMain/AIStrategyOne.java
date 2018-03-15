@@ -17,6 +17,12 @@ public class AIStrategyOne extends AIPlayer {
 
 	public ArrayList<AdventureCard> playCardsForTournament() {
 		ArrayList<AdventureCard> cardsForTournament = new ArrayList<AdventureCard>();
+		if(canIWinGame()) {
+			cardsForTournament = this.getHand().getBestPossibleHand(this.getPlay());
+		}
+		else {
+			cardsForTournament = this.getHand().getDuplicateWeapons();
+		}
 		return cardsForTournament;
 	}
 
@@ -55,6 +61,14 @@ public class AIStrategyOne extends AIPlayer {
 	
 	public void endTurn() {
 		
+	}
+	
+	private boolean canIWinGame() {
+		StoryCard storyCard = (StoryCard)game.getActiveStoryCard();
+		int potentialReward = storyCard.getShieldReward();
+		
+		//rank 2 is Champion Knight
+		return(rank == 2 && getShieldsNeeded() <= potentialReward);	
 	}
 
 }

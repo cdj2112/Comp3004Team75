@@ -3,9 +3,10 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;;
 
 public class Hand extends ArrayList<AdventureCard>{
-	
+		
 	public void sortAscendingByBattlePoints() {
 		Collections.sort(this, new Comparator<AdventureCard>() {
 			public int compare(AdventureCard a, AdventureCard b) {
@@ -273,4 +274,19 @@ public class Hand extends ArrayList<AdventureCard>{
 		return true;
 	}
 	
+	public ArrayList<AdventureCard> getDuplicateWeapons(){
+		HashSet<String> duplicateNames = new HashSet<String>();
+		ArrayList<AdventureCard> duplicateWeapons = new ArrayList<AdventureCard>();
+		String prevName = "";
+		for(AdventureCard c : this) {
+			String cardName = c.getName();
+			if(c.getCardType() == AdventureCard.AdventureType.WEAPON) {
+				if(!duplicateNames.add(cardName) && !prevName.equals(cardName))
+					duplicateWeapons.add(c);
+			}
+			prevName = cardName;
+		}
+		
+		return duplicateWeapons;	
+	}
 }
