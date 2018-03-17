@@ -1,0 +1,31 @@
+A rough list of things we need to accomplish. Feel free to make notes under each item about what is/isn't done and 
+
+1. Spring (Cooper)
+
+
+2. HTML UI (Cooper)
+
+
+3. Tournaments (Ruicheng)
+-open PR comments from Cooper need to be addressed before merging
+
+4. Tests
+
+
+5. AIOne/Refactor AI (Steffen)
+-eliminating the AI subclasses of player and having a player behaviour instance in each player which will contain the AI
+-Implementing the AI One behaviour outlined in the prof's notes
+
+6. Events (Haiyue)
+
+
+7. Amour & Allies
+
+
+8. Special Foes
+
+
+9. Mordrid and Merlin
+
+
+10. Special Allies
