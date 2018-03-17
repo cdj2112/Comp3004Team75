@@ -3,7 +3,8 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashSet;;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Hand extends ArrayList<AdventureCard>{
 		
@@ -289,5 +290,14 @@ public class Hand extends ArrayList<AdventureCard>{
 		}
 		
 		return duplicateWeapons;	
+	}
+	
+	public int getNumUniqueCards(AdventureCard.AdventureType cardType) {
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			if(c.getCardType() == cardType)
+				uniqueCards.add(c);
+		}
+		return uniqueCards.size();
 	}
 }

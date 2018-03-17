@@ -123,4 +123,17 @@ public class HandTest extends TestCase {
 		assert p.getHand().hasCardsToSponsorQuest(3);
 	}
 	
+	public void testGetNumDuplicates() {
+		p.getHand().clear();
+		p.drawCard(w1);
+		p.drawCard(w2);
+		
+		//dagger and axe
+		assert p.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON) == 2;
+		
+		//now dagger and 2 axe
+		p.drawCard(w3);
+		assert p.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON) == 2;
+	}
+	
 }
