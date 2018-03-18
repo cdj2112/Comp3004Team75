@@ -56,8 +56,18 @@ public class AIStrategyOne extends AIPlayer {
 		return cardsForQuest;
 	}
 
-	public ArrayList<AdventureCard> doIJoinQuest() {	
-		return game.acceptDeclineQuest(this, false);
+	public ArrayList<AdventureCard> doIJoinQuest() {
+		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
+		int numAllies = this.getHand().getNumUniqueCards(AdventureCard.AdventureType.ALLY);
+		int numWeapons = this.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON);
+		int numFoesToDiscardForTest = this.getHand().getNumFoesToDiscard(20);
+		int alliesPerStage = numAllies/numStages;
+		int weaponsPerStage = numWeapons/numStages;
+		
+		if(alliesPerStage >= 2 && weaponsPerStage >= 2 && numFoesToDiscardForTest >= 2)
+			return game.acceptDeclineQuest(this, true);
+		else
+			return game.acceptDeclineQuest(this,  false);
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
