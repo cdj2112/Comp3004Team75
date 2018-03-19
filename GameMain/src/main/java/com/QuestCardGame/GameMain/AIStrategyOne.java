@@ -98,8 +98,16 @@ public class AIStrategyOne extends AIPlayer {
 	}
 
 	public int getBidForTest() {
-		// TODO Auto-generated method stub
-		return 0;
+		int numToBid = 0;
+		int currentRound = 0; //g.getActiveQuest().getTestRound();
+		
+		//don't bid unless first round
+		if(currentRound == 0) 
+			numToBid = 0;
+		else	
+			numToBid = this.getHand().getNumFoesToDiscard(20);
+		
+		return numToBid;
 	}
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
