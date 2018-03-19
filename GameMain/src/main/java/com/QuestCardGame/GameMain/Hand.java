@@ -300,4 +300,13 @@ public class Hand extends ArrayList<AdventureCard>{
 		}
 		return uniqueCards.size();
 	}
+	
+	public ArrayList<AdventureCard> getUniqueCards(AdventureCard.AdventureType cardType, int maxNumberToGet){
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			if(c.getCardType() == cardType && uniqueCards.size() < maxNumberToGet)
+				uniqueCards.add(c);
+		}
+		return new ArrayList<AdventureCard>(uniqueCards);
+	}
 }

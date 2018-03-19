@@ -71,8 +71,30 @@ public class AIStrategyOne extends AIPlayer {
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
-		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		return cardsForStage;
+		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
+		ArrayList<AdventureCard> cardsInPlay = this.getPlay();
+		int cardsNeededForStage = 2;
+		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
+		int totalStages = game.getActiveQuest().getNumStages();
+		
+		if(currentStage == totalStages) {
+			cardsToPlay = this.getHand().getBestPossibleHand(cardsInPlay);
+		}
+		else {
+			this.getHand().sortDescendingByBattlePoints(); //need strongest allies/amour
+			ArrayList<AdventureCard> cards = this.getHand().getUniqueCards(AdventureCard.AdventureType.ALLY, 2);
+			cardsToPlay.addAll(cards);
+			if(cardsToPlay.size() < cardsNeededForStage && !iHaveAmourInPlay()) {
+				cards = this.getHand().getUniqueCards(AdventureCard.AdventureType.AMOURS, 1); //only can play 1 anyway
+				cardsToPlay.addAll(cards);
+			}
+			if(cardsToPlay.size() < cardsNeededForStage) {
+				this.getHand().sortAscendingByBattlePoints(); //need weakest weapons
+				cards = this.getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, cardsNeededForStage - cardsToPlay.size());
+				cardsToPlay.addAll(cards);
+			}
+		}		
+		return cardsToPlay;
 	}
 
 	public int getBidForTest() {
@@ -129,6 +151,14 @@ public class AIStrategyOne extends AIPlayer {
 				aPlayerCanEvolve = true;				
 		}
 		return aPlayerCanEvolve;
+	}
+	
+	private boolean iHaveAmourInPlay() {
+		for(AdventureCard c : this.getPlay()) {
+			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
+				return true;
+		}
+		return false;
 	}
 
 }
