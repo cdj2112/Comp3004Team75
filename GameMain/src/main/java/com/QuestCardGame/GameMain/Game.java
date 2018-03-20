@@ -33,7 +33,7 @@ public class Game {
 	private int sponsorIndex;
 	private Quest activeQuest;
 
-	Game(int nP, int nAIP, boolean rigged) {
+	public Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
