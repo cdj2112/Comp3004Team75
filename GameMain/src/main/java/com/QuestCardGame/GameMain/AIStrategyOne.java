@@ -50,9 +50,24 @@ public class AIStrategyOne extends AIPlayer {
 			return false;
 		}	
 	}
-
+	
+	//last stage 50
+	//second last test (if possible)
+	//strongest foe with any weapon i have duplicates of 
 	public ArrayList<AdventureCard> createQuest() {
 		ArrayList<AdventureCard> cardsForQuest = new ArrayList<AdventureCard>();
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();			
+		int numStages = game.getActiveQuest().getNumStages();
+
+		//intentionally going backwards due to requirements
+		for(int i = numStages; i >= 0; i--) {
+			cardsForStage = getCardsForQuestStage(i, numStages);
+			for(AdventureCard c : cardsForStage)
+				game.sponsorAddCardToStage(c, i);
+			cardsForQuest.addAll(cardsForStage);
+		}
+		
+		game.finalizeQuest();
 		return cardsForQuest;
 	}
 
@@ -94,6 +109,7 @@ public class AIStrategyOne extends AIPlayer {
 				cardsToPlay.addAll(cards);
 			}
 		}		
+		game.finalizePlay();
 		return cardsToPlay;
 	}
 
@@ -167,6 +183,45 @@ public class AIStrategyOne extends AIPlayer {
 				return true;
 		}
 		return false;
+	}
+	
+	private ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages){
+		this.getHand().sortDescendingByBattlePoints();
+		AdventureCard strongestFoe = this.getHand().getStrongestFoe();
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
+		ArrayList<AdventureCard> weaponsInHand = getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, 12);
+		ArrayList<AdventureCard> duplicateWeapons = getHand().getDuplicateWeapons();
+		duplicateWeapons.sort(new BattlePointComparatorDescending());
+		int stageBattlePoints = 0;
+		
+		
+		//last stage - need 50 pts
+		if(stage + 1 == totalStages) {
+			stageBattlePoints += strongestFoe.getBattlePoint(false);
+			cardsForStage.add(strongestFoe);
+			for(AdventureCard c : weaponsInHand) {
+				stageBattlePoints += c.getBattlePoint(false);
+				cardsForStage.add(c);
+				if(stageBattlePoints >= 50)
+					break;
+			}
+		} //second last stage, test if possible
+		else if (stage == totalStages) {
+			AdventureCard test = this.getHand().getTestCard();
+			if(test != null)
+				cardsForStage.add(test);
+			else {
+				cardsForStage.add(strongestFoe);
+				if(duplicateWeapons.size() > 0)
+					cardsForStage.add(duplicateWeapons.get(0));
+			}
+		}
+		else {
+			cardsForStage.add(strongestFoe);
+			if(duplicateWeapons.size() > 0)
+				cardsForStage.add(duplicateWeapons.get(0));
+		}
+		return cardsForStage;
 	}
 
 }
