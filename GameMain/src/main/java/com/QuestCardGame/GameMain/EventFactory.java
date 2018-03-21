@@ -23,7 +23,7 @@ public class EventFactory{
       else if (cardName.toLowerCase().equals("king's call to arms")) effect = new KingsRecognition(g);
 
       else if (cardName.toLowerCase().equals("prosperity throughout the realm")) effect = new ProsperityThroughoutTheRealm(g);
-    
+
     effect.eventBehavior();
   }
 }

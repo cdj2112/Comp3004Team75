@@ -57,7 +57,16 @@ public class CardList {
 				storyDeck.addCard(f);
 			}
 		}
-		for (int i = 0; i < 30; i++) storyDeck.addCard(new EventCard("Pox"));
+		//Format EventName_Name;Amount
+		Scanner eventScanner = new Scanner(new File("./src/resources/EventList.txt"));
+		while(eventScanner.hasNext()) {
+			String[] cardInfo = eventScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				EventCard f = new EventCard(cardInfo[0].replace('_', ' '));
+				storyDeck.addCard(f);
+			}
+		}
 	}
 
 	public static void populateRiggedAdventureCards(Deck adventureDeck) {
@@ -160,6 +169,14 @@ public class CardList {
 	public static void populateRiggedStoryCards(Deck storyDeck) throws FileNotFoundException {
 		populateStoryCards(storyDeck);
 		storyDeck.addCard(new QuestCard("Boar Hunt", 2));
+		storyDeck.addCard(new EventCard("Court Called to Camelot"));
+		storyDeck.addCard(new EventCard("King's Call to Arms"));
+		storyDeck.addCard(new EventCard("King's Recognition"));
+		storyDeck.addCard(new EventCard("Plague"));
+		storyDeck.addCard(new EventCard("Pox"));
+		storyDeck.addCard(new EventCard("Prosperity Throughout the Realm"));
+		storyDeck.addCard(new EventCard("Queen's Favor"));
+		storyDeck.addCard(new EventCard("Chivalrous Deed"));
 	}
 
 }

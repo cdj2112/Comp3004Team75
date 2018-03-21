@@ -5,7 +5,7 @@ public class Plague extends EventEffect{
     super(g);
   }
 
-  public eventBehavior(){
+  public void eventBehavior(){
     game.getPlayer(game.getCurrentActivePlayer()).addShields(-2);
   }
 }

@@ -13,7 +13,7 @@ public class ChivalrousDeed extends EventEffect{
     ArrayList<Player> leastShieldPlayers = new ArrayList<Player>();
     int leastRank = game.getPlayer(0).getRank();
     leastRankedPlayers.add(game.getPlayer(0));
-    int leastShiled = game.getPlayer(0).getNumShields();
+    int leastShield = game.getPlayer(0).getNumShields();
     leastShieldPlayers.add(game.getPlayer(0));
 
     for (int i = 1; i < game.getNumPlayers(); i++){
@@ -27,7 +27,7 @@ public class ChivalrousDeed extends EventEffect{
     }
 
     for (int i = 1; i < game.getNumPlayers(); i++){
-      if(game.getPlayer(i).getNumShields() > leastShiled) continue;
+      if(game.getPlayer(i).getNumShields() > leastShield) continue;
       else if (game.getPlayer(i).getNumShields() == leastShield) leastShieldPlayers.add(game.getPlayer(i));
       else {
         leastShieldPlayers.clear();

@@ -2,7 +2,7 @@ package com.QuestCardGame.GameMain;
 
 public class KingsRecognition extends EventEffect{
   public KingsRecognition(Game g){
-    super(g)
+    super(g);
   }
 
   public void eventBehavior(){

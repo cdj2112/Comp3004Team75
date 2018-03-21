@@ -5,7 +5,7 @@ public class CourtCalledToCamelot extends EventEffect{
     super(g);
   }
 
-  public eventBehavior(){
+  public void eventBehavior(){
     game.clearAllAllies();
   }
 }

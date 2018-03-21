@@ -68,8 +68,9 @@ public class Game {
 			else activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
 		}else if (storyCard instanceof EventCard){
-			System.out.println("Event Card has beed drew");
 			EventFactory event = new EventFactory((EventCard)storyCard, this);
+			currentStatus =  GameStatus.END_TURN_DISCARD;
+			checkHandSizes();
 		}
 	}
 
