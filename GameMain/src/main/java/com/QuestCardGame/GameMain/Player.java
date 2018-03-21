@@ -7,12 +7,12 @@ import org.apache.logging.log4j.LogManager;
 public class Player {
 
 	private static final Logger logger = LogManager.getLogger(Player.class);
-		
+
 	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
 	private static final int[] battlePoints = {5, 10, 20};
 	private static final int[] shieldsNeeded = {5, 7, 10};
-	
+
 	private Hand hand;
 	private ArrayList<AdventureCard> play;
 
@@ -68,17 +68,18 @@ public class Player {
 		}
 		return totalBattlePoints;
 	}
-	
+
 	public int getBattlePointsForHand(Hand h) {
 		int total = 0;
 		for(AdventureCard c: h) {
 			total += c.getBattlePoint(false);
-		}	
+		}
 		return total;
 	}
-	
+
 	public void addShields(int s) {
 		numShields += s;
+		if (numShields < 0) numShields = 0;
 		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
 		if(numShields >= shieldsNeeded[rank]) {
 			numShields -= shieldsNeeded[rank];
@@ -87,22 +88,26 @@ public class Player {
 		}
 	}
 
+	public int getRank(){
+		return rank;
+	}
+
 	public int getNumShields() {
 		return numShields;
 	}
-	
+
 	public int getShieldsNeeded() {
 		return shieldsNeeded[rank];
 	}
-	
+
 	public String getRankName() {
 		return rankNames[rank];
 	}
-	
+
 	public String getRankImagePath() {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
 	}
-	
+
 	public boolean isAIPlayer() {
 		return false;
 	}

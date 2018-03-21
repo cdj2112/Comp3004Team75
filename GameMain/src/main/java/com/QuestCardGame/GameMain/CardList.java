@@ -14,14 +14,14 @@ public class CardList {
 	 * generateList(); } catch (FileNotFoundException e) { // TODO Auto-generated
 	 * catch block e.printStackTrace(); } // System.out.print(adventureList.get(1));
 	 * }
-	 * 
+	 *
 	 * public List<String> getAdventureList() { return adventureList; } public
 	 * List<String> getAttributeList() { return attributeList; } public Map<String,
 	 * Integer> getStoryList() { return storyList; }
 	 */
 
 	public static void populateAdventureCards(Deck adventureDeck) throws FileNotFoundException {
-		
+
 		//Format Weapon_Name;Amount;BattlePoints
 		Scanner weaponScanner = new Scanner(new File("./src/resources/WeaponList.txt"));
 		while (weaponScanner.hasNext()) {
@@ -32,7 +32,7 @@ public class CardList {
 				adventureDeck.addCard(w);
 			}
 		}
-		
+
 		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
 		Scanner foeScanner = new Scanner(new File("./src/resources/FoeList.txt"));
 		while (foeScanner.hasNext()) {
@@ -44,9 +44,9 @@ public class CardList {
 			}
 		}
 	}
-	
+
 	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
-		
+
 		//Format QuestName_Name;Amount;NumStages
 		Scanner questScanner = new Scanner(new File("./src/resources/QuestList.txt"));
 		while(questScanner.hasNext()) {
@@ -57,10 +57,11 @@ public class CardList {
 				storyDeck.addCard(f);
 			}
 		}
+		for (int i = 0; i < 30; i++) storyDeck.addCard(new EventCard("Pox"));
 	}
-	
+
 	public static void populateRiggedAdventureCards(Deck adventureDeck) {
-		
+
 		//Extra
 		adventureDeck.addCard(new Foe("Giant", 40, 40));
 		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
@@ -74,7 +75,7 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
 		adventureDeck.addCard(new Weapon("Horse", 10));
-		
+
 		//Player 1 Draw 6
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
 		adventureDeck.addCard(new Weapon("Horse", 10));
@@ -82,22 +83,22 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Saxon Knight", 20, 30));
 		adventureDeck.addCard(new Weapon("Excalibur", 30));
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
-		
+
 		//Player 4 Draw 1
 		adventureDeck.addCard(new Weapon("Sword", 10));
-		
+
 		//Player 3 Draw 1
 		adventureDeck.addCard(new Foe("Thieves", 5, 5));
-		
+
 		//Player 4 Draw 1
 		adventureDeck.addCard(new Weapon("Lance", 20));
-		
+
 		//Player 3 Draw 1
 		adventureDeck.addCard(new Foe("Giant", 40, 40));
-		
+
 		//Player 2 Draw 1
 		adventureDeck.addCard(new Weapon("Dagger", 5));
-		
+
 		//Player 4 Hand
 		adventureDeck.addCard(new Foe("Dragon", 50, 70));
 		adventureDeck.addCard(new Foe("Saxon Knight", 20, 30));
@@ -111,7 +112,7 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
 		adventureDeck.addCard(new Weapon("Horse", 10));
-		
+
 		//Player 3 Hand
 		adventureDeck.addCard(new Foe("Giant", 40, 40));
 		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
@@ -125,7 +126,7 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
 		adventureDeck.addCard(new Weapon("Horse", 10));
-		
+
 		//Player 2 Hand
 		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
 		adventureDeck.addCard(new Foe("Evil Knight", 20, 30));
@@ -139,8 +140,8 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
 		adventureDeck.addCard(new Weapon("Horse", 10));
-		
-		
+
+
 		//Player 1 hand
 		adventureDeck.addCard(new Foe("Saxons", 10, 20));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
@@ -155,11 +156,10 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
 		adventureDeck.addCard(new Weapon("Horse", 10));
 	}
-	
+
 	public static void populateRiggedStoryCards(Deck storyDeck) throws FileNotFoundException {
 		populateStoryCards(storyDeck);
 		storyDeck.addCard(new QuestCard("Boar Hunt", 2));
 	}
 
 }
-

@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 public class Game {
 
 	private static final Logger logger = LogManager.getLogger(Game.class);
-	
+
 	public static enum GameStatus {
 		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD,
 	};
@@ -32,6 +32,9 @@ public class Game {
 	private Player sponsor;
 	private int sponsorIndex;
 	private Quest activeQuest;
+
+	// Events
+	private int extraShield;
 
 	Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
@@ -61,8 +64,12 @@ public class Game {
 		Card storyCard = getStoryCard();
 		currentStoryCard = storyCard;
 		if (storyCard instanceof QuestCard) {
-			activeQuest = new Quest((QuestCard) storyCard);
+			if (extraShield != 0) activeQuest = new Quest((QuestCard) storyCard, extraShield);
+			else activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
+		}else if (storyCard instanceof EventCard){
+			System.out.println("Event Card has beed drew");
+			EventFactory event = new EventFactory((EventCard)storyCard, this);
 		}
 	}
 
@@ -287,7 +294,7 @@ public class Game {
 	 * Return the next player to play cards if there is one The next player then
 	 * becomes the current player and can be retrieved anytime using
 	 * getCurrentActiveQuestPlayer() Returns null if the round is over
-	 * 
+	 *
 	 * This is separate from the game's active player because not all players may be
 	 * in a quest
 	 */
@@ -317,7 +324,7 @@ public class Game {
 	/**
 	 * Gets the game's active player. If the game is playing, then this is the quest
 	 * active player. Otherwise it's the game player.
-	 * 
+	 *
 	 * @return int between 0-3 inclusive -1 if there is no active player, i.e. the
 	 *         game has done a full circle
 	 */
@@ -334,7 +341,7 @@ public class Game {
 
 	/**
 	 * To get the current active quest player.
-	 * 
+	 *
 	 * @return index of the activeQuestPlayer if it exists -1 otherwise
 	 */
 	private int getCurrentActiveQuestPlayer() {
@@ -348,7 +355,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the specified player
-	 * 
+	 *
 	 * @param player:
 	 *            0, 1, 2, 3
 	 * @return returns battle points of the player if exists -1 otherwise
@@ -361,7 +368,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the current stage
-	 * 
+	 *
 	 * @return the battle points of the current stage
 	 */
 	public int getQuestCurrentStageBattlePoints() {
@@ -370,13 +377,14 @@ public class Game {
 
 	/**
 	 * Determines if a player advances onto the next stage of a quest
-	 * 
+	 *
 	 * @param player
 	 *            to evaluate
 	 * @return true if player wins stage false otherwise
 	 */
 	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
 		boolean result = activeQuest.evaluatePlayer(players[player]);
+		if (result) extraShield = 0;
 
 		getNextActiveQuestPlayer();
 
@@ -483,6 +491,17 @@ public class Game {
 
 	public Card getActiveStoryCard() {
 		return currentStoryCard;
+	}
+
+//Event Functions
+	public int getExtraShield() {return extraShield;}
+	public void setExtraShield(int e) {extraShield = e;}
+	public void clearAllAllies(){
+		for (int i = 0; i < numPlayers; i++){
+			for (AdventureCard c: players[i].getPlay()){
+				if (c instanceof Ally) playerDiscardAdventrueCard(players[i],(AdventureCard) c);
+			}
+		}
 	}
 
 }
