@@ -1,5 +1,9 @@
 var xhr = new XMLHttpRequest();
 var stompClient = null;
+function disableJoin(){
+    document.getElementById("joinGame").style.display = 'none';
+    document.getElementById("userName").style.display = 'none';
+}
 
 function updatePlayerList(playerList){
     var list = document.getElementById('playerList');
@@ -19,7 +23,7 @@ function addNewPlayer(){
 	xhr.onreadystatechange = function() {//Call a function when the state changes.
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
 			// Request finished. Do processing here.
-			console.log(xhr.response);
+            disableJoin();
             stompClient.send('/command/updatePlayers', {}, {});
 		}	
 	}
