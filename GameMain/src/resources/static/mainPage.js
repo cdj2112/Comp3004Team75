@@ -1,5 +1,11 @@
 var xhr = new XMLHttpRequest();
 var stompClient = null;
+var playerIDX;
+
+function enableHostFunctions(){
+    document.getElementById("addAIButton").style.display = 'block';
+}
+
 function disableJoin(){
     document.getElementById("joinGame").style.display = 'none';
     document.getElementById("userName").style.display = 'none';
@@ -24,6 +30,10 @@ function addNewPlayer(){
 		if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
 			// Request finished. Do processing here.
             disableJoin();
+			playerIDX = parseInt(xhr.response);
+            if(playerIDX === 0){
+                enableHostFunctions();
+            }
             stompClient.send('/command/updatePlayers', {}, {});
 		}	
 	}
