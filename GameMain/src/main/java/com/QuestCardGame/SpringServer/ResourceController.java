@@ -27,6 +27,8 @@ public class ResourceController {
 		 return QuestSpringApplication.addPlayer(npr.getName());
 	 }
 	 
+	 @GetMapping("/playerList")
+	 @ResponseBody
 	 @MessageMapping("/updatePlayers")
 	 @SendTo("/status/playerList")
 	 public String[] sendPlayerList() {
