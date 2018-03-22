@@ -3,6 +3,7 @@ package com.QuestCardGame.SpringServer;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +18,16 @@ public class ResourceController {
         return "index";
     }
 	
-	 @RequestMapping(value = "/makeNewGame", method = RequestMethod.POST)
+	 @RequestMapping(value = "/addNewPlayer", method = RequestMethod.POST)
 	 @ResponseBody
-	 public String makeNewGame() {
-		 return QuestSpringApplication.makeNewGame();
+	 public int addNewPlayer(@RequestBody NewPlayerRequest npr) {
+		 return QuestSpringApplication.addPlayer(npr.getName());
 	 }
+	 
+	 @GetMapping("/playerList")
+	 @ResponseBody
+	 public String[] getPlayerList() {
+		 return QuestSpringApplication.getPlayerList();
+	 }
+	 
 }
