@@ -43,6 +43,17 @@ function addNewPlayer(){
 	xhr.send(JSON.stringify({name: un}));
 }
 
+function addAIPlayer(){
+    xhr.onreadystatechange = function() {//Call a function when the state changes.
+        if(xhr.readyState == XMLHttpRequest.DONE && xhr.status == 200) {
+            // Request finished. Do processing here.
+            stompClient.send('/command/updatePlayers', {}, {});
+        }   
+    }
+    xhr.open("POST", "addAIPlayer", true);
+    xhr.send();
+}
+
 function connect(){
     var socket = new SockJS('/gs-guide-websocket');
     stompClient = Stomp.over(socket);

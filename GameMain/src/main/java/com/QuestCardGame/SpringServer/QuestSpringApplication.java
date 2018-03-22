@@ -27,7 +27,7 @@ public class QuestSpringApplication {
 		if (userNames.size() < 4) {
 			isAIPlayer[userNames.size()] = true;
 			numAI++;
-			userNames.add("CPU "+numAI);
+			userNames.add("CP "+numAI);
 		}
 	}
 

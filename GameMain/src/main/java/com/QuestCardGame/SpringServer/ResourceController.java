@@ -27,6 +27,12 @@ public class ResourceController {
 		 return QuestSpringApplication.addPlayer(npr.getName());
 	 }
 	 
+	 @RequestMapping(value = "/addAIPlayer", method = RequestMethod.POST)
+	 @ResponseBody
+	 public void addAIPlayer() {
+		 QuestSpringApplication.addAIPlayer();
+	 }
+	 
 	 @GetMapping("/playerList")
 	 @ResponseBody
 	 @MessageMapping("/updatePlayers")
