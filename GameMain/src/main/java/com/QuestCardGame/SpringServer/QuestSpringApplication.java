@@ -11,10 +11,14 @@ public class QuestSpringApplication {
 	private static ArrayList<String> userNames = new ArrayList<String>();
 
 	public static int addPlayer(String name) {
-		userNames.add(name);
-		return userNames.size() - 1;
+		if (userNames.size() < 4) {
+			userNames.add(name);
+			return userNames.size() - 1;
+		} else {
+			return -1;
+		}
 	}
-	
+
 	public static String[] getPlayerList() {
 		String[] sA = new String[userNames.size()];
 		return userNames.toArray(sA);

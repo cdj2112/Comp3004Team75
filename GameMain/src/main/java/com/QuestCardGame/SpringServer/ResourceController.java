@@ -1,5 +1,7 @@
 package com.QuestCardGame.SpringServer;
 
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,12 +23,13 @@ public class ResourceController {
 	 @RequestMapping(value = "/addNewPlayer", method = RequestMethod.POST)
 	 @ResponseBody
 	 public int addNewPlayer(@RequestBody NewPlayerRequest npr) {
+		 sendPlayerList();
 		 return QuestSpringApplication.addPlayer(npr.getName());
 	 }
 	 
-	 @GetMapping("/playerList")
-	 @ResponseBody
-	 public String[] getPlayerList() {
+	 @MessageMapping("/updatePlayers")
+	 @SendTo("/status/playerList")
+	 public String[] sendPlayerList() {
 		 return QuestSpringApplication.getPlayerList();
 	 }
 	 
