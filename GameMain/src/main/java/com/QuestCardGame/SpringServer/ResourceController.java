@@ -19,13 +19,15 @@ public class ResourceController {
     public String home(@RequestParam(name="joined", required=false, defaultValue="false") boolean joined, @RequestParam(name="player", required=false, defaultValue="0") int player, Model model) {
 		model.addAttribute("joined", joined);
 		model.addAttribute("player", player);
-        return "index";
+		boolean gameStarted = QuestSpringApplication.isGameStarted();
+        return gameStarted ? "gameStarted" : "index";
     }
 	
 	@GetMapping("/gamePage")
 	public String gamePage(@RequestParam(name="player", required=false, defaultValue="0") int player, Model model) {
 		model.addAttribute("player", player);
-		return "gamePage";
+		boolean gameStarted = QuestSpringApplication.isGameStarted();
+		return gameStarted ? "gamePage":"gameNotStarted";
 	}
 	
 	 @RequestMapping(value = "/addNewPlayer", method = RequestMethod.POST)

@@ -12,7 +12,11 @@ public class QuestSpringApplication {
 	private static boolean[] isAIPlayer = new boolean[4];
 	private static int numAI = 0;
 
-	private static Game game;
+	private static Game game = null;
+	
+	public static boolean isGameStarted() {
+		return game != null;
+	}
 
 	public static int addPlayer(String name) {
 		if (userNames.size() < 4) {
