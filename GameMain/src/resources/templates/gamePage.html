@@ -3,9 +3,12 @@
 	<head>
 		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
 		<script src="/stomp.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="game.css">
 	</head>
 	<body>
 		<h1>Game Start</h1>
 		<h3 th:text="'You are player '+${player}"></h3>
+		<button id="drawStoryCard" class='invisible'>Draw Story Card</button>
+		<script src="/gamePage.js"></script>
 	</body>
 </html>
