@@ -14,7 +14,6 @@ import com.QuestCardGame.GameMain.Card;
 import com.QuestCardGame.GameMain.Game;
 import com.QuestCardGame.GameMain.Player;
 
-
 @Controller
 public class GameCommands {
 
@@ -25,8 +24,19 @@ public class GameCommands {
 		game.playTurn();
 		return buildGameStatus();
 	}
-	
-	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces="application/json")
+
+	@MessageMapping("/sponsorQuest")
+	@SendTo("/status/gameStatus")
+	public GameTransit acceptDeclineSponsor(PlayerDecisionRequest pdr) {
+		Game game = QuestSpringApplication.getGame();
+		if (pdr.getPlayer() == game.getCurrentActivePlayer() && pdr.getAccept()) {
+			game.acceptSponsor();
+		} else if(pdr.getPlayer() == game.getCurrentActivePlayer()) {
+			game.declineSponsor();
+		}
+		return buildGameStatus();
+	}
+	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public GameTransit buildGameStatus() {
 		if(!QuestSpringApplication.isGameStarted()) return null;

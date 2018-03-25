@@ -6,9 +6,17 @@
 		<link rel="stylesheet" type="text/css" href="game.css">
 	</head>
 	<body>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			    var playerIdx = /*[[${player}]]*/ 0;
+			/*]]>*/
+		</script>
 		<h1>Game Start</h1>
 		<h3 th:text="'You are player '+${player}"></h3>
 		<button id="drawStoryCard" class='invisible'>Draw Story Card</button>
+		<button id="acceptButton" class='invisible'>Accept</button>
+		<button id="declineButton" class='invisible'>Decline</button>
+		<div id="playerContainer"></div>
 		<script src="/gamePage.js"></script>
 	</body>
 </html>
