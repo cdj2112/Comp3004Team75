@@ -36,10 +36,31 @@ public class GameCommands {
 		}
 		return buildGameStatus();
 	}
+	
+	@MessageMapping("/playToStage")
+	@SendTo("/status/gameStatus")
+	public GameTransit playCardToStage(PlayerCardRequest pcr) {
+		Game game = QuestSpringApplication.getGame();
+		Card c = Card.getCard(pcr.getCardId());
+		game.sponsorAddCardToStage((AdventureCard)c, pcr.getStageNum());
+		return buildGameStatus();
+	}
+
+	@MessageMapping("/playCards")
+	@SendTo("/status/gameStatus")
+	public GameTransit playerPlayCard(PlayerCardRequest pcr) {
+		Game game = QuestSpringApplication.getGame();
+		Player p = game.getPlayer(pcr.getPlayer());
+		Card c = Card.getCard(pcr.getCardId());
+		game.playerPlayCard(p, (AdventureCard) c);
+		return buildGameStatus();
+	}
+
 	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public GameTransit buildGameStatus() {
-		if(!QuestSpringApplication.isGameStarted()) return null;
+		if (!QuestSpringApplication.isGameStarted())
+			return null;
 		return new GameTransit(QuestSpringApplication.getGame());
 	}
 }
