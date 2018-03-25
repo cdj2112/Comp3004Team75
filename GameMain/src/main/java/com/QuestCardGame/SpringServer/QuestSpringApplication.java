@@ -14,6 +14,10 @@ public class QuestSpringApplication {
 
 	private static Game game = null;
 	
+	public static Game getGame() {
+		return game;
+	}
+	
 	public static boolean isGameStarted() {
 		return game != null;
 	}

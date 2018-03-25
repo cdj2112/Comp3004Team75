@@ -1,0 +1,37 @@
+package com.QuestCardGame.SpringServer;
+
+import java.io.Serializable;
+import com.QuestCardGame.GameMain.Game;
+import com.QuestCardGame.GameMain.Game.GameStatus;
+
+public class GameTransit implements Serializable{
+
+	private GameStatus currentStatus;
+	private PlayerTransit[] playerStatus;
+	private CardTransit storyCard = null;
+
+	public GameTransit(Game g) {
+		currentStatus = g.getGameStatus();
+
+		playerStatus = new PlayerTransit[g.getNumPlayers()];
+		for (int i = 0; i < g.getNumPlayers(); i++) {
+			playerStatus[i] = new PlayerTransit(g.getPlayer(i));
+		}
+		
+		if(g.getActiveStoryCard()!=null) {
+			storyCard = new CardTransit(g.getActiveStoryCard());
+		}
+	}
+	
+	public GameStatus getCurrentStatus() {
+		return currentStatus;
+	}
+	
+	public PlayerTransit[] getPlayerStatus() {
+		return playerStatus;
+	}
+	
+	public CardTransit getStoryCard() {
+		return storyCard;
+	}
+}
