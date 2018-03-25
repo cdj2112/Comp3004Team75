@@ -31,18 +31,35 @@ public class GameCommands {
 		Game game = QuestSpringApplication.getGame();
 		if (pdr.getPlayer() == game.getCurrentActivePlayer() && pdr.getAccept()) {
 			game.acceptSponsor();
-		} else if(pdr.getPlayer() == game.getCurrentActivePlayer()) {
+		} else if (pdr.getPlayer() == game.getCurrentActivePlayer()) {
 			game.declineSponsor();
 		}
 		return buildGameStatus();
 	}
-	
+
 	@MessageMapping("/playToStage")
 	@SendTo("/status/gameStatus")
 	public GameTransit playCardToStage(PlayerCardRequest pcr) {
 		Game game = QuestSpringApplication.getGame();
 		Card c = Card.getCard(pcr.getCardId());
-		game.sponsorAddCardToStage((AdventureCard)c, pcr.getStageNum());
+		game.sponsorAddCardToStage((AdventureCard) c, pcr.getStageNum());
+		return buildGameStatus();
+	}
+
+	@MessageMapping("/finalizeQuest")
+	@SendTo("/status/gameStatus")
+	public GameTransit finalizeQuest() {
+		Game game = QuestSpringApplication.getGame();
+		game.finalizeQuest();
+		return buildGameStatus();
+	}
+
+	@MessageMapping("/acceptQuest")
+	@SendTo("/status/gameStatus")
+	public GameTransit acceptDeclineQuest(PlayerDecisionRequest pdr) {
+		Game game = QuestSpringApplication.getGame();
+		Player p =game.getPlayer(pdr.getPlayer());
+		game.acceptDeclineQuest(p, pdr.getAccept());
 		return buildGameStatus();
 	}
 
@@ -53,6 +70,14 @@ public class GameCommands {
 		Player p = game.getPlayer(pcr.getPlayer());
 		Card c = Card.getCard(pcr.getCardId());
 		game.playerPlayCard(p, (AdventureCard) c);
+		return buildGameStatus();
+	}
+	
+	@MessageMapping("/finalizePlay")
+	@SendTo("/status/gameStatus")
+	public GameTransit finalizePlay() {
+		Game game = QuestSpringApplication.getGame();
+		game.finalizePlay();
 		return buildGameStatus();
 	}
 
