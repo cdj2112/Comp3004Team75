@@ -108,7 +108,7 @@ public class Game {
 
 	public void declineSponsor() {
 		if (currentStatus == GameStatus.SPONSORING) {
-			logger.info("Player " + sponsor.getPlayerNumber() + ": Declined Sponsored Quest");
+			logger.info("Player " + (activePlayer+1) + ": Declined Sponsored Quest");
 			activePlayer = (activePlayer + 1) % numPlayers;
 			if (activePlayer == playerTurn) {
 				endTurn();
