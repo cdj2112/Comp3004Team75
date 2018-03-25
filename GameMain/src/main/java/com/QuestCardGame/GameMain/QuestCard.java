@@ -24,4 +24,8 @@ public class QuestCard extends Card {
 	public String getBackImagePath() {
 		return "./src/resources/Cards/Backs/Story.png";
 	}
+	
+	public String getUrlPath() {
+		return "/Cards/Quest/" + cardName + ".png";
+	}
 }
