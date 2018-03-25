@@ -9,9 +9,11 @@ public class GameTransit implements Serializable{
 	private GameStatus currentStatus;
 	private PlayerTransit[] playerStatus;
 	private CardTransit storyCard = null;
+	private int activePlayer;
 
 	public GameTransit(Game g) {
 		currentStatus = g.getGameStatus();
+		activePlayer = g.getCurrentActivePlayer();
 
 		playerStatus = new PlayerTransit[g.getNumPlayers()];
 		for (int i = 0; i < g.getNumPlayers(); i++) {
@@ -33,5 +35,9 @@ public class GameTransit implements Serializable{
 	
 	public CardTransit getStoryCard() {
 		return storyCard;
+	}
+	
+	public int getActivePlayer() {
+		return activePlayer;
 	}
 }
