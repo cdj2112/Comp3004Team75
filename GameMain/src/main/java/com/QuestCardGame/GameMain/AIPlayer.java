@@ -37,4 +37,30 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 				return new ArrayList<AdventureCard>();
 		}
 	}
+	
+	/**
+	 * For now just get rid of the lowest BP cards
+	 */
+	public ArrayList<AdventureCard> getCardsToDiscard(){
+		Hand playerHand = player.getHand();
+		int numCardsToDiscard = playerHand.size() - 12;
+		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
+		
+		if(numCardsToDiscard <= 0)
+			return null;
+		
+		playerHand.sortAscendingByBattlePoints();
+
+		for(AdventureCard c: playerHand) {
+			if(numCardsToDiscard == 0)
+				break;
+			cardsToDiscard.add(c);
+			numCardsToDiscard--;
+		}
+		
+		for(AdventureCard c : cardsToDiscard) {
+			game.playerDiscardAdventrueCard(this.player, c);
+		}
+		return cardsToDiscard;
+	}
 }

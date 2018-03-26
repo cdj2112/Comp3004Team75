@@ -110,6 +110,7 @@ public class AIStrategyOne extends AIPlayer {
 				cardsToPlay.addAll(cards);
 			}
 		}		
+		game.playerPlayCards(player, cardsToPlay);
 		game.finalizePlay();
 		return cardsToPlay;
 	}
@@ -131,10 +132,6 @@ public class AIStrategyOne extends AIPlayer {
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	public ArrayList<AdventureCard> getCardsToDiscard(){
 		return null;
 	}
 	
