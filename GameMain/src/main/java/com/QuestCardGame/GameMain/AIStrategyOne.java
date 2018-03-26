@@ -118,10 +118,13 @@ public class AIStrategyOne extends AIPlayer {
 		int currentRound = 0; //g.getActiveQuest().getTestRound();
 		
 		//don't bid unless first round
-		if(currentRound == 0) 
-			numToBid = 0;
-		else	
+		if(currentRound == 0) {
 			numToBid = this.getHand().getNumFoesToDiscard(20);
+		}
+		else {
+			numToBid = 0;
+		}
+			
 		
 		return numToBid;
 	}
