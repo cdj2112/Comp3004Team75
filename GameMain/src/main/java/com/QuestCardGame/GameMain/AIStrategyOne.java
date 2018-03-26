@@ -61,7 +61,7 @@ public class AIStrategyOne extends AIPlayer {
 		int numStages = game.getActiveQuest().getNumStages();
 
 		//intentionally going backwards due to requirements
-		for(int i = numStages; i >= 0; i--) {
+		for(int i = numStages-1; i >= 0; i--) {
 			cardsForStage = getCardsForQuestStage(i, numStages);
 			for(AdventureCard c : cardsForStage)
 				game.sponsorAddCardToStage(c, i);
