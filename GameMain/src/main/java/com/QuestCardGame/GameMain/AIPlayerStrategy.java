@@ -38,6 +38,8 @@ public interface AIPlayerStrategy {
 	 */
 	void endTurn();
 	
+	boolean isAIPlayer();
+	
 	
 	
 	

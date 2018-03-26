@@ -5,8 +5,9 @@ import java.util.Map;
 
 public class AIStrategyOne extends AIPlayer {
 	
-	public AIStrategyOne(Game g) {
+	public AIStrategyOne(Game g, Player p) {
 		super();
+		player = p;
 		game = g;
 	}
 	
@@ -27,18 +28,18 @@ public class AIStrategyOne extends AIPlayer {
 	public ArrayList<AdventureCard> playCardsForTournament() {
 		ArrayList<AdventureCard> cardsForTournament = new ArrayList<AdventureCard>();
 		if(canIWinGame()) {
-			cardsForTournament = this.getHand().getBestPossibleHand(this.getPlay());
+			cardsForTournament = player.getHand().getBestPossibleHand(player.getPlay());
 		}
 		else {
-			cardsForTournament = this.getHand().getDuplicateWeapons();
+			cardsForTournament = player.getHand().getDuplicateWeapons();
 		}
-		game.playerPlayCards(this, cardsForTournament);
+		game.playerPlayCards(player, cardsForTournament);
 		return cardsForTournament;
 	}
 
 	public boolean doISponsorAQuest() {
 		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages(); 
-		boolean hasCardsToSponsor = this.getHand().hasCardsToSponsorQuest(numStages);
+		boolean hasCardsToSponsor = player.getHand().hasCardsToSponsorQuest(numStages);
 		
 		//has to have cards, and nobody else can win/evolve		
 		if(hasCardsToSponsor && !(aPlayerCanWinGame(false) || aPlayerCanEvolve(false))) { 
@@ -73,39 +74,39 @@ public class AIStrategyOne extends AIPlayer {
 
 	public ArrayList<AdventureCard> doIJoinQuest() {
 		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
-		int numAllies = this.getHand().getNumUniqueCards(AdventureCard.AdventureType.ALLY);
-		int numWeapons = this.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON);
-		int numFoesToDiscardForTest = this.getHand().getNumFoesToDiscard(20);
+		int numAllies = player.getHand().getNumUniqueCards(AdventureCard.AdventureType.ALLY);
+		int numWeapons = player.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON);
+		int numFoesToDiscardForTest = player.getHand().getNumFoesToDiscard(20);
 		int alliesPerStage = numAllies/numStages;
 		int weaponsPerStage = numWeapons/numStages;
 		
 		if(alliesPerStage >= 2 && weaponsPerStage >= 2 && numFoesToDiscardForTest >= 2)
-			return game.acceptDeclineQuest(this, true);
+			return game.acceptDeclineQuest(player, true);
 		else
-			return game.acceptDeclineQuest(this,  false);
+			return game.acceptDeclineQuest(player,  false);
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
 		ArrayList<AdventureCard> cardsToPlay = new ArrayList<AdventureCard>();
-		ArrayList<AdventureCard> cardsInPlay = this.getPlay();
+		ArrayList<AdventureCard> cardsInPlay = player.getPlay();
 		int cardsNeededForStage = 2;
 		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
 		int totalStages = game.getActiveQuest().getNumStages();
 		
 		if(currentStage == totalStages) {
-			cardsToPlay = this.getHand().getBestPossibleHand(cardsInPlay);
+			cardsToPlay = player.getHand().getBestPossibleHand(cardsInPlay);
 		}
 		else {
-			this.getHand().sortDescendingByBattlePoints(); //need strongest allies/amour
-			ArrayList<AdventureCard> cards = this.getHand().getUniqueCards(AdventureCard.AdventureType.ALLY, 2);
+			player.getHand().sortDescendingByBattlePoints(); //need strongest allies/amour
+			ArrayList<AdventureCard> cards = player.getHand().getUniqueCards(AdventureCard.AdventureType.ALLY, 2);
 			cardsToPlay.addAll(cards);
 			if(cardsToPlay.size() < cardsNeededForStage && !iHaveAmourInPlay()) {
-				cards = this.getHand().getUniqueCards(AdventureCard.AdventureType.AMOURS, 1); //only can play 1 anyway
+				cards = player.getHand().getUniqueCards(AdventureCard.AdventureType.AMOURS, 1); //only can play 1 anyway
 				cardsToPlay.addAll(cards);
 			}
 			if(cardsToPlay.size() < cardsNeededForStage) {
-				this.getHand().sortAscendingByBattlePoints(); //need weakest weapons
-				cards = this.getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, cardsNeededForStage - cardsToPlay.size());
+				player.getHand().sortAscendingByBattlePoints(); //need weakest weapons
+				cards = player.getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, cardsNeededForStage - cardsToPlay.size());
 				cardsToPlay.addAll(cards);
 			}
 		}		
@@ -119,13 +120,12 @@ public class AIStrategyOne extends AIPlayer {
 		
 		//don't bid unless first round
 		if(currentRound == 0) {
-			numToBid = this.getHand().getNumFoesToDiscard(20);
+			numToBid = player.getHand().getNumFoesToDiscard(20);
 		}
 		else {
 			numToBid = 0;
 		}
-			
-		
+					
 		return numToBid;
 	}
 
@@ -147,7 +147,7 @@ public class AIStrategyOne extends AIPlayer {
 		int potentialReward = storyCard.getShieldReward();
 		
 		//rank 2 is Champion Knight
-		return(rank == 2 && getShieldsNeeded() <= potentialReward);	
+		return(player.rank == 2 && player.getShieldsNeeded() <= potentialReward);	
 	}
 	
 	private boolean aPlayerCanWinGame(boolean includingMyself) {
@@ -157,7 +157,7 @@ public class AIStrategyOne extends AIPlayer {
 		
 		for(int i = 0; i < game.getNumPlayers(); i++) {
 			Player p = game.getPlayer(i);
-			if(p == this && !includingMyself)
+			if(p == this.player && !includingMyself)
 				continue;
 			if(p.getRankName().equals("Champion Knight") && p.getShieldsNeeded() <= potentialReward)
 				aPlayerCanWin = true;				
@@ -172,7 +172,7 @@ public class AIStrategyOne extends AIPlayer {
 		
 		for(int i = 0; i < game.getNumPlayers(); i++) {
 			Player p = game.getPlayer(i);
-			if(p == this && !includingMyself)
+			if(p == this.player && !includingMyself)
 				continue;
 			if(p.getShieldsNeeded() <= potentialReward)
 				aPlayerCanEvolve = true;				
@@ -181,7 +181,7 @@ public class AIStrategyOne extends AIPlayer {
 	}
 	
 	private boolean iHaveAmourInPlay() {
-		for(AdventureCard c : this.getPlay()) {
+		for(AdventureCard c : player.getPlay()) {
 			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
 				return true;
 		}
@@ -189,11 +189,11 @@ public class AIStrategyOne extends AIPlayer {
 	}
 	
 	private ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages){
-		this.getHand().sortDescendingByBattlePoints();
-		AdventureCard strongestFoe = this.getHand().getStrongestFoe();
+		player.getHand().sortDescendingByBattlePoints();
+		AdventureCard strongestFoe = player.getHand().getStrongestFoe();
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		ArrayList<AdventureCard> weaponsInHand = getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, 12);
-		ArrayList<AdventureCard> duplicateWeapons = getHand().getDuplicateWeapons();
+		ArrayList<AdventureCard> weaponsInHand = player.getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, 12);
+		ArrayList<AdventureCard> duplicateWeapons = player.getHand().getDuplicateWeapons();
 		duplicateWeapons.sort(new BattlePointComparatorDescending());
 		int stageBattlePoints = 0;
 		
@@ -210,7 +210,7 @@ public class AIStrategyOne extends AIPlayer {
 			}
 		} //second last stage, test if possible
 		else if (stage == totalStages) {
-			AdventureCard test = this.getHand().getTestCard();
+			AdventureCard test = player.getHand().getTestCard();
 			if(test != null)
 				cardsForStage.add(test);
 			else {
@@ -225,6 +225,10 @@ public class AIStrategyOne extends AIPlayer {
 				cardsForStage.add(duplicateWeapons.get(0));
 		}
 		return cardsForStage;
+	}
+	
+	public boolean isAIPlayer() {
+		return true;
 	}
 
 }

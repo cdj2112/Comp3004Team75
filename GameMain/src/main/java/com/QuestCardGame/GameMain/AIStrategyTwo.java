@@ -10,9 +10,10 @@ public class AIStrategyTwo extends AIPlayer {
 
 	int previousQuestStageBattlePoints;
 	
-	public AIStrategyTwo(Game g) {
+	public AIStrategyTwo(Game g, Player p) {
 		super();
 		game = g;
+		player = p;
 		previousQuestStageBattlePoints = 0;
 	}
 	
@@ -29,9 +30,9 @@ public class AIStrategyTwo extends AIPlayer {
 
 		cardsToPlay = hand.getCardsForPoints(50);
 		if(cardsToPlay == null)
-			cardsToPlay = hand.getBestPossibleHand(this.getPlay());
+			cardsToPlay = hand.getBestPossibleHand(player.getPlay());
 		
-		game.playerPlayCards(this, cardsToPlay);
+		game.playerPlayCards(player, cardsToPlay);
 		//game.finalizePlayTour();
 		
 		return cardsToPlay;
@@ -43,8 +44,8 @@ public class AIStrategyTwo extends AIPlayer {
 		
 		for(int i = 0; i < game.getNumPlayers() && sponsorQuest; i++) {
 			Player p = game.getPlayer(i);
-			if(p == this) {
-				if(!this.getHand().hasCardsToSponsorQuest(numStages))
+			if(p == this.player) {
+				if(!player.getHand().hasCardsToSponsorQuest(numStages))
 					sponsorQuest = false;
 			}			
 			else if(p.getNumShields() + numStages >= p.getShieldsNeeded()) {
@@ -65,7 +66,7 @@ public class AIStrategyTwo extends AIPlayer {
 		int prevStageBattlePoints = 0;
 		ArrayList<AdventureCard> allCardsForQuest = new ArrayList<AdventureCard>();
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		Hand sponsorHand = this.getHand();
+		Hand sponsorHand = player.getHand();
 		
 		for(int stage = 0; stage < numStages; stage++) {
 			cardsForStage = sponsorHand.getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
@@ -83,37 +84,37 @@ public class AIStrategyTwo extends AIPlayer {
 	//Can increase BP each stage by 10 pts AND
 	//has 2 foes less than 25 BP
 	public ArrayList<AdventureCard> doIJoinQuest() {
-		Hand hand = this.getHand();
+		Hand hand = player.getHand();
 		int foesToDiscard = hand.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
 		int numStages = game.getActiveQuest().getNumStages();
 
-		isValidBattlePoints = hand.hasIncreasingBattlePointsForStages(numStages, 10, this.getPlay());		
+		isValidBattlePoints = hand.hasIncreasingBattlePointsForStages(numStages, 10, player.getPlay());		
 		boolean acceptQuest = foesToDiscard >= 2 && isValidBattlePoints;
 		
-		return game.acceptDeclineQuest(this, acceptQuest);
+		return game.acceptDeclineQuest(this.player, acceptQuest);
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
 		Hand cardsToPlay = new Hand();
 		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
 		int totalStages = game.getActiveQuest().getNumStages();
-		ArrayList<AdventureCard> cardsInPlay = this.getPlay();
+		ArrayList<AdventureCard> cardsInPlay = player.getPlay();
 
 		if(currentStage == totalStages) {
-			cardsToPlay = this.getHand().getBestPossibleHand(cardsInPlay);
+			cardsToPlay = player.getHand().getBestPossibleHand(cardsInPlay);
 		}
 		else {
-			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
+			cardsToPlay = player.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
 		}
-		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
+		previousQuestStageBattlePoints = player.getBattlePointsForHand(cardsToPlay);
 		
-		int cP = getHand().size() - cardsToPlay.size() - 12;
-		getHand().sortAscendingByBattlePoints();
+		int cP = player.getHand().size() - cardsToPlay.size() - 12;
+		player.getHand().sortAscendingByBattlePoints();
 		int i = 0; 
 		while(cP > 0) {
-			AdventureCard c = getHand().get(i);
-			if(getHand().isValidPlay(cardsToPlay, c)) {
+			AdventureCard c = player.getHand().get(i);
+			if(player.getHand().isValidPlay(cardsToPlay, c)) {
 				cardsToPlay.add(c);
 				cP--;
 			} else {
@@ -121,7 +122,7 @@ public class AIStrategyTwo extends AIPlayer {
 			}
 		}
 		
-		game.playerPlayCards(this, cardsToPlay);
+		game.playerPlayCards(this.player, cardsToPlay);
 		game.finalizePlay();
 		
 		return cardsToPlay;
@@ -151,7 +152,7 @@ public class AIStrategyTwo extends AIPlayer {
 	 * For now just get rid of the lowest BP cards
 	 */
 	public ArrayList<AdventureCard> getCardsToDiscard(){
-		Hand playerHand = this.getHand();
+		Hand playerHand = player.getHand();
 		int numCardsToDiscard = playerHand.size() - 12;
 		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
 		
@@ -168,12 +169,16 @@ public class AIStrategyTwo extends AIPlayer {
 		}
 		
 		for(AdventureCard c : cardsToDiscard) {
-			game.playerDiscardAdventrueCard(this, c);
+			game.playerDiscardAdventrueCard(this.player, c);
 		}
 		return cardsToDiscard;
 	}
 	
 	public void endTurn() {
 		previousQuestStageBattlePoints = 0;
+	}
+	
+	public boolean isAIPlayer() {
+		return true;
 	}
 }

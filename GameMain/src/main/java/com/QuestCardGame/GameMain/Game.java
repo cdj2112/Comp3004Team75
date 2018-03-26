@@ -37,7 +37,9 @@ public class Game {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
-			players[i] = (numPlayers - i) > nAIP ? new Player() : new AIStrategyTwo(this);
+			//temporary fix to keep this working with java fx UI.
+			//will just need int[] behaviour instead of nP/nAIP
+			players[i] =  new Player(this, 1);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;

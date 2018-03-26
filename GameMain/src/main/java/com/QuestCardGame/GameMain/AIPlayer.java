@@ -2,11 +2,10 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 
-public abstract class AIPlayer extends Player implements AIPlayerStrategy{
+public abstract class AIPlayer implements AIPlayerStrategy{
 	
-	public boolean isAIPlayer = true;
-
 	Game game;
+	Player player;
 	
 	public ArrayList<AdventureCard> playTurn(){
 		Game.GameStatus gameStatus = game.getGameStatus();
@@ -37,9 +36,5 @@ public abstract class AIPlayer extends Player implements AIPlayerStrategy{
 			default:
 				return new ArrayList<AdventureCard>();
 		}
-	}
-	
-	public boolean isAIPlayer() {
-		return true;
 	}
 }
