@@ -80,6 +80,16 @@ public class GameCommands {
 		game.finalizePlay();
 		return buildGameStatus();
 	}
+	
+	@MessageMapping("/discardCard")
+	@SendTo("/status/gameStatus")
+	public GameTransit discardCard(PlayerCardRequest pcr) {
+		Game game = QuestSpringApplication.getGame();
+		Player p = game.getPlayer(pcr.getPlayer());
+		Card c = Card.getCard(pcr.getCardId());
+		game.playerDiscardAdventrueCard(p, c);
+		return buildGameStatus();
+	}
 
 	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
