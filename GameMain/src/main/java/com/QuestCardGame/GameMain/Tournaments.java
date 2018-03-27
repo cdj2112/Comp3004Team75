@@ -3,8 +3,12 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.ListIterator;
 import java.util.Iterator;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class Tournaments {
+	private static final Logger logger = LogManager.getLogger(Tournaments.class);
+	
 	private ArrayList<Player> players;
 	private ListIterator<Player> iter;
 	private Player currentPlayer;
@@ -19,6 +23,8 @@ public class Tournaments {
 		isTournamentsOver = false;
 		bp = t.getBonesShiled();
 		bonus = t.getBonesShiled();
+		
+		logger.info("Tournaments started");
 	}
 
 	public boolean addPlayer(Player p) {
@@ -29,6 +35,7 @@ public class Tournaments {
 
 	public boolean removePlayer(Player p) {
 		return players.remove(p);
+		
 	}
 
 	public void startTournaments() {
@@ -79,6 +86,7 @@ public class Tournaments {
 		// tie-breaking condition
 		if (players.size() > 1) {
 			for (int i = 0; i < players.size(); i++) {
+				discardPile.clear();
 				removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
 			}
 			tieBreaking();

@@ -53,6 +53,7 @@ public class QuestUI extends Group {
 	private Text AIMessage;
 
 	private Timer evalTimer = new Timer();
+	private Timer evalTimer2 = new Timer();
 	private Timer aiTimer = new Timer();
 	private boolean isEvaluating = false;
 	private boolean isAIPlaying = false;
@@ -138,6 +139,12 @@ public class QuestUI extends Group {
 				dialogListeners.put("declineTour", new EventHandler<ActionEvent>() {
 					public void handle(ActionEvent e) {
 						game.acceptDeclineTour(game.getPlayer(game.getCurrentActivePlayer()), false);
+						update();
+					}
+				});
+				dialogListeners.put("finalizePlayTour", new EventHandler<ActionEvent>() {
+					public void handle(ActionEvent e) {
+						canAccept = game.finalizePlayTour();
 						update();
 					}
 				});
@@ -442,22 +449,22 @@ public class QuestUI extends Group {
 		} else if (GS == GameStatus.EVAL_TOUR) {
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
-			prompt.setVisible(true);
-			prompt.setText("Eval end");
+			prompt.setVisible(false);
 			
-			
-			evalTimer.schedule(new TimerTask() {
-				public void run() {
-					game.EvalTour();
-					Platform.runLater(new Runnable() {
-						public void run() {							
-							update();
-						}
-					});
-					isEvaluating = false;
-				}
-			}, (long) 2 * 1000);			
-			System.out.printf("eval done");
+			if (!isEvaluating) {
+				isEvaluating = true;
+				evalTimer2.schedule(new TimerTask() {
+					public void run() {
+						game.EvalTour();							
+						Platform.runLater(new Runnable() {
+							public void run() {
+								update();
+							}
+						});
+						isEvaluating = false;
+					}
+				}, (long) 2 * 1000);
+			}
 		}
 
 		else if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
@@ -485,7 +492,7 @@ public class QuestUI extends Group {
 				String promptText = !canAccept ? "You must discard or play a card" : "Play Cards for Stage";
 				prompt.setText(promptText);
 			}
-		} else if (GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.END_TURN_DISCARD) {
+		} else if (GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.END_TURN_DISCARD || GS == GameStatus.PRE_TOUR_DISCARD) {
 			String prefix = "You must discard ";
 			int num = game.getPlayerDiscard(game.getCurrentActivePlayer());
 			String suffix = num == 1 ? " card" : " cards";
@@ -510,7 +517,7 @@ public class QuestUI extends Group {
 		}
 
 		boolean canDiscard = GS == GameStatus.PRE_QUEST_DISCARD || GS == GameStatus.PLAYING_QUEST
-				|| GS == GameStatus.END_TURN_DISCARD || GS == GameStatus.PLAYING_TOUR;
+				|| GS == GameStatus.END_TURN_DISCARD || GS == GameStatus.PLAYING_TOUR || GS == GameStatus.PRE_TOUR_DISCARD;
 		discardHotspot.setActive(canDiscard);
 		discardHotspot.setVisible(canDiscard);
 
