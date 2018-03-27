@@ -455,9 +455,16 @@ public class QuestUI extends Group {
 				isEvaluating = true;
 				evalTimer2.schedule(new TimerTask() {
 					public void run() {
-						game.EvalTour();							
+						final ArrayList<AdventureCard> discard = game.EvalTour();
 						Platform.runLater(new Runnable() {
 							public void run() {
+								for (AdventureCard c : discard) {
+									Group g = assetStore.getCardGroup(c);
+									Group p = (Group) g.getParent();
+									if (p != null) {
+										p.getChildren().remove(g);
+									}
+								}
 								update();
 							}
 						});
@@ -466,7 +473,7 @@ public class QuestUI extends Group {
 				}, (long) 2 * 1000);
 			}
 		}
-
+		
 		else if (GS == GameStatus.SPONSORING || GS == GameStatus.ACCEPTING_QUEST) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(true);

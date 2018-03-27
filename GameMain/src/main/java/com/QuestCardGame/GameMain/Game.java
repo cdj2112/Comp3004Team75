@@ -111,7 +111,7 @@ public class Game {
 		
 		if (currentStatus == GameStatus.ENTERING_TOUR) {
 			if (accept) {
-				//logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Entered Tournaments");
+				logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Entered Tournaments");
 				activeTournaments.addPlayer(players[activePlayer]);
 				playerDrawAdventureCard(p);
 			} else {
@@ -171,9 +171,16 @@ public class Game {
 	public ArrayList<AdventureCard> EvalTour() {
 		activeTournaments.evaluatePlayers(activeTournaments.getPlayers());
 		
+
+		ArrayList<AdventureCard> tourDiscard = activeTournaments.getDiscardPile();
+		for (AdventureCard c : tourDiscard) {
+			logger.info("Card " + c.getName() + ": Discarded");
+			adventureDeck.discard(c);
+		}
+
 	    endTurn();
 
-		return null;
+		return tourDiscard;
 	}
 	// ***************************************************
 
@@ -416,7 +423,7 @@ public class Game {
 				currentStatus = GameStatus.IDLE;
 				return null;
 			}
-			return null;
+			return getNextActiveTourPlayer();
 		}
 
 		return p;

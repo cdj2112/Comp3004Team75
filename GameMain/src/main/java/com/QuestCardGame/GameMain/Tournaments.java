@@ -72,7 +72,7 @@ public class Tournaments {
 		for (int i = 0; i < players.size(); i++) {
 			if (players.get(i).getBattlePoints() != maxBP)
 				players.remove(i);
-			discardPile.clear();
+			//discardPile.clear();
 		}
 	}
 
@@ -86,7 +86,7 @@ public class Tournaments {
 		// tie-breaking condition
 		if (players.size() > 1) {
 			for (int i = 0; i < players.size(); i++) {
-				discardPile.clear();
+				//discardPile.clear();
 				removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
 			}
 			tieBreaking();
