@@ -76,7 +76,7 @@ public class Tournaments {
 		}
 	}
 
-	public void evaluatePlayers(ArrayList<Player> p) {
+	public void evaluatePlayers() {
 		tieBreaking();
 		// normal condition， only one has the maxBP
 		if (players.size() == 1) {
