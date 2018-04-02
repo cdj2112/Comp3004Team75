@@ -422,8 +422,8 @@ public class Game {
 			if (currentStatus == GameStatus.PLAYING_TOUR) {
 				currentStatus = GameStatus.EVAL_TOUR;
 		} else {
+			    endTurn();
 				currentStatus = GameStatus.IDLE;
-				endTurn();
 				return null;
 			}
 			return getNextActiveTourPlayer();
