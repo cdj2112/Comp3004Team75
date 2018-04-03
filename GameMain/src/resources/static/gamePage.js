@@ -9,6 +9,7 @@
 		console.log(gameStatus);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
         updatePlayer(gameStatus.playerStatus);
+        updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer);
         if(gameStatus.storyCard){
             document.getElementById('storyCard').src = gameStatus.storyCard.url;
         } else {
@@ -50,6 +51,17 @@
                 mainHand.appendChild(img);
                 imgMap[card.id] = img;
             }
+        }
+    }
+
+    function updatePrompt(status, active){
+        var prompt = document.getElementById('prompt');
+        if(status === 'IDLE'){
+            prompt.innerHTML = active === playerIdx ? 'Draw Story Card' : 'Waiting For Story Card';
+        } else if (status === 'SPONSORING') {
+            prompt.innerHTML = active === playerIdx ? 'Sponsor Quest?' : 'Waiting For Other Player';
+        } else {
+            prompt.innerHTML = 'No prompt set';
         }
     }
 
