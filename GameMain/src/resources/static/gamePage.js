@@ -1,15 +1,24 @@
 (function(){
+	console.log(">>>>>>>>>", playerIdx);
+
 	var xhr = new XMLHttpRequest();
 	var stompClient;
+    var imgMap = {};
 
 	function updateGame(gameStatus){
 		console.log(gameStatus);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
+        updatePlayer(gameStatus.playerStatus);
+        if(gameStatus.storyCard){
+            document.getElementById('storyCard').src = gameStatus.storyCard.url;
+        } else {
+             document.getElementById('storyCard').src = '';
+        }
 	}
 
     function updateButtons(status, active) {
 		var drawButton = document.getElementById("drawStoryCard")
-        drawButton.className = (status === "IDLE" && playerIdx === active) ? "" : "invisible";
+        drawButton.disabled = !(status === "IDLE" && playerIdx === active);
 
 		var acceptButton = document.getElementById("acceptButton");
         var declineButton = document.getElementById("declineButton");
@@ -21,6 +30,26 @@
             declineButton.onclick = acceptDeclineSponsor(false);
         } else {
             acceptButton.onclick = declineButton.onclick = null;
+        }
+    }
+
+    function updatePlayer(players){
+        var mainPlayer = document.getElementsByClassName('lowerPlayer')[0];
+        var mainHand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
+        var mainPlay = document.querySelectorAll('.lowerPlayer > .playerPlay')[0];
+
+        var player = players[playerIdx];
+        for(var c = 0; c < player.hand.length; c++){
+            var card = player.hand[c];
+            var img = imgMap[card.id];
+            if(!img){
+                img = document.createElement('img');
+                img.id = 'card'+card.id;
+                img.className = 'card';
+                img.src = card.url;
+                mainHand.appendChild(img);
+                imgMap[card.id] = img;
+            }
         }
     }
 

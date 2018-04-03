@@ -13,10 +13,20 @@
 		</script>
 		<h1>Game Start</h1>
 		<h3 th:text="'You are player '+${player}"></h3>
-		<button id="drawStoryCard" class='invisible'>Draw Story Card</button>
 		<button id="acceptButton" class='invisible'>Accept</button>
 		<button id="declineButton" class='invisible'>Decline</button>
 		<div id="playerContainer"></div>
+		<div class="gameContainer">
+			<div class="secondaryPlayers"></div>
+			<div class="lowerPlayer">
+				<div class="playerPlay"></div>
+				<div class="playerHand"></div>
+			</div>
+			<div class='storyContainer'>
+				<img id="drawStoryCard" class='storyCard' src='/Cards/Backs/Story.png'/>
+				<img id="storyCard" class='storyCard'/>
+			</div>
+		</div>
 		<script src="/gamePage.js"></script>
 	</body>
 </html>
