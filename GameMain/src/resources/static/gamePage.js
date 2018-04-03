@@ -48,6 +48,9 @@
                 img.id = 'card'+card.id;
                 img.className = 'card';
                 img.src = card.url;
+                img.ondragstart = dragCardStart;
+                img.ondrag = dragCard;
+                img.ondragend = cardDrop;
                 imgMap[card.id] = img;
             }
             var inHand = [].slice.call(mainPlay.children);
@@ -80,6 +83,33 @@
                 player: playerIdx
     		}));
     	}
+    }
+
+    function dragCardStart(ev){
+        var d = ev.target.cloneNode(true);
+        d.style.opacity = 0;
+        document.body.appendChild(d);
+        ev.dataTransfer.setDragImage(d, 0, 0);
+        //ev.target.style.setProperty('cursor', 'move', 'important');
+    }
+    function dragCard(ev){
+        var img = ev.target;
+        var imgBox = img.getBoundingClientRect();
+        img.style.position = 'absolute';
+
+        var hand = document.getElementsByClassName('lowerPlayer')[0];
+        var handBox = hand.getBoundingClientRect();
+
+        var x = ev.clientX;
+        var y = ev.clientY;
+        img.style.top = y - handBox.top - imgBox.height/2+'px';
+        img.style.left = x - handBox.left - imgBox.width/2+'px';
+    }
+    function cardDrop(ev){
+        var img = ev.target;
+        img.style.position = '';
+        img.style.top ='';
+        img.style.left = '';
     }
 
 	function connect(){
