@@ -72,6 +72,10 @@ public class AIStrategyOne extends AIPlayer {
 		return cardsForQuest;
 	}
 
+	/**
+	 * Requirement states allies/weapons per stage >= 2
+	 * I will assume "/" means OR, not AND.
+	 */
 	public ArrayList<AdventureCard> doIJoinQuest() {
 		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
 		int numAllies = player.getHand().getNumUniqueCards(AdventureCard.AdventureType.ALLY);
@@ -80,7 +84,7 @@ public class AIStrategyOne extends AIPlayer {
 		int alliesPerStage = numAllies/numStages;
 		int weaponsPerStage = numWeapons/numStages;
 		
-		if(alliesPerStage >= 2 && weaponsPerStage >= 2 && numFoesToDiscardForTest >= 2)
+		if((alliesPerStage >= 2 || weaponsPerStage >= 2) && numFoesToDiscardForTest >= 2)
 			return game.acceptDeclineQuest(player, true);
 		else
 			return game.acceptDeclineQuest(player,  false);
