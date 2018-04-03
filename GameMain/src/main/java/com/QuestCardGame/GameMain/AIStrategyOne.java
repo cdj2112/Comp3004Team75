@@ -135,8 +135,13 @@ public class AIStrategyOne extends AIPlayer {
 	}
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
-		// TODO Auto-generated method stub
-		return null;
+		Hand hand = player.getHand();
+		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
+		for(AdventureCard c : hand) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 20)
+				cardsToDiscard.add(c);
+		}
+		return cardsToDiscard;
 	}
 	
 	public void endTurn() {
