@@ -2,8 +2,12 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 import java.util.Map;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class AIStrategyOne extends AIPlayer {
+	
+	private static final Logger logger = LogManager.getLogger("AILogger");
 	
 	public AIStrategyOne(Game g, Player p) {
 		super();
@@ -16,10 +20,12 @@ public class AIStrategyOne extends AIPlayer {
 		if(aPlayerCanWinGame(true) || aPlayerCanEvolve(true)) {
 			joinTournament = true;
 			//game.acceptTournament();
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] ENTERED the tournament");
 		}
 		else {
 			joinTournament = false;
 			//game.declineTournament();
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] did NOT ENTER the tournament");
 		}
 		return joinTournament;
 	}
@@ -38,16 +44,19 @@ public class AIStrategyOne extends AIPlayer {
 	}
 
 	public boolean doISponsorAQuest() {
-		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages(); 
+		QuestCard quest = ((QuestCard)game.getActiveStoryCard());
+		int numStages = quest.getStages(); 
 		boolean hasCardsToSponsor = player.getHand().hasCardsToSponsorQuest(numStages);
 		
 		//has to have cards, and nobody else can win/evolve		
 		if(hasCardsToSponsor && !(aPlayerCanWinGame(false) || aPlayerCanEvolve(false))) { 
 			game.acceptSponsor();
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] SPONSORED the quest [" + quest.getName() + "]");
 			return true;
 		}
 		else {
 			game.declineSponsor();
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] did NOT SPONSOR the quest [" + quest.getName() + "]");
 			return false;
 		}	
 	}
@@ -63,8 +72,10 @@ public class AIStrategyOne extends AIPlayer {
 		//intentionally going backwards due to requirements
 		for(int i = numStages-1; i >= 0; i--) {
 			cardsForStage = getCardsForQuestStage(i, numStages);
-			for(AdventureCard c : cardsForStage)
+			for(AdventureCard c : cardsForStage) {
 				game.sponsorAddCardToStage(c, i);
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] added [" + c.getName() + "] to stage [" + i + "]");
+			}
 			cardsForQuest.addAll(cardsForStage);
 		}
 		
@@ -77,17 +88,22 @@ public class AIStrategyOne extends AIPlayer {
 	 * I will assume "/" means OR, not AND.
 	 */
 	public ArrayList<AdventureCard> doIJoinQuest() {
-		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
+		QuestCard activeQuest = ((QuestCard)game.getActiveStoryCard());
+		int numStages = activeQuest.getStages();
 		int numAllies = player.getHand().getNumUniqueCards(AdventureCard.AdventureType.ALLY);
 		int numWeapons = player.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON);
 		int numFoesToDiscardForTest = player.getHand().getNumFoesToDiscard(20);
 		int alliesPerStage = numAllies/numStages;
 		int weaponsPerStage = numWeapons/numStages;
 		
-		if((alliesPerStage >= 2 || weaponsPerStage >= 2) && numFoesToDiscardForTest >= 2)
+		if((alliesPerStage >= 2 || weaponsPerStage >= 2) && numFoesToDiscardForTest >= 2) {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] ACCEPTED quest [" + activeQuest.getName() + "]");
 			return game.acceptDeclineQuest(player, true);
-		else
-			return game.acceptDeclineQuest(player,  false);
+		}
+		else {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] DECLINED quest [" + activeQuest.getName() + "]");
+			return game.acceptDeclineQuest(player,  false);		
+		}
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {

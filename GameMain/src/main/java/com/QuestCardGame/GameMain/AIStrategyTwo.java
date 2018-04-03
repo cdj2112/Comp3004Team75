@@ -5,10 +5,13 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Comparator;
 import java.util.HashMap;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class AIStrategyTwo extends AIPlayer {
 
 	int previousQuestStageBattlePoints;
+	private static final Logger logger = LogManager.getLogger("AILogger");
 	
 	public AIStrategyTwo(Game g, Player p) {
 		super();
@@ -20,6 +23,7 @@ public class AIStrategyTwo extends AIPlayer {
 	//Always participate
 	public boolean doIJoinTournament() {
 		//game.acceptDeclineTour(this, true);
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] ENTERED the tournament");
 		return true;
 	}
 
@@ -40,7 +44,8 @@ public class AIStrategyTwo extends AIPlayer {
 
 	public boolean doISponsorAQuest() {
 		boolean sponsorQuest = true;
-		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
+		QuestCard quest = ((QuestCard)game.getActiveStoryCard());
+		int numStages = quest.getStages();
 		
 		for(int i = 0; i < game.getNumPlayers() && sponsorQuest; i++) {
 			Player p = game.getPlayer(i);
@@ -53,11 +58,14 @@ public class AIStrategyTwo extends AIPlayer {
 			}
 		}
 		
-		if(sponsorQuest)
+		if(sponsorQuest) {
 			game.acceptSponsor();
-		else
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] SPONSORED the quest [" + quest.getName() + "]");
+		}
+		else {
 			game.declineSponsor();
-		
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] did NOT SPONSOR the quest [" + quest.getName() + "]");
+		}
 		return sponsorQuest;
 	}
 
@@ -74,6 +82,7 @@ public class AIStrategyTwo extends AIPlayer {
 			for(AdventureCard c : cardsForStage) {
 				game.sponsorAddCardToStage(c, stage);
 				prevStageBattlePoints += c.getBattlePoint(false);
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] added [" + c.getName() + "] to stage [" + stage + "]");
 			}
 			allCardsForQuest.addAll(cardsForStage);
 		}
