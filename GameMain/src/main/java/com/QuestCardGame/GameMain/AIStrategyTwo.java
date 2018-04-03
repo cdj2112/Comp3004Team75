@@ -130,22 +130,35 @@ public class AIStrategyTwo extends AIPlayer {
 
 	public int getBidForTest() {
 		int numToBid = 0;
-		//int currentRound = g.getActiveQuest().getTestRound();
+		int currentTestRound = 0; //g.getActiveQuest().getTestRound();
+		Hand playerHand = player.getHand();
 		
-//		if(currentRound == 1) {
-//			numToBid = getNumFoesToDiscard(current.getHand());
-//		}
-//		else if(currentRound == 2) {
-//			//TODO add # duplicates to bid
-//			//numToBid += getNumFoesToDiscard(current.getHand()) + getNumDuplicates(current.getHand());
-//		}
+		if(currentTestRound == 0) {
+			numToBid = playerHand.getNumFoesToDiscard(25);
+		}
+		else if(currentTestRound == 1) {
+			numToBid = playerHand.getNumFoesToDiscard(25) + playerHand.getNumDuplicates();
+		}
 		
 		return numToBid;
 	}
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
-		// TODO Auto-generated method stub
-		return null;
+		int numRoundsPlayed = 0; //g.getActiveQuest().getTestRound(); 
+		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
+		
+		//foes 25 and below are discarded for the first round
+		for(AdventureCard c : player.getHand()) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 25)
+				cardsToDiscard.add(c);
+		}
+		
+		//if we played two rounds, also discard the duplicates
+		if(numRoundsPlayed == 1) {
+			cardsToDiscard.addAll(player.getHand().getDuplicateCards());
+		}
+		
+		return cardsToDiscard;
 	}
 	
 	public void endTurn() {

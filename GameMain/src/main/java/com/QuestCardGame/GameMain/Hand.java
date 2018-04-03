@@ -292,6 +292,14 @@ public class Hand extends ArrayList<AdventureCard>{
 		return duplicateWeapons;	
 	}
 	
+	public int getNumDuplicates() {
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			uniqueCards.add(c);
+		}
+		return this.size() - uniqueCards.size();
+	}
+	
 	public int getNumUniqueCards(AdventureCard.AdventureType cardType) {
 		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
 		for(AdventureCard c : this) {
@@ -308,5 +316,15 @@ public class Hand extends ArrayList<AdventureCard>{
 				uniqueCards.add(c);
 		}
 		return new ArrayList<AdventureCard>(uniqueCards);
+	}
+	
+	public ArrayList<AdventureCard> getDuplicateCards(){
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		ArrayList<AdventureCard> duplicateCards = new ArrayList<AdventureCard>();
+		for(AdventureCard c : this) {
+			if(!uniqueCards.add(c))
+				duplicateCards.add(c);
+		}
+		return duplicateCards;
 	}
 }
