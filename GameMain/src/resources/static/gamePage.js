@@ -48,8 +48,11 @@
                 img.id = 'card'+card.id;
                 img.className = 'card';
                 img.src = card.url;
-                mainHand.appendChild(img);
                 imgMap[card.id] = img;
+            }
+            var inHand = [].slice.call(mainPlay.children);
+            if(!inHand.includes(img)){
+                mainHand.appendChild(img);
             }
         }
     }
