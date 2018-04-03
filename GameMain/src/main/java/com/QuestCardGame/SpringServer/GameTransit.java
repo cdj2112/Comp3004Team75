@@ -9,6 +9,7 @@ public class GameTransit implements Serializable{
 	private GameStatus currentStatus;
 	private PlayerTransit[] playerStatus;
 	private CardTransit storyCard = null;
+	private QuestTransit currentQuest = null;
 	private int activePlayer;
 
 	public GameTransit(Game g) {
@@ -22,6 +23,10 @@ public class GameTransit implements Serializable{
 		
 		if(g.getActiveStoryCard()!=null) {
 			storyCard = new CardTransit(g.getActiveStoryCard());
+		}
+		
+		if(g.getActiveQuest()!=null){
+			currentQuest = new QuestTransit(g.getActiveQuest());
 		}
 	}
 	
