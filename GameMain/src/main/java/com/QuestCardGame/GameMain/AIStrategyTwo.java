@@ -158,6 +158,9 @@ public class AIStrategyTwo extends AIPlayer {
 			cardsToDiscard.addAll(player.getHand().getDuplicateCards());
 		}
 		
+		for(AdventureCard c : cardsToDiscard)
+			game.playerDiscardAdventrueCard(player, c);
+		
 		return cardsToDiscard;
 	}
 	

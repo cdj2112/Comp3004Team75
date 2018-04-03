@@ -138,9 +138,12 @@ public class AIStrategyOne extends AIPlayer {
 		Hand hand = player.getHand();
 		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
 		for(AdventureCard c : hand) {
-			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 20)
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 20) {
 				cardsToDiscard.add(c);
+				game.playerDiscardAdventrueCard(player, c);
+			}
 		}
+		
 		return cardsToDiscard;
 	}
 	
