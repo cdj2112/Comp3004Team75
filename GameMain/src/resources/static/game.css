@@ -1,5 +1,5 @@
 .invisible {
-	display: none;
+	display: none !important;
 }
 
 .visible {
@@ -96,6 +96,31 @@
 .sidePlayer .shields {
 	width: 100%;
 	flex: 1 1 auto;
+	display: flex;
+}
+
+.imgCont {
+	position: relative;
+	width: auto;
+	flex: 1 1 auto;
+}
+
+.end {
+	display: block;
+	float : none !important;
+}
+
+
+.lowerPlayer .sImg {
+	height: 33%;
+	width: auto;
+	float : left;
+}
+
+.sidePlayer .sImg {
+	position: absolute;
+	height: 100%;
+	width: auto;
 }
 
 .battlePoints {
@@ -104,6 +129,7 @@
 
 .cardsInfo {
 	display: block;
+	font: 20px arial, sans-serif;
 }
 
 .card {

@@ -115,6 +115,7 @@
         var mainPlay = document.querySelectorAll('.lowerPlayer > .playerPlay')[0];
         var rank = document.querySelectorAll('.lowerPlayer .rank')[0];
         var battlePoints = document.querySelectorAll('.lowerPlayer .battlePoints')[0];
+        var shieldsDiv = document.querySelectorAll('.lowerPlayer .shields')[0];
 
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
@@ -134,6 +135,21 @@
         }
         rank.src = player.rank;
         battlePoints.innerHTML = "Battle Points: "+player.battlePoints;
+
+
+        var numShields = player.shields;
+        for(var i=0; i<9; i++){
+            var sImg = document.getElementById('mS'+i);
+            if(!sImg) {
+                sImg = document.createElement('img');
+                sImg.id = 'mS'+i;
+                sImg.className = (i%3 === 2) ? 'sImg end' : 'sImg';
+                sImg.src = '/Shield.png';
+                shieldsDiv.appendChild(sImg);
+            }
+            sImg.className = (i%3 === 2) ? 'end ' : '';
+            sImg.className += i < numShields ? 'sImg' : 'sImg invisible';
+        }
 
 
         var secPlayer = document.getElementsByClassName('secondaryPlayers')[0];
@@ -186,6 +202,20 @@
             sideRank.src = player.rank;
             sideBP.innerHTML = 'Battle Points: '+player.battlePoints;
             sideCards.innerHTML = 'Cards in Hand: '+player.hand.length;
+            for(var i=0; i<9; i++){
+                var sImg = document.getElementById('sS'+pIdx+i);
+                if(!sImg){
+                    var outDiv = document.createElement('div');
+                    outDiv.className = 'imgCont';
+                    sImg = document.createElement('img');
+                    sImg.className = 'sImg';
+                    sImg.id = 'sS'+pIdx+i;
+                    sImg.src = '/Shield.png';
+                    outDiv.appendChild(sImg);
+                    sideShields.appendChild(outDiv);
+                }
+                sImg.className = i < player.shields ? 'sImg' : 'sImg invisible';
+            }
         }
     }
 
