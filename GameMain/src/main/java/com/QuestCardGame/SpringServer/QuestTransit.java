@@ -15,4 +15,8 @@ public class QuestTransit implements Serializable {
 			stages[i] = new StageTransit(s[i]);
 		}
 	}
+	
+	public StageTransit[] getStages() {
+		return stages;
+	}
 }

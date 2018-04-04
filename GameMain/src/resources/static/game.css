@@ -62,6 +62,12 @@
 }
 
 .stageContainer {
-	width: 100%;
+	width: calc(100% - 10px);
 	height: 20%;
+	border: 1px solid red;
+}
+
+.stageCard {
+	height: 100%;
+	width: auto;
 }

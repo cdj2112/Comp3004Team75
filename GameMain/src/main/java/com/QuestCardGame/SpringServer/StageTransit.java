@@ -18,4 +18,12 @@ public class StageTransit implements Serializable {
 		}
 		battlePoints = s.getBattlePoints();
 	}
+	
+	public CardTransit[] getCards(){
+		return cards;
+	}
+	
+	public int getBattlePoints() {
+		return battlePoints;
+	}
 }

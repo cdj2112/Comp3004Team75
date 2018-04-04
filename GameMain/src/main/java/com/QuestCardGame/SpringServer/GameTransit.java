@@ -45,4 +45,8 @@ public class GameTransit implements Serializable{
 	public int getActivePlayer() {
 		return activePlayer;
 	}
+	
+	public QuestTransit getCurrentQuest() {
+		return currentQuest;
+	}
 }
