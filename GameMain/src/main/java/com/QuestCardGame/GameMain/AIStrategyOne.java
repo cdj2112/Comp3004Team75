@@ -20,11 +20,13 @@ public class AIStrategyOne extends AIPlayer {
 		if(aPlayerCanWinGame(true) || aPlayerCanEvolve(true)) {
 			joinTournament = true;
 			//game.acceptTournament();
+			logger.info("A player can win or evolve. AI [ONE] will enter the tournament");
 			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] ENTERED the tournament");
 		}
 		else {
 			joinTournament = false;
 			//game.declineTournament();
+			logger.info("No player can win or evolve. AI [ONE] will NOT enter the tournament");
 			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] did NOT ENTER the tournament");
 		}
 		return joinTournament;
@@ -33,12 +35,21 @@ public class AIStrategyOne extends AIPlayer {
 	//TODO need to add condition for another player in tournament to win/evolve to play best hand
 	public ArrayList<AdventureCard> playCardsForTournament() {
 		ArrayList<AdventureCard> cardsForTournament = new ArrayList<AdventureCard>();
+		int totalBattlePoints = 0;
+		
 		if(canIWinGame()) {
 			cardsForTournament = player.getHand().getBestPossibleHand(player.getPlay());
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] can win the game. Will play best hand.");
 		}
 		else {
 			cardsForTournament = player.getHand().getDuplicateWeapons();
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] can not win the game. Will play duplicate weapons.");
 		}
+		for(AdventureCard c: cardsForTournament) {
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] played [" + c.getName() + "] for tournament");
+			totalBattlePoints += c.getBattlePoint(false);
+		}
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] played [" + totalBattlePoints + "] battle points for tournament");
 		game.playerPlayCards(player, cardsForTournament);
 		return cardsForTournament;
 	}

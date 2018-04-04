@@ -23,6 +23,7 @@ public class AIStrategyTwo extends AIPlayer {
 	//Always participate
 	public boolean doIJoinTournament() {
 		//game.acceptDeclineTour(this, true);
+		logger.info("AI strategy [TWO] always enters a tournament");
 		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] ENTERED the tournament");
 		return true;
 	}
@@ -31,11 +32,20 @@ public class AIStrategyTwo extends AIPlayer {
 	public ArrayList<AdventureCard> playCardsForTournament() {
 		Hand cardsToPlay;
 		Hand hand =  game.getCurrentActivePlayerObj().getHand();
+		int totalBattlePoints = 0;
 
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] will try to play a hand with >= 50 pts.");
 		cardsToPlay = hand.getCardsForPoints(50);
-		if(cardsToPlay == null)
+		if(cardsToPlay == null) {
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] failed to make a 50 pt hand. Will now play best possible hand.");
 			cardsToPlay = hand.getBestPossibleHand(player.getPlay());
+		}
 		
+		for(AdventureCard c: cardsToPlay) {
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] played [" + c.getName() + "] for tournament.");
+			totalBattlePoints += c.getBattlePoint(false);
+		}
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] played [" + totalBattlePoints + "] battle points for tournament");
 		game.playerPlayCards(player, cardsToPlay);
 		//game.finalizePlayTour();
 		
