@@ -15,7 +15,8 @@
         } else {
             clearQuest();
         }
-        updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer);
+        updateDiscard(gameStatus.toDiscard);
+        updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
         if(gameStatus.storyCard){
             document.getElementById('storyCard').src = gameStatus.storyCard.url;
         } else {
@@ -131,7 +132,22 @@
         }
     }
 
-    function updatePrompt(status, active){
+    function updateDiscard(discard){
+        console.log(discard);
+        var discardElm = document.getElementById('discard');
+        if(discard[playerIdx]>0){
+            discardElm.style.display = '';
+            discardElm.addEventListener('dragover', function(ev){
+                ev.preventDefault();
+                return false;
+            }, false);
+            discardElm.addEventListener('drop', discardDrop, false);
+        } else {
+            discardElm.style.display = 'none';
+        }
+    }
+
+    function updatePrompt(status, active, toDiscard){
         var prompt = document.getElementById('prompt');
         if(status === 'IDLE'){
             prompt.innerHTML = active === playerIdx ? 'Draw Story Card' : 'Waiting For Story Card';
@@ -141,6 +157,8 @@
             prompt.innerHTML = active === playerIdx ? 'Build Quest' : 'Waiting For Sponsor';
         } else if (status === 'ACCEPTING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Accept Quest?' : 'Waiting For Other Player';
+        } else if(status === 'PRE_QUEST_DISCARD') {
+            prompt.innerHTML = toDiscard[playerIdx]>0 ? 'Discard '+toDiscard[playerIdx]+' card'+(toDiscard[playerIdx]>1?'s':'') : 'Waiting For Other Player';
         } else {
             prompt.innerHTML = 'No prompt set';
         }
@@ -214,6 +232,18 @@
                     stageNum: stageNumber,
                 }))
             }
+        }
+    }
+
+    function discardDrop(ev){
+        if(!draggingCard) return;
+        var match = draggingCard.id.match(/card([0-9]+)/);
+        var id = match && match[1];
+        if(id){
+            stompClient.send('/command/discardCard', {}, JSON.stringify({
+                player: playerIdx,
+                cardId: id,
+            }))
         }
     }
 
