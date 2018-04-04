@@ -17,9 +17,14 @@
 
 .secondaryPlayers {
 	position: absolute;
-	top: 0;
+	top: 20px;
 	width: 25%;
-	height: 67%;
+	bottom: 33%;
+}
+
+.sidePlayer {
+	width: 100%;
+	height: 33%;
 }
 
 .lowerPlayer {
@@ -36,7 +41,7 @@
 	height: 50%;
 }
 
-.playerPlay {
+.lowerPlayer > .playerPlay {
 	display:inline-block;
 	position: relative;
 	width: 74%;
@@ -44,31 +49,61 @@
 	z-index: 1;
 }
 
+.sidePlayer .playerPlay {
+	height: 50%;
+	width: auto;
+	overflow: hidden;
+}
+
 .playerPlay.active{
 	border: 1px solid red;
 }
 
-.playerInfo {
+.lowerPlayer > .playerInfo {
 	display:inline-block;
 	position: relative;
 	width: 25%;
 	height: 50%;
+	top: -5%;
+}
+
+.sidePlayer .playerInfo {
+	display: flex;
+	flex-flow: column;
+	height: 50%;
+	width: 100%;
 }
 
 .rank {
-	height: 100%;
 	width: auto;
 	float: left;
 }
 
-.shields {
+.lowerPlayer .rank {
+	height: 100%;
+}
+
+.sidePlayer .rank {
+	height: 50%;
+}
+
+.lowerPlayer .shields {
 	height: 75%;
 	width: auto;
 	overflow: hidden;
 }
 
+.sidePlayer .shields {
+	width: 100%;
+	flex: 1 1 auto;
+}
+
 .battlePoints {
 	font: 20px arial, sans-serif;
+}
+
+.cardsInfo {
+	display: block;
 }
 
 .card {

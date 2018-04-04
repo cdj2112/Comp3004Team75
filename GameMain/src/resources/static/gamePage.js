@@ -134,6 +134,59 @@
         }
         rank.src = player.rank;
         battlePoints.innerHTML = "Battle Points: "+player.battlePoints;
+
+
+        var secPlayer = document.getElementsByClassName('secondaryPlayers')[0];
+        for(var i=1; i<players.length; i++){
+            var pIdx = playerIdx - i;
+            if(pIdx<0) pIdx+=players.length;
+            player = players[pIdx];
+
+            var playerPane = document.getElementById("player"+pIdx);
+            var sideRank, sidePlay, sideBP, sideCards, sideShields;
+            if(!playerPane){
+                playerPane = document.createElement('div');
+                playerPane.id = "player"+pIdx;
+                playerPane.className = 'sidePlayer';
+
+                sideRank = document.createElement('img');
+                sideRank.className = 'rank';
+                playerPane.appendChild(sideRank);
+
+                sidePlay = document.createElement('div');
+                sidePlay.className = 'playerPlay';
+                playerPane.appendChild(sidePlay);
+
+                var sideInfo = document.createElement('div');
+                sideInfo.className = 'playerInfo';
+
+                sideShields = document.createElement('div');
+                sideShields.className = 'shields';
+                sideInfo.appendChild(sideShields)
+
+                sideCards = document.createElement('span');
+                sideCards.className = 'cardsInfo';
+                sideInfo.appendChild(sideCards);
+
+                sideBP = document.createElement('span');
+                sideBP.className = 'battlePoints';
+                sideInfo.appendChild(sideBP);
+
+                playerPane.appendChild(sideInfo);
+
+                secPlayer.appendChild(playerPane);
+            } else {
+                sidePlay = document.querySelectorAll('#player'+pIdx+' .playerHand')[0];
+                sideRank = document.querySelectorAll('#player'+pIdx+' .rank')[0];
+                sideBP = document.querySelectorAll('#player'+pIdx+' .battlePoints')[0];
+                sideCards = document.querySelectorAll('#player'+pIdx+' .cardsInfo')[0];
+                sideShields = document.querySelectorAll('#player'+pIdx+' .shields')[0];
+            }
+
+            sideRank.src = player.rank;
+            sideBP.innerHTML = 'Battle Points: '+player.battlePoints;
+            sideCards.innerHTML = 'Cards in Hand: '+player.hand.length;
+        }
     }
 
     function updateQuest(quest){
