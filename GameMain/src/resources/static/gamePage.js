@@ -113,6 +113,8 @@
         var mainPlayer = document.getElementsByClassName('lowerPlayer')[0];
         var mainHand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
         var mainPlay = document.querySelectorAll('.lowerPlayer > .playerPlay')[0];
+        var rank = document.querySelectorAll('.lowerPlayer .rank')[0];
+        var battlePoints = document.querySelectorAll('.lowerPlayer .battlePoints')[0];
 
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
@@ -130,6 +132,8 @@
             mainPlay.ondrop = null;
             mainPlay.ondragover = null;
         }
+        rank.src = player.rank;
+        battlePoints.innerHTML = "Battle Points: "+player.battlePoints;
     }
 
     function updateQuest(quest){

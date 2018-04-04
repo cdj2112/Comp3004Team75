@@ -30,20 +30,45 @@
 }
 
 .playerHand{
+	display:inline-block;
 	position: relative;
 	width: 100%;
 	height: 50%;
 }
 
 .playerPlay {
+	display:inline-block;
 	position: relative;
-	width: 100%;
+	width: 74%;
 	height: 50%;
 	z-index: 1;
 }
 
 .playerPlay.active{
 	border: 1px solid red;
+}
+
+.playerInfo {
+	display:inline-block;
+	position: relative;
+	width: 25%;
+	height: 50%;
+}
+
+.rank {
+	height: 100%;
+	width: auto;
+	float: left;
+}
+
+.shields {
+	height: 75%;
+	width: auto;
+	overflow: hidden;
+}
+
+.battlePoints {
+	font: 20px arial, sans-serif;
 }
 
 .card {
