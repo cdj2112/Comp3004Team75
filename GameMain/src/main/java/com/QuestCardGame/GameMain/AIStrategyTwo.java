@@ -84,10 +84,9 @@ public class AIStrategyTwo extends AIPlayer {
 		int prevStageBattlePoints = 0;
 		ArrayList<AdventureCard> allCardsForQuest = new ArrayList<AdventureCard>();
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		Hand sponsorHand = player.getHand();
 		
 		for(int stage = 0; stage < numStages; stage++) {
-			cardsForStage = sponsorHand.getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
+			cardsForStage = getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
 			prevStageBattlePoints = 0;
 			for(AdventureCard c : cardsForStage) {
 				game.sponsorAddCardToStage(c, stage);
@@ -189,5 +188,31 @@ public class AIStrategyTwo extends AIPlayer {
 	
 	public boolean isAIPlayer() {
 		return true;
+	}
+	
+	public ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages, int requiredBattlePoints){
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
+		Hand playerHand = player.getHand();
+		//second last stage should be a test if possible
+		if(totalStages - stage + 1 == 1) {
+			AdventureCard test = playerHand.getTestCard();
+			if(test != null)
+				cardsForStage.add(test);
+		}
+		else if(stage + 1 == totalStages) {
+			AdventureCard foe = playerHand.getStrongestFoe();
+			if(foe != null)
+				cardsForStage.add(foe);
+			for(AdventureCard c : playerHand) {
+				if(playerHand.isValidForQuestStage(c, cardsForStage))
+					cardsForStage.add(c);
+			}
+		}
+		else {
+			AdventureCard foe = playerHand.getFoe(requiredBattlePoints);
+			if(foe != null)
+				cardsForStage.add(foe);
+		}	
+		return cardsForStage;
 	}
 }

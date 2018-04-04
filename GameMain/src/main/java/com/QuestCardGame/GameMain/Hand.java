@@ -213,32 +213,6 @@ public class Hand extends ArrayList<AdventureCard>{
 		return numFoesInHand >= numFoesNeededForQuest; 
 	}
 	
-	public ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages, int requiredBattlePoints){
-		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		
-		//second last stage should be a test if possible
-		if(totalStages - stage + 1 == 1) {
-			AdventureCard test = this.getTestCard();
-			if(test != null)
-				cardsForStage.add(test);
-		}
-		else if(stage + 1 == totalStages) {
-			AdventureCard foe = this.getStrongestFoe();
-			if(foe != null)
-				cardsForStage.add(foe);
-			for(AdventureCard c : this) {
-				if(isValidForQuestStage(c, cardsForStage))
-					cardsForStage.add(c);
-			}
-		}
-		else {
-			AdventureCard foe = this.getFoe(requiredBattlePoints);
-			if(foe != null)
-				cardsForStage.add(foe);
-		}	
-		return cardsForStage;
-	}
-	
 	public AdventureCard getTestCard() {
 		for(AdventureCard c : this) {
 			if(c.getCardType() == AdventureCard.AdventureType.TEST)
