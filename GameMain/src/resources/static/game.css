@@ -42,11 +42,11 @@
 }
 
 .lowerPlayer > .playerPlay {
-	display:inline-block;
 	position: relative;
 	width: 74%;
 	height: 50%;
 	z-index: 1;
+	float: left;
 }
 
 .sidePlayer .playerPlay {
@@ -64,7 +64,6 @@
 	position: relative;
 	width: 25%;
 	height: 50%;
-	top: -5%;
 }
 
 .sidePlayer .playerInfo {
@@ -137,6 +136,16 @@
 	height: auto;
 	max-height: 100%;
 	max-width: 88px;
+}
+
+.playCard {
+	height: 100%;
+	width: auto;
+}
+
+.sideCard {
+	height: 50%;
+	width: auto;
 }
 
 .storyContainer{

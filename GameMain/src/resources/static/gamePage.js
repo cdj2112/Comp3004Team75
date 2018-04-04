@@ -119,7 +119,7 @@
 
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
-        matchCardsDom(player.play, mainPlay, null, true);
+        matchCardsDom(player.play, mainPlay, 'playCard', true);
 
         if(playing) {
             mainPlay.className = 'playerPlay active';
@@ -198,6 +198,8 @@
                 sideCards = document.querySelectorAll('#player'+pIdx+' .cardsInfo')[0];
                 sideShields = document.querySelectorAll('#player'+pIdx+' .shields')[0];
             }
+
+            matchCardsDom(player.play, sidePlay, 'sideCard', true);
 
             sideRank.src = player.rank;
             sideBP.innerHTML = 'Battle Points: '+player.battlePoints;
