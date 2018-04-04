@@ -192,7 +192,7 @@
 
                 secPlayer.appendChild(playerPane);
             } else {
-                sidePlay = document.querySelectorAll('#player'+pIdx+' .playerHand')[0];
+                sidePlay = document.querySelectorAll('#player'+pIdx+' .playerPlay')[0];
                 sideRank = document.querySelectorAll('#player'+pIdx+' .rank')[0];
                 sideBP = document.querySelectorAll('#player'+pIdx+' .battlePoints')[0];
                 sideCards = document.querySelectorAll('#player'+pIdx+' .cardsInfo')[0];
@@ -202,19 +202,19 @@
             sideRank.src = player.rank;
             sideBP.innerHTML = 'Battle Points: '+player.battlePoints;
             sideCards.innerHTML = 'Cards in Hand: '+player.hand.length;
-            for(var i=0; i<9; i++){
-                var sImg = document.getElementById('sS'+pIdx+i);
+            for(var j=0; j<9; j++){
+                var sImg = document.getElementById('sS'+pIdx+j);
                 if(!sImg){
                     var outDiv = document.createElement('div');
                     outDiv.className = 'imgCont';
                     sImg = document.createElement('img');
                     sImg.className = 'sImg';
-                    sImg.id = 'sS'+pIdx+i;
+                    sImg.id = 'sS'+pIdx+j;
                     sImg.src = '/Shield.png';
                     outDiv.appendChild(sImg);
                     sideShields.appendChild(outDiv);
                 }
-                sImg.className = i < player.shields ? 'sImg' : 'sImg invisible';
+                sImg.className = j < player.shields ? 'sImg' : 'sImg invisible';
             }
         }
     }
