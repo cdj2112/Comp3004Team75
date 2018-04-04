@@ -9,7 +9,7 @@
 	function updateGame(gameStatus){
 		console.log(gameStatus);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
-        updatePlayer(gameStatus.playerStatus);
+        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST');
         if(gameStatus.currentQuest){
             updateQuest(gameStatus.currentQuest);
         } else {
@@ -31,10 +31,10 @@
 		var acceptButton = document.getElementById("acceptButton");
         var declineButton = document.getElementById("declineButton");
 
-        var isVisible = (status === "SPONSORING" || status === "BUILDING_QUEST" || status === "ACCEPTING_QUEST") && playerIdx === active;
+        var isVisible = (status === "SPONSORING" || status === "BUILDING_QUEST" || status === "ACCEPTING_QUEST" || status === "PLAYING_QUEST") && playerIdx === active;
 
         acceptButton.className = isVisible ? "" : "invisible";
-		declineButton.className = (isVisible && status!=="BUILDING_QUEST") ? "" : "invisible";
+		declineButton.className = (isVisible && status!=="BUILDING_QUEST" && status !== "PLAYING_QUEST") ? "" : "invisible";
 
         if(status === "SPONSORING"){
             acceptButton.onclick = acceptDeclineSponsor(true);
@@ -45,6 +45,9 @@
         } else if(status==="ACCEPTING_QUEST"){
             acceptButton.onclick = acceptDeclineQuest(true);
             declineButton.onclick = acceptDeclineQuest(false);
+        } else if (status="PLAYING_QUEST") {
+            acceptButton.onclick = finalizePlay;
+            declineButton.onclick = null;
         } else {
             acceptButton.onclick = declineButton.onclick = null;
         }
@@ -95,7 +98,7 @@
         }
     }
 
-    function updatePlayer(players){
+    function updatePlayer(players, playing){
         var mainPlayer = document.getElementsByClassName('lowerPlayer')[0];
         var mainHand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
         var mainPlay = document.querySelectorAll('.lowerPlayer > .playerPlay')[0];
@@ -103,6 +106,19 @@
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
         matchCardsDom(player.play, mainPlay, null, true);
+
+        if(playing) {
+            mainPlay.className = 'playerPlay active';
+            mainPlay.ondragover = function(ev){
+                ev.preventDefault();
+                return false;
+            };
+            mainPlay.ondrop = playDrop;
+        } else {
+            mainPlay.className = 'playerPlay';
+            mainPlay.ondrop = null;
+            mainPlay.ondragover = null;
+        }
     }
 
     function updateQuest(quest){
@@ -111,14 +127,15 @@
             if(i<quest.stages.length){
                 var stage = quest.stages[i];
                 stageDiv.style.display = '';
-                stageDiv.addEventListener('dragover', function(ev){
+                stageDiv.ondragover = function(ev){
                     ev.preventDefault();
                     return false;
-                }, false);
-                stageDiv.addEventListener('drop', dropCardOnStage(i), false);
+                };
+                stageDiv.ondrop = dropCardOnStage(i);
                 matchCardsDom(stage.cards, stageDiv, 'stageCard', true);
             } else {
                 stageDiv.style.display = 'none';
+                stageDiv.ondragover = null;
                 stageDiv.ondrop = null;
             }
         }
@@ -137,13 +154,15 @@
         var discardElm = document.getElementById('discard');
         if(discard[playerIdx]>0){
             discardElm.style.display = '';
-            discardElm.addEventListener('dragover', function(ev){
+            discardElm.ondragover = function(ev){
                 ev.preventDefault();
                 return false;
-            }, false);
-            discardElm.addEventListener('drop', discardDrop, false);
+            }
+            discardElm.ondrop = discardDrop;
         } else {
             discardElm.style.display = 'none';
+            discardElm.ondrop = null;
+            discardElm.ondragover = null
         }
     }
 
@@ -159,6 +178,8 @@
             prompt.innerHTML = active === playerIdx ? 'Accept Quest?' : 'Waiting For Other Player';
         } else if(status === 'PRE_QUEST_DISCARD') {
             prompt.innerHTML = toDiscard[playerIdx]>0 ? 'Discard '+toDiscard[playerIdx]+' card'+(toDiscard[playerIdx]>1?'s':'') : 'Waiting For Other Player';
+        } else if(status === 'PLAYING_QUEST') {
+            prompt.innerHTML = active === playerIdx ? 'Play Cards for Stage' : 'Waiting For Other Player';
         } else {
             prompt.innerHTML = 'No prompt set';
         }
@@ -191,6 +212,10 @@
         }
     }
 
+    function finalizePlay(ev){
+        stompClient.send("/command/finalizePlay", {}, JSON.stringify({}))
+    }
+
     function dragCardStart(ev){
         var d = ev.target.cloneNode(true);
         d.style.opacity = 0;
@@ -204,7 +229,7 @@
         var imgBox = img.getBoundingClientRect();
         img.style.position = 'absolute';
 
-        var hand = document.getElementsByClassName('lowerPlayer')[0];
+        var hand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
         var handBox = hand.getBoundingClientRect();
 
         var x = ev.clientX;
@@ -245,6 +270,18 @@
                 cardId: id,
             }))
         }
+    }
+
+    function playDrop(ev){
+        if(!draggingCard) return;
+        var match = draggingCard.id.match(/card([0-9]+)/);
+        var id = match && match[1];
+        if(id){
+            stompClient.send('/command/playCards', {}, JSON.stringify({
+                player: playerIdx,
+                cardId: id,
+            }))
+        } 
     }
 
 	function connect(){
