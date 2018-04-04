@@ -83,9 +83,10 @@ public class AIStrategyOne extends AIPlayer {
 		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] needs stage n battle points >= 50. n-1 a test. Else strongest foe and any duplicate weapons.");
 		
 		//intentionally going backwards due to requirements
+		int stageBattlePoints = 0;
 		for(int i = numStages-1; i >= 0; i--) {
-			int stageBattlePoints = 0;
-			cardsForStage = getCardsForQuestStage(i, numStages);
+			cardsForStage = getCardsForQuestStage(i, numStages, stageBattlePoints); //stageBattlePoints is zero for the highest stage. It's okay, it's not used to get cards for that stage.
+			stageBattlePoints = 0;
 			for(AdventureCard c : cardsForStage) {
 				stageBattlePoints += c.getBattlePoint(false);
 				game.sponsorAddCardToStage(c, i);
@@ -244,15 +245,27 @@ public class AIStrategyOne extends AIPlayer {
 		return false;
 	}
 	
-	private ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages){
+	private ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages, int nextStageBattlePoints){
 		player.getHand().sortDescendingByBattlePoints();
-		AdventureCard strongestFoe = player.getHand().getStrongestFoe();
+		ArrayList<AdventureCard> foes = player.getHand().getUniqueCards(AdventureCard.AdventureType.FOE, 12); //12 means get as many as we can
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
 		ArrayList<AdventureCard> weaponsInHand = player.getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, 12);
 		ArrayList<AdventureCard> duplicateWeapons = player.getHand().getDuplicateWeapons();
 		duplicateWeapons.sort(new BattlePointComparatorDescending());
+		foes.sort(new BattlePointComparatorDescending());
 		int stageBattlePoints = 0;
+		AdventureCard strongestFoe = foes.get(0); //by this stage we've already checked we have foes for quest
+		AdventureCard foeForNotLastStage = foes.get(0);
 		
+		//Building quest in descending order of stages. Need to prevent the case where we play
+		//the same foe twice in a row because they're both the next strongest foe. So the current
+		//foe must be strictly lower BP than the next stage 
+		for(AdventureCard c: foes) {
+			if(c.getBattlePoint(false) < nextStageBattlePoints) {
+				foeForNotLastStage = c;
+				break;
+			}
+		}
 		
 		//last stage - need 50 pts
 		if(stage + 1 == totalStages) {
@@ -270,14 +283,16 @@ public class AIStrategyOne extends AIPlayer {
 			if(test != null)
 				cardsForStage.add(test);
 			else {
-				cardsForStage.add(strongestFoe);
-				if(duplicateWeapons.size() > 0)
+				cardsForStage.add(foeForNotLastStage);
+				stageBattlePoints += foeForNotLastStage.getBattlePoint(false);
+				if(duplicateWeapons.size() > 0 && (stageBattlePoints + duplicateWeapons.get(0).getBattlePoint(false) < nextStageBattlePoints))
 					cardsForStage.add(duplicateWeapons.get(0));
 			}
 		}
 		else {
-			cardsForStage.add(strongestFoe);
-			if(duplicateWeapons.size() > 0)
+			cardsForStage.add(foeForNotLastStage);
+			stageBattlePoints += foeForNotLastStage.getBattlePoint(false);
+			if(duplicateWeapons.size() > 0 && (stageBattlePoints + duplicateWeapons.get(0).getBattlePoint(false) < nextStageBattlePoints))
 				cardsForStage.add(duplicateWeapons.get(0));
 		}
 		return cardsForStage;
