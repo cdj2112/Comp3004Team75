@@ -93,6 +93,7 @@ public class AIStrategyTwo extends AIPlayer {
 				prevStageBattlePoints += c.getBattlePoint(false);
 				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] added [" + c.getName() + "] to stage [" + stage + "]");
 			}
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] played total battle points [" + prevStageBattlePoints + "] for stage [" + stage + "]");
 			allCardsForQuest.addAll(cardsForStage);
 		}
 		game.finalizeQuest();
@@ -105,11 +106,19 @@ public class AIStrategyTwo extends AIPlayer {
 		Hand hand = player.getHand();
 		int foesToDiscard = hand.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
-		int numStages = game.getActiveQuest().getNumStages();
+		QuestCard activeQuest = ((QuestCard)game.getActiveStoryCard());
+		int numStages = activeQuest.getStages();
 
 		isValidBattlePoints = hand.hasIncreasingBattlePointsForStages(numStages, 10, player.getPlay());		
 		boolean acceptQuest = foesToDiscard >= 2 && isValidBattlePoints;
 		
+		if(acceptQuest) {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] ACCEPTED quest [" + activeQuest.getName() + "]");
+		}
+		else {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] DECLINED quest [" + activeQuest.getName() + "]");
+
+		}
 		return game.acceptDeclineQuest(this.player, acceptQuest);
 	}
 
@@ -121,12 +130,14 @@ public class AIStrategyTwo extends AIPlayer {
 
 		if(currentStage == totalStages) {
 			cardsToPlay = player.getHand().getBestPossibleHand(cardsInPlay);
+			logger.info("Final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will play best hand.");
 		}
 		else {
+			logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will play 10 higher than previous stage of [" + previousQuestStageBattlePoints + "]");
 			cardsToPlay = player.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
 		}
 		previousQuestStageBattlePoints = player.getBattlePointsForHand(cardsToPlay);
-		
+			
 		int cP = player.getHand().size() - cardsToPlay.size() - 12;
 		player.getHand().sortAscendingByBattlePoints();
 		int i = 0; 
@@ -140,6 +151,10 @@ public class AIStrategyTwo extends AIPlayer {
 			}
 		}
 		
+		for(AdventureCard c: cardsToPlay)
+			logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] played [" + c.getName() + "]");
+		logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] played battle point total [" + previousQuestStageBattlePoints + "]"); //previous is updated above so this is okay
+	
 		game.playerPlayCards(this.player, cardsToPlay);
 		game.finalizePlay();
 		
@@ -153,9 +168,13 @@ public class AIStrategyTwo extends AIPlayer {
 		
 		if(currentTestRound == 0) {
 			numToBid = playerHand.getNumFoesToDiscard(25);
+			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 battle points.");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
 		}
 		else if(currentTestRound == 1) {
 			numToBid = playerHand.getNumFoesToDiscard(25) + playerHand.getNumDuplicates();
+			logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 and number of duplicate cards.");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
 		}
 		
 		return numToBid;
@@ -176,9 +195,12 @@ public class AIStrategyTwo extends AIPlayer {
 			cardsToDiscard.addAll(player.getHand().getDuplicateCards());
 		}
 		
-		for(AdventureCard c : cardsToDiscard)
+		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] won the test.");
+
+		for(AdventureCard c : cardsToDiscard) {
 			game.playerDiscardAdventrueCard(player, c);
-		
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] discarded [" + c.getName() + "]");
+		}	
 		return cardsToDiscard;
 	}
 	

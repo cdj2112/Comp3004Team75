@@ -31,7 +31,7 @@
         </RollingFile>
         <RollingFile name="AIRollingFile-Appender"
                  fileName="${log-path}/AIPlayers.log"
-                 filePattern="${archive}/rollingfile.log.%d{yyyy-MM-dd-hh-mm}.gz">
+                 filePattern="${archive}/AIPlayers.log.%d{yyyy-MM-dd-hh-mm}.gz">
         	<PatternLayout pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n"/>
             <Policies>
                  <TimeBasedTriggeringPolicy/>
@@ -46,9 +46,9 @@
                <AppenderRef ref="RollingFile-Appender" level="debug"/>
                <AppenderRef ref="Console-Appender" level="info"/>
            </Logger>
-           <Logger name="AILogger" level="debug" additivity="true">
-               <AppenderRef ref="File-Appender" level="error"/>
-               <AppenderRef ref="AIRollingFile-Appender" level="debug"/>
+           <Logger name="AILogger" level="info" additivity="true">               
+               <AppenderRef ref="AIRollingFile-Appender" level="info"/>
+               <AppenderRef ref="File-Appender" level="info"/>              
                <AppenderRef ref="Console-Appender" level="info"/>
            </Logger>
         <Root level="debug">

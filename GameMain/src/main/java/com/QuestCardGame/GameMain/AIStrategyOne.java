@@ -80,13 +80,18 @@ public class AIStrategyOne extends AIPlayer {
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();			
 		int numStages = game.getActiveQuest().getNumStages();
 
+		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] needs stage n battle points >= 50. n-1 a test. Else strongest foe and any duplicate weapons.");
+		
 		//intentionally going backwards due to requirements
 		for(int i = numStages-1; i >= 0; i--) {
+			int stageBattlePoints = 0;
 			cardsForStage = getCardsForQuestStage(i, numStages);
 			for(AdventureCard c : cardsForStage) {
+				stageBattlePoints += c.getBattlePoint(false);
 				game.sponsorAddCardToStage(c, i);
 				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] added [" + c.getName() + "] to stage [" + i + "]");
 			}
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] played total battle points [" + stageBattlePoints + "] for stage [" + i + "]");
 			cardsForQuest.addAll(cardsForStage);
 		}
 		
@@ -126,8 +131,10 @@ public class AIStrategyOne extends AIPlayer {
 		
 		if(currentStage == totalStages) {
 			cardsToPlay = player.getHand().getBestPossibleHand(cardsInPlay);
+			logger.info("Final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will play best hand.");
 		}
 		else {
+			logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] 2 ALLY/AMOURS or weakest WEAPONS to get to 2 cards.");
 			player.getHand().sortDescendingByBattlePoints(); //need strongest allies/amour
 			ArrayList<AdventureCard> cards = player.getHand().getUniqueCards(AdventureCard.AdventureType.ALLY, 2);
 			cardsToPlay.addAll(cards);
@@ -140,7 +147,10 @@ public class AIStrategyOne extends AIPlayer {
 				cards = player.getHand().getUniqueCards(AdventureCard.AdventureType.WEAPON, cardsNeededForStage - cardsToPlay.size());
 				cardsToPlay.addAll(cards);
 			}
-		}		
+		}
+		for(AdventureCard c: cardsToPlay) {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] played [" + c.getName() + "]");
+		}
 		game.playerPlayCards(player, cardsToPlay);
 		game.finalizePlay();
 		return cardsToPlay;
@@ -153,11 +163,15 @@ public class AIStrategyOne extends AIPlayer {
 		//don't bid unless first round
 		if(currentRound == 0) {
 			numToBid = player.getHand().getNumFoesToDiscard(20);
+			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will bid number of foes < 20 battle points");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] bid [" + numToBid + "]");
 		}
 		else {
 			numToBid = 0;
+			logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will bid 0");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] bid [" + numToBid + "]");
 		}
-					
+				
 		return numToBid;
 	}
 
@@ -170,6 +184,12 @@ public class AIStrategyOne extends AIPlayer {
 				game.playerDiscardAdventrueCard(player, c);
 			}
 		}
+		
+		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] won the test.");
+		for(AdventureCard c : cardsToDiscard) {
+			game.playerDiscardAdventrueCard(player, c);
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] discarded [" + c.getName() + "]");
+		}	
 		
 		return cardsToDiscard;
 	}
