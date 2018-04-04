@@ -468,6 +468,10 @@ public class Game {
 	public int getPlayerDiscard(int i) {
 		return toDiscard[i];
 	}
+	
+	public int[] getAllDiscard() {
+		return toDiscard;
+	}
 
 	private boolean isValidCardPlay(Player p, AdventureCard c) {
 		for (AdventureCard pc : p.getPlay()) {
