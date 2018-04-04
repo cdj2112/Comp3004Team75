@@ -101,7 +101,7 @@
 
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
-        matchCardsDom(player.play, mainPlay);
+        matchCardsDom(player.play, mainPlay, null, true);
     }
 
     function updateQuest(quest){
