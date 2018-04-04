@@ -39,7 +39,7 @@ public class Game {
 		for (int i = 0; i < numPlayers; i++) {
 			//temporary fix to keep this working with java fx UI.
 			//will just need int[] behaviour instead of nP/nAIP
-			players[i] = (numPlayers - i) > nAIP ? new Player(this, 1) : new Player(this, 2);
+			players[i] = (numPlayers - i) > nAIP ? new Player(this, 0) : new Player(this, 2);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
