@@ -29,12 +29,21 @@
 
 		var acceptButton = document.getElementById("acceptButton");
         var declineButton = document.getElementById("declineButton");
-        acceptButton.className = (status === "SPONSORING" && playerIdx === active) ? "" : "invisible";
-		declineButton.className = (status === "SPONSORING" && playerIdx === active) ? "" : "invisible";
+
+        var isVisible = (status === "SPONSORING" || status === "BUILDING_QUEST" || status === "ACCEPTING_QUEST") && playerIdx === active;
+
+        acceptButton.className = isVisible ? "" : "invisible";
+		declineButton.className = (isVisible && status!=="BUILDING_QUEST") ? "" : "invisible";
 
         if(status === "SPONSORING"){
             acceptButton.onclick = acceptDeclineSponsor(true);
             declineButton.onclick = acceptDeclineSponsor(false);
+        } else if(status==="BUILDING_QUEST") {
+            acceptButton.onclick = finalizeQuest;
+            declineButton.onclick = null;
+        } else if(status==="ACCEPTING_QUEST"){
+            acceptButton.onclick = acceptDeclineQuest(true);
+            declineButton.onclick = acceptDeclineQuest(false);
         } else {
             acceptButton.onclick = declineButton.onclick = null;
         }
@@ -47,15 +56,15 @@
         img.id = 'card'+card.id;
         img.className = 'card';
         img.src = card.url;
-        img.draggable = 'true';
+        img.draggable = true;
         img.ondragstart = dragCardStart;
         img.ondrag = dragCard;
         img.ondragend = cardDrop;
-                imgMap[card.id] = img;
+        imgMap[card.id] = img;
         return img;
     }
 
-    function matchCardsDom(cardArray, domElement, cl){
+    function matchCardsDom(cardArray, domElement, cl, disabledDrag){
         var className = cl || 'card';
         var inDom = [].slice.call(domElement.children);
         for(var c=0; c<cardArray.length; c++){
@@ -64,6 +73,10 @@
             if(!inDom.includes(img)) {
                 img.className = className;
                 domElement.appendChild(img);
+                img.draggable = !disabledDrag;
+                img.ondragstart = !disabledDrag ? dragCardStart : null;
+                img.ondrag = !disabledDrag ? dragCard : null;
+                img.ondragend = !disabledDrag ? cardDrop : null;
             }
         }
 
@@ -89,7 +102,7 @@
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
         matchCardsDom(player.play, mainPlay);
-            }
+    }
 
     function updateQuest(quest){
         for(var i =0; i< 5; i++){
@@ -102,13 +115,13 @@
                     return false;
                 }, false);
                 stageDiv.addEventListener('drop', dropCardOnStage(i), false);
-                matchCardsDom(stage.cards, stageDiv, 'stageCard');
+                matchCardsDom(stage.cards, stageDiv, 'stageCard', true);
             } else {
                 stageDiv.style.display = 'none';
                 stageDiv.ondrop = null;
             }
-            }
         }
+    }
 
     function clearQuest(){
         for(var i =0; i<5; i++){
@@ -126,6 +139,8 @@
             prompt.innerHTML = active === playerIdx ? 'Sponsor Quest?' : 'Waiting For Other Player';
         } else if (status === 'BUILDING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Build Quest' : 'Waiting For Sponsor';
+        } else if (status === 'ACCEPTING_QUEST') {
+            prompt.innerHTML = active === playerIdx ? 'Accept Quest?' : 'Waiting For Other Player';
         } else {
             prompt.innerHTML = 'No prompt set';
         }
@@ -143,6 +158,19 @@
                 player: playerIdx
     		}));
     	}
+    }
+
+    function finalizeQuest(){
+        stompClient.send("/command/finalizeQuest", {}, JSON.stringify({}));
+    }
+
+    function acceptDeclineQuest(accept){
+        return function(){
+            stompClient.send("/command/acceptQuest", {}, JSON.stringify({
+                accept: accept,
+                player: playerIdx,
+            }))
+        }
     }
 
     function dragCardStart(ev){
