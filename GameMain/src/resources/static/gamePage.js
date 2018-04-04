@@ -5,6 +5,7 @@
 	var stompClient;
     var imgMap = {};
     var draggingCard;
+    var timeout;
 
 	function updateGame(gameStatus){
 		console.log(gameStatus);
@@ -17,10 +18,20 @@
         }
         updateDiscard(gameStatus.toDiscard);
         updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
+
         if(gameStatus.storyCard){
             document.getElementById('storyCard').src = gameStatus.storyCard.url;
         } else {
              document.getElementById('storyCard').src = '';
+        }
+
+        if(gameStatus.currentStatus === 'EVAL_QUEST_STAGE' && gameStatus.activePlayer === playerIdx && !timeout){
+            timeout = setTimeout(function(){
+                timeout = null;
+                stompClient.send("/command/playStage", {}, JSON.stringify({
+                    player: playerIdx
+                }));
+            }, 1000);
         }
 	}
 
@@ -180,6 +191,8 @@
             prompt.innerHTML = toDiscard[playerIdx]>0 ? 'Discard '+toDiscard[playerIdx]+' card'+(toDiscard[playerIdx]>1?'s':'') : 'Waiting For Other Player';
         } else if(status === 'PLAYING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Play Cards for Stage' : 'Waiting For Other Player';
+        } else if (status === 'EVAL_QUEST_STAGE') {
+            prompt.innerHTML = 'Player '+active+' playing stage';
         } else {
             prompt.innerHTML = 'No prompt set';
         }

@@ -90,6 +90,14 @@ public class GameCommands {
 		game.playerDiscardAdventrueCard(p, c);
 		return buildGameStatus();
 	}
+	
+	@MessageMapping("/playStage")
+	@SendTo("/status/gameStatus")
+	public GameTransit evalQuestStage(PlayerDecisionRequest pdr) {
+		Game game = QuestSpringApplication.getGame();
+		game.evaluatePlayerEndOfStage(pdr.getPlayer());
+		return buildGameStatus();
+	}
 
 	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

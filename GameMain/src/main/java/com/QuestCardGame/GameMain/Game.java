@@ -77,8 +77,8 @@ public class Game {
 
 		sponsor = null;
 		activeQuest = null;
-		storyDeck.discard(currentStoryCard);
 		logger.info("Story Card " + currentStoryCard.getName() + ": Discarded");
+		storyDeck.discard(currentStoryCard);
 		currentStoryCard = null;
 
 		if (correctCards) {
