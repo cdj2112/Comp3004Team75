@@ -245,6 +245,7 @@ public class QuestUI extends Group {
 
 	private void positionInactivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
+		GameStatus GS = game.getGameStatus();
 		PlayerGroup inactivePlayerGroup = playerGroups[i];
 
 		inactivePlayerGroup.setRankImage(p.getRankImagePath());
@@ -261,6 +262,7 @@ public class QuestUI extends Group {
 		Text bp = inactivePlayerGroup.getBP();
 		bp.setTranslateX(0);
 		bp.setTranslateY(140);
+		bp.setVisible(GS == GameStatus.EVAL_QUEST_STAGE || GS == GameStatus.EVAL_TOUR);
 
 		ArrayList<AdventureCard> pHand = p.getHand();
 		inactivePlayerGroup.setCardsInHand(pHand.size(), true);
@@ -289,7 +291,7 @@ public class QuestUI extends Group {
 			if (!inactivePlayerGroup.getPlay().getChildren().contains(g)) {
 				inactivePlayerGroup.playCard(g);
 			}
-			boolean faceUp = game.getGameStatus() != Game.GameStatus.PLAYING_TOUR || !game.getTournamentStash().contains(c);
+			boolean faceUp = GS != GameStatus.PLAYING_TOUR || !game.getTournamentStash().contains(c);
 			g.setFaceUpDown(faceUp);
 			g.setDragCard(false);
 			g.setHoverCard(true);
@@ -303,6 +305,7 @@ public class QuestUI extends Group {
 
 	private void positionActivePlayerGroup(int i) {
 		Player p = game.getPlayer(i);
+		GameStatus GS = game.getGameStatus();
 		boolean ai = p.isAIPlayer();
 
 		PlayerGroup activePlayerGroup = playerGroups[i];
@@ -318,6 +321,7 @@ public class QuestUI extends Group {
 
 		activePlayerGroup.setBP(p.getBattlePoints());
 		Text bp = activePlayerGroup.getBP();
+		bp.setVisible(!ai || GS == GameStatus.EVAL_QUEST_STAGE || GS == GameStatus.EVAL_TOUR);
 		bp.setTranslateX(1050);
 		bp.setTranslateY(140);
 
@@ -351,7 +355,7 @@ public class QuestUI extends Group {
 			if (!activePlayerGroup.getPlay().getChildren().contains(g)) {
 				activePlayerGroup.playCard(g);
 			}
-			boolean faceUp = !ai || game.getGameStatus() != Game.GameStatus.PLAYING_TOUR || !game.getTournamentStash().contains(c);
+			boolean faceUp = !ai || GS != Game.GameStatus.PLAYING_TOUR || !game.getTournamentStash().contains(c);
 			g.setFaceUpDown(faceUp);
 			g.setDragCard(false);
 			g.setHoverCard(false);
