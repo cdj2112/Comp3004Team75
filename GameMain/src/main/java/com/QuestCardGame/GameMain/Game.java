@@ -300,6 +300,7 @@ public class Game {
 		if (!isValidCardPlay(p, c))
 			return false;
 
+		if(activeTournaments != null) activeTournaments.addToStash(c);
 		p.playCard(c);
 
 		return true;
@@ -592,6 +593,13 @@ public class Game {
 		} else {
 			return 0;
 		}
+	}
+	
+	public ArrayList<AdventureCard> getTournamentStash(){
+		if(activeTournaments != null) {
+			return activeTournaments.getStash();
+		}
+		return null;
 	}
 
 	public int getPlayerDiscard(int i) {

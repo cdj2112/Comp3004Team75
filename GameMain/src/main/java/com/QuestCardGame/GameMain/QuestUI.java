@@ -289,7 +289,8 @@ public class QuestUI extends Group {
 			if (!inactivePlayerGroup.getPlay().getChildren().contains(g)) {
 				inactivePlayerGroup.playCard(g);
 			}
-			g.setFaceUpDown(true);
+			boolean faceUp = game.getGameStatus() != Game.GameStatus.PLAYING_TOUR || !game.getTournamentStash().contains(c);
+			g.setFaceUpDown(faceUp);
 			g.setDragCard(false);
 			g.setHoverCard(true);
 			g.setTranslateX(xOffset % 5 * 35 + 40);
@@ -350,7 +351,8 @@ public class QuestUI extends Group {
 			if (!activePlayerGroup.getPlay().getChildren().contains(g)) {
 				activePlayerGroup.playCard(g);
 			}
-			g.setFaceUpDown(true);
+			boolean faceUp = !ai || game.getGameStatus() != Game.GameStatus.PLAYING_TOUR || !game.getTournamentStash().contains(c);
+			g.setFaceUpDown(faceUp);
 			g.setDragCard(false);
 			g.setHoverCard(false);
 			g.setTranslateX(xOffset * 110.0);

@@ -16,6 +16,8 @@ public class Tournaments {
 	private boolean isTournamentsOver;
 	private int bp;
 	private int bonus;
+	
+	private ArrayList<AdventureCard> tournamentStash;
 
 	Tournaments(TournamentCard t) {
 		discardPile = new ArrayList<AdventureCard>();
@@ -23,6 +25,7 @@ public class Tournaments {
 		isTournamentsOver = false;
 		bp = t.getBonesShiled();
 		bonus = t.getBonesShiled();
+		tournamentStash = new ArrayList<AdventureCard>();
 		
 		logger.info("Tournaments started");
 	}
@@ -125,6 +128,14 @@ public class Tournaments {
 				p.addShields(shieldsToAward2);
 		}
 	}
+	
+	public void addToStash(AdventureCard c) {
+		tournamentStash.add(c);
+	}
+	
+	public ArrayList<AdventureCard> getStash(){
+		return tournamentStash;
+	}
 
 	private void removeCardsOfType(Player p, AdventureCard.AdventureType t) {
 
@@ -142,5 +153,9 @@ public class Tournaments {
 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public int getBonus() {
+		return bonus;
 	}
 }
