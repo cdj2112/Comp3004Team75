@@ -30,7 +30,7 @@ public class TourTest extends TestCase {
 
 		// p1 should win and get shield
 		nextPlayer = tour.getNextPlayer();
-		tour.evaluatePlayers(players);
+		tour.evaluatePlayers();
 		Assert.assertEquals(2, p1.getNumShields());
 		nextPlayer = tour.getNextPlayer();
 		assert nextPlayer == null;
@@ -74,7 +74,7 @@ public class TourTest extends TestCase {
 
 		// p1 should win and get shield
 		nextPlayer = tour.getNextPlayer();
-		tour.evaluatePlayers(players);
+		tour.evaluatePlayers();
 		// System.out.println(p2.getNumShields());
 		Assert.assertEquals(3, p1.getNumShields());
 		Assert.assertEquals(0, p2.getNumShields());
@@ -117,7 +117,7 @@ public class TourTest extends TestCase {
 
 		// p1 should win and get shield
 		nextPlayer = tour.getNextPlayer();
-		tour.evaluatePlayers(players);
+		tour.evaluatePlayers();
 
 		Assert.assertEquals(2, p1.getNumShields());
 		Assert.assertEquals(2, p2.getNumShields());
