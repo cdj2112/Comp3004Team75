@@ -35,7 +35,6 @@ public class Game {
 	private Quest activeQuest;
 	// tour
 	private Tournaments activeTournaments;
-	int tourIndex;
 
 	Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
@@ -154,11 +153,15 @@ public class Game {
 
 	public void shouldStartTournament() {
 		if (activePlayer == playerTurn) {
-			if (activeTournaments.getPlayers().size() > 0) {
-				logger.info("GameStatus PLAYING_TOUR");
+			if (activeTournaments.getPlayers().size() > 1) {
+				logger.info("Begin Tournament");
 				currentStatus = GameStatus.PLAYING_TOUR;
 				activeTournaments.startTournaments();
 				activeTournaments.getNextPlayer();
+			} else if(activeTournaments.getPlayers().size() == 1){
+				logger.info("Player "+activeTournaments.getPlayers().get(0)+" is the only participant in tournament and wins by default");
+				activeTournaments.getPlayers().get(0).addShields(1+activeTournaments.getBonus());
+				endTurn();
 			} else {
 				logger.info("Tournament Has No Participants");
 				endTurn();
