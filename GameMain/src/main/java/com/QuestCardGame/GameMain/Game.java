@@ -107,7 +107,6 @@ public class Game {
 
 	// tournament*************************************************************************
 	public ArrayList<AdventureCard> acceptDeclineTour(Player p, boolean accept) {
-		tourIndex++;
 		if (currentStatus == GameStatus.ENTERING_TOUR) {
 			if (accept) {
 				logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Entered Tournaments");
@@ -120,12 +119,12 @@ public class Game {
 
 			if (p.getHand().size() <= 12) {
 				activePlayer = getNextActivePlayer();
+				shouldStartTournament();
 			} else {
 				currentStatus = GameStatus.PRE_TOUR_DISCARD;
-				// toDiscard[activePlayer] = p.getHand().size() - 12;
+				toDiscard[activePlayer] = p.getHand().size() - 12;
 			}
-
-			shouldStartTournament();
+			
 
 		}
 		return null;
@@ -154,19 +153,14 @@ public class Game {
 	 */
 
 	public void shouldStartTournament() {
-		if (tourIndex != numPlayers) {
-			if (activeTournaments.getPlayers().size() > 0) {
-				logger.info("Tournaments Begin");
-				activeTournaments.startTournaments();
-				activeTournaments.getNextPlayer();
-			}
-		} else if (tourIndex == numPlayers) {
+		if (activePlayer == playerTurn) {
 			if (activeTournaments.getPlayers().size() > 0) {
 				logger.info("GameStatus PLAYING_TOUR");
 				currentStatus = GameStatus.PLAYING_TOUR;
-				tourIndex = 0;
+				activeTournaments.startTournaments();
+				activeTournaments.getNextPlayer();
 			} else {
-				tourIndex = 0;
+				logger.info("Tournament Has No Participants");
 				endTurn();
 			}
 		}
@@ -233,7 +227,7 @@ public class Game {
 				activePlayer = getNextActivePlayer();
 			} else {
 				currentStatus = GameStatus.PRE_QUEST_DISCARD;
-				// toDiscard[activePlayer] = p.getHand().size() - 12;
+				toDiscard[activePlayer] = p.getHand().size() - 12;
 			}
 
 			if (activePlayer == sponsorIndex) {
@@ -337,7 +331,7 @@ public class Game {
 		boolean done = true;
 		for (int d = 0; d < numPlayers; d++) {
 			done = done && players[d].getHand().size() <= 12;
-			// toDiscard[d] = Math.max(players[d].getHand().size() - 12, 0);
+			toDiscard[d] = Math.max(players[d].getHand().size() - 12, 0);
 		}
 		if (done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
 			activePlayer = getNextActivePlayer();
@@ -350,12 +344,10 @@ public class Game {
 			}
 		} else if (done && currentStatus == GameStatus.PRE_TOUR_DISCARD) {
 			activePlayer = getNextActivePlayer();
-			// tourIndex++;
-			if (tourIndex == numPlayers) {
+			if (activePlayer == playerTurn) {
 				currentStatus = GameStatus.PLAYING_TOUR;
-				activeQuest.startQuest();
-				activeQuest.getNextPlayer();
-				tourIndex = 0;
+				activeTournaments.startTournaments();
+				activeTournaments.getNextPlayer();
 			} else {
 				currentStatus = GameStatus.ENTERING_TOUR;
 			}

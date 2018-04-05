@@ -70,8 +70,10 @@ public class Tournaments {
 		}
 		// delete players who's BP is less than maxBP
 		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getBattlePoints() != maxBP)
+			if (players.get(i).getBattlePoints() != maxBP) {
+				removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
 				players.remove(i);
+			}
 			//discardPile.clear();
 		}
 	}
