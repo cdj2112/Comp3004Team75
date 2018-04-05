@@ -9,9 +9,9 @@ public class Player {
 	private static final Logger logger = LogManager.getLogger(Player.class);
 		
 	//private static final Logger logger = LogManager.getLogger(Player.class);
-	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight"};
-	private static final int[] battlePoints = {5, 10, 20};
-	private static final int[] shieldsNeeded = {5, 7, 10};
+	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight","Knight of The Round Table"};
+	private static final int[] battlePoints = {5, 10, 20, 20};
+	private static final int[] shieldsNeeded = {5, 7, 10, 100};
 	
 	private Hand hand;
 	private ArrayList<AdventureCard> play;
@@ -80,7 +80,7 @@ public class Player {
 	public void addShields(int s) {
 		numShields += s;
 		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
-		if(numShields >= shieldsNeeded[rank]) {
+		while(numShields >= shieldsNeeded[rank]) {
 			numShields -= shieldsNeeded[rank];
 			rank++;
 			logger.info("Player "+getPlayerNumber()+": Promoted to "+rankNames[rank]+" with "+numShields+" shields");
@@ -93,6 +93,10 @@ public class Player {
 	
 	public int getShieldsNeeded() {
 		return shieldsNeeded[rank];
+	}
+	
+	public int getRank() {
+		return rank;
 	}
 	
 	public String getRankName() {
