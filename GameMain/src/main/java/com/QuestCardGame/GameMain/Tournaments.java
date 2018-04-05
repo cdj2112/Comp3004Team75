@@ -59,22 +59,22 @@ public class Tournaments {
 
 	public void tieBreaking() {
 		int maxBP = 0;
-		int maxInfo[];
-		maxInfo = new int[players.size()];
 		// find maxBP in players
 		for (int i = 0; i < players.size(); i++) {
-			maxInfo[i] = players.get(i).getBattlePoints();
-			if (maxInfo[i] > maxBP) {
-				maxBP = maxInfo[i];
+			Player p = players.get(i);
+			logger.info("Player "+p.getPlayerNumber()+" plays tournament with "+p.getBattlePoints()+" battle points");
+			if (p.getBattlePoints() > maxBP) {
+				maxBP = p.getBattlePoints();
 			}
 		}
 		// delete players who's BP is less than maxBP
-		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getBattlePoints() != maxBP) {
-				removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
-				players.remove(i);
+		for (Iterator<Player> removeIter = players.iterator(); removeIter.hasNext();) {
+			Player p = removeIter.next();
+			if (p.getBattlePoints() != maxBP) {
+				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
+				logger.info("Player "+p.getPlayerNumber()+" eliminated from tournament");
+				removeIter.remove();
 			}
-			//discardPile.clear();
 		}
 	}
 
@@ -99,6 +99,10 @@ public class Tournaments {
 				isTournamentsOver = true;
 				awardQuestWinners(2);
 			}
+		}
+		
+		for(int i=0; i<players.size(); i++) {
+			removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
 		}
 	}
 
