@@ -151,7 +151,7 @@ public class Game {
 	 * return TourDiscard; }
 	 */
 
-	public void shouldStartTournament() {
+	public boolean shouldStartTournament() {
 		if (activePlayer == playerTurn) {
 			if (activeTournaments.getPlayers().size() > 1) {
 				logger.info("Begin Tournament");
@@ -166,7 +166,9 @@ public class Game {
 				logger.info("Tournament Has No Participants");
 				endTurn();
 			}
+			return true;
 		}
+		return false;
 	}
 
 	public ArrayList<AdventureCard> EvalTour() {
@@ -348,13 +350,8 @@ public class Game {
 			}
 		} else if (done && currentStatus == GameStatus.PRE_TOUR_DISCARD) {
 			activePlayer = getNextActivePlayer();
-			if (activePlayer == playerTurn) {
-				currentStatus = GameStatus.PLAYING_TOUR;
-				activeTournaments.startTournaments();
-				activeTournaments.getNextPlayer();
-			} else {
-				currentStatus = GameStatus.ENTERING_TOUR;
-			}
+			boolean start = shouldStartTournament();
+			if(!start) currentStatus = GameStatus.ENTERING_TOUR;
 		} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
 			endTurn();
 		} else if (currentStatus == GameStatus.END_TURN_DISCARD) {
