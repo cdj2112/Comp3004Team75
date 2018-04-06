@@ -257,7 +257,7 @@ public class Hand extends ArrayList<AdventureCard>{
 		for(AdventureCard c : this) {
 			String cardName = c.getName();
 			if(c.getCardType() == AdventureCard.AdventureType.WEAPON) {
-				if(!duplicateNames.add(cardName) && !prevName.equals(cardName))
+				if(!duplicateNames.add(cardName) && prevName.equals(cardName))
 					duplicateWeapons.add(c);
 			}
 			prevName = cardName;
