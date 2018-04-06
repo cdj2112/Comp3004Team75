@@ -448,6 +448,7 @@ public class QuestUI extends Group {
 		} else if (GS == GameStatus.PLAYING_TOUR) {
 			acceptButton.setVisible(true);
 			declineButton.setVisible(false);
+			prompt.setVisible(true);
 			acceptButton.setOnAction(dialogListeners.get("finalizePlayTour"));
 			String promptText = !canAccept ? "You must discard or play a card" : "Play Cards for Tournaments";
 			prompt.setText(promptText);
