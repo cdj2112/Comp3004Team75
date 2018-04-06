@@ -64,4 +64,9 @@ public class Stage {
 	public boolean getIsTest() {
 		return isTest;
 	}
+	
+	public int getMinBid() {
+		Test t = (Test)(cards.get(0));
+		return t.getMinBid(false);
+	}
 }

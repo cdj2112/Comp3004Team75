@@ -19,10 +19,12 @@ public class Quest {
 	private ListIterator<Player> iter;
 	private Player currentPlayer;
 	private ArrayList<AdventureCard> discardPile;
-	private int currentStage;
+	private int currentStage = -1;
 	private int totalStages;
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
+	private int biddingRound = 0;
+	private int currentBids = 0;
 
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -90,6 +92,10 @@ public class Quest {
 		else {
 			currentPlayer = null;
 			iter = players.listIterator(); //reset to beginning
+			if(currentStage >= 0 && stages[currentStage].getIsTest()){
+				biddingRound++;
+			}
+			if(players.size() == 0) isQuestOver = true;
 			return null;
 		}
 	}
@@ -146,6 +152,23 @@ public class Quest {
 
 		return playerWins;
 	}
+	
+	public void startBidding() {
+		biddingRound = 0;
+		currentBids = stages[currentStage].getMinBid() - 1; //Bids to beat is one less than min bids
+	}
+	
+	public boolean makeBid(int b) {
+		if(b > currentBids) {
+			currentBids = b;
+			return true;
+		}
+		return false;
+	}
+	
+	public void playerDropout() {
+		iter.remove();
+	}
 
 	public boolean isQuestOver() {
 		return isQuestOver;
@@ -191,6 +214,10 @@ public class Quest {
 
 	public ArrayList<Player> getPlayers() {
 		return players;
+	}
+	
+	public boolean isPlayingTest() {
+		return stages[currentStage].getIsTest();
 	}
 	
 	public void clearQuest() {
