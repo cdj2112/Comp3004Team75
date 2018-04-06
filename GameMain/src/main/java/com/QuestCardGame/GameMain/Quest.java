@@ -5,6 +5,9 @@ import java.util.ListIterator;
 import java.util.Iterator;
 import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
+
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Quest {
@@ -35,7 +38,13 @@ public class Quest {
 
 	public boolean validateQuest() {
 		int previousBP = -1;
+		int tests = 0;
 		for(Stage s: stages) {
+			if(s.getIsTest() && tests == 0) {
+				tests++;
+				continue;
+			}
+			
 			if(s.getBattlePoints() <= previousBP) {
 				return false;
 			}
@@ -48,7 +57,12 @@ public class Quest {
 
 	}
 	
-	public boolean addCardToStage(AdventureCard newCard, int s) {	
+	public boolean addCardToStage(AdventureCard newCard, int s) {
+		if(newCard.getCardType() == AdventureType.TEST) {
+			for(Stage st : stages) {
+				if(st.getIsTest()) return false;
+			}
+		}
 		boolean isAdded = stages[s].addCard(newCard);
 		if(isAdded)
 			numCardsUsed++;
