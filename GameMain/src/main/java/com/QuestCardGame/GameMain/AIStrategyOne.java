@@ -278,7 +278,7 @@ public class AIStrategyOne extends AIPlayer {
 					break;
 			}
 		} //second last stage, test if possible
-		else if (stage == totalStages) {
+		else if (stage + 2 == totalStages) {
 			AdventureCard test = player.getHand().getTestCard();
 			if(test != null)
 				cardsForStage.add(test);
