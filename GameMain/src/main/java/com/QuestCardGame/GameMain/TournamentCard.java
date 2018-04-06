@@ -2,19 +2,19 @@ package com.QuestCardGame.GameMain;
 
 public class TournamentCard extends Card {
 
-	private int bonesShiled;
+	private int bonusShields;
 
 	TournamentCard(String n, int b) {
 		super(n);
-		bonesShiled = b;
+		bonusShields = b;
 	}
 
 	public String getName() {
 		return cardName;
 	}
 
-	public int getBonesShiled() {
-		return bonesShiled;
+	public int getBonusShields() {
+		return bonusShields;
 	}
 
 	public String getFrontImagePath() {

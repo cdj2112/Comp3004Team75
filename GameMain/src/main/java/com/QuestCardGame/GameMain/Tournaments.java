@@ -23,11 +23,11 @@ public class Tournaments {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isTournamentsOver = false;
-		bp = t.getBonesShiled();
-		bonus = t.getBonesShiled();
+		bp = t.getBonusShields();
+		bonus = t.getBonusShields();
 		tournamentStash = new ArrayList<AdventureCard>();
 		
-		logger.info("Tournaments started");
+		logger.info("Tournament [" + t.getName() + "] started. This tournament has [" + t.getBonusShields() + "] bonus shield(s)." );
 	}
 
 	public boolean addPlayer(Player p) {
