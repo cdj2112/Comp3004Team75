@@ -17,5 +17,8 @@ public abstract class AdventureCard extends Card{
   }
   
   public abstract int getBattlePoint(Boolean b);
+  public int getFreeBids() {
+	  return 0;
+  }
   
 }
