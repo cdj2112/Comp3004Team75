@@ -8,7 +8,7 @@ import org.apache.logging.log4j.LogManager;
 
 public class Tournaments {
 	private static final Logger logger = LogManager.getLogger(Tournaments.class);
-	
+
 	private ArrayList<Player> players;
 	private ListIterator<Player> iter;
 	private Player currentPlayer;
@@ -16,7 +16,8 @@ public class Tournaments {
 	private boolean isTournamentsOver;
 	private int bp;
 	private int bonus;
-	
+	private int roundsPlayed = 0;
+
 	private ArrayList<AdventureCard> tournamentStash;
 
 	Tournaments(TournamentCard t) {
@@ -28,6 +29,7 @@ public class Tournaments {
 		tournamentStash = new ArrayList<AdventureCard>();
 		
 		logger.info("Tournament [" + t.getName() + "] started. This tournament has [" + t.getBonusShields() + "] bonus shield(s)." );
+
 	}
 
 	public boolean addPlayer(Player p) {
@@ -38,7 +40,7 @@ public class Tournaments {
 
 	public boolean removePlayer(Player p) {
 		return players.remove(p);
-		
+
 	}
 
 	public void startTournaments() {
@@ -65,7 +67,8 @@ public class Tournaments {
 		// find maxBP in players
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
-			logger.info("Player "+p.getPlayerNumber()+" plays tournament with "+p.getBattlePoints()+" battle points");
+			logger.info("Player " + p.getPlayerNumber() + " plays tournament with " + p.getBattlePoints()
+					+ " battle points");
 			if (p.getBattlePoints() > maxBP) {
 				maxBP = p.getBattlePoints();
 			}
@@ -75,36 +78,27 @@ public class Tournaments {
 			Player p = removeIter.next();
 			if (p.getBattlePoints() != maxBP) {
 				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-				logger.info("Player "+p.getPlayerNumber()+" eliminated from tournament");
+				logger.info("Player " + p.getPlayerNumber() + " eliminated from tournament");
 				removeIter.remove();
 			}
 		}
 	}
 
 	public void evaluatePlayers() {
+		discardPile.clear();
 		tieBreaking();
 		// normal condition， only one has the maxBP
 		if (players.size() == 1) {
 			isTournamentsOver = true;
 			awardQuestWinners(1);
+		} else if (roundsPlayed > 0) {
+			isTournamentsOver = true;
+			awardQuestWinners(2);
+		} else {
+			roundsPlayed++;
 		}
-		// tie-breaking condition
-		if (players.size() > 1) {
-			for (int i = 0; i < players.size(); i++) {
-				//discardPile.clear();
-				removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
-			}
-			tieBreaking();
-			if (players.size() == 1) {
-				isTournamentsOver = true;
-				awardQuestWinners(1);
-			} else if (players.size() > 1) {
-				isTournamentsOver = true;
-				awardQuestWinners(2);
-			}
-		}
-		
-		for(int i=0; i<players.size(); i++) {
+
+		for (int i = 0; i < players.size(); i++) {
 			removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
 		}
 	}
@@ -128,12 +122,12 @@ public class Tournaments {
 				p.addShields(shieldsToAward2);
 		}
 	}
-	
+
 	public void addToStash(AdventureCard c) {
 		tournamentStash.add(c);
 	}
-	
-	public ArrayList<AdventureCard> getStash(){
+
+	public ArrayList<AdventureCard> getStash() {
 		return tournamentStash;
 	}
 
@@ -154,7 +148,7 @@ public class Tournaments {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-	
+
 	public int getBonus() {
 		return bonus;
 	}

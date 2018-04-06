@@ -180,7 +180,11 @@ public class Game {
 			adventureDeck.discard(c);
 		}
 
-		endTurn();
+		if(activeTournaments.isTournamentsOver()) {
+			endTurn();
+		} else {
+			currentStatus = GameStatus.PLAYING_TOUR;
+		}
 
 		return tourDiscard;
 	}
