@@ -5,7 +5,7 @@ public class Amours extends AdventureCard {
 	private int bid;
 
 	public Amours() {
-		super("Amours", AdventureType.AMOURS);
+		super("Amour", AdventureType.AMOURS);
 		battlePoint = 10;
 		bid = 1;
 	}

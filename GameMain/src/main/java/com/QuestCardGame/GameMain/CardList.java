@@ -45,7 +45,26 @@ public class CardList {
 			}
 		}
 		foeScanner.close();
-	}
+	
+		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
+		Scanner AllyScanner = new Scanner(new File("./src/resources/AllyList.txt"));
+		while (AllyScanner.hasNext()) {
+			String[] cardInfo = AllyScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				Ally a = new Ally(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]),Integer.parseInt(cardInfo[3]),
+						Integer.parseInt(cardInfo[4]),cardInfo[5]);
+				adventureDeck.addCard(a);
+			}
+		}
+		AllyScanner.close();
+		
+		for (int i = 0; i < 8; i++) {
+			Amours am = new Amours();
+			adventureDeck.addCard(am);
+		}
+		
+	}   
 	
 	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
 		
@@ -152,14 +171,14 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
 		adventureDeck.addCard(new Foe("Evil Knight", 20, 30));
 		adventureDeck.addCard(new Weapon("Lance", 20));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
-		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
+		adventureDeck.addCard(new Amours());
+		adventureDeck.addCard(new Ally("Sir Lancelot",15,0,25,"Defend_the_Queen's_Honor"));
+		adventureDeck.addCard(new Ally("King Arthur",10,2,0,"NULL"));
 		
 		
 		//Player 1 hand
-		adventureDeck.addCard(new Foe("Saxons", 10, 20));
-		adventureDeck.addCard(new Foe("Boar", 5, 15));
+		adventureDeck.addCard(new Ally("Sir Lancelot",15,0,25,"Defend_the_Queen's_Honor"));
+		adventureDeck.addCard(new Ally("King Arthur",10,2,0,"NULL"));
 		adventureDeck.addCard(new Weapon("Sword", 10));
 		adventureDeck.addCard(new Weapon("Dagger", 5));
 		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
@@ -169,7 +188,7 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Sword", 10));
 		adventureDeck.addCard(new Weapon("Dagger", 5));
 		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
-		adventureDeck.addCard(new Weapon("Horse", 10));
+		adventureDeck.addCard(new Amours());
 	}
 		
 	public static void populateRiggedStoryCards(Deck storyDeck) throws FileNotFoundException {
