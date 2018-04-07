@@ -92,7 +92,7 @@ public class Quest {
 		else {
 			currentPlayer = null;
 			iter = players.listIterator(); //reset to beginning
-			if(currentStage >= 0 && stages[currentStage].getIsTest()){
+			if(currentStage >= 0 && currentStage < totalStages && stages[currentStage].getIsTest()){
 				biddingRound++;
 			}
 			if(players.size() == 0) {
