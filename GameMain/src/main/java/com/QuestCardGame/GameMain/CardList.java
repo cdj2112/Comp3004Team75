@@ -57,7 +57,19 @@ public class CardList {
 				storyDeck.addCard(f);
 			}
 		}
+		
+		// Format Tournament_Name;bonusShields
+				Scanner tournamentScanner = new Scanner(new File("./src/resources/TournamentList.txt"));
+				while (tournamentScanner.hasNext()) {
+					String[] cardInfo = tournamentScanner.next().split(";");
+					int amount = Integer.parseInt(cardInfo[1]);
+					for (int i = 0; i < amount; i++) {
+						TournamentCard f = new TournamentCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+						storyDeck.addCard(f);
+					}		
 	}
+}
+
 	
 	public static void populateRiggedAdventureCards(Deck adventureDeck) {
 		
@@ -155,7 +167,7 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
 		adventureDeck.addCard(new Weapon("Horse", 10));
 	}
-	
+		
 	public static void populateRiggedStoryCards(Deck storyDeck) throws FileNotFoundException {
 		populateStoryCards(storyDeck);
 		storyDeck.addCard(new QuestCard("Boar Hunt", 2));
