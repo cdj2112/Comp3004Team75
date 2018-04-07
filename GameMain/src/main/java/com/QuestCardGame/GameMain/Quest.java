@@ -95,7 +95,10 @@ public class Quest {
 			if(currentStage >= 0 && stages[currentStage].getIsTest()){
 				biddingRound++;
 			}
-			if(players.size() == 0) isQuestOver = true;
+			if(players.size() == 0) {
+				isQuestOver = true;
+				clearQuest();
+			}
 			return null;
 		}
 	}
@@ -169,6 +172,16 @@ public class Quest {
 	public void playerDropout() {
 		iter.remove();
 	}
+	
+	public void closeBidding() {
+		currentBids = -1;
+		biddingRound = 0;
+		currentStage++;
+		if(currentStage >= totalStages) {
+			isQuestOver = true;
+			awardQuestWinners();
+		}
+	}
 
 	public boolean isQuestOver() {
 		return isQuestOver;
@@ -218,6 +231,10 @@ public class Quest {
 	
 	public boolean isPlayingTest() {
 		return stages[currentStage].getIsTest();
+	}
+	
+	public int getBids() {
+		return currentBids;
 	}
 	
 	public void clearQuest() {

@@ -12,7 +12,7 @@ public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 	
 	public static enum GameStatus {
-		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, TEST_BIDDING,
+		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, TEST_BIDDING, BID_DISCARD
 	};
 
 	private GameStatus currentStatus;
@@ -245,12 +245,22 @@ public class Game {
 		adventureDeck.discard(c);
 		logger.info("Player " + p.getPlayerNumber() + ": DISCARD ["+c.getName()+"]");
 		if (currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.END_TURN_DISCARD) {
+			checkHandSizes();
+		} else if (currentStatus == GameStatus.BID_DISCARD) {
 			int playerIndex = -1;
 			for (int i = 0; i < numPlayers; i++) {
 				if (players[i] == p)
 					playerIndex = i;
 			}
-			checkHandSizes();
+			toDiscard[playerIndex] = Math.max(0, toDiscard[playerIndex] - 1);
+			boolean done = true;
+			for(int d : toDiscard) {
+				done = done && d == 0;
+			}
+			if(done) {
+				activeQuest.closeBidding();
+				getNextActiveQuestPlayer();
+			}
 		}
 	}
 
@@ -317,23 +327,31 @@ public class Game {
 				for (Player qP : questPlayers) {
 					playerDrawAdventureCard(qP);
 				}
-			} else if (currentStatus == GameStatus.TEST_BIDDING && activeQuest.getPlayers().size() > 0) {
+			} else if (currentStatus == GameStatus.TEST_BIDDING) {
 				if(activeQuest.getPlayers().size() == 1) {
-					
+					currentStatus = GameStatus.BID_DISCARD;
+					Player curPlayer = activeQuest.getNextPlayer();
+					for (int i = 0; i < numPlayers; i++) {
+						if (players[i] == curPlayer)
+							toDiscard[i] = activeQuest.getBids() - curPlayer.getBids();
+					}
+					return curPlayer;
 				}
-			} else if (activeQuest.isQuestOver()) {
-				// TODO: perhaps the game should award winners? for now in quest
-				// game should remove any cards left except allies?
-				// game should award adventure cards
-				// handle max cards, force discard
-				int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
-				for (int i = 0; i < backToSponsor; i++) {
-					playerDrawAdventureCard(sponsor);
-				}
-				endTurn();
-				return null;
+			} else if (currentStatus == GameStatus.BID_DISCARD) {
+				currentStatus = GameStatus.PLAYING_QUEST;
 			}
 			return getNextActiveQuestPlayer();
+		} else if (activeQuest.isQuestOver()) {
+			// TODO: perhaps the game should award winners? for now in quest
+			// game should remove any cards left except allies?
+			// game should award adventure cards
+			// handle max cards, force discard
+			int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
+			for (int i = 0; i < backToSponsor; i++) {
+				playerDrawAdventureCard(sponsor);
+			}
+			endTurn();
+			return null;
 		}
 
 		return p;
