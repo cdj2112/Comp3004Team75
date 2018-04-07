@@ -5,4 +5,4 @@ King's_Recognition;2
 Plauge;1
 Pox;1
 Prosperity_Throughout_the_Realm;1
-Queen's_Favour;2
+Queen's_Favor;2
