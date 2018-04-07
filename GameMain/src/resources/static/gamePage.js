@@ -19,6 +19,8 @@
         updateDiscard(gameStatus.toDiscard);
         updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
 
+
+        document.getElementById("drawStoryCard").onclick = (gameStatus.currentStatus === "IDLE" && gameStatus.activePlayer===playerIdx) ? drawStoryCard : null;
         if(gameStatus.storyCard){
             document.getElementById('storyCard').src = gameStatus.storyCard.url;
         } else {
@@ -290,7 +292,6 @@
     function drawStoryCard(){
     	stompClient.send("/command/drawStoryCard");
     }
-    document.getElementById("drawStoryCard").onclick = drawStoryCard;
 
     function acceptDeclineSponsor(accept){
     	return function(){
