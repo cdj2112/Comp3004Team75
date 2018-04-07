@@ -32,6 +32,7 @@ public class CardList {
 				adventureDeck.addCard(w);
 			}
 		}
+		weaponScanner.close();
 		
 		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
 		Scanner foeScanner = new Scanner(new File("./src/resources/FoeList.txt"));
@@ -43,6 +44,19 @@ public class CardList {
 				adventureDeck.addCard(f);
 			}
 		}
+		foeScanner.close();
+		
+		//Format Test_Name;Amount;MinBids
+		Scanner testScanner = new Scanner(new File("./src/rescources/TestList.txt"));
+		while(testScanner.hasNext()) {
+			String[] cardInfo = testScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for(int i = 0; i<amount; i++) {
+				Test t = new Test(cardInfo[0], Integer.parseInt(cardInfo[2]));
+				adventureDeck.addCard(t);
+			}
+		}
+		testScanner.close();
 	}
 	
 	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
@@ -57,6 +71,7 @@ public class CardList {
 				storyDeck.addCard(f);
 			}
 		}
+		questScanner.close();
 	}
 	
 	public static void populateRiggedAdventureCards(Deck adventureDeck) {
