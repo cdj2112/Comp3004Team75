@@ -78,6 +78,7 @@ public class Game {
 		int i = 0;
 		for (Player p : players) {
 			correctCards = correctCards && p.getHand().size() <= 12;
+			toDiscard[i] = Math.max(0, p.getHand().size() - 12);
 			i++;
 		}
 
