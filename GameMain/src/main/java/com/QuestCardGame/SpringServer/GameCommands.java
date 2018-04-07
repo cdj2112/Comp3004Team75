@@ -98,6 +98,31 @@ public class GameCommands {
 		game.evaluatePlayerEndOfStage(pdr.getPlayer());
 		return buildGameStatus();
 	}
+	
+	@MessageMapping("/acceptTournament")
+	@SendTo("/status/gameStatus")
+	public GameTransit acceptDeclineTournament(PlayerDecisionRequest pdr) {
+		Game game = QuestSpringApplication.getGame();
+		Player p = game.getPlayer(pdr.getPlayer());
+		game.acceptDeclineTour(p, pdr.getAccept());
+		return buildGameStatus();
+	}
+	
+	@MessageMapping("/finalzeTournament")
+	@SendTo("status/gameStatus")
+	public GameTransit finalizeTournament() {
+		Game game = QuestSpringApplication.getGame();
+		game.finalizePlayTour();
+		return buildGameStatus();
+	}
+	
+	@MessageMapping("/playTournament")
+	@SendTo("status/gameStatus")
+	public GameTransit playTournament() {
+		Game game = QuestSpringApplication.getGame();
+		game.EvalTour();
+		return buildGameStatus();
+	}
 
 	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
