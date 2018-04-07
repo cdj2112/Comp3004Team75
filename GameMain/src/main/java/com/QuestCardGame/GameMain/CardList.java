@@ -32,6 +32,7 @@ public class CardList {
 				adventureDeck.addCard(w);
 			}
 		}
+		weaponScanner.close();
 		
 		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
 		Scanner foeScanner = new Scanner(new File("./src/resources/FoeList.txt"));
@@ -43,6 +44,7 @@ public class CardList {
 				adventureDeck.addCard(f);
 			}
 		}
+		foeScanner.close();
 	}
 	
 	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
@@ -57,17 +59,19 @@ public class CardList {
 				storyDeck.addCard(f);
 			}
 		}
+		questScanner.close();
 		
 		// Format Tournament_Name;bonusShields
-				Scanner tournamentScanner = new Scanner(new File("./src/resources/TournamentList.txt"));
-				while (tournamentScanner.hasNext()) {
-					String[] cardInfo = tournamentScanner.next().split(";");
-					int amount = Integer.parseInt(cardInfo[1]);
-					for (int i = 0; i < amount; i++) {
-						TournamentCard f = new TournamentCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
-						storyDeck.addCard(f);
-					}		
-	}
+		Scanner tournamentScanner = new Scanner(new File("./src/resources/TournamentList.txt"));
+		while (tournamentScanner.hasNext()) {
+			String[] cardInfo = tournamentScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for (int i = 0; i < amount; i++) {
+				TournamentCard f = new TournamentCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				storyDeck.addCard(f);
+			}		
+		}
+		tournamentScanner.close();
 }
 
 	
