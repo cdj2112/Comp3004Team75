@@ -500,7 +500,8 @@ public class Game {
 	public void clearAllAllies(){
 		for (int i = 0; i < numPlayers; i++){
 			for (AdventureCard c: players[i].getPlay()){
-				if (c instanceof Ally) playerDiscardAdventrueCard(players[i],(AdventureCard) c);
+				if (c.getCardType() == AdventureCard.AdventureType.ALLY) 
+					playerDiscardAdventrueCard(players[i],(AdventureCard) c);
 			}
 		}
 	}
