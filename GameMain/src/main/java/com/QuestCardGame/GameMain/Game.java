@@ -196,8 +196,10 @@ public class Game {
 	
 	public void placeBid(int bid) {
 		Player p = getCurrentActivePlayerObj();
-		activeQuest.makeBid(bid);
-		getNextActiveQuestPlayer();
+		int maxBids = p.getBids() + p.getHand().size();
+		if(bid > maxBids)return;
+		boolean accepted = activeQuest.makeBid(bid);
+		if(accepted)getNextActiveQuestPlayer();
 	}
 	
 	public void playerDropOut() {
