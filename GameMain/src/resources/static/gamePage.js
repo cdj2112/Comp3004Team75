@@ -35,6 +35,13 @@
                 }));
             }, 1000);
         }
+
+        if(gameStatus.currentStatus === 'EVAL_TOURNAMENT' && gameStatus.activePlayer === playerIdx && !timeout){
+            timeout = setTimeout(function(){
+                timeout = null;
+                stompClient.send("/command/playTournament", {}, JSON.stringify({}));
+            }, 1000);
+        }
 	}
 
     function updateButtons(status, active) {
@@ -44,10 +51,11 @@
 		var acceptButton = document.getElementById("acceptButton");
         var declineButton = document.getElementById("declineButton");
 
-        var isVisible = (status === "SPONSORING" || status === "BUILDING_QUEST" || status === "ACCEPTING_QUEST" || status === "PLAYING_QUEST") && playerIdx === active;
+        var isVisible = (status === "SPONSORING" || status === "BUILDING_QUEST" || status === "ACCEPTING_QUEST" 
+            || status === "PLAYING_QUEST" || status==="ENTERING_TOUR" || status==="PLAYING_TOUR") && playerIdx === active;
 
         acceptButton.className = isVisible ? "" : "invisible";
-		declineButton.className = (isVisible && status!=="BUILDING_QUEST" && status !== "PLAYING_QUEST") ? "" : "invisible";
+		declineButton.className = (isVisible && status!=="BUILDING_QUEST" && status !== "PLAYING_QUEST" && status!=="PLAYING_TOUR") ? "" : "invisible";
 
         if(status === "SPONSORING"){
             acceptButton.onclick = acceptDeclineSponsor(true);
@@ -58,8 +66,14 @@
         } else if(status==="ACCEPTING_QUEST"){
             acceptButton.onclick = acceptDeclineQuest(true);
             declineButton.onclick = acceptDeclineQuest(false);
-        } else if (status="PLAYING_QUEST") {
+        } else if (status==="PLAYING_QUEST") {
             acceptButton.onclick = finalizePlay;
+            declineButton.onclick = null;
+        } else if (status==="ENTERING_TOUR") {
+            acceptButton.onclick = acceptDeclineTournament(true);
+            declineButton.onclick = acceptDeclineTournament(false);
+        } else if (status==="PLAYING_TOUR") { 
+            acceptButton.onclick = finalizeTournament;
             declineButton.onclick = null;
         } else {
             acceptButton.onclick = declineButton.onclick = null;
@@ -318,6 +332,19 @@
 
     function finalizePlay(ev){
         stompClient.send("/command/finalizePlay", {}, JSON.stringify({}))
+    }
+
+    function acceptDeclineTournament(accept){
+        return function(){
+            stompClient.send("/command/acceptTournament", {}, JSON.stringify({
+                accept: accept,
+                player: playerIdx,
+            }))
+        } 
+    }
+
+    function finalizeTournament(ev){
+        stompClient.send("/command/finalizeTournament", {}, JSON.stringify({}));
     }
 
     function dragCardStart(ev){

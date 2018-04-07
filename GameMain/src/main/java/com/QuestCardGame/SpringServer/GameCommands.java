@@ -108,7 +108,7 @@ public class GameCommands {
 		return buildGameStatus();
 	}
 	
-	@MessageMapping("/finalzeTournament")
+	@MessageMapping("/finalizeTournament")
 	@SendTo("status/gameStatus")
 	public GameTransit finalizeTournament() {
 		Game game = QuestSpringApplication.getGame();
