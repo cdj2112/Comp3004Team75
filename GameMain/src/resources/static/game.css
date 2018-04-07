@@ -55,10 +55,6 @@
 	overflow: hidden;
 }
 
-.playerPlay.active{
-	border: 1px solid red;
-}
-
 .lowerPlayer > .playerInfo {
 	display:inline-block;
 	position: relative;
@@ -171,6 +167,9 @@
 .stageContainer {
 	width: calc(100% - 10px);
 	height: 20%;
+}
+
+.active {
 	border: 1px solid red;
 }
 

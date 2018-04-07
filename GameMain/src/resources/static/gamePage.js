@@ -12,7 +12,7 @@
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
         updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST');
         if(gameStatus.currentQuest){
-            updateQuest(gameStatus.currentQuest);
+            updateQuest(gameStatus.currentQuest, gameStatus.currentStatus, gameStatus.activePlayer);
         } else {
             clearQuest();
         }
@@ -223,17 +223,18 @@
         }
     }
 
-    function updateQuest(quest){
+    function updateQuest(quest, status, active){
         for(var i =0; i< 5; i++){
             var stageDiv = document.getElementById('stage'+i);
             if(i<quest.stages.length){
                 var stage = quest.stages[i];
                 stageDiv.style.display = '';
-                stageDiv.ondragover = function(ev){
+                stageDiv.ondragover = function (ev){
                     ev.preventDefault();
                     return false;
                 };
-                stageDiv.ondrop = dropCardOnStage(i);
+                stageDiv.ondrop = (status==='BUILDING_QUEST' && active === playerIdx) ? dropCardOnStage(i) : null;
+                stageDiv.className = (status==='BUILDING_QUEST' && active === playerIdx) ? 'stageContainer active' : 'stageContainer';
                 matchCardsDom(stage.cards, stageDiv, 'stageCard', true);
             } else {
                 stageDiv.style.display = 'none';
