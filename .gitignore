@@ -3,3 +3,5 @@
 \.recommenders/
 
 GameMain/logs/
+
+*.db
