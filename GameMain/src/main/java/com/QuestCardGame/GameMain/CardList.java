@@ -72,8 +72,6 @@ public class CardList {
 			}		
 		}
 		tournamentScanner.close();
-}
-
 	
 		//Format EventName_Name;Amount
 		Scanner eventScanner = new Scanner(new File("./src/resources/EventList.txt"));
@@ -85,9 +83,8 @@ public class CardList {
 				storyDeck.addCard(f);
 			}
 		}
-	}
-	evenScanner.close();
-
+		eventScanner.close();
+}
 	public static void populateRiggedAdventureCards(Deck adventureDeck) {
 
 		//Extra

@@ -100,10 +100,6 @@ public class Player {
 		return shieldsNeeded[rank];
 	}
 	
-	public int getRank() {
-		return rank;
-	}
-	
 	public String getRankName() {
 		return rankNames[rank];
 	}
