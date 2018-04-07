@@ -370,10 +370,9 @@ public class Game {
 		if (done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
 			activePlayer = getNextActivePlayer();
 			if (activePlayer == sponsorIndex) {
-				//check for test here
-				currentStatus = GameStatus.PLAYING_QUEST;
 				activeQuest.startQuest();
 				activeQuest.getNextPlayer();
+				currentStatus = activeQuest.isPlayingTest() ? GameStatus.PLAYING_QUEST : GameStatus.TEST_BIDDING;
 			} else {
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 			}
