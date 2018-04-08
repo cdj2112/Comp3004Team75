@@ -556,13 +556,13 @@ public class Game {
 	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
 		boolean result = activeQuest.evaluatePlayer(players[player]);
 
-		getNextActiveQuestPlayer();
-
 		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
 		for (AdventureCard c : questDiscard) {
 			logger.info("Card " + c.getName() + ": Discarded");
 			adventureDeck.discard(c);
 		}
+		
+		getNextActiveQuestPlayer();
 
 		/*if (activeQuest.isQuestOver()) {
 			// TODO: perhaps the game should award winners? for now in quest
