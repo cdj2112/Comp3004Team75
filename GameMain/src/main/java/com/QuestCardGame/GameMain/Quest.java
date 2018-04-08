@@ -83,6 +83,10 @@ public class Quest {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+	
+	public boolean hasPlayer(Player p) {
+		return players.contains(p);
+	}
 
 	public int getCurrentStageIndex() {
 		return currentStage;
