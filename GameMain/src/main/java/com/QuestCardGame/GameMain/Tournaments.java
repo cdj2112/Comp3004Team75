@@ -100,7 +100,10 @@ public class Tournaments {
 
 		for (int i = 0; i < players.size(); i++) {
 			removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
+			removeCardsOfType(players.get(i), AdventureCard.AdventureType.AMOURS);
+			removeCardsOfType(players.get(i), AdventureCard.AdventureType.ALLY);
 		}
+		
 	}
 
 	public boolean isTournamentsOver() {
