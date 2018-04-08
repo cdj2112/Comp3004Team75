@@ -374,7 +374,7 @@ public class Game {
 			if (activePlayer == sponsorIndex) {
 				activeQuest.startQuest();
 				activeQuest.getNextPlayer();
-				currentStatus = activeQuest.isPlayingTest() ? GameStatus.PLAYING_QUEST : GameStatus.TEST_BIDDING;
+				currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
 			} else {
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 			}
@@ -496,7 +496,7 @@ public class Game {
 	 *         game has done a full circle
 	 */
 	public int getCurrentActivePlayer() {
-		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE) {
+		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE || currentStatus == GameStatus.TEST_BIDDING || currentStatus == GameStatus.BID_DISCARD) {
 			return getCurrentActiveQuestPlayer();
 		} else if (currentStatus == GameStatus.PLAYING_TOUR) {
 			return getCurrentActiveTourPlayer();
