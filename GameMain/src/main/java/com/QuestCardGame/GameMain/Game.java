@@ -592,11 +592,15 @@ public class Game {
 	}
 	
 	public int getSponsorIndex() {
-		if(sponsor == null) {
+		return getPlayerIndex(sponsor);
+	}
+	
+	public int getPlayerIndex(Player p) {
+		if(p == null) {
 			return -1;
 		}
 		for(int i = 0; i<players.length; i++) {
-			if(players[i]==sponsor) return i;
+			if(players[i]==p) return i;
 		}
 		return -1;
 	}

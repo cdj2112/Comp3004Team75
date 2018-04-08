@@ -61,6 +61,10 @@ public class Tournaments {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+	
+	public boolean hasPlayer(Player p) {
+		return players.contains(p);
+	}
 
 	public void tieBreaking() {
 		int maxBP = 0;

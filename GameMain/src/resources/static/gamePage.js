@@ -14,7 +14,7 @@
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
 
         var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || []
-        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR', hide);
+        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR', hide, gameStatus.canPlay);
 
         if(gameStatus.currentQuest){
             updateQuest(gameStatus.currentQuest, gameStatus.currentStatus, gameStatus.activePlayer);
@@ -139,7 +139,7 @@
         }
     }
 
-    function updatePlayer(players, playing, hide){
+    function updatePlayer(players, playing, hide, canPlay){
         console.log(hide);
         var mainPlayer = document.getElementsByClassName('lowerPlayer')[0];
         var mainHand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
@@ -161,7 +161,7 @@
             if(idx>=0) hide.splice(idx, 1);
         }
 
-        if(playing) {
+        if(playing && canPlay[playerIdx]) {
             mainPlay.className = 'playerPlay active';
             mainPlay.ondragover = function(ev){
                 ev.preventDefault();
