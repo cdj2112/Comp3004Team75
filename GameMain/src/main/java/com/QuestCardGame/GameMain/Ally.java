@@ -39,4 +39,8 @@ public class Ally extends AdventureCard {
 	public String getFrontImagePath() {
 		  return "./src/resources/Cards/Ally/"+cardName+".png";
 	}
+
+	public String getUrlPath() {
+		return "/Cards/Ally/"+cardName+".png";
+	}
 }

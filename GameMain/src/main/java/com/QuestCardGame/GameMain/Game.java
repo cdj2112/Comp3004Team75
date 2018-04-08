@@ -36,7 +36,7 @@ public class Game {
 	// tour
 	private Tournaments activeTournaments;
 
-	Game(int nP, int nAIP, boolean rigged) {
+	public Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
@@ -80,15 +80,17 @@ public class Game {
 		int i = 0;
 		for (Player p : players) {
 			correctCards = correctCards && p.getHand().size() <= 12;
+			toDiscard[i] = Math.max(0, p.getHand().size() - 12);
 			i++;
 		}
 
 		sponsor = null;
 		activeQuest = null;
 		activeTournaments = null;
-		storyDeck.discard(currentStoryCard);
-		if(currentStoryCard != null)
+		if(currentStoryCard != null) {
 			logger.info("Story Card " + currentStoryCard.getName() + ": Discarded");
+		}
+		storyDeck.discard(currentStoryCard);
 		currentStoryCard = null;
 
 		if (correctCards) {
@@ -589,6 +591,24 @@ public class Game {
 	public Quest getActiveQuest() {
 		return activeQuest;
 	}
+	
+	public int getSponsorIndex() {
+		return getPlayerIndex(sponsor);
+	}
+	
+	public int getPlayerIndex(Player p) {
+		if(p == null) {
+			return -1;
+		}
+		for(int i = 0; i<players.length; i++) {
+			if(players[i]==p) return i;
+		}
+		return -1;
+	}
+	
+	public Tournaments getActiveTournament() {
+		return activeTournaments;
+	}
 
 	public int activeStages() {
 		if (activeQuest != null) {
@@ -608,6 +628,10 @@ public class Game {
 	public int getPlayerDiscard(int i) {
 		toDiscard[i] = Math.max(players[i].getHand().size() - 12, 0);
 		return toDiscard[i];
+	}
+	
+	public int[] getAllDiscard() {
+		return toDiscard;
 	}
 
 	private boolean isValidCardPlay(Player p, AdventureCard c) {
