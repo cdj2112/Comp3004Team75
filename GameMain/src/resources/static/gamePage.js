@@ -66,7 +66,10 @@
         var bitCounter = document.getElementById("bidCounter");
         bitCounter.className = status === "TEST_BIDDING" && playerIdx === active ? "" : "invisible";
         bids = 0;
-        document.getElemntById('bidNumber').innerHTML = bids;
+        document.getElementById('bidNumber').innerHTML = bids;
+
+        document.getElementById("minus").onclick = incrementDecrementBid(false);
+        document.getElementById("plus").onclick = incrementDecrementBid(true);
 
         if(status === "SPONSORING"){
             acceptButton.onclick = acceptDeclineSponsor(true);
@@ -389,7 +392,7 @@
         return function(ev){
             if(increment) bids++;
             else bids--;
-            document.getElemntById('bidNumber').innerHTML = bids;
+            document.getElementById('bidNumber').innerHTML = bids;
         }
     }
 
