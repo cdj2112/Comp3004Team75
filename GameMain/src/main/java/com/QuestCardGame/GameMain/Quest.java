@@ -109,7 +109,6 @@ public class Quest {
 		
 		discardPile.clear();
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-		removeCardsOfType(p, AdventureCard.AdventureType.ALLY);
 		
 		if(!playerWins) {
 			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
