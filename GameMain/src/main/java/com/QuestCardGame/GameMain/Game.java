@@ -300,6 +300,7 @@ public class Game {
 				played[i] = false;
 			} else {
 				p.playCard(c);
+				if(activeTournaments != null) activeTournaments.addToStash(c);
 				played[i] = true;
 			}
 		}
