@@ -13,6 +13,10 @@ public class EmptyAIStrategy extends AIPlayer {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public ArrayList<AdventureCard> evalTour() {
+		return null;
+	}
 
 	public boolean doISponsorAQuest() {
 		// TODO Auto-generated method stub
@@ -46,6 +50,10 @@ public class EmptyAIStrategy extends AIPlayer {
 
 	public ArrayList<AdventureCard> getCardsToDiscard() {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	public ArrayList<AdventureCard> evalQuestStage() {
 		return null;
 	}
 

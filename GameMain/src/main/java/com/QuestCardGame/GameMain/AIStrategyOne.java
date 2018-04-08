@@ -54,6 +54,10 @@ public class AIStrategyOne extends AIPlayer {
 		game.finalizePlayTour();
 		return cardsForTournament;
 	}
+	
+	public ArrayList<AdventureCard> evalTour() {
+		return game.EvalTour();
+	}
 
 	public boolean doISponsorAQuest() {
 		QuestCard quest = ((QuestCard)game.getActiveStoryCard());
@@ -194,6 +198,11 @@ public class AIStrategyOne extends AIPlayer {
 		}	
 		
 		return cardsToDiscard;
+	}
+	
+	public ArrayList<AdventureCard> evalQuestStage() {
+		int i = game.getPlayerIndex(player);
+		return game.evaluatePlayerEndOfStage(i);
 	}
 	
 	public void endTurn() {

@@ -22,6 +22,8 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 				return this.createQuest();
 			case PLAYING_QUEST:
 				return this.playCardsForQuestStage();
+			case EVAL_QUEST_STAGE:
+				return this.evalQuestStage();
 			case ENTERING_TOUR:
 				this.doIJoinTournament();
 				return new ArrayList<AdventureCard>();
@@ -29,6 +31,8 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 				return this.playCardsForTournament();	
 			case PRE_TOUR_DISCARD: 
 				return this.getCardsToDiscard();
+			case EVAL_TOUR:
+				return this.evalTour();
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			case IDLE:

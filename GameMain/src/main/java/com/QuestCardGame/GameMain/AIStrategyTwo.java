@@ -51,6 +51,10 @@ public class AIStrategyTwo extends AIPlayer {
 		
 		return cardsToPlay;
 	}
+	
+	public ArrayList<AdventureCard> evalTour() {
+		return game.EvalTour();
+	}
 
 	public boolean doISponsorAQuest() {
 		boolean sponsorQuest = true;
@@ -202,6 +206,11 @@ public class AIStrategyTwo extends AIPlayer {
 			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] discarded [" + c.getName() + "]");
 		}	
 		return cardsToDiscard;
+	}
+	
+	public ArrayList<AdventureCard> evalQuestStage() {
+		int i = game.getPlayerIndex(player);
+		return game.evaluatePlayerEndOfStage(i);
 	}
 	
 	public void endTurn() {

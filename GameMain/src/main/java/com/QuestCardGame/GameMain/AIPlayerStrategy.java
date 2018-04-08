@@ -16,6 +16,8 @@ public interface AIPlayerStrategy {
 	
 	ArrayList<AdventureCard> playCardsForTournament();
 	
+	ArrayList<AdventureCard> evalTour();
+	
 	boolean doISponsorAQuest();
 	
 	ArrayList<AdventureCard> createQuest();
@@ -29,6 +31,8 @@ public interface AIPlayerStrategy {
 	ArrayList<AdventureCard> discardAfterWinningTest();
 	
 	ArrayList<AdventureCard> getCardsToDiscard();
+	
+	ArrayList<AdventureCard> evalQuestStage();
 	
 	ArrayList<AdventureCard> playTurn();
 	
