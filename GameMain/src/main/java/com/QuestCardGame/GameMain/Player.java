@@ -115,6 +115,10 @@ public class Player {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
 	}
 	
+	public String getRankUrlPath() {
+		return "/Cards/Rank/"+getRankName()+".png";
+	}
+	
 	public boolean isAIPlayer() {
 		return false;
 	}

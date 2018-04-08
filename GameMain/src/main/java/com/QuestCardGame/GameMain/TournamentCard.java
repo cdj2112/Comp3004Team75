@@ -24,5 +24,13 @@ public class TournamentCard extends Card {
 	public String getBackImagePath() {
 		return "./src/resources/Cards/Backs/Story.png";
 	}
+	
+	public String getUrlPath() {
+		return "/Cards/Tournament/"+cardName+".png";
+	}
+	
+	public String getBackUrlPath() {
+		return "/Cards/Backs/Story.png";
+	}
 
 }
