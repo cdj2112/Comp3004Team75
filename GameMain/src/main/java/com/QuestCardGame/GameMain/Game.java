@@ -496,7 +496,8 @@ public class Game {
 	 *         game has done a full circle
 	 */
 	public int getCurrentActivePlayer() {
-		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE || currentStatus == GameStatus.TEST_BIDDING || currentStatus == GameStatus.BID_DISCARD) {
+		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE 
+				|| currentStatus == GameStatus.TEST_BIDDING || currentStatus == GameStatus.BID_DISCARD) {
 			return getCurrentActiveQuestPlayer();
 		} else if (currentStatus == GameStatus.PLAYING_TOUR) {
 			return getCurrentActiveTourPlayer();
