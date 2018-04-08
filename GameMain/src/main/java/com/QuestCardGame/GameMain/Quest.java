@@ -25,6 +25,7 @@ public class Quest {
 	private int numCardsUsed = 0;
 	private int biddingRound = 0;
 	private int currentBids = 0;
+	private boolean bidMade = false;
 
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -168,6 +169,7 @@ public class Quest {
 	public boolean makeBid(int b) {
 		if(b > currentBids) {
 			currentBids = b;
+			bidMade = true;
 			return true;
 		}
 		return false;
@@ -248,5 +250,9 @@ public class Quest {
 				discardPile.add(c);
 			}
 		}
+	}
+	
+	public boolean bidMade() {
+		return bidMade;
 	}
 }

@@ -421,7 +421,14 @@ public class Game {
 		Player p = activeQuest.getNextPlayer();
 
 		// play has looped a full circle - change status accordingly
-		if (p == null && !activeQuest.isQuestOver()) {
+		if (currentStatus == GameStatus.TEST_BIDDING && activeQuest.getPlayers().size() == 1 && activeQuest.bidMade()) {
+			currentStatus = GameStatus.BID_DISCARD;
+			if(p==null) p = activeQuest.getNextPlayer();
+			for (int i = 0; i < numPlayers; i++) {
+				if (players[i] == p)
+					toDiscard[i] = activeQuest.getBids() - p.getBids();
+			}
+		} else if (p == null && !activeQuest.isQuestOver()) {
 			if (currentStatus == GameStatus.PLAYING_QUEST)
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
 			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
@@ -429,16 +436,6 @@ public class Game {
 				ArrayList<Player> questPlayers = activeQuest.getPlayers();
 				for (Player qP : questPlayers) {
 					playerDrawAdventureCard(qP);
-				}
-			} else if (currentStatus == GameStatus.TEST_BIDDING) {
-				if(activeQuest.getPlayers().size() == 1) {
-					currentStatus = GameStatus.BID_DISCARD;
-					Player curPlayer = activeQuest.getNextPlayer();
-					for (int i = 0; i < numPlayers; i++) {
-						if (players[i] == curPlayer)
-							toDiscard[i] = activeQuest.getBids() - curPlayer.getBids();
-					}
-					return curPlayer;
 				}
 			} else if (currentStatus == GameStatus.BID_DISCARD) {
 				currentStatus = GameStatus.PLAYING_QUEST;
