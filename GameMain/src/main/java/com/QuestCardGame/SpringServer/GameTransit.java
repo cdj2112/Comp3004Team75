@@ -29,6 +29,7 @@ public class GameTransit implements Serializable{
 		
 		if(g.getActiveQuest()!=null){
 			currentQuest = new QuestTransit(g.getActiveQuest());
+			currentQuest.setSponsor(g.getSponsorIndex());
 		}
 		
 		if(g.getActiveTournament()!=null) {

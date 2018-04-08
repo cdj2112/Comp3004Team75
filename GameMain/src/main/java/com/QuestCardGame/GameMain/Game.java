@@ -591,6 +591,16 @@ public class Game {
 		return activeQuest;
 	}
 	
+	public int getSponsorIndex() {
+		if(sponsor == null) {
+			return -1;
+		}
+		for(int i = 0; i<players.length; i++) {
+			if(players[i]==sponsor) return i;
+		}
+		return -1;
+	}
+	
 	public Tournaments getActiveTournament() {
 		return activeTournaments;
 	}

@@ -30,4 +30,5 @@ public abstract class Card {
 	public abstract String getFrontImagePath();
 	public abstract String getBackImagePath();
 	public abstract String getUrlPath();
+	public abstract String getBackUrlPath();
 }

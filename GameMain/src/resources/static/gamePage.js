@@ -9,15 +9,20 @@
 
 	function updateGame(gameStatus){
 		console.log(gameStatus);
+
+        updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
-        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR');
+
+        var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || []
+        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR', hide);
+
         if(gameStatus.currentQuest){
             updateQuest(gameStatus.currentQuest, gameStatus.currentStatus, gameStatus.activePlayer);
         } else {
             clearQuest();
         }
+
         updateDiscard(gameStatus.toDiscard);
-        updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
 
 
         document.getElementById("drawStoryCard").onclick = (gameStatus.currentStatus === "IDLE" && gameStatus.activePlayer===playerIdx) ? drawStoryCard : null;
@@ -109,6 +114,7 @@
                 img.ondrag = !disabledDrag ? dragCard : null;
                 img.ondragend = !disabledDrag ? cardDrop : null;
             }
+            img.src = card.url;
         }
 
         for(var i = 0; i<inDom.length; i++){
@@ -125,7 +131,16 @@
         }
     }
 
-    function updatePlayer(players, playing){
+    function hideArrayCards(cardArray) {
+        for(var c=0;c<cardArray.length;c++){
+            var card = cardArray[c];
+            var cardImg = document.getElementById('card'+card.id);
+            if(cardImg) cardImg.src = card.backUrl;
+        }
+    }
+
+    function updatePlayer(players, playing, hide){
+        console.log(hide);
         var mainPlayer = document.getElementsByClassName('lowerPlayer')[0];
         var mainHand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
         var mainPlay = document.querySelectorAll('.lowerPlayer > .playerPlay')[0];
@@ -136,6 +151,15 @@
         var player = players[playerIdx];
         matchCardsDom(player.hand, mainHand);
         matchCardsDom(player.play, mainPlay, 'playCard', true);
+
+        for(var i=0;i<player.play.length;i++){
+            var inPlay = player.play[i];
+            var idx = hide.findIndex(function(c){
+                console.log(inPlay.id, c.id);
+                return inPlay.id === c.id;
+            });
+            if(idx>=0) hide.splice(idx, 1);
+        }
 
         if(playing) {
             mainPlay.className = 'playerPlay active';
@@ -216,6 +240,8 @@
             }
 
             matchCardsDom(player.play, sidePlay, 'sideCard', true);
+            console.log(hide);
+            hideArrayCards(hide);
 
             sideRank.src = player.rank;
             sideBP.innerHTML = 'Battle Points: '+player.battlePoints;
@@ -250,6 +276,7 @@
                 stageDiv.ondrop = (status==='BUILDING_QUEST' && active === playerIdx) ? dropCardOnStage(i) : null;
                 stageDiv.className = (status==='BUILDING_QUEST' && active === playerIdx) ? 'stageContainer active' : 'stageContainer';
                 matchCardsDom(stage.cards, stageDiv, 'stageCard', true);
+                if(quest.sponsor !== playerIdx && (status !== 'EVAL_QUEST_STAGE' || quest.currentStage !== i)) hideArrayCards(stage.cards);
             } else {
                 stageDiv.style.display = 'none';
                 stageDiv.ondragover = null;
