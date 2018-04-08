@@ -7,6 +7,7 @@
     var draggingCard;
     var timeout;
     var bids = 0;
+    var minimumBid = 0;
 
 	function updateGame(gameStatus){
 		console.log(gameStatus);
@@ -65,11 +66,6 @@
 
         var bitCounter = document.getElementById("bidCounter");
         bitCounter.className = status === "TEST_BIDDING" && playerIdx === active ? "" : "invisible";
-        bids = 0;
-        document.getElementById('bidNumber').innerHTML = bids;
-
-        document.getElementById("minus").onclick = incrementDecrementBid(false);
-        document.getElementById("plus").onclick = incrementDecrementBid(true);
 
         if(status === "SPONSORING"){
             acceptButton.onclick = acceptDeclineSponsor(true);
@@ -295,6 +291,13 @@
                 stageDiv.ondrop = null;
             }
         }
+
+        document.getElementById("minus").onclick = incrementDecrementBid(false);
+        document.getElementById("plus").onclick = incrementDecrementBid(true);
+
+        minimumBid = quest.currentBid;
+        bids = minimumBid +1;
+        document.getElementById('bidNumber').innerHTML = bids;
     }
 
     function clearQuest(){
@@ -392,6 +395,7 @@
         return function(ev){
             if(increment) bids++;
             else bids--;
+            bids = Math.max(bids, minimumBid);
             document.getElementById('bidNumber').innerHTML = bids;
         }
     }

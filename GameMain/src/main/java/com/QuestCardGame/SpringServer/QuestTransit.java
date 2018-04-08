@@ -9,6 +9,7 @@ public class QuestTransit implements Serializable {
 	private StageTransit[] stages;
 	private int currentStage;
 	private int sponsor;
+	private int currentBid;
 	
 	public QuestTransit(Quest q) {
 		Stage[] s = q.getStages();
@@ -17,6 +18,7 @@ public class QuestTransit implements Serializable {
 			stages[i] = new StageTransit(s[i]);
 		}
 		currentStage = q.getCurrentStageIndex();
+		currentBid = q.getBids();
 	}
 	
 	public StageTransit[] getStages() {
@@ -33,5 +35,9 @@ public class QuestTransit implements Serializable {
 	
 	public int getSponsor() {
 		return sponsor;
+	}
+	
+	public int getCurrentBid() {
+		return currentBid;
 	}
 }
