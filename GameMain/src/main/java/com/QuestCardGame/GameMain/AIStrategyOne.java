@@ -19,13 +19,13 @@ public class AIStrategyOne extends AIPlayer {
 		boolean joinTournament = false;
 		if(aPlayerCanWinGame(true) || aPlayerCanEvolve(true)) {
 			joinTournament = true;
-			//game.acceptTournament();
+			game.acceptDeclineTour(player, true);
 			logger.info("A player can win or evolve. AI [ONE] will enter the tournament");
 			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] ENTERED the tournament");
 		}
 		else {
 			joinTournament = false;
-			//game.declineTournament();
+			game.acceptDeclineTour(player, false);
 			logger.info("No player can win or evolve. AI [ONE] will NOT enter the tournament");
 			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] did NOT ENTER the tournament");
 		}
@@ -51,6 +51,7 @@ public class AIStrategyOne extends AIPlayer {
 		}
 		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [ONE] played [" + totalBattlePoints + "] battle points for tournament");
 		game.playerPlayCards(player, cardsForTournament);
+		game.finalizePlayTour();
 		return cardsForTournament;
 	}
 

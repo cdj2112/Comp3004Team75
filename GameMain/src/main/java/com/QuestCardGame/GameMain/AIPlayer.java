@@ -22,12 +22,13 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 				return this.createQuest();
 			case PLAYING_QUEST:
 				return this.playCardsForQuestStage();
-//			case ACCEPTING_TOUR:
-//				return this.doIJoinTournament();
-//			case PLAYING_TOUR:
-//				return this.playCardsForTournament();	
-//			case PRE_TOUR_DISCARD: 
-//				return this.getCardsToDiscard();
+			case ENTERING_TOUR:
+				this.doIJoinTournament();
+				return new ArrayList<AdventureCard>();
+			case PLAYING_TOUR:
+				return this.playCardsForTournament();	
+			case PRE_TOUR_DISCARD: 
+				return this.getCardsToDiscard();
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			case IDLE:

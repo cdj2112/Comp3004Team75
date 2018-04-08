@@ -22,7 +22,7 @@ public class AIStrategyTwo extends AIPlayer {
 	
 	//Always participate
 	public boolean doIJoinTournament() {
-		//game.acceptDeclineTour(this, true);
+		game.acceptDeclineTour(player, true);
 		logger.info("AI strategy [TWO] always enters a tournament");
 		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] ENTERED the tournament");
 		return true;
@@ -47,7 +47,7 @@ public class AIStrategyTwo extends AIPlayer {
 		}
 		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] played [" + totalBattlePoints + "] battle points for tournament");
 		game.playerPlayCards(player, cardsToPlay);
-		//game.finalizePlayTour();
+		game.finalizePlayTour();
 		
 		return cardsToPlay;
 	}
