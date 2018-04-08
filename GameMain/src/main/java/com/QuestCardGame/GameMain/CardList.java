@@ -74,7 +74,10 @@ public class CardList {
 			String[] cardInfo = questScanner.next().split(";");
 			int amount = Integer.parseInt(cardInfo[1]);
 			for (int i = 0; i < amount; i++) {
-				QuestCard f = new QuestCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				String t = cardInfo[3].replace('_', ' ');
+				if(t.equals("NULL")) t = null;
+				else if(t.equals("ALL")) t = "";
+				QuestCard f = new QuestCard(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]), t);
 				storyDeck.addCard(f);
 			}
 		}
@@ -193,7 +196,7 @@ public class CardList {
 		
 	public static void populateRiggedStoryCards(Deck storyDeck) throws FileNotFoundException {
 		populateStoryCards(storyDeck);
-		storyDeck.addCard(new QuestCard("Boar Hunt", 2));
+		storyDeck.addCard(new QuestCard("Boar Hunt", 2, "Boar"));
 	}
 
 }

@@ -3,10 +3,12 @@ package com.QuestCardGame.GameMain;
 public class QuestCard extends Card {
 
 	private int numStages;
+	private String target;
 
-	QuestCard(String n, int nStages) {
+	QuestCard(String n, int nStages, String t) {
 		super(n);
 		numStages = nStages;
+		target = t;
 	}
 
 	public String getName() {
@@ -15,6 +17,10 @@ public class QuestCard extends Card {
 
 	public int getStages() {
 		return numStages;
+	}
+	
+	public String getTarget() {
+		return target;
 	}
 
 	public String getFrontImagePath() {

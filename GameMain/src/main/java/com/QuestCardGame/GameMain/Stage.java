@@ -2,6 +2,8 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 public class Stage {
 
 	private ArrayList<AdventureCard> cards;
@@ -11,8 +13,12 @@ public class Stage {
 	}
 
 	public boolean addCard(AdventureCard newCard) {
+		if(newCard.getCardType() == AdventureType.ALLY || newCard.getCardType() == AdventureType.AMOURS) {
+			return false;
+		}
+		
 		for(AdventureCard c : cards) {
-			if(c.getCardType() == AdventureCard.AdventureType.FOE && newCard.getCardType() == AdventureCard.AdventureType.FOE)
+			if(c.getCardType() == AdventureType.FOE && newCard.getCardType() == AdventureType.FOE)
 				return false;
 			else if(c.getName() == newCard.getName())
 				return false;
@@ -21,10 +27,11 @@ public class Stage {
 		return true;
 	}
 
-	public int getBattlePoints() {
+	public int getBattlePoints(String target) {
 		int total = 0;
 		for (AdventureCard c : cards) {
-			total+=c.getBattlePoint(false); //no special bp for now
+			boolean bonus = target != null && c.getName().contains(target);
+			total+=c.getBattlePoint(bonus); //no special bp for now
 		}
 		return total;
 	}
