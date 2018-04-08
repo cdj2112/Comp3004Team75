@@ -590,6 +590,10 @@ public class Game {
 	public Quest getActiveQuest() {
 		return activeQuest;
 	}
+	
+	public Tournaments getActiveTournament() {
+		return activeTournaments;
+	}
 
 	public int activeStages() {
 		if (activeQuest != null) {

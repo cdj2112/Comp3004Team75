@@ -109,7 +109,7 @@ public class GameCommands {
 	}
 	
 	@MessageMapping("/finalizeTournament")
-	@SendTo("status/gameStatus")
+	@SendTo("/status/gameStatus")
 	public GameTransit finalizeTournament() {
 		Game game = QuestSpringApplication.getGame();
 		game.finalizePlayTour();
@@ -117,7 +117,7 @@ public class GameCommands {
 	}
 	
 	@MessageMapping("/playTournament")
-	@SendTo("status/gameStatus")
+	@SendTo("/status/gameStatus")
 	public GameTransit playTournament() {
 		Game game = QuestSpringApplication.getGame();
 		game.EvalTour();
