@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
 
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 public class Game {
 
 	private static final Logger logger = LogManager.getLogger(Game.class);
@@ -614,8 +616,13 @@ public class Game {
 				return false;
 		}
 
-		if (c.getCardType() == AdventureCard.AdventureType.FOE)
+		boolean alliesOnly = !(currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.PLAYING_TOUR);
+		
+		if (c.getCardType() == AdventureType.FOE || c.getCardType() == AdventureType.TEST) {
 			return false;
+		} else if (alliesOnly && c.getCardType() != AdventureType.ALLY) {
+			return false;
+		}
 
 		return true;
 	}
