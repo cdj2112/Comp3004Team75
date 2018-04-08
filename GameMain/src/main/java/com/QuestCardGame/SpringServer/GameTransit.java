@@ -14,10 +14,12 @@ public class GameTransit implements Serializable{
 	private int activePlayer;
 	private int[] toDiscard;
 	private boolean[] canPlay;
+	private boolean aiPlaying;
 
 	public GameTransit(Game g) {
 		currentStatus = g.getGameStatus();
 		activePlayer = g.getCurrentActivePlayer();
+		aiPlaying = g.getCurrentActivePlayerObj().isAIPlayer();
 
 		playerStatus = new PlayerTransit[g.getNumPlayers()];
 		for (int i = 0; i < g.getNumPlayers(); i++) {
@@ -78,5 +80,9 @@ public class GameTransit implements Serializable{
 	
 	public boolean[] getCanPlay() {
 		return canPlay;
+	}
+	
+	public boolean getAiPlaying() {
+		return aiPlaying;
 	}
 }
