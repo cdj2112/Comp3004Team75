@@ -10,7 +10,7 @@
 	function updateGame(gameStatus){
 		console.log(gameStatus);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
-        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST');
+        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR');
         if(gameStatus.currentQuest){
             updateQuest(gameStatus.currentQuest, gameStatus.currentStatus, gameStatus.activePlayer);
         } else {
@@ -36,7 +36,7 @@
             }, 1000);
         }
 
-        if(gameStatus.currentStatus === 'EVAL_TOURNAMENT' && gameStatus.activePlayer === playerIdx && !timeout){
+        if(gameStatus.currentStatus === 'EVAL_TOUR' && gameStatus.activePlayer === playerIdx && !timeout){
             timeout = setTimeout(function(){
                 timeout = null;
                 stompClient.send("/command/playTournament", {}, JSON.stringify({}));
@@ -293,12 +293,18 @@
             prompt.innerHTML = active === playerIdx ? 'Build Quest' : 'Waiting For Sponsor';
         } else if (status === 'ACCEPTING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Accept Quest?' : 'Waiting For Other Player';
-        } else if(status === 'PRE_QUEST_DISCARD' || status === 'END_TURN_DISCARD') {
+        } else if(status === 'PRE_QUEST_DISCARD' || status === 'END_TURN_DISCARD' || status==='PRE_TOUR_DISCARD') {
             prompt.innerHTML = toDiscard[playerIdx]>0 ? 'Discard '+toDiscard[playerIdx]+' card'+(toDiscard[playerIdx]>1?'s':'') : 'Waiting For Other Player';
         } else if(status === 'PLAYING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Play Cards for Stage' : 'Waiting For Other Player';
         } else if (status === 'EVAL_QUEST_STAGE') {
             prompt.innerHTML = 'Player '+active+' playing stage';
+        } else if (status==="ENTERING_TOUR") {
+            prompt.innerHTML = active === playerIdx ? 'Enter Tournament?' : 'Waiting for other player';
+        } else if (status==="PLAYING_TOUR") {
+            prompt.innerHTML = active === playerIdx ? 'Play Cards For Tournament' : 'Waiting for other player';
+        } else if (status==="EVAL_TOUR") {
+            prompt.innerHTML = 'Playing Tornament';
         } else {
             prompt.innerHTML = 'No prompt set';
         }
