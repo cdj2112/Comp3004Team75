@@ -30,18 +30,18 @@ public class ChivalrousDeed extends EventEffect{
       }
     }
 
-    for (int i = 1; i < game.getNumPlayers(); i++){
-      if(game.getPlayer(i).getNumShields() > leastShield) continue;
-      else if (game.getPlayer(i).getNumShields() == leastShield) leastShieldPlayers.add(game.getPlayer(i));
+    for (int i = 1; i < leastRankedPlayers.size(); i++){
+      if(leastRankedPlayers.get(i).getNumShields() > leastShield) continue;
+      else if (leastRankedPlayers.get(i).getNumShields() == leastShield) leastShieldPlayers.add(leastRankedPlayers.get(i));
       else {
         leastShieldPlayers.clear();
-        leastShieldPlayers.add(game.getPlayer(i));
-        leastShield = game.getPlayer(i).getNumShields();
+        leastShieldPlayers.add(leastRankedPlayers.get(i));
+        leastShield = leastRankedPlayers.get(i).getNumShields();
       }
     }
 
-    for (Player p : leastRankedPlayers){
-      if (leastShieldPlayers.contains(p)) p.addShields(3);
+    for (Player p : leastShieldPlayers){
+      p.addShields(3);
     }
   }
 }
