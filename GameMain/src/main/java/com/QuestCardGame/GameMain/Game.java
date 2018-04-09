@@ -73,7 +73,7 @@ public class Game {
 			else activeQuest = new Quest((QuestCard) storyCard);
 			currentStatus = GameStatus.SPONSORING;
 		}else if (storyCard instanceof EventCard){
-			EventFactory event = new EventFactory((EventCard)storyCard, this);
+			//EventFactory event = new EventFactory((EventCard)storyCard, this);
 			currentStatus =  GameStatus.END_TURN_DISCARD;
 			checkHandSizes();
 		} else if (storyCard instanceof TournamentCard) {
@@ -577,7 +577,7 @@ public class Game {
 		storyDeck = new Deck();
 
 		try {
-			CardList.populateStoryCards(storyDeck);
+			CardList.populateStoryCards(storyDeck, this);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -607,7 +607,7 @@ public class Game {
 		storyDeck = new Deck();
 		try {
 			logger.info("Rigged Story Deck Created");
-			CardList.populateRiggedStoryCards(storyDeck);
+			CardList.populateRiggedStoryCards(storyDeck, this);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

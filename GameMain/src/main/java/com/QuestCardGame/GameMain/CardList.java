@@ -47,7 +47,7 @@ public class CardList {
 		foeScanner.close();
 	}
 
-	public static void populateStoryCards(Deck storyDeck) throws FileNotFoundException {
+	public static void populateStoryCards(Deck storyDeck, Game g) throws FileNotFoundException {
 
 		//Format QuestName_Name;Amount;NumStages
 		Scanner questScanner = new Scanner(new File("./src/resources/QuestList.txt"));
@@ -75,11 +75,13 @@ public class CardList {
 	
 		//Format EventName_Name;Amount
 		Scanner eventScanner = new Scanner(new File("./src/resources/EventList.txt"));
+		EventFactory factory = new EventFactory(g);
 		while(eventScanner.hasNext()) {
 			String[] cardInfo = eventScanner.next().split(";");
 			int amount = Integer.parseInt(cardInfo[1]);
 			for (int i = 0; i < amount; i++) {
 				EventCard f = new EventCard(cardInfo[0].replace('_', ' '));
+				factory.effectCard(f);
 				storyDeck.addCard(f);
 			}
 		}
@@ -182,8 +184,8 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Horse", 10));
 	}
 		
-	public static void populateRiggedStoryCards(Deck storyDeck) throws FileNotFoundException {
-		populateStoryCards(storyDeck);
+	public static void populateRiggedStoryCards(Deck storyDeck, Game g) throws FileNotFoundException {
+		populateStoryCards(storyDeck, g);
 		storyDeck.addCard(new QuestCard("Boar Hunt", 2));
 		storyDeck.addCard(new EventCard("Court Called to Camelot"));
 		storyDeck.addCard(new EventCard("King's Call to Arms"));

@@ -1,29 +1,24 @@
 package com.QuestCardGame.GameMain;
 
-public class EventFactory{
-  EventCard eventCard;
-  EventEffect effect;
-  public EventFactory(EventCard c, Game g){
-    eventCard = c;
-    String cardName= c.getName();
-  //  if (cardName.toLowerCase().quals("chivalrous deed"))
-//    switch (cardName.toLowerCase()()){
-      if (cardName.toLowerCase().equals("chivalrous deed")) effect = new ChivalrousDeed(g);
+import java.util.HashMap;
 
-      else if (cardName.toLowerCase().equals("pox")) effect = new Pox(g);
+public class EventFactory {
 
-      else if (cardName.toLowerCase().equals("plague"))  effect = new Plague(g);
-
-      else if (cardName.toLowerCase().equals("king's recognition"))  effect = new KingsRecognition(g);
-
-      else if (cardName.toLowerCase().equals("queen's favor")) effect = new QueensFavor(g);
-
-      else if (cardName.toLowerCase().equals("court called to camelot")) effect = new CourtCalledToCamelot(g);
-
-      else if (cardName.toLowerCase().equals("king's call to arms")) effect = new KingsRecognition(g);
-
-      else if (cardName.toLowerCase().equals("prosperity throughout the realm")) effect = new ProsperityThroughoutTheRealm(g);
-
-    effect.eventBehavior();
-  }
+	private HashMap<String, EventEffect> effects;
+	
+	public EventFactory(Game g) {
+		effects = new HashMap<String, EventEffect>();
+		effects.put("Chivalrous Deed", new ChivalrousDeed(g));
+		effects.put("Pox", new Pox(g));
+		effects.put("Plague", new Plague(g));
+		effects.put("King's Recognition", new KingsRecognition(g));
+		effects.put("Queen's Favor", new QueensFavor(g));
+		effects.put("Court Called To Camelot", new CourtCalledToCamelot(g));
+		effects.put("King's Call To Arms", new CourtCalledToCamelot(g));
+		effects.put("Prosperity Throughout The Realm", new ProsperityThroughoutTheRealm(g));
+	}
+	
+	public void effectCard(EventCard c) {
+		c.setEffect(effects.get(c.getName()));
+	}
 }
