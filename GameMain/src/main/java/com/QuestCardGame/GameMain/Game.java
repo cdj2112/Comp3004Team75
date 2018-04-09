@@ -399,11 +399,7 @@ public class Game {
 	 * Return the next player to play cards if there is one The next player then
 	 * becomes the current player and can be retrieved anytime using
 	 * getCurrentActiveQuestPlayer() Returns null if the round is over
-<<<<<<< HEAD
-	 *
-=======
 	 * 
->>>>>>> master
 	 * This is separate from the game's active player because not all players may be
 	 * in a quest
 	 */
@@ -461,11 +457,7 @@ public class Game {
 	/**
 	 * Gets the game's active player. If the game is playing, then this is the quest
 	 * active player. Otherwise it's the game player.
-<<<<<<< HEAD
-	 *
-=======
 	 * 
->>>>>>> master
 	 * @return int between 0-3 inclusive -1 if there is no active player, i.e. the
 	 *         game has done a full circle
 	 */
@@ -485,11 +477,7 @@ public class Game {
 
 	/**
 	 * To get the current active quest player.
-<<<<<<< HEAD
-	 *
-=======
 	 * 
->>>>>>> master
 	 * @return index of the activeQuestPlayer if it exists -1 otherwise
 	 */
 	private int getCurrentActiveQuestPlayer() {
@@ -503,11 +491,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the specified player
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> master
 	 * @param player:
 	 *            0, 1, 2, 3
 	 * @return returns battle points of the player if exists -1 otherwise
@@ -520,11 +504,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the current stage
-<<<<<<< HEAD
 	 *
-=======
-	 * 
->>>>>>> master
 	 * @return the battle points of the current stage
 	 */
 	public int getQuestCurrentStageBattlePoints() {
@@ -533,11 +513,7 @@ public class Game {
 
 	/**
 	 * Determines if a player advances onto the next stage of a quest
-<<<<<<< HEAD
-	 *
-=======
 	 * 
->>>>>>> master
 	 * @param player
 	 *            to evaluate
 	 * @return true if player wins stage false otherwise
