@@ -3,9 +3,11 @@ package com.QuestCardGame.GameMain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.TreeSet;
 
 public class Hand extends ArrayList<AdventureCard>{
-	
+		
 	public void sortAscendingByBattlePoints() {
 		Collections.sort(this, new Comparator<AdventureCard>() {
 			public int compare(AdventureCard a, AdventureCard b) {
@@ -211,32 +213,6 @@ public class Hand extends ArrayList<AdventureCard>{
 		return numFoesInHand >= numFoesNeededForQuest; 
 	}
 	
-	public ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages, int requiredBattlePoints){
-		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		
-		//second last stage should be a test if possible
-		if(totalStages - stage + 1 == 1) {
-			AdventureCard test = this.getTestCard();
-			if(test != null)
-				cardsForStage.add(test);
-		}
-		else if(stage + 1 == totalStages) {
-			AdventureCard foe = this.getStrongestFoe();
-			if(foe != null)
-				cardsForStage.add(foe);
-			for(AdventureCard c : this) {
-				if(isValidForQuestStage(c, cardsForStage))
-					cardsForStage.add(c);
-			}
-		}
-		else {
-			AdventureCard foe = this.getFoe(requiredBattlePoints);
-			if(foe != null)
-				cardsForStage.add(foe);
-		}	
-		return cardsForStage;
-	}
-	
 	public AdventureCard getTestCard() {
 		for(AdventureCard c : this) {
 			if(c.getCardType() == AdventureCard.AdventureType.TEST)
@@ -273,4 +249,56 @@ public class Hand extends ArrayList<AdventureCard>{
 		return true;
 	}
 	
+	public ArrayList<AdventureCard> getDuplicateWeapons(){
+		HashSet<String> duplicateNames = new HashSet<String>();
+		ArrayList<AdventureCard> duplicateWeapons = new ArrayList<AdventureCard>();
+		String prevName = "";
+		this.sort(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			String cardName = c.getName();
+			if(c.getCardType() == AdventureCard.AdventureType.WEAPON) {
+				if(!duplicateNames.add(cardName) && prevName.equals(cardName))
+					duplicateWeapons.add(c);
+			}
+			prevName = cardName;
+		}
+		
+		return duplicateWeapons;	
+	}
+	
+	public int getNumDuplicates() {
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			uniqueCards.add(c);
+		}
+		return this.size() - uniqueCards.size();
+	}
+	
+	public int getNumUniqueCards(AdventureCard.AdventureType cardType) {
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			if(c.getCardType() == cardType)
+				uniqueCards.add(c);
+		}
+		return uniqueCards.size();
+	}
+	
+	public ArrayList<AdventureCard> getUniqueCards(AdventureCard.AdventureType cardType, int maxNumberToGet){
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		for(AdventureCard c : this) {
+			if(c.getCardType() == cardType && uniqueCards.size() < maxNumberToGet)
+				uniqueCards.add(c);
+		}
+		return new ArrayList<AdventureCard>(uniqueCards);
+	}
+	
+	public ArrayList<AdventureCard> getDuplicateCards(){
+		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		ArrayList<AdventureCard> duplicateCards = new ArrayList<AdventureCard>();
+		for(AdventureCard c : this) {
+			if(!uniqueCards.add(c))
+				duplicateCards.add(c);
+		}
+		return duplicateCards;
+	}
 }

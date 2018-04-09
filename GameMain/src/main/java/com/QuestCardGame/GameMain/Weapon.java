@@ -14,5 +14,9 @@ public class Weapon extends AdventureCard{
   public String getFrontImagePath() {
 	  return "./src/resources/Cards/Weapon/"+cardName+".png";
   }
+  
+  public String getUrlPath() {
+	  return "/Cards/Weapon/"+cardName+".png";
+  }
  
 } 
