@@ -8,6 +8,8 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
 
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 public class Game {
 
 	private static final Logger logger = LogManager.getLogger(Game.class);
@@ -29,6 +31,7 @@ public class Game {
 	// Turn Variables
 	private int activePlayer;
 	private int[] toDiscard;
+	private HashMap<AdventureType, Integer>[] specialDiscard;
 	// Quests
 	private Player sponsor;
 	private int sponsorIndex;
@@ -50,6 +53,11 @@ public class Game {
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
+		
+		specialDiscard = new HashMap[numPlayers];
+		for(int i = 0; i<numPlayers; i++) {
+			specialDiscard[i] = new HashMap<AdventureType, Integer>();
+		}
 		currentStoryCard = null;
 		if (!rigged) {
 			initStoryDeck();
@@ -399,7 +407,7 @@ public class Game {
 	 * Return the next player to play cards if there is one The next player then
 	 * becomes the current player and can be retrieved anytime using
 	 * getCurrentActiveQuestPlayer() Returns null if the round is over
-	 * 
+	 *
 	 * This is separate from the game's active player because not all players may be
 	 * in a quest
 	 */
@@ -477,7 +485,7 @@ public class Game {
 
 	/**
 	 * To get the current active quest player.
-	 * 
+	 *
 	 * @return index of the activeQuestPlayer if it exists -1 otherwise
 	 */
 	private int getCurrentActiveQuestPlayer() {
@@ -513,7 +521,7 @@ public class Game {
 
 	/**
 	 * Determines if a player advances onto the next stage of a quest
-	 * 
+	 *
 	 * @param player
 	 *            to evaluate
 	 * @return true if player wins stage false otherwise
@@ -668,5 +676,8 @@ public class Game {
 					playerDiscardAdventrueCard(players[i],(AdventureCard) c);
 			}
 		}
+	}
+	public void setSpecialDiscard(int p, AdventureType type, int amount) {
+		specialDiscard[p].put(type, amount);
 	}
 }
