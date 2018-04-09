@@ -61,6 +61,10 @@ public class Tournaments {
 	public Player getCurrentPlayer() {
 		return currentPlayer;
 	}
+	
+	public boolean hasPlayer(Player p) {
+		return players.contains(p);
+	}
 
 	public void tieBreaking() {
 		int maxBP = 0;
@@ -82,6 +86,10 @@ public class Tournaments {
 				removeIter.remove();
 			}
 		}
+		
+		//reset player order
+		iter = players.listIterator();
+		currentPlayer = iter.next();
 	}
 
 	public void evaluatePlayers() {
@@ -101,7 +109,6 @@ public class Tournaments {
 		for (int i = 0; i < players.size(); i++) {
 			removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
 		}
-		
 	}
 
 	public boolean isTournamentsOver() {
