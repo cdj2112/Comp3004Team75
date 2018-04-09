@@ -87,7 +87,7 @@ public class Tournaments {
 			}
 		}
 		
-		//reset players order
+		//reset player order
 		iter = players.listIterator();
 		currentPlayer = iter.next();
 	}
