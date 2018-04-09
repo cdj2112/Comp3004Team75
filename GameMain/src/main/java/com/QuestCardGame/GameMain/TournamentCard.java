@@ -32,9 +32,5 @@ public class TournamentCard extends StoryCard {
 	public String getUrlPath() {
 		return "/Cards/Tournament/"+cardName+".png";
 	}
-	
-	public String getBackUrlPath() {
-		return "/Cards/Backs/Story.png";
-	}
 
 }

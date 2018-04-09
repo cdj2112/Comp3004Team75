@@ -6,5 +6,9 @@ public abstract class StoryCard extends Card {
 		super(name);
 	}
 	
+	public String getBackUrlPath() {
+		return "/Cards/Backs/Story.png";
+	}
+	
 	public abstract int getShieldReward();
 }
