@@ -18,11 +18,15 @@ public class Foe extends AdventureCard {
 		specialBattlePoints = bp2;
 	}
 
-	public int getBattlePoint(Boolean questTarget) {
+	public int getBattlePoint(boolean questTarget) {
 		if (questTarget)
 			return specialBattlePoints;
 		else
 			return battlePoints;
+	}
+	
+	public int getBid(boolean b) {
+		return 0;
 	}
 	
 	public String getFrontImagePath() {

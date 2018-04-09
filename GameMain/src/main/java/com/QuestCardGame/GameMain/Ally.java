@@ -25,7 +25,8 @@ public class Ally extends AdventureCard {
 	public String getTarget() {
 		return target;
 	}
-	public int getBid(Boolean bouns) {
+	
+	public int getBid(boolean bonus) {
 		int temp = bids;
 		if(bouns& effectBouns < 5) temp = temp + effectBouns;	
 		return temp;

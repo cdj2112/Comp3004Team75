@@ -25,7 +25,11 @@ public class Test extends AdventureCard {
     return minBid;
   }
   
-  public int getBattlePoint(Boolean b) {
+  public int getBattlePoint(boolean b) {
+	  return 0;
+  }
+  
+  public int getBid(boolean b) {
 	  return 0;
   }
   
