@@ -14,7 +14,7 @@ public class KingsCallToArms extends EventEffect {
 		super(g);
 	}
 
-	public void eventBehavior() {
+	public boolean eventBehavior() {
 		ArrayList<Player> highestRanked = new ArrayList<Player>();
 		int highestRank = -1;
 		for (int i = 0; i < game.getNumPlayers(); i++) {
@@ -35,18 +35,19 @@ public class KingsCallToArms extends EventEffect {
 			int numFoes = 0;
 			for (int i = 0; i < h.size(); i++) {
 				AdventureCard ac = h.get(i);
-				if(ac.getCardType() == AdventureType.WEAPON) {
+				if (ac.getCardType() == AdventureType.WEAPON) {
 					numWeapons++;
-				} else if(ac.getCardType() == AdventureType.FOE) {
+				} else if (ac.getCardType() == AdventureType.FOE) {
 					numFoes++;
 				}
 			}
-			
-			if(numWeapons > 0) {
+
+			if (numWeapons > 0) {
 				game.setSpecialDiscard(game.getPlayerIndex(p), AdventureType.WEAPON, 1);
 			} else {
 				game.setSpecialDiscard(game.getPlayerIndex(p), AdventureType.FOE, Math.min(numFoes, 2));
 			}
 		}
+		return true;
 	}
 }

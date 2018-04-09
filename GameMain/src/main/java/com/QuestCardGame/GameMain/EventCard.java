@@ -15,6 +15,10 @@ public class EventCard extends StoryCard {
 	public void setEffect(EventEffect e) {
 		effect = e;
 	}
+	
+	public boolean execute() {
+		return effect.eventBehavior();
+	}
 
 	public String getFrontImagePath() {
 		return "./src/resources/Cards/Event/" + cardName + ".png";

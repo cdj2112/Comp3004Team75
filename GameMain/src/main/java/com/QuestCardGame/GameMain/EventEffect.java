@@ -5,5 +5,5 @@ public abstract class EventEffect {
   public EventEffect(Game g){
     game = g;
   }
-  public abstract void eventBehavior();
+  public abstract boolean eventBehavior();
 }

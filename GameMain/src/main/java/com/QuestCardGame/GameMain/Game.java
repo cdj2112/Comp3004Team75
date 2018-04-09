@@ -15,7 +15,10 @@ public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 
 	public static enum GameStatus {
-		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR
+		IDLE, END_TURN_DISCARD, 
+		SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, 
+		ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR,
+		EVENT_EXECUTE, EVENT_DISCARD
 	};
 
 	private GameStatus currentStatus;
@@ -82,7 +85,7 @@ public class Game {
 			currentStatus = GameStatus.SPONSORING;
 		}else if (storyCard instanceof EventCard){
 			//EventFactory event = new EventFactory((EventCard)storyCard, this);
-			currentStatus =  GameStatus.END_TURN_DISCARD;
+			currentStatus =  GameStatus.EVENT_EXECUTE;
 			checkHandSizes();
 		} else if (storyCard instanceof TournamentCard) {
 			activeTournaments = new Tournaments((TournamentCard) storyCard);
@@ -343,17 +346,37 @@ public class Game {
 	}
 
 	public void playerDiscardAdventrueCard(Player p, Card c) {
-		p.useCard(c);
-		adventureDeck.discard(c);
-		logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 		if (currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.END_TURN_DISCARD
 				|| currentStatus == GameStatus.PRE_TOUR_DISCARD) {
+			p.useCard(c);
+			adventureDeck.discard(c);
+			logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 			int playerIndex = -1;
 			for (int i = 0; i < numPlayers; i++) {
 				if (players[i] == p)
 					playerIndex = i;
 			}
 			checkHandSizes();
+		} else if (currentStatus == GameStatus.EVENT_DISCARD) {
+			int idx = getPlayerIndex(p);
+			HashMap<AdventureType, Integer> discardMap = specialDiscard[idx];
+			AdventureType at = ((AdventureCard)c).getCardType();
+			if(discardMap.keySet().contains(at)) {
+				p.useCard(c);
+				adventureDeck.discard(c);
+				logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
+				int tD = discardMap.get(at);
+				if(tD > 1) {
+					discardMap.put(at, tD - 1);
+				} else {
+					discardMap.remove(at);
+				}
+				checkSpecialDiscard();
+			}
+		} else {
+			p.useCard(c);
+			adventureDeck.discard(c);
+			logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 		}
 	}
 
@@ -679,5 +702,26 @@ public class Game {
 	}
 	public void setSpecialDiscard(int p, AdventureType type, int amount) {
 		specialDiscard[p].put(type, amount);
+	}
+	public void executeEvent() {
+		if(currentStatus == GameStatus.EVENT_EXECUTE) {
+			boolean discard = ((EventCard)currentStoryCard).execute();
+			if(!discard) {
+				endTurn();
+			} else {
+				currentStatus = GameStatus.EVENT_DISCARD;
+				checkSpecialDiscard();
+			}
+		}
+	}
+	private void checkSpecialDiscard() {
+		for(int i=0; i<numPlayers; i++) {
+			Set<AdventureType> keys = specialDiscard[i].keySet();
+			for(AdventureType k : keys) {
+				if(specialDiscard[i].get(k)==0) specialDiscard[i].remove(k);
+			}
+			if(specialDiscard[i].keySet().size()>0) return;
+		}
+		endTurn();
 	}
 }
