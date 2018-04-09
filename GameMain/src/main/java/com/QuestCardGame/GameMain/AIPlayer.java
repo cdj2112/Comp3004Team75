@@ -2,11 +2,10 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 
-public abstract class AIPlayer extends Player implements AIPlayerStrategy{
+public abstract class AIPlayer implements AIPlayerStrategy{
 	
-	public boolean isAIPlayer = true;
-
 	Game game;
+	Player player;
 	
 	public ArrayList<AdventureCard> playTurn(){
 		Game.GameStatus gameStatus = game.getGameStatus();
@@ -23,12 +22,17 @@ public abstract class AIPlayer extends Player implements AIPlayerStrategy{
 				return this.createQuest();
 			case PLAYING_QUEST:
 				return this.playCardsForQuestStage();
-//			case ACCEPTING_TOUR:
-//				return this.doIJoinTournament();
-//			case PLAYING_TOUR:
-//				return this.playCardsForTournament();	
-//			case PRE_TOUR_DISCARD: 
-//				return this.getCardsToDiscard();
+			case EVAL_QUEST_STAGE:
+				return this.evalQuestStage();
+			case ENTERING_TOUR:
+				this.doIJoinTournament();
+				return new ArrayList<AdventureCard>();
+			case PLAYING_TOUR:
+				return this.playCardsForTournament();	
+			case PRE_TOUR_DISCARD: 
+				return this.getCardsToDiscard();
+			case EVAL_TOUR:
+				return this.evalTour();
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			case IDLE:
@@ -39,7 +43,29 @@ public abstract class AIPlayer extends Player implements AIPlayerStrategy{
 		}
 	}
 	
-	public boolean isAIPlayer() {
-		return true;
+	/**
+	 * For now just get rid of the lowest BP cards
+	 */
+	public ArrayList<AdventureCard> getCardsToDiscard(){
+		Hand playerHand = player.getHand();
+		int numCardsToDiscard = playerHand.size() - 12;
+		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
+		
+		if(numCardsToDiscard <= 0)
+			return null;
+		
+		playerHand.sortAscendingByBattlePoints();
+
+		for(AdventureCard c: playerHand) {
+			if(numCardsToDiscard == 0)
+				break;
+			cardsToDiscard.add(c);
+			numCardsToDiscard--;
+		}
+		
+		for(AdventureCard c : cardsToDiscard) {
+			game.playerDiscardAdventrueCard(this.player, c);
+		}
+		return cardsToDiscard;
 	}
 }

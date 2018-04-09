@@ -47,6 +47,13 @@
                 stompClient.send("/command/playTournament", {}, JSON.stringify({}));
             }, 1000);
         }
+
+        if(gameStatus.aiPlaying && playerIdx === 0 && !timeout){
+            timeout = setTimeout(function(){
+                timeout = null;
+                stompClient.send("/command/playAITurn", {}, JSON.stringify({}));
+            }, 1000);
+        }
 	}
 
     function updateButtons(status, active) {
@@ -140,7 +147,6 @@
     }
 
     function updatePlayer(players, playing, hide, canPlay){
-        console.log(hide);
         var mainPlayer = document.getElementsByClassName('lowerPlayer')[0];
         var mainHand = document.querySelectorAll('.lowerPlayer > .playerHand')[0];
         var mainPlay = document.querySelectorAll('.lowerPlayer > .playerPlay')[0];
@@ -155,7 +161,6 @@
         for(var i=0;i<player.play.length;i++){
             var inPlay = player.play[i];
             var idx = hide.findIndex(function(c){
-                console.log(inPlay.id, c.id);
                 return inPlay.id === c.id;
             });
             if(idx>=0) hide.splice(idx, 1);
@@ -240,7 +245,6 @@
             }
 
             matchCardsDom(player.play, sidePlay, 'sideCard', true);
-            console.log(hide);
             hideArrayCards(hide);
 
             sideRank.src = player.rank;
@@ -294,7 +298,6 @@
     }
 
     function updateDiscard(discard){
-        console.log(discard);
         var discardElm = document.getElementById('discard');
         if(discard[playerIdx]>0){
             discardElm.style.display = '';

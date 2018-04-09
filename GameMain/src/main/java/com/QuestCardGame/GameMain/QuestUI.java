@@ -592,7 +592,7 @@ public class QuestUI extends Group {
 		Player p = game.getPlayer(activePlayer);
 		GameStatus GS = game.getGameStatus();
 		if (p.isAIPlayer() && !isAIPlaying && GS != GameStatus.EVAL_QUEST_STAGE) {
-			final AIPlayer ai = (AIPlayer) p;
+			final Player ai = p;
 			prompt.setVisible(false);
 			acceptButton.setVisible(false);
 			declineButton.setVisible(false);
