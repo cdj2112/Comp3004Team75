@@ -90,9 +90,12 @@ public class Player {
 	}
 
 	public void addShields(int s) {
+		if(s>0)logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
+		else logger.info("Player "+getPlayerNumber()+": Loses "+Math.min(-s, numShields)+" shields");
+		
 		numShields += s;
 		if (numShields < 0) numShields = 0;
-		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
+		
 		while(numShields >= shieldsNeeded[rank]) {
 			numShields -= shieldsNeeded[rank];
 			rank++;
