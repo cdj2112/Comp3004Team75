@@ -1,4 +1,7 @@
-package com.QuestCardGame.GameMain;
+package com.QuestCardGame.GameMain.Events;
+
+import com.QuestCardGame.GameMain.EventEffect;
+import com.QuestCardGame.GameMain.Game;
 
 public class CourtCalledToCamelot extends EventEffect{
   public CourtCalledToCamelot(Game g){

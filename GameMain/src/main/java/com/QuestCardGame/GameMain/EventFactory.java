@@ -2,6 +2,14 @@ package com.QuestCardGame.GameMain;
 
 import java.util.HashMap;
 
+import com.QuestCardGame.GameMain.Events.ChivalrousDeed;
+import com.QuestCardGame.GameMain.Events.CourtCalledToCamelot;
+import com.QuestCardGame.GameMain.Events.KingsRecognition;
+import com.QuestCardGame.GameMain.Events.Plague;
+import com.QuestCardGame.GameMain.Events.Pox;
+import com.QuestCardGame.GameMain.Events.ProsperityThroughoutTheRealm;
+import com.QuestCardGame.GameMain.Events.QueensFavor;
+
 public class EventFactory {
 
 	private HashMap<String, EventEffect> effects;

@@ -1,6 +1,10 @@
-package com.QuestCardGame.GameMain;
+package com.QuestCardGame.GameMain.Events;
 
 import java.util.ArrayList;
+
+import com.QuestCardGame.GameMain.EventEffect;
+import com.QuestCardGame.GameMain.Game;
+import com.QuestCardGame.GameMain.Player;
 
 public class ChivalrousDeed extends EventEffect{
   public ChivalrousDeed(Game g){
