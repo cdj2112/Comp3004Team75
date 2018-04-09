@@ -17,6 +17,7 @@ public class Tournaments {
 	private int bp;
 	private int bonus;
 	private int roundsPlayed = 0;
+	private String name;
 
 	private ArrayList<AdventureCard> tournamentStash;
 
@@ -27,6 +28,7 @@ public class Tournaments {
 		bp = t.getBonusShields();
 		bonus = t.getBonusShields();
 		tournamentStash = new ArrayList<AdventureCard>();
+		name = t.getName();
 		
 		logger.info("Tournament [" + t.getName() + "] started. This tournament has [" + t.getBonusShields() + "] bonus shield(s)." );
 
@@ -67,16 +69,16 @@ public class Tournaments {
 		// find maxBP in players
 		for (int i = 0; i < players.size(); i++) {
 			Player p = players.get(i);
-			logger.info("Player " + p.getPlayerNumber() + " plays tournament with " + p.getBattlePoints()
+			logger.info("Player " + p.getPlayerNumber() + " plays tournament with " + p.getBattlePoints(name)
 					+ " battle points");
-			if (p.getBattlePoints() > maxBP) {
-				maxBP = p.getBattlePoints();
+			if (p.getBattlePoints(name) > maxBP) {
+				maxBP = p.getBattlePoints(name);
 			}
 		}
 		// delete players who's BP is less than maxBP
 		for (Iterator<Player> removeIter = players.iterator(); removeIter.hasNext();) {
 			Player p = removeIter.next();
-			if (p.getBattlePoints() != maxBP) {
+			if (p.getBattlePoints(name) != maxBP) {
 				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 				logger.info("Player " + p.getPlayerNumber() + " eliminated from tournament");
 				removeIter.remove();

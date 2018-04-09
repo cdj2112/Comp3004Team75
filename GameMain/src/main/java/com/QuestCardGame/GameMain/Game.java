@@ -487,8 +487,10 @@ public class Game {
 	 * @return returns battle points of the player if exists -1 otherwise
 	 */
 	public int getPlayerBattlePoints(int player) {
-		if (player < numPlayers && player >= 0)
-			return players[player].getBattlePoints();
+		if (player < numPlayers && player >= 0) {
+			String currentStoryName = currentStoryCard == null ? null : currentStoryCard.getName();
+			return players[player].getBattlePoints(currentStoryName);
+		}
 		return -1;
 	}
 

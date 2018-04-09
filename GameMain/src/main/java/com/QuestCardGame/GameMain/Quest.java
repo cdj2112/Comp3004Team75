@@ -21,6 +21,7 @@ public class Quest {
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
 	private String target;
+	private String name;
 
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -32,6 +33,7 @@ public class Quest {
 		players = new ArrayList<Player>();
 		isQuestOver = false;
 		target = qc.getTarget();
+		name = qc.getName();
 		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
 	}
 
@@ -105,7 +107,7 @@ public class Quest {
 
 	public boolean evaluatePlayer(Player p) {
 		int pointsToBeat = stages[currentStage].getBattlePoints(target);
-		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
+		boolean playerWins = p.getBattlePoints(name) >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
 
 		
@@ -113,10 +115,10 @@ public class Quest {
 		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 		
 		if(!playerWins) {
-			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
+			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");
 			iter.remove();
 		} else {
-			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
+			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");
 		}
 
 		//currentStage starts at 0

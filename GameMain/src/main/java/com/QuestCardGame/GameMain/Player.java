@@ -61,7 +61,7 @@ public class Player {
 		return playerNumber;
 	}
 
-	public int getBattlePoints() {
+	public int getBattlePoints(String storyName) {
 		int totalBattlePoints = battlePoints[rank];
 		for(AdventureCard c : play) {
 			totalBattlePoints += c.getBattlePoint(false); //no special ability
