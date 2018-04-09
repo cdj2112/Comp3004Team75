@@ -18,15 +18,27 @@ public class Player {
 
 	private int playerNumber;
 	private int numShields;
-	private int rank;
+	protected int rank;
 	static int nextPlayerNumber = 1;
+	
+	private AIPlayer playerBehaviour;
 
+	// ONLY USED FOR TEST CASES WHERE AI AND GAME IS NOT NEEDED
 	Player(){
 		hand = new Hand();
-		play = new Hand();
+		play = new ArrayList<AdventureCard>();
 		playerNumber = nextPlayerNumber++;
 		numShields = 0;
 		rank = 0; //squire
+	}
+	
+	Player(Game g, int behaviour){
+		hand = new Hand();
+		play = new ArrayList<AdventureCard>();
+		playerNumber = nextPlayerNumber++;
+		numShields = 0;
+		rank = 0; //squire
+		assignStrategy(g, behaviour);
 		//disabled until log4j2.xml has been created
 		logger.info("Player " + playerNumber + ": created");
 	}
@@ -107,7 +119,24 @@ public class Player {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
 	}
 	
+	public String getRankUrlPath() {
+		return "/Cards/Rank/"+getRankName()+".png";
+	}
+	
 	public boolean isAIPlayer() {
-		return false;
+		return playerBehaviour.isAIPlayer();
+	}
+	
+	private void assignStrategy(Game g, int strategy) {
+		if(strategy == 1)
+			playerBehaviour = new AIStrategyOne(g, this);
+		else if (strategy == 2)
+			playerBehaviour = new AIStrategyTwo(g, this);
+		else
+			playerBehaviour = new EmptyAIStrategy();
+	}
+	
+	public ArrayList<AdventureCard> playTurn() {
+		return playerBehaviour.playTurn();
 	}
 }

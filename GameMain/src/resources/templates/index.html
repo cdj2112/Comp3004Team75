@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+		<script src="/stomp.min.js"></script>
+	</head>
+	<body>
+		<h1>Quest</h1>
+		<ol id="playerList"></ol>
+		<button id="addAIButton" th:style="'display:'+ ${(joined && player==0) ? 'block' : 'none'}">Add Ai Player</button>
+		<button id="startGame" th:style="'display:'+ ${(joined && player==0) ? 'block' : 'none'}">Start Game</button>
+		<input id="userName" type="text" th:style="'display:'+ ${joined ? 'none' : 'block'}"></input>
+		<button id="joinGame" th:style="'display:'+ ${joined ? 'none' : 'block'}">Join Game</button>
+		<script src = "/mainPage.js"></script>
+	</body>
+</html>
