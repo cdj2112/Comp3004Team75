@@ -2,6 +2,9 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
+
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Player {
@@ -64,7 +67,17 @@ public class Player {
 	public int getBattlePoints(String storyName) {
 		int totalBattlePoints = battlePoints[rank];
 		for(AdventureCard c : play) {
-			totalBattlePoints += c.getBattlePoint(false); //no special ability
+			boolean bonus = c.getCardType() == AdventureType.ALLY ? storyName.equals(((Ally)c).getTarget()):false;
+			totalBattlePoints += c.getBattlePoint(bonus); //no special ability
+		}
+		return totalBattlePoints;
+	}
+	
+	public int getBids(String storyName) {
+		int totalBattlePoints = 0;
+		for(AdventureCard c : play) {
+			boolean bonus = c.getCardType() == AdventureType.ALLY ? storyName.equals(((Ally)c).getTarget()):false;
+			totalBattlePoints += c.getBid(bonus); //no special ability
 		}
 		return totalBattlePoints;
 	}
