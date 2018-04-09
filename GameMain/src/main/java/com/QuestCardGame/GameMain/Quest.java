@@ -22,18 +22,6 @@ public class Quest {
 	private int numCardsUsed = 0;
 	private int extraReward = 0;
 
-	Quest(QuestCard qc) {
-		stages = new Stage[qc.getStages()];
-		for(int i =0; i<qc.getStages();i++) {
-			stages[i] = new Stage();
-		}
-		totalStages = qc.getStages();
-		discardPile = new ArrayList<AdventureCard>();
-		players = new ArrayList<Player>();
-		isQuestOver = false;
-		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
-	}
-
 	Quest(QuestCard qc, int e) {
 		stages = new Stage[qc.getStages()];
 		for(int i =0; i<qc.getStages();i++) {

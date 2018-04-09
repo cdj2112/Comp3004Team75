@@ -37,7 +37,7 @@ public class Game {
 	private Tournaments activeTournaments;
 
 	// Events
-	private int extraShield;
+	private int extraShield = 0;
 
 	public Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
@@ -69,8 +69,8 @@ public class Game {
 		Card storyCard = getStoryCard();
 		currentStoryCard = storyCard;
 		if (storyCard instanceof QuestCard) {
-			if (extraShield != 0) activeQuest = new Quest((QuestCard) storyCard, extraShield);
-			else activeQuest = new Quest((QuestCard) storyCard);
+			activeQuest = new Quest((QuestCard) storyCard, extraShield);
+			extraShield = 0;
 			currentStatus = GameStatus.SPONSORING;
 		}else if (storyCard instanceof EventCard){
 			//EventFactory event = new EventFactory((EventCard)storyCard, this);
@@ -543,8 +543,7 @@ public class Game {
 	 * @return true if player wins stage false otherwise
 	 */
 	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
-		boolean result = activeQuest.evaluatePlayer(players[player]);
-		if (result) extraShield = 0;
+		activeQuest.evaluatePlayer(players[player]);
 
 		getNextActiveQuestPlayer();
 
