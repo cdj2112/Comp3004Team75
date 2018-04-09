@@ -186,7 +186,7 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Saxons", 10, 20));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
 		adventureDeck.addCard(new Weapon("Sword", 10));
-		adventureDeck.addCard(new Weapon("Dagger", 5));
+		adventureDeck.addCard(new Amours());
 		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
 		adventureDeck.addCard(new Amours());
 	}
