@@ -3,46 +3,33 @@ package com.QuestCardGame.GameMain;
 public class Ally extends AdventureCard {
 
 	//private int base;
-	private int effectBounsForBid;
-	private int effectBounsForBP;
+	private int effectBonusForBid;
+	private int effectBonusForBP;
 	private String target;
 	private int battlePoints;
 	private int bids;
 	
-	public Ally(String name, int n1, int n2, int n3, int n4, String s) {
+	public Ally(String name, int battlePoints, int bids, int effectBonusForBid, int effectBonusForBP, String target) {
 		super(name, AdventureType.ALLY);
-		battlePoints = n1;
-		bids = n2;
-		effectBounsForBid = n3;
-		effectBounsForBP = n4;
-		target = s;
+		this.battlePoints = battlePoints;
+		this.bids = bids;
+		this.effectBonusForBid = effectBonusForBid;
+		this.effectBonusForBP = effectBonusForBP;
+		this.target = target;
 	}
-
-	/*public Ally(String name, int n, String target) {
-		super(name, AdventureType.ALLY);
-		base = n;
-		//battlePoints = n;
-	}*/
 	
 	public String getTarget() {
 		return target;
 	}
-	public int getBid(Boolean bouns) {
+	public int getBid(Boolean bonus) {
 		int temp = bids;
-		if(bouns) temp = temp + effectBounsForBid;	
+		if(bonus) temp = temp + effectBonusForBid;	
 		return temp;
 	}
-	public int getBattlePoint(Boolean bouns) {
+	public int getBattlePoint(Boolean bonus) {
 		int temp = battlePoints;
-		if(bouns) temp = temp + effectBounsForBP;	
+		if(bonus) temp = temp + effectBonusForBP;	
 		return temp;
-		
-		/*int temp = 0;
-		if (base >= 5)
-			temp += base;
-		if (effectBouns >= 5 && bouns)
-			temp += effectBouns;
-		return temp;*/
 	}
 	
 	public String getFrontImagePath() {
