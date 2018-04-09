@@ -3,16 +3,18 @@ package com.QuestCardGame.GameMain;
 public class Ally extends AdventureCard {
 
 	//private int base;
-	private int effectBouns;
+	private int effectBounsForBid;
+	private int effectBounsForBP;
 	private String target;
 	private int battlePoints;
 	private int bids;
 	
-	public Ally(String name, int n1, int n2, int n3, String s) {
+	public Ally(String name, int n1, int n2, int n3, int n4, String s) {
 		super(name, AdventureType.ALLY);
 		battlePoints = n1;
 		bids = n2;
-		effectBouns = n3;
+		effectBounsForBid = n3;
+		effectBounsForBP = n4;
 		target = s;
 	}
 
@@ -27,12 +29,12 @@ public class Ally extends AdventureCard {
 	}
 	public int getBid(Boolean bouns) {
 		int temp = bids;
-		if(bouns& effectBouns < 5) temp = temp + effectBouns;	
+		if(bouns) temp = temp + effectBounsForBid;	
 		return temp;
 	}
 	public int getBattlePoint(Boolean bouns) {
 		int temp = battlePoints;
-		if(bouns & effectBouns > 5) temp = temp + effectBouns;	
+		if(bouns) temp = temp + effectBounsForBP;	
 		return temp;
 		
 		/*int temp = 0;

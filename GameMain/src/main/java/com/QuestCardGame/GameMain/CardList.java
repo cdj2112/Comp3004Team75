@@ -53,7 +53,7 @@ public class CardList {
 			int amount = Integer.parseInt(cardInfo[1]);
 			for (int i = 0; i < amount; i++) {
 				Ally a = new Ally(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]),Integer.parseInt(cardInfo[3]),
-						Integer.parseInt(cardInfo[4]),cardInfo[5]);
+						Integer.parseInt(cardInfo[4]),Integer.parseInt(cardInfo[5]),cardInfo[6]);
 				adventureDeck.addCard(a);
 			}
 		}
@@ -172,13 +172,13 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Evil Knight", 20, 30));
 		adventureDeck.addCard(new Weapon("Lance", 20));
 		adventureDeck.addCard(new Amours());
-		adventureDeck.addCard(new Ally("Sir Lancelot",15,0,25,"Defend_the_Queen's_Honor"));
-		adventureDeck.addCard(new Ally("King Arthur",10,2,0,"NULL"));
+		adventureDeck.addCard(new Ally("Sir Lancelot",15,0,0,25,"Defend_the_Queen's_Honor"));
+		adventureDeck.addCard(new Ally("King Arthur",10,2,0,0,"NULL"));
 		
 		
 		//Player 1 hand
-		adventureDeck.addCard(new Ally("Sir Lancelot",15,0,25,"Defend_the_Queen's_Honor"));
-		adventureDeck.addCard(new Ally("King Arthur",10,2,0,"NULL"));
+		adventureDeck.addCard(new Ally("Sir Lancelot",15,0,0,25,"Defend_the_Queen's_Honor"));
+		adventureDeck.addCard(new Ally("King Arthur",10,2,0,0,"NULL"));
 		adventureDeck.addCard(new Weapon("Sword", 10));
 		adventureDeck.addCard(new Weapon("Dagger", 5));
 		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
