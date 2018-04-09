@@ -20,7 +20,7 @@ public class CardList {
 	 * Integer> getStoryList() { return storyList; }
 	 */
 
-	public static void populateAdventureCards(Deck adventureDeck) throws FileNotFoundException {
+	public static void populateAdventureCards(Deck adventureDeck, Game g) throws FileNotFoundException {
 		
 		//Format Weapon_Name;Amount;BattlePoints
 		Scanner weaponScanner = new Scanner(new File("./src/resources/WeaponList.txt"));
@@ -46,14 +46,19 @@ public class CardList {
 		}
 		foeScanner.close();
 	
-		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
+		//Format Foe_Name;Amount;BattlePoints;Bids;EffectAmount;Target;UseFinder
 		Scanner AllyScanner = new Scanner(new File("./src/resources/AllyList.txt"));
 		while (AllyScanner.hasNext()) {
 			String[] cardInfo = AllyScanner.next().split(";");
 			int amount = Integer.parseInt(cardInfo[1]);
 			for (int i = 0; i < amount; i++) {
 				Ally a = new Ally(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]),Integer.parseInt(cardInfo[3]),
-						Integer.parseInt(cardInfo[4]),cardInfo[5]);
+						Integer.parseInt(cardInfo[4]),cardInfo[5].replace('_', ' '));
+				boolean useFinder = Boolean.parseBoolean(cardInfo[6]);
+				if(useFinder) {
+					PlayFinder pf = new PlayFinder(g, cardInfo[5].replace('_', ' '));
+					a.setFinder(pf);
+				}
 				adventureDeck.addCard(a);
 			}
 		}

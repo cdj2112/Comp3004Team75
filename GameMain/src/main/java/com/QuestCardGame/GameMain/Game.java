@@ -556,7 +556,7 @@ public class Game {
 		adventureDeck = new Deck();
 
 		try {
-			CardList.populateAdventureCards(adventureDeck);
+			CardList.populateAdventureCards(adventureDeck, this);
 		} catch (Exception e) {
 			System.out.println(e);
 		}

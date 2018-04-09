@@ -7,6 +7,7 @@ public class Ally extends AdventureCard {
 	private String target;
 	private int battlePoints;
 	private int bids;
+	private PlayFinder find = null;
 	
 	public Ally(String name, int n1, int n2, int n3, String s) {
 		super(name, AdventureType.ALLY);
@@ -14,6 +15,10 @@ public class Ally extends AdventureCard {
 		bids = n2;
 		effectBouns = n3;
 		target = s;
+	}
+	
+	public void setFinder(PlayFinder pf) {
+		find = pf;
 	}
 
 	/*public Ally(String name, int n, String target) {
@@ -27,13 +32,16 @@ public class Ally extends AdventureCard {
 	}
 	
 	public int getBid(boolean bonus) {
+		if(find != null) bonus = find.find();
 		int temp = bids;
-		if(bouns& effectBouns < 5) temp = temp + effectBouns;	
+		if(bonus& effectBouns < 5) temp = temp + effectBouns;	
 		return temp;
 	}
-	public int getBattlePoint(Boolean bouns) {
+	
+	public int getBattlePoint(boolean bonus) {
+		if(find != null) bonus = find.find();
 		int temp = battlePoints;
-		if(bouns & effectBouns > 5) temp = temp + effectBouns;	
+		if(bonus & effectBouns > 5) temp = temp + effectBouns;	
 		return temp;
 		
 		/*int temp = 0;
