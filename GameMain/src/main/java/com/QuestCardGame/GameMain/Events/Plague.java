@@ -9,6 +9,6 @@ public class Plague extends EventEffect{
   }
 
   public void eventBehavior(){
-    game.getPlayer(game.getCurrentActivePlayer()).addShields(-2);
+    game.getCurrentActivePlayerObj().addShields(-2);
   }
 }
