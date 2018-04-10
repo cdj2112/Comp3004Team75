@@ -79,7 +79,7 @@ public class Player {
 	public int getBattlePoints(String storyName) {
 		int totalBattlePoints = battlePoints[rank];
 		for(AdventureCard c : play) {
-			boolean bonus = c.getCardType() == AdventureType.ALLY ? storyName.equals(((Ally)c).getTarget()):false;
+			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
 			totalBattlePoints += c.getBattlePoint(bonus); //no special ability
 		}
 		return totalBattlePoints;
@@ -88,7 +88,7 @@ public class Player {
 	public int getBids(String storyName) {
 		int totalBattlePoints = 0;
 		for(AdventureCard c : play) {
-			boolean bonus = c.getCardType() == AdventureType.ALLY ? storyName.equals(((Ally)c).getTarget()):false;
+			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
 			totalBattlePoints += c.getBid(bonus); //no special ability
 		}
 		return totalBattlePoints;

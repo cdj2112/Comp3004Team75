@@ -28,10 +28,6 @@ public class Foe extends AdventureCard {
 		else
 			return battlePoints;
 	}
-	
-	public int getBid(boolean b) {
-		return 0;
-	}
 
 	public String getFrontImagePath() {
 		return "./src/resources/Cards/Foe/" + cardName + ".png";

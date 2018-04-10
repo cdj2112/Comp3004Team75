@@ -45,6 +45,10 @@ public class Quest {
 		questStash = new ArrayList<AdventureCard>();
 		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
 	}
+	
+	public String getTarget() {
+		return target;
+	}
 
 	public boolean validateQuest() {
 		int previousBP = -1;

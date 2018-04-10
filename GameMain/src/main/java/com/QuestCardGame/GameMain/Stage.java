@@ -44,7 +44,7 @@ public class Stage {
 		int total = 0;
 		for (AdventureCard c : cards) {
 			boolean bonus = target != null && c.getName().contains(target);
-			total+=c.getBattlePoint(bonus); //no special bp for now
+			total+=c.getBattlePoint(bonus); 
 		}
 		return total;
 	}

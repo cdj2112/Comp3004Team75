@@ -18,7 +18,7 @@ public class QuestTransit implements Serializable {
 		Stage[] s = q.getStages();
 		stages = new StageTransit[s.length];
 		for (int i = 0; i < s.length; i++) {
-			stages[i] = new StageTransit(s[i]);
+			stages[i] = new StageTransit(s[i], q.getTarget());
 		}
 		currentStage = q.getCurrentStageIndex();
 		currentBid = q.getBids();
