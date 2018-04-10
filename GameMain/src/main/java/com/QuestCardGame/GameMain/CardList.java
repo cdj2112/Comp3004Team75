@@ -58,10 +58,8 @@ public class CardList {
 			}
 		}
 		testScanner.close();
-	
-		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
 
-		// Format Foe_Name;Amount;BattlePoints;Bids;EffectAmount;Target;UseFinder
+		// Format Foe_Name;Amount;BattlePoints;Bids;AlternateBids;AlternateBattlePoints;Target;UseFinder
 		Scanner AllyScanner = new Scanner(new File("./src/resources/AllyList.txt"));
 		while (AllyScanner.hasNext()) {
 			String[] cardInfo = AllyScanner.next().split(";");
@@ -69,10 +67,10 @@ public class CardList {
 			for (int i = 0; i < amount; i++) {
 				Ally a = new Ally(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]),
 						Integer.parseInt(cardInfo[3]), Integer.parseInt(cardInfo[4]), Integer.parseInt(cardInfo[5]),
-						cardInfo[6]);
-				boolean useFinder = Boolean.parseBoolean(cardInfo[6]);
+						cardInfo[6].replace('_', ' '));
+				boolean useFinder = Boolean.parseBoolean(cardInfo[7]);
 				if (useFinder) {
-					PlayFinder pf = new PlayFinder(g, cardInfo[5].replace('_', ' '));
+					PlayFinder pf = new PlayFinder(g, cardInfo[6].replace('_', ' '));
 					a.setFinder(pf);
 				}
 				adventureDeck.addCard(a);
