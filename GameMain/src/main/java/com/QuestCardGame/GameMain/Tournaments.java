@@ -97,6 +97,7 @@ public class Tournaments {
 
 	public void evaluatePlayers() {
 		discardPile.clear();
+		tournamentStash.clear();
 		tieBreaking();
 		// normal condition， only one has the maxBP
 		if (players.size() == 1) {

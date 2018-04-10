@@ -102,6 +102,14 @@ public class Player {
 		return total;
 	}
 	
+	public int getBids() {
+		int total = 0;
+		for(AdventureCard c : play) {
+			total += c.getBid(false);
+		}
+		return total;
+	}
+	
 	public void addShields(int s) {
 		numShields += s;
 		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");

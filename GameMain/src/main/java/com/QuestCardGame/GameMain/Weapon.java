@@ -9,7 +9,7 @@ public class Weapon extends AdventureCard{
     battlePoint = bp; 
   } 
  
-  public int getBattlePoint(boolean b){return battlePoint;}
+  public int getBattlePoint(boolean b){return battlePoint;} 
   public int getBid(boolean b) {return 0;}
   
   public String getFrontImagePath() {

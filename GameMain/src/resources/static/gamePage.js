@@ -6,6 +6,8 @@
     var imgMap = {};
     var draggingCard;
     var timeout;
+    var bids = 0;
+    var minimumBid = 0;
 
 	function updateGame(gameStatus){
 		console.log(gameStatus);
@@ -13,8 +15,9 @@
         updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
 
-        var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || []
-        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR', hide, gameStatus.canPlay);
+        var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || (gameStatus.currentQuest && gameStatus.currentQuest.stash) || []
+        var playing = gameStatus.currentStatus !=='BID_DISCARD' && gameStatus.currentStatus !=='EVAL_QUEST_STAGE' && gameStatus.currentStatus !=='EVAL_TOUR';
+        updatePlayer(gameStatus.playerStatus, playing, hide, gameStatus.canPlay);
 
         if(gameStatus.currentQuest){
             updateQuest(gameStatus.currentQuest, gameStatus.currentStatus, gameStatus.activePlayer);
@@ -64,10 +67,13 @@
         var declineButton = document.getElementById("declineButton");
 
         var isVisible = (status === "SPONSORING" || status === "BUILDING_QUEST" || status === "ACCEPTING_QUEST" 
-            || status === "PLAYING_QUEST" || status==="ENTERING_TOUR" || status==="PLAYING_TOUR") && playerIdx === active;
+            || status === "PLAYING_QUEST" || status==="ENTERING_TOUR" || status==="PLAYING_TOUR" || status==="TEST_BIDDING" || status==="TEST_BIDDING") && playerIdx === active;
 
         acceptButton.className = isVisible ? "" : "invisible";
 		declineButton.className = (isVisible && status!=="BUILDING_QUEST" && status !== "PLAYING_QUEST" && status!=="PLAYING_TOUR") ? "" : "invisible";
+
+        var bitCounter = document.getElementById("bidCounter");
+        bitCounter.className = status === "TEST_BIDDING" && playerIdx === active ? "" : "invisible";
 
         if(status === "SPONSORING"){
             acceptButton.onclick = acceptDeclineSponsor(true);
@@ -87,6 +93,9 @@
         } else if (status==="PLAYING_TOUR") { 
             acceptButton.onclick = finalizeTournament;
             declineButton.onclick = null;
+        } else if (status==="TEST_BIDDING") {
+            acceptButton.onclick = placeBid;
+            declineButton.onclick = dropOut;
         } else {
             acceptButton.onclick = declineButton.onclick = null;
         }
@@ -280,13 +289,20 @@
                 stageDiv.ondrop = (status==='BUILDING_QUEST' && active === playerIdx) ? dropCardOnStage(i) : null;
                 stageDiv.className = (status==='BUILDING_QUEST' && active === playerIdx) ? 'stageContainer active' : 'stageContainer';
                 matchCardsDom(stage.cards, stageDiv, 'stageCard', true);
-                if(quest.sponsor !== playerIdx && (status !== 'EVAL_QUEST_STAGE' || quest.currentStage !== i)) hideArrayCards(stage.cards);
+                if(quest.sponsor !== playerIdx && ((status !=='TEST_BIDDING' && status !== 'EVAL_QUEST_STAGE') || quest.currentStage !== i)) hideArrayCards(stage.cards);
             } else {
                 stageDiv.style.display = 'none';
                 stageDiv.ondragover = null;
                 stageDiv.ondrop = null;
             }
         }
+
+        document.getElementById("minus").onclick = incrementDecrementBid(false);
+        document.getElementById("plus").onclick = incrementDecrementBid(true);
+
+        minimumBid = quest.currentBid + 1;
+        bids = minimumBid;
+        document.getElementById('bidNumber').innerHTML = bids;
     }
 
     function clearQuest(){
@@ -327,6 +343,8 @@
             prompt.innerHTML = toDiscard[playerIdx]>0 ? 'Discard '+toDiscard[playerIdx]+' card'+(toDiscard[playerIdx]>1?'s':'') : 'Waiting For Other Player';
         } else if(status === 'PLAYING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Play Cards for Stage' : 'Waiting For Other Player';
+        } else if(status ==='TEST_BIDDING') {
+            prompt.innerHTML = active === playerIdx ? 'Place Bid' : 'Waiting For Other Player';
         } else if (status === 'EVAL_QUEST_STAGE') {
             prompt.innerHTML = 'Player '+active+' playing stage';
         } else if (status==="ENTERING_TOUR") {
@@ -368,6 +386,26 @@
 
     function finalizePlay(ev){
         stompClient.send("/command/finalizePlay", {}, JSON.stringify({}))
+    }
+
+    function placeBid() {
+        var bid = document.getElementById('bidNumber').innerHTML;
+        stompClient.send("/command/placeBid", {}, JSON.stringify({
+            bid: bid
+        }));
+    }
+
+    function incrementDecrementBid(increment) {
+        return function(ev){
+            if(increment) bids++;
+            else bids--;
+            bids = Math.max(bids, minimumBid);
+            document.getElementById('bidNumber').innerHTML = bids;
+        }
+    }
+
+    function dropOut() {
+        stompClient.send("/command/dropOut", {}, JSON.stringify({}))
     }
 
     function acceptDeclineTournament(accept){

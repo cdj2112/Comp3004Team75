@@ -19,17 +19,17 @@ public class Test extends AdventureCard {
 		target = targetQuest;
 	}
 
-  public int getMinBid(Boolean bouns){
+  public int getMinBid(boolean bouns){
     //only for the "Searching for the questing beast"
     if (target != null && bouns) return 4;
     return minBid;
   }
   
-  public int getBattlePoint(boolean b) {
+  public int getBid(boolean bonus) {
 	  return 0;
   }
   
-  public int getBid(boolean b) {
+  public int getBattlePoint(boolean b) {
 	  return 0;
   }
   

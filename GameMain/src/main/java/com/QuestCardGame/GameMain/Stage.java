@@ -7,13 +7,24 @@ import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
 public class Stage {
 
 	private ArrayList<AdventureCard> cards;
+	private boolean isTest;
 	
 	public Stage(){
 		cards = new ArrayList<AdventureCard>();
+		isTest = false;
 	}
 
 	public boolean addCard(AdventureCard newCard) {
 		if(newCard.getCardType() == AdventureType.ALLY || newCard.getCardType() == AdventureType.AMOURS) {
+			return false;
+		}
+		
+		
+		if(isTest) {
+			return false;
+		}
+		
+		if(newCard.getCardType() == AdventureType.TEST && cards.size() > 0) {
 			return false;
 		}
 		
@@ -22,7 +33,9 @@ public class Stage {
 				return false;
 			else if(c.getName() == newCard.getName())
 				return false;
-		}		
+		}
+		
+		isTest = newCard.getCardType() == AdventureType.TEST;
 		cards.add(newCard);
 		return true;
 	}
@@ -51,5 +64,14 @@ public class Stage {
 				numFoes++;
 		}
 		return numFoes;
+	}
+	
+	public boolean getIsTest() {
+		return isTest;
+	}
+	
+	public int getMinBid() {
+		Test t = (Test)(cards.get(0));
+		return t.getMinBid(false);
 	}
 }

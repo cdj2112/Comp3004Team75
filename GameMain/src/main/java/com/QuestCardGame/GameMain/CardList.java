@@ -46,6 +46,20 @@ public class CardList {
 			}
 		}
 		foeScanner.close();
+		
+		//Format Test_Name;Amount;MinBids
+		Scanner testScanner = new Scanner(new File("./src/resources/TestList.txt"));
+		while(testScanner.hasNext()) {
+			String[] cardInfo = testScanner.next().split(";");
+			int amount = Integer.parseInt(cardInfo[1]);
+			for(int i = 0; i<amount; i++) {
+				Test t = new Test(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				adventureDeck.addCard(t);
+			}
+		}
+		testScanner.close();
+	
+		//Format Foe_Name;Amount;BattlePoints;AlternateBattlePoints
 
 		// Format Foe_Name;Amount;BattlePoints;Bids;EffectAmount;Target;UseFinder
 		Scanner AllyScanner = new Scanner(new File("./src/resources/AllyList.txt"));
