@@ -135,6 +135,7 @@ public class Quest {
 			clearQuest();
 		}
 
+		if(currentStage == totalStages) removeCardsOfType(p, AdventureCard.AdventureType.AMOURS);
 		return playerWins;
 	}
 

@@ -177,6 +177,11 @@ public class Hand extends ArrayList<AdventureCard>{
 			return false;
 		
 		for(AdventureCard c : h) {
+			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
+				return false;
+		}
+		
+		for(AdventureCard c : h) {
 			if(c.getName().compareTo(newCard.getName()) == 0)
 				return false;
 		}
