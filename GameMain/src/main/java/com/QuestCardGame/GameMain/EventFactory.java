@@ -21,9 +21,9 @@ public class EventFactory {
 		effects.put("Plague", new Plague(g));
 		effects.put("King's Recognition", new KingsRecognition(g));
 		effects.put("Queen's Favor", new QueensFavor(g));
-		effects.put("Court Called To Camelot", new CourtCalledToCamelot(g));
-		effects.put("King's Call To Arms", new CourtCalledToCamelot(g));
-		effects.put("Prosperity Throughout The Realm", new ProsperityThroughoutTheRealm(g));
+		effects.put("Court Called to Camelot", new CourtCalledToCamelot(g));
+		effects.put("King's Call to Arms", new CourtCalledToCamelot(g));
+		effects.put("Prosperity Throughout the Realm", new ProsperityThroughoutTheRealm(g));
 	}
 	
 	public void effectCard(EventCard c) {
