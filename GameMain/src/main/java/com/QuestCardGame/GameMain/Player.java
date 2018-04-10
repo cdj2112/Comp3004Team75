@@ -92,7 +92,7 @@ public class Player {
 	public int getBids() {
 		int total = 0;
 		for(AdventureCard c : play) {
-			total += c.getFreeBids();
+			total += c.getBid(false);
 		}
 		return total;
 	}
