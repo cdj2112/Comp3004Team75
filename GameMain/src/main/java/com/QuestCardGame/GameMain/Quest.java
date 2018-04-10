@@ -26,6 +26,8 @@ public class Quest {
 	private int biddingRound = 0;
 	private int currentBids = 0;
 	private boolean bidMade = false;
+	
+	private ArrayList<AdventureCard> questStash;
 
 	Quest(QuestCard qc) {
 		stages = new Stage[qc.getStages()];
@@ -36,6 +38,7 @@ public class Quest {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isQuestOver = false;
+		questStash = new ArrayList<AdventureCard>();
 		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
 	}
 
@@ -255,5 +258,17 @@ public class Quest {
 	
 	public boolean bidMade() {
 		return bidMade;
+	}
+	
+	public void addToStash(AdventureCard c) {
+		questStash.add(c);
+	}
+	
+	public ArrayList<AdventureCard> getStash(){
+		return questStash;
+	}
+	
+	public void clearStash() {
+		questStash.clear();
 	}
 }

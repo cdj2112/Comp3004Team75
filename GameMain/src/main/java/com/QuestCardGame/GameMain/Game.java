@@ -323,6 +323,8 @@ public class Game {
 				}
 				if (activeTournaments != null)
 					activeTournaments.addToStash(c);
+				if(currentStatus == GameStatus.PLAYING_QUEST)
+					activeQuest.addToStash(c);
 				played[i] = true;
 			}
 		}
@@ -335,6 +337,8 @@ public class Game {
 
 		if (activeTournaments != null)
 			activeTournaments.addToStash(c);
+		if(currentStatus == GameStatus.PLAYING_QUEST)
+			activeQuest.addToStash(c);
 		p.playCard(c);
 		if(currentStatus == GameStatus.END_TURN_DISCARD || currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.PRE_TOUR_DISCARD) {
 			checkHandSizes();
@@ -450,9 +454,10 @@ public class Game {
 				}
 			}
 		} else if (p == null && !activeQuest.isQuestOver()) {
-			if (currentStatus == GameStatus.PLAYING_QUEST)
+			if (currentStatus == GameStatus.PLAYING_QUEST) {
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
-			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
+				activeQuest.clearStash();
+			} else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
 				currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
 				ArrayList<Player> questPlayers = activeQuest.getPlayers();
 				for (Player qP : questPlayers) {
