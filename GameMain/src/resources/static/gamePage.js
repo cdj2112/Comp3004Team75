@@ -16,7 +16,8 @@
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
 
         var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || []
-        updatePlayer(gameStatus.playerStatus, gameStatus.currentStatus==='PLAYING_QUEST'||gameStatus.currentStatus==='PLAYING_TOUR', hide, gameStatus.canPlay);
+        var playing = gameStatus.currentStatus !=='BID_DISCARD' && gameStatus.currentStatus !=='EVAL_QUEST_STAGE' && gameStatus.currentStatus !=='EVAL_TOUR';
+        updatePlayer(gameStatus.playerStatus, playing, hide, gameStatus.canPlay);
 
         if(gameStatus.currentQuest){
             updateQuest(gameStatus.currentQuest, gameStatus.currentStatus, gameStatus.activePlayer);
