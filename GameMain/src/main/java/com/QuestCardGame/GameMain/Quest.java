@@ -134,16 +134,15 @@ public class Quest {
 		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
 
-		
-		discardPile.clear();
-		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
-
 		if(!playerWins) {
 			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
 			iter.remove();
 		} else {
 			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
 		}
+		
+		discardPile.clear();
+		removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
 
 		//currentStage starts at 0
 		if(isLastPlayer && players.size()!=0) {
@@ -158,6 +157,7 @@ public class Quest {
 			clearQuest();
 		}
 
+		if(currentStage == totalStages) removeCardsOfType(p, AdventureCard.AdventureType.AMOURS);
 		return playerWins;
 	}
 	

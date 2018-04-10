@@ -42,7 +42,9 @@ public class Game {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
-			players[i] = (numPlayers - i) > nAIP ? new Player() : new AIStrategyTwo(this);
+			//temporary fix to keep this working with java fx UI.
+			//will just need int[] behaviour instead of nP/nAIP
+			players[i] = (numPlayers - i) > nAIP ? new Player(this, 0) : new Player(this, 2);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
@@ -313,6 +315,7 @@ public class Game {
 				played[i] = false;
 			} else {
 				p.playCard(c);
+				if(activeTournaments != null) activeTournaments.addToStash(c);
 				played[i] = true;
 			}
 		}

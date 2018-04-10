@@ -82,6 +82,7 @@ public class Tournaments {
 			Player p = removeIter.next();
 			if (p.getBattlePoints() != maxBP) {
 				removeCardsOfType(p, AdventureCard.AdventureType.WEAPON);
+				removeCardsOfType(p, AdventureCard.AdventureType.AMOURS);
 				logger.info("Player " + p.getPlayerNumber() + " eliminated from tournament");
 				removeIter.remove();
 			}
@@ -108,6 +109,8 @@ public class Tournaments {
 
 		for (int i = 0; i < players.size(); i++) {
 			removeCardsOfType(players.get(i), AdventureCard.AdventureType.WEAPON);
+			if(isTournamentsOver)
+				removeCardsOfType(players.get(i), AdventureCard.AdventureType.AMOURS);
 		}
 	}
 

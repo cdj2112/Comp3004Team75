@@ -13,7 +13,7 @@ public class HandTest extends TestCase {
 	AdventureCard f2 = new Foe("Foe", 12);
 	AdventureCard a1 = new Amours();
 	AdventureCard a2 = new Amours();
-	AdventureCard ally = new Ally("Ally", 10, 1, "target");
+	AdventureCard ally = new Ally("Ally", 10, 1, 1, 1, "target");
 	AdventureCard test = new Test("TestCard");
 
 	Player p = new Player();
@@ -121,6 +121,19 @@ public class HandTest extends TestCase {
 		assert !p.getHand().hasCardsToSponsorQuest(3);	
 		p.drawCard(test);	
 		assert p.getHand().hasCardsToSponsorQuest(3);
+	}
+	
+	public void testGetNumDuplicates() {
+		p.getHand().clear();
+		p.drawCard(w1);
+		p.drawCard(w2);
+		
+		//dagger and axe
+		assert p.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON) == 2;
+		
+		//now dagger and 2 axe
+		p.drawCard(w3);
+		assert p.getHand().getNumUniqueCards(AdventureCard.AdventureType.WEAPON) == 2;
 	}
 	
 }

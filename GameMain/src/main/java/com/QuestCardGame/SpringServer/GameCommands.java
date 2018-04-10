@@ -139,6 +139,17 @@ public class GameCommands {
 		game.EvalTour();
 		return buildGameStatus();
 	}
+	
+	@MessageMapping("/playAITurn")
+	@SendTo("/status/gameStatus")
+	public GameTransit playAITurn() {
+		Game game = QuestSpringApplication.getGame();
+		Player p = game.getCurrentActivePlayerObj();
+		if(p.isAIPlayer()) {
+			p.playTurn();
+		}
+		return buildGameStatus();
+	}
 
 	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

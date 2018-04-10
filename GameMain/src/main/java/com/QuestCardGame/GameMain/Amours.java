@@ -5,16 +5,16 @@ public class Amours extends AdventureCard {
 	private int bid;
 
 	public Amours() {
-		super("Amours", AdventureType.AMOURS);
+		super("Amour", AdventureType.AMOURS);
 		battlePoint = 10;
 		bid = 1;
 	}
 
-	public int getFreeBids() {
+	public int getBid(boolean bonus) {
 		return bid;
 	}
 
-	public int getBattlePoint(Boolean b) {
+	public int getBattlePoint(boolean b) {
 		return battlePoint;
 	}
 

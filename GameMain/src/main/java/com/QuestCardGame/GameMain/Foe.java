@@ -17,8 +17,12 @@ public class Foe extends AdventureCard {
 		battlePoints = bp1;
 		specialBattlePoints = bp2;
 	}
+	
+	public int getBid(boolean bonus) {
+		return 0;
+	}
 
-	public int getBattlePoint(Boolean questTarget) {
+	public int getBattlePoint(boolean questTarget) {
 		if (questTarget)
 			return specialBattlePoints;
 		else
