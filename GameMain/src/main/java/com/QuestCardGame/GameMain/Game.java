@@ -691,8 +691,12 @@ public class Game {
 
 //Event Functions
 	public int getExtraShield() {return extraShield;}
-	public void setExtraShield(int e) {extraShield = e;}
+	public void setExtraShield(int e) {
+		logger.info("Next Quest is worth "+e+" extra shields");
+		extraShield = e;
+	}
 	public void clearAllAllies(){
+		logger.info("All allies in play are discarded");
 		for (int i = 0; i < numPlayers; i++){
 			for (AdventureCard c: players[i].getPlay()){
 				if (c.getCardType() == AdventureCard.AdventureType.ALLY) 
@@ -701,6 +705,7 @@ public class Game {
 		}
 	}
 	public void setSpecialDiscard(int p, AdventureType type, int amount) {
+		logger.info("Player "+p+": Must discard "+amount+" "+type+" card"+(amount==1?"":"s"));
 		specialDiscard[p].put(type, amount);
 	}
 	public HashMap<AdventureType, Integer>[] getSpecialDiscard(){
@@ -708,6 +713,7 @@ public class Game {
 	}
 	public void executeEvent() {
 		if(currentStatus == GameStatus.EVENT_EXECUTE) {
+			logger.info("Event card "+currentStoryCard.getName()+": Executes");
 			boolean discard = ((EventCard)currentStoryCard).execute();
 			if(!discard) {
 				endTurn();
