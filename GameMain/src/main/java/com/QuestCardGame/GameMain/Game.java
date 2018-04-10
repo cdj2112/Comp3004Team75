@@ -297,7 +297,9 @@ public class Game {
 
 	public void placeBid(int bid) {
 		Player p = getCurrentActivePlayerObj();
-		int maxBids = p.getBids() + p.getHand().size();
+		String questName = currentStoryCard.getName();
+		
+		int maxBids = p.getBids(questName) + p.getHand().size();
 		if (bid > maxBids)
 			return;
 		boolean accepted = activeQuest.makeBid(bid);
@@ -439,6 +441,7 @@ public class Game {
 	 */
 	public Player getNextActiveQuestPlayer() {
 		Player p = activeQuest.getNextPlayer();
+		String questName = currentStoryCard.getName();
 
 		// play has looped a full circle - change status accordingly
 		if (currentStatus == GameStatus.TEST_BIDDING && activeQuest.getPlayers().size() == 1 && activeQuest.bidMade()) {
@@ -446,8 +449,8 @@ public class Game {
 			if (p == null)
 				p = activeQuest.getNextPlayer();
 			for (int i = 0; i < numPlayers; i++) {
-				if (players[i] == p && activeQuest.getBids() > p.getBids()) {
-					toDiscard[i] = activeQuest.getBids() - p.getBids();
+				if (players[i] == p && activeQuest.getBids() > p.getBids(questName)) {
+					toDiscard[i] = activeQuest.getBids() - p.getBids(questName);
 				} else if (players[i] == p) {
 					currentStatus = GameStatus.PLAYING_QUEST;
 					activeQuest.closeBidding();

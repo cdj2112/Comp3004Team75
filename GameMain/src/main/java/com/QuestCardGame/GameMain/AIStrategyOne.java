@@ -165,10 +165,11 @@ public class AIStrategyOne extends AIPlayer {
 	public int getBidForTest() {
 		int numToBid = 0;
 		int currentRound = game.getActiveQuest().getBiddingRound();
+		String storyCard = game.getActiveStoryCard().getName();
 		
 		//don't bid unless first round
 		if(currentRound == 0) {
-			numToBid = player.getHand().getNumFoesToDiscard(20) + player.getBids();
+			numToBid = player.getHand().getNumFoesToDiscard(20) + player.getBids(storyCard);
 			int currentBid = game.getActiveQuest().getBids();
 			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will bid number of foes < 20 battle points");
 			if(numToBid > currentBid) {

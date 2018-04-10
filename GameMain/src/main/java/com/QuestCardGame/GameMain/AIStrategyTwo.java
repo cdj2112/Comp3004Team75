@@ -168,10 +168,11 @@ public class AIStrategyTwo extends AIPlayer {
 	public int getBidForTest() {
 		int numToBid = 0;
 		int currentTestRound = game.getActiveQuest().getBiddingRound();
+		String storyCard = game.getActiveStoryCard().getName();
 		Hand playerHand = player.getHand();
 		
 		if(currentTestRound == 0) {
-			numToBid = playerHand.getNumFoesToDiscard(25) + player.getBids();
+			numToBid = playerHand.getNumFoesToDiscard(25) + player.getBids(storyCard);
 			int currentBid = game.getActiveQuest().getBids();
 			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 battle points.");
 			if(numToBid > currentBid) {
@@ -188,7 +189,7 @@ public class AIStrategyTwo extends AIPlayer {
 				if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 25)
 					canDiscard.add(c);
 			}
-			numToBid = canDiscard.size() + playerHand.getNumDuplicates(canDiscard) + player.getBids();
+			numToBid = canDiscard.size() + playerHand.getNumDuplicates(canDiscard) + player.getBids(storyCard);
 			int currentBid = game.getActiveQuest().getBids();
 			logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 and number of duplicate cards.");
 			if(numToBid > currentBid) {
