@@ -15,7 +15,7 @@
         updatePrompt(gameStatus.currentStatus, gameStatus.activePlayer, gameStatus.toDiscard);
 		updateButtons(gameStatus.currentStatus, gameStatus.activePlayer);
 
-        var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || []
+        var hide = (gameStatus.currentTournament && gameStatus.currentTournament.stash) || (gameStatus.currentQuest && gameStatus.currentQuest.stash) || []
         var playing = gameStatus.currentStatus !=='BID_DISCARD' && gameStatus.currentStatus !=='EVAL_QUEST_STAGE' && gameStatus.currentStatus !=='EVAL_TOUR';
         updatePlayer(gameStatus.playerStatus, playing, hide, gameStatus.canPlay);
 
