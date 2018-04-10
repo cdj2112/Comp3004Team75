@@ -703,6 +703,9 @@ public class Game {
 	public void setSpecialDiscard(int p, AdventureType type, int amount) {
 		specialDiscard[p].put(type, amount);
 	}
+	public HashMap<AdventureType, Integer>[] getSpecialDiscard(){
+		return specialDiscard;
+	}
 	public void executeEvent() {
 		if(currentStatus == GameStatus.EVENT_EXECUTE) {
 			boolean discard = ((EventCard)currentStoryCard).execute();
