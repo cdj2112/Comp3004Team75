@@ -2,7 +2,7 @@ Chivalrous_Deed;1
 Court_Called_to_Camelot;2
 King's_Call_to_Arms;1
 King's_Recognition;2
-Plauge;1
+Plague;1
 Pox;1
 Prosperity_Throughout_the_Realm;1
 Queen's_Favor;2

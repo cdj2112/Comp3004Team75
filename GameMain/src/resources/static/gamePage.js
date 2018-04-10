@@ -22,7 +22,7 @@
             clearQuest();
         }
 
-        updateDiscard(gameStatus.toDiscard);
+        updateDiscard(gameStatus.toDiscard, gameStatus.specialDiscard);
 
 
         document.getElementById("drawStoryCard").onclick = (gameStatus.currentStatus === "IDLE" && gameStatus.activePlayer===playerIdx) ? drawStoryCard : null;
@@ -45,6 +45,13 @@
             timeout = setTimeout(function(){
                 timeout = null;
                 stompClient.send("/command/playTournament", {}, JSON.stringify({}));
+            }, 1000);
+        }
+
+         if(gameStatus.currentStatus === 'EVENT_EXECUTE' && gameStatus.activePlayer === playerIdx && !timeout){
+            timeout = setTimeout(function(){
+                timeout = null;
+                stompClient.send("/command/executeEvent", {}, JSON.stringify({}));
             }, 1000);
         }
 
@@ -297,9 +304,11 @@
         }
     }
 
-    function updateDiscard(discard){
+    function updateDiscard(discard, specialDiscard){
+        var discardMap = specialDiscard[playerIdx];
+        var discardTypes = Object.keys(discardMap);
         var discardElm = document.getElementById('discard');
-        if(discard[playerIdx]>0){
+        if(discard[playerIdx]>0 || discardTypes.length){
             discardElm.style.display = '';
             discardElm.ondragover = function(ev){
                 ev.preventDefault();
@@ -313,7 +322,7 @@
         }
     }
 
-    function updatePrompt(status, active, toDiscard){
+    function updatePrompt(status, active, toDiscard, specialDiscard){
         var prompt = document.getElementById('prompt');
         if(status === 'IDLE'){
             prompt.innerHTML = active === playerIdx ? 'Draw Story Card' : 'Waiting For Story Card';
@@ -335,6 +344,12 @@
             prompt.innerHTML = active === playerIdx ? 'Play Cards For Tournament' : 'Waiting for other player';
         } else if (status==="EVAL_TOUR") {
             prompt.innerHTML = 'Playing Tornament';
+        } else if (status==="EVENT_EXECUTE") {
+            prompt.innerHTML = 'Playing Event';
+        } else if(status === 'EVENT_DISCARD') {
+            var discardMap = specialDiscard[playerIdx];
+            var discardTypes = Object.keys(discardMap);
+            prompt.innerHTML = discardTypes.length ? "Discard "+discardMap[discardTypes[0]]+' card'+(discardMap[discardTypes[0]]?'s':'')+' of type '+discardTypes[0] : 'Waiting For Other Player';
         } else {
             prompt.innerHTML = 'No prompt set';
         }
