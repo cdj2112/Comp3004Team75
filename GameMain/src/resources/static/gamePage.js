@@ -299,8 +299,8 @@
         document.getElementById("minus").onclick = incrementDecrementBid(false);
         document.getElementById("plus").onclick = incrementDecrementBid(true);
 
-        minimumBid = quest.currentBid;
-        bids = minimumBid +1;
+        minimumBid = quest.currentBid + 1;
+        bids = minimumBid;
         document.getElementById('bidNumber').innerHTML = bids;
     }
 
