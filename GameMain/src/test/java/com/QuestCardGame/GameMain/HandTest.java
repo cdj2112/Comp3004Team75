@@ -13,7 +13,7 @@ public class HandTest extends TestCase {
 	AdventureCard f2 = new Foe("Foe", 12);
 	AdventureCard a1 = new Amours();
 	AdventureCard a2 = new Amours();
-	AdventureCard ally = new Ally("Ally", 10, 1, "target");
+	AdventureCard ally = new Ally("Ally", 10, 1, 1, 1, "target");
 	AdventureCard test = new Test("TestCard");
 
 	Player p = new Player();
