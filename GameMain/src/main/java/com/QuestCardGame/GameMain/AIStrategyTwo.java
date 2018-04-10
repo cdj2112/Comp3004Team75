@@ -5,20 +5,26 @@ import java.util.Collections;
 import java.util.Map;
 import java.util.Comparator;
 import java.util.HashMap;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 
 public class AIStrategyTwo extends AIPlayer {
 
 	int previousQuestStageBattlePoints;
+	private static final Logger logger = LogManager.getLogger("AILogger");
 	
-	public AIStrategyTwo(Game g) {
+	public AIStrategyTwo(Game g, Player p) {
 		super();
 		game = g;
+		player = p;
 		previousQuestStageBattlePoints = 0;
 	}
 	
 	//Always participate
 	public boolean doIJoinTournament() {
-		//game.acceptDeclineTour(this, true);
+		game.acceptDeclineTour(player, true);
+		logger.info("AI strategy [TWO] always enters a tournament");
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] ENTERED the tournament");
 		return true;
 	}
 
@@ -26,25 +32,39 @@ public class AIStrategyTwo extends AIPlayer {
 	public ArrayList<AdventureCard> playCardsForTournament() {
 		Hand cardsToPlay;
 		Hand hand =  game.getCurrentActivePlayerObj().getHand();
+		int totalBattlePoints = 0;
 
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] will try to play a hand with >= 50 pts.");
 		cardsToPlay = hand.getCardsForPoints(50);
-		if(cardsToPlay == null)
-			cardsToPlay = hand.getBestPossibleHand(this.getPlay());
+		if(cardsToPlay == null) {
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] failed to make a 50 pt hand. Will now play best possible hand.");
+			cardsToPlay = hand.getBestPossibleHand(player.getPlay());
+		}
 		
-		game.playerPlayCards(this, cardsToPlay);
-		//game.finalizePlayTour();
+		for(AdventureCard c: cardsToPlay) {
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] played [" + c.getName() + "] for tournament.");
+			totalBattlePoints += c.getBattlePoint(false);
+		}
+		logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] played [" + totalBattlePoints + "] battle points for tournament");
+		game.playerPlayCards(player, cardsToPlay);
+		game.finalizePlayTour();
 		
 		return cardsToPlay;
+	}
+	
+	public ArrayList<AdventureCard> evalTour() {
+		return game.EvalTour();
 	}
 
 	public boolean doISponsorAQuest() {
 		boolean sponsorQuest = true;
-		int numStages = ((QuestCard)game.getActiveStoryCard()).getStages();
+		QuestCard quest = ((QuestCard)game.getActiveStoryCard());
+		int numStages = quest.getStages();
 		
 		for(int i = 0; i < game.getNumPlayers() && sponsorQuest; i++) {
 			Player p = game.getPlayer(i);
-			if(p == this) {
-				if(!this.getHand().hasCardsToSponsorQuest(numStages))
+			if(p == this.player) {
+				if(!player.getHand().hasCardsToSponsorQuest(numStages))
 					sponsorQuest = false;
 			}			
 			else if(p.getNumShields() + numStages >= p.getShieldsNeeded()) {
@@ -52,11 +72,14 @@ public class AIStrategyTwo extends AIPlayer {
 			}
 		}
 		
-		if(sponsorQuest)
+		if(sponsorQuest) {
 			game.acceptSponsor();
-		else
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] SPONSORED the quest [" + quest.getName() + "]");
+		}
+		else {
 			game.declineSponsor();
-		
+			logger.info("AI Player " + player.getPlayerNumber() + " with strategy [TWO] did NOT SPONSOR the quest [" + quest.getName() + "]");
+		}
 		return sponsorQuest;
 	}
 
@@ -65,15 +88,16 @@ public class AIStrategyTwo extends AIPlayer {
 		int prevStageBattlePoints = 0;
 		ArrayList<AdventureCard> allCardsForQuest = new ArrayList<AdventureCard>();
 		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
-		Hand sponsorHand = this.getHand();
 		
 		for(int stage = 0; stage < numStages; stage++) {
-			cardsForStage = sponsorHand.getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
+			cardsForStage = getCardsForQuestStage(stage, numStages, prevStageBattlePoints + 1);
 			prevStageBattlePoints = 0;
 			for(AdventureCard c : cardsForStage) {
 				game.sponsorAddCardToStage(c, stage);
 				prevStageBattlePoints += c.getBattlePoint(false);
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] added [" + c.getName() + "] to stage [" + stage + "]");
 			}
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] played total battle points [" + prevStageBattlePoints + "] for stage [" + stage + "]");
 			allCardsForQuest.addAll(cardsForStage);
 		}
 		game.finalizeQuest();
@@ -83,37 +107,47 @@ public class AIStrategyTwo extends AIPlayer {
 	//Can increase BP each stage by 10 pts AND
 	//has 2 foes less than 25 BP
 	public ArrayList<AdventureCard> doIJoinQuest() {
-		Hand hand = this.getHand();
+		Hand hand = player.getHand();
 		int foesToDiscard = hand.getNumFoesToDiscard(25);
 		boolean isValidBattlePoints = false;
-		int numStages = game.getActiveQuest().getNumStages();
+		QuestCard activeQuest = ((QuestCard)game.getActiveStoryCard());
+		int numStages = activeQuest.getStages();
 
-		isValidBattlePoints = hand.hasIncreasingBattlePointsForStages(numStages, 10, this.getPlay());		
+		isValidBattlePoints = hand.hasIncreasingBattlePointsForStages(numStages, 10, player.getPlay());		
 		boolean acceptQuest = foesToDiscard >= 2 && isValidBattlePoints;
 		
-		return game.acceptDeclineQuest(this, acceptQuest);
+		if(acceptQuest) {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] ACCEPTED quest [" + activeQuest.getName() + "]");
+		}
+		else {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] DECLINED quest [" + activeQuest.getName() + "]");
+
+		}
+		return game.acceptDeclineQuest(this.player, acceptQuest);
 	}
 
 	public ArrayList<AdventureCard> playCardsForQuestStage() {
 		Hand cardsToPlay = new Hand();
 		int currentStage = game.getActiveQuest().getCurrentStageIndex() + 1; //currentStage starts at 0
 		int totalStages = game.getActiveQuest().getNumStages();
-		ArrayList<AdventureCard> cardsInPlay = this.getPlay();
+		ArrayList<AdventureCard> cardsInPlay = player.getPlay();
 
 		if(currentStage == totalStages) {
-			cardsToPlay = this.getHand().getBestPossibleHand(cardsInPlay);
+			cardsToPlay = player.getHand().getBestPossibleHand(cardsInPlay);
+			logger.info("Final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will play best hand.");
 		}
 		else {
-			cardsToPlay = this.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
+			logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will play 10 higher than previous stage of [" + previousQuestStageBattlePoints + "]");
+			cardsToPlay = player.getHand().getHandToPlayForQuestStage(previousQuestStageBattlePoints + 10, cardsInPlay);
 		}
-		previousQuestStageBattlePoints = this.getBattlePointsForHand(cardsToPlay);
-		
-		int cP = getHand().size() - cardsToPlay.size() - 12;
-		getHand().sortAscendingByBattlePoints();
+		previousQuestStageBattlePoints = player.getBattlePointsForHand(cardsToPlay);
+			
+		int cP = player.getHand().size() - cardsToPlay.size() - 12;
+		player.getHand().sortAscendingByBattlePoints();
 		int i = 0; 
 		while(cP > 0) {
-			AdventureCard c = getHand().get(i);
-			if(getHand().isValidPlay(cardsToPlay, c)) {
+			AdventureCard c = player.getHand().get(i);
+			if(player.getHand().isValidPlay(cardsToPlay, c)) {
 				cardsToPlay.add(c);
 				cP--;
 			} else {
@@ -121,7 +155,11 @@ public class AIStrategyTwo extends AIPlayer {
 			}
 		}
 		
-		game.playerPlayCards(this, cardsToPlay);
+		for(AdventureCard c: cardsToPlay)
+			logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] played [" + c.getName() + "]");
+		logger.info("Not final quest stage. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] played battle point total [" + previousQuestStageBattlePoints + "]"); //previous is updated above so this is okay
+	
+		game.playerPlayCards(this.player, cardsToPlay);
 		game.finalizePlay();
 		
 		return cardsToPlay;
@@ -129,51 +167,83 @@ public class AIStrategyTwo extends AIPlayer {
 
 	public int getBidForTest() {
 		int numToBid = 0;
-		//int currentRound = g.getActiveQuest().getTestRound();
+		int currentTestRound = 0; //g.getActiveQuest().getTestRound();
+		Hand playerHand = player.getHand();
 		
-//		if(currentRound == 1) {
-//			numToBid = getNumFoesToDiscard(current.getHand());
-//		}
-//		else if(currentRound == 2) {
-//			//TODO add # duplicates to bid
-//			//numToBid += getNumFoesToDiscard(current.getHand()) + getNumDuplicates(current.getHand());
-//		}
+		if(currentTestRound == 0) {
+			numToBid = playerHand.getNumFoesToDiscard(25);
+			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 battle points.");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
+		}
+		else if(currentTestRound == 1) {
+			numToBid = playerHand.getNumFoesToDiscard(25) + playerHand.getNumDuplicates();
+			logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 and number of duplicate cards.");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
+		}
 		
 		return numToBid;
 	}
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	/**
-	 * For now just get rid of the lowest BP cards
-	 */
-	public ArrayList<AdventureCard> getCardsToDiscard(){
-		Hand playerHand = this.getHand();
-		int numCardsToDiscard = playerHand.size() - 12;
+		int numRoundsPlayed = 0; //g.getActiveQuest().getTestRound(); 
 		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
 		
-		if(numCardsToDiscard <= 0)
-			return null;
+		//foes 25 and below are discarded for the first round
+		for(AdventureCard c : player.getHand()) {
+			if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 25)
+				cardsToDiscard.add(c);
+		}
 		
-		playerHand.sortAscendingByBattlePoints();
+		//if we played two rounds, also discard the duplicates
+		if(numRoundsPlayed == 1) {
+			cardsToDiscard.addAll(player.getHand().getDuplicateCards());
+		}
+		
+		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] won the test.");
 
-		for(AdventureCard c: playerHand) {
-			if(numCardsToDiscard == 0)
-				break;
-			cardsToDiscard.add(c);
-			numCardsToDiscard--;
-		}
-		
 		for(AdventureCard c : cardsToDiscard) {
-			game.playerDiscardAdventrueCard(this, c);
-		}
+			game.playerDiscardAdventrueCard(player, c);
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] discarded [" + c.getName() + "]");
+		}	
 		return cardsToDiscard;
+	}
+	
+	public ArrayList<AdventureCard> evalQuestStage() {
+		int i = game.getPlayerIndex(player);
+		return game.evaluatePlayerEndOfStage(i);
 	}
 	
 	public void endTurn() {
 		previousQuestStageBattlePoints = 0;
+	}
+	
+	public boolean isAIPlayer() {
+		return true;
+	}
+	
+	public ArrayList<AdventureCard> getCardsForQuestStage(int stage, int totalStages, int requiredBattlePoints){
+		ArrayList<AdventureCard> cardsForStage = new ArrayList<AdventureCard>();
+		Hand playerHand = player.getHand();
+		//second last stage should be a test if possible
+		if(totalStages - stage + 1 == 1) {
+			AdventureCard test = playerHand.getTestCard();
+			if(test != null)
+				cardsForStage.add(test);
+		}
+		else if(stage + 1 == totalStages) {
+			AdventureCard foe = playerHand.getStrongestFoe();
+			if(foe != null)
+				cardsForStage.add(foe);
+			for(AdventureCard c : playerHand) {
+				if(playerHand.isValidForQuestStage(c, cardsForStage))
+					cardsForStage.add(c);
+			}
+		}
+		else {
+			AdventureCard foe = playerHand.getFoe(requiredBattlePoints);
+			if(foe != null)
+				cardsForStage.add(foe);
+		}	
+		return cardsForStage;
 	}
 }

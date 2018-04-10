@@ -28,9 +28,13 @@ public class Foe extends AdventureCard {
 	public int getBid(boolean b) {
 		return 0;
 	}
-	
+
 	public String getFrontImagePath() {
-		  return "./src/resources/Cards/Foe/"+cardName+".png";
-	  }
+		return "./src/resources/Cards/Foe/" + cardName + ".png";
+	}
+	
+	public String getUrlPath() {
+		return "/Cards/Foe/" + cardName + ".png";
+	}
 
 }

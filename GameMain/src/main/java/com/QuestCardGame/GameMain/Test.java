@@ -36,4 +36,8 @@ public class Test extends AdventureCard {
   public String getFrontImagePath() {
 	  return "./src/resources/Cards/Test/"+cardName+".png";
   }
+  
+  public String getUrlPath() {
+	  return "/Cards/Test/"+cardName+".png";
+  }
 }

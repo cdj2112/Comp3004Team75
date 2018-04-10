@@ -16,6 +16,8 @@ public interface AIPlayerStrategy {
 	
 	ArrayList<AdventureCard> playCardsForTournament();
 	
+	ArrayList<AdventureCard> evalTour();
+	
 	boolean doISponsorAQuest();
 	
 	ArrayList<AdventureCard> createQuest();
@@ -30,6 +32,8 @@ public interface AIPlayerStrategy {
 	
 	ArrayList<AdventureCard> getCardsToDiscard();
 	
+	ArrayList<AdventureCard> evalQuestStage();
+	
 	ArrayList<AdventureCard> playTurn();
 	
 	/**
@@ -37,6 +41,8 @@ public interface AIPlayerStrategy {
 	 * event to reset all variables to their beginning values 
 	 */
 	void endTurn();
+	
+	boolean isAIPlayer();
 	
 	
 	

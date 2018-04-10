@@ -38,11 +38,13 @@ public class Game {
 	// tour
 	private Tournaments activeTournaments;
 
-	Game(int nP, int nAIP, boolean rigged) {
+	public Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
-			players[i] = (numPlayers - i) > nAIP ? new Player() : new AIStrategyTwo(this);
+			//temporary fix to keep this working with java fx UI.
+			//will just need int[] behaviour instead of nP/nAIP
+			players[i] = (numPlayers - i) > nAIP ? new Player(this, 0) : new Player(this, 2);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
@@ -80,14 +82,17 @@ public class Game {
 		int i = 0;
 		for (Player p : players) {
 			correctCards = correctCards && p.getHand().size() <= 12;
+			toDiscard[i] = Math.max(0, p.getHand().size() - 12);
 			i++;
 		}
 
 		sponsor = null;
 		activeQuest = null;
 		activeTournaments = null;
+		if(currentStoryCard != null) {
+			logger.info("Story Card " + currentStoryCard.getName() + ": Discarded");
+		}
 		storyDeck.discard(currentStoryCard);
-		// logger.info("Story Card " + currentStoryCard.getName() + ": Discarded");
 		currentStoryCard = null;
 
 		if (correctCards) {
@@ -203,8 +208,7 @@ public class Game {
 
 	public void declineSponsor() {
 		if (currentStatus == GameStatus.SPONSORING) {
-			// logger.info("Player " + sponsor.getPlayerNumber() + ": Declined Sponsored
-			// Quest");
+			logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Declined Sponsored Quest");
 			activePlayer = (activePlayer + 1) % numPlayers;
 			if (activePlayer == playerTurn) {
 				endTurn();
@@ -298,6 +302,7 @@ public class Game {
 				played[i] = false;
 			} else {
 				p.playCard(c);
+				if(activeTournaments != null) activeTournaments.addToStash(c);
 				played[i] = true;
 			}
 		}
@@ -591,6 +596,24 @@ public class Game {
 	public Quest getActiveQuest() {
 		return activeQuest;
 	}
+	
+	public int getSponsorIndex() {
+		return getPlayerIndex(sponsor);
+	}
+	
+	public int getPlayerIndex(Player p) {
+		if(p == null) {
+			return -1;
+		}
+		for(int i = 0; i<players.length; i++) {
+			if(players[i]==p) return i;
+		}
+		return -1;
+	}
+	
+	public Tournaments getActiveTournament() {
+		return activeTournaments;
+	}
 
 	public int activeStages() {
 		if (activeQuest != null) {
@@ -610,6 +633,10 @@ public class Game {
 	public int getPlayerDiscard(int i) {
 		toDiscard[i] = Math.max(players[i].getHand().size() - 12, 0);
 		return toDiscard[i];
+	}
+	
+	public int[] getAllDiscard() {
+		return toDiscard;
 	}
 
 	private boolean isValidCardPlay(Player p, AdventureCard c) {
