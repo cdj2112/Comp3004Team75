@@ -301,11 +301,15 @@ public class Game {
 		if (bid > maxBids)
 			return;
 		boolean accepted = activeQuest.makeBid(bid);
-		if (accepted)
+		if (accepted) {
+			logger.info("Player " + p.getPlayerNumber() +": Bid "+bid+" cards");
 			getNextActiveQuestPlayer();
+		}
 	}
 
 	public void playerDropOut() {
+		Player p = getCurrentActivePlayerObj();
+		logger.info("Player " + p.getPlayerNumber() +": Droped out of Quest");
 		activeQuest.playerDropout();
 		getNextActiveQuestPlayer();
 	}
@@ -445,6 +449,7 @@ public class Game {
 			currentStatus = GameStatus.BID_DISCARD;
 			if (p == null)
 				p = activeQuest.getNextPlayer();
+			logger.info("Player "+p.getPlayerNumber()+": Won test");
 			for (int i = 0; i < numPlayers; i++) {
 				if (players[i] == p && activeQuest.getBids() > p.getBids()) {
 					toDiscard[i] = activeQuest.getBids() - p.getBids();

@@ -100,6 +100,7 @@ public class Quest {
 				biddingRound++;
 			}
 			if(players.size() == 0) {
+				logger.info("Quest no longer has any participants and is over");
 				isQuestOver = true;
 				clearQuest();
 			}
