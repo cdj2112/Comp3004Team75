@@ -184,7 +184,7 @@ public class Quest {
 	}
 	
 	public void closeBidding() {
-		currentBids = -1;
+		currentBids = 0;
 		biddingRound = 0;
 		currentStage++;
 		if(currentStage >= totalStages) {
@@ -258,6 +258,10 @@ public class Quest {
 	
 	public boolean bidMade() {
 		return bidMade;
+	}
+	
+	public int getBiddingRound() {
+		return biddingRound;
 	}
 	
 	public void addToStash(AdventureCard c) {
