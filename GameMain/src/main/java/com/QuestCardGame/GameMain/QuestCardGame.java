@@ -25,8 +25,8 @@ public class QuestCardGame extends Application {
 		mainStage.show();
 		mainStage.setResizable(false);
 		System.out.println();
-
-		Game game = new Game(numPlay, numAi, rigged.isSelected());
+		int[] aiStrat = {0,0,0,0}; //all human
+		Game game = new Game(numPlay, aiStrat, rigged.isSelected());
 		Group root = new QuestUI(game, mainStage.getHeight(), mainStage.getWidth());
 		Scene scene = new Scene(root, mainStage.getWidth(), mainStage.getHeight());
 		mainStage.setScene(scene);
