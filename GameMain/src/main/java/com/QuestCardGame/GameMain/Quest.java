@@ -147,7 +147,7 @@ public class Quest {
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
 
 		if(!playerWins) {
-			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");
+			logger.info("Player "+p.getPlayerNumber()+" loses stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");
 			iter.remove();
 		} else {
 			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");

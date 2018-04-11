@@ -81,6 +81,8 @@ public class Player {
 		for(AdventureCard c : play) {
 			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
 			totalBattlePoints += c.getBattlePoint(bonus); //no special ability
+			if(bonus)
+				logger.info("Player "+getPlayerNumber()+" gets [" + c.getBid(bonus) + "] bonus battle points from [" + c.getName() + "]");
 		}
 		return totalBattlePoints;
 	}
@@ -90,6 +92,8 @@ public class Player {
 		for(AdventureCard c : play) {
 			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
 			totalBattlePoints += c.getBid(bonus); //no special ability
+			if(bonus)
+				logger.info("Player "+getPlayerNumber()+" gets [" + c.getBid(bonus) + "] bonus bids from [" + c.getName() + "]");
 		}
 		return totalBattlePoints;
 	}
