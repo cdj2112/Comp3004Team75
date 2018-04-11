@@ -5,8 +5,9 @@ import java.util.ArrayList;
 public class PlayerListTransit {
 	String[] userNames;
 	int[] strategies;
+	boolean rigged;
 
-	public PlayerListTransit(ArrayList<String> uN, int[] aiS) {
+	public PlayerListTransit(ArrayList<String> uN, int[] aiS, boolean b) {
 		int numPlayers = uN.size();
 		userNames = new String[numPlayers];
 		strategies = new int[numPlayers];
@@ -14,6 +15,7 @@ public class PlayerListTransit {
 			userNames[i] = uN.get(i);
 			strategies[i] = aiS[i];
 		}
+		rigged = b;
 	}
 
 	public String[] getUserNames() {
@@ -22,5 +24,9 @@ public class PlayerListTransit {
 
 	public int[] getStrategies() {
 		return strategies;
+	}
+	
+	public boolean getRigged() {
+		return rigged;
 	}
 }

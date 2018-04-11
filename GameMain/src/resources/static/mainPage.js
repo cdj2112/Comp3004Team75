@@ -33,6 +33,7 @@
                 list.appendChild(oli);
             }
         }
+        document.getElementById('rigged').checked = playerList.rigged;
     }
 
     function addNewPlayer(){
@@ -80,6 +81,11 @@
     function redirectToGamePage(){
         location.pathname = '/gamePage';
     }
+
+    function changeRigged(ev) {
+        stompClient.send('/command/changeRigged', {}, ev.target.checked);
+    }
+    document.getElementById('rigged').onchange = changeRigged;
 
     function connect(){
         var socket = new SockJS('/gs-guide-websocket');
