@@ -175,6 +175,8 @@ public class Hand extends ArrayList<AdventureCard>{
 	public boolean isValidPlay(Hand h, AdventureCard newCard) {
 		if(newCard.getCardType() == AdventureCard.AdventureType.FOE)
 			return false;
+		else if(newCard.getCardType() == AdventureCard.AdventureType.TEST)
+			return false;
 		
 		for(AdventureCard c : h) {
 			if(c.getCardType() == AdventureCard.AdventureType.AMOURS)
