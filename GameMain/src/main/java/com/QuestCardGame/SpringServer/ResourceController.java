@@ -43,11 +43,19 @@ public class ResourceController {
 		 QuestSpringApplication.addAIPlayer();
 	 }
 	 
+	 @MessageMapping("/changeAIStrategy")
+	 @SendTo("status/playerList")
+	 public PlayerListTransit changeAIStrategy(AIChangeRequest acr) {
+		 QuestSpringApplication.changeAiStrategy(acr.getIndex(), acr.getNewStrategy());
+		 return sendPlayerList();
+	 }
+	 
+	 
 	 @GetMapping("/playerList")
 	 @ResponseBody
 	 @MessageMapping("/updatePlayers")
 	 @SendTo("/status/playerList")
-	 public String[] sendPlayerList() {
+	 public PlayerListTransit sendPlayerList() {
 		 return QuestSpringApplication.getPlayerList();
 	 }
 	 

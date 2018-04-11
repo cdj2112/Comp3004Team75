@@ -9,7 +9,7 @@ import com.QuestCardGame.GameMain.Game;
 public class QuestSpringApplication {
 
 	private static ArrayList<String> userNames = new ArrayList<String>();
-	private static boolean[] isAIPlayer = new boolean[4];
+	private static int[] aiStrategy = new int[4];
 	private static int numAI = 0;
 
 	private static Game game = null;
@@ -24,6 +24,7 @@ public class QuestSpringApplication {
 
 	public static int addPlayer(String name) {
 		if (userNames.size() < 4) {
+			aiStrategy[userNames.size()] = 0;
 			userNames.add(name);
 			return userNames.size() - 1;
 		} else {
@@ -33,15 +34,18 @@ public class QuestSpringApplication {
 
 	public static void addAIPlayer() {
 		if (userNames.size() < 4) {
-			isAIPlayer[userNames.size()] = true;
+			aiStrategy[userNames.size()] = 1;
 			numAI++;
 			userNames.add("CP "+numAI);
 		}
 	}
+	
+	public static void changeAiStrategy(int idx, int newStrat) {
+		if(aiStrategy[idx]!=0) aiStrategy[idx] = newStrat;
+	}
 
-	public static String[] getPlayerList() {
-		String[] sA = new String[userNames.size()];
-		return userNames.toArray(sA);
+	public static PlayerListTransit getPlayerList() {
+		return new PlayerListTransit(userNames, aiStrategy);
 	}
 
 	public static void startGame() {
