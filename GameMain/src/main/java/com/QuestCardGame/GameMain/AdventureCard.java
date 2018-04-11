@@ -13,6 +13,10 @@ public abstract class AdventureCard extends Card {
 		adventureType = at;
 	}
 
+	public abstract int getBattlePoint(boolean b);
+
+	public abstract int getBid(boolean b);
+
 	public AdventureType getCardType() {
 		return adventureType;
 	}
@@ -24,8 +28,5 @@ public abstract class AdventureCard extends Card {
 	public String getBackUrlPath() {
 		return "/Cards/Backs/Adventure.png";
 	}
-
-	public abstract int getBattlePoint(boolean b);
-	public abstract int getBid(boolean bonus);
 
 }

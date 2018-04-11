@@ -6,7 +6,7 @@ public class DeckTest extends TestCase {
 
 	public void testDrawCard() {
 		Deck d = new Deck();
-		Card c1 = new QuestCard("test", 3);
+		Card c1 = new QuestCard("test", 3, null);
 		d.addCard(c1);
 
 		assertEquals(1, d.getNumCards());

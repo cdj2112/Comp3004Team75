@@ -23,6 +23,8 @@ public class Quest {
 	private int totalStages;
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
+	private String target;
+	private String name;
 	private int biddingRound = 0;
 	private int currentBids = 0;
 	private boolean bidMade = false;
@@ -38,8 +40,14 @@ public class Quest {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isQuestOver = false;
+		target = qc.getTarget();
+		name = qc.getName();
 		questStash = new ArrayList<AdventureCard>();
 		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
+	}
+	
+	public String getTarget() {
+		return target;
 	}
 
 	public boolean validateQuest() {
@@ -51,10 +59,10 @@ public class Quest {
 				continue;
 			}
 			
-			if(s.getBattlePoints() <= previousBP) {
+			if(s.getBattlePoints(target) <= previousBP) {
 				return false;
 			}
-			previousBP = s.getBattlePoints();
+			previousBP = s.getBattlePoints(target);
 			if(s.getNumFoes() != 1) {
 				return false;
 			}
@@ -121,7 +129,7 @@ public class Quest {
 	}
 
 	public int getCurrentStageBattlePoints() {
-		return stages[currentStage].getBattlePoints();
+		return stages[currentStage].getBattlePoints(target);
 	}
 
 	/**
@@ -134,15 +142,15 @@ public class Quest {
 	 */
 
 	public boolean evaluatePlayer(Player p) {
-		int pointsToBeat = stages[currentStage].getBattlePoints();
-		boolean playerWins = p.getBattlePoints() >= pointsToBeat;
+		int pointsToBeat = stages[currentStage].getBattlePoints(target);
+		boolean playerWins = p.getBattlePoints(name) >= pointsToBeat;
 		boolean isLastPlayer = (players.indexOf(p) == players.size() - 1);
 
 		if(!playerWins) {
-			logger.info("Player "+p.getPlayerNumber()+" looses stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
+			logger.info("Player "+p.getPlayerNumber()+" loses stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");
 			iter.remove();
 		} else {
-			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints()+" BP to "+pointsToBeat+" BP");
+			logger.info("Player "+p.getPlayerNumber()+" wins stage "+p.getBattlePoints(name)+" BP to "+pointsToBeat+" BP");
 		}
 		
 		discardPile.clear();
