@@ -171,6 +171,8 @@ public class AIStrategyTwo extends AIPlayer {
 		String storyCard = game.getActiveStoryCard().getName();
 		Hand playerHand = player.getHand();
 		
+		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] has cards:" + buildCardListForLogger(player.getHand()));
+		
 		if(currentTestRound == 0) {
 			numToBid = playerHand.getNumFoesToDiscard(25) + player.getBids(storyCard);
 			int currentBid = game.getActiveQuest().getBids();

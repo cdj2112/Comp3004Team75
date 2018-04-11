@@ -166,7 +166,7 @@ public class Game {
 				activeTournaments.startTournaments();
 				activeTournaments.getNextPlayer();
 			} else if (activeTournaments.getPlayers().size() == 1) {
-				logger.info("Player " + activeTournaments.getPlayers().get(0)
+				logger.info("Player " + activeTournaments.getPlayers().get(0).getPlayerNumber()
 						+ " is the only participant in tournament and wins by default");
 				activeTournaments.getPlayers().get(0).addShields(1 + activeTournaments.getBonus());
 				endTurn();
@@ -252,6 +252,7 @@ public class Game {
 					activeQuest.startQuest();
 					activeQuest.getNextPlayer();
 					currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
+					if(activeQuest.isPlayingTest()) activeQuest.startBidding();
 				} else {
 					logger.info("Quest Has No Participants");
 					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
@@ -303,11 +304,15 @@ public class Game {
 		if (bid > maxBids)
 			return;
 		boolean accepted = activeQuest.makeBid(bid);
-		if (accepted)
+		if (accepted) {
+			logger.info("Player " + p.getPlayerNumber() +": Bid "+bid+" cards");
 			getNextActiveQuestPlayer();
+		}
 	}
 
 	public void playerDropOut() {
+		Player p = getCurrentActivePlayerObj();
+		logger.info("Player " + p.getPlayerNumber() +": Droped out of Quest");
 		activeQuest.playerDropout();
 		getNextActiveQuestPlayer();
 	}
@@ -396,6 +401,7 @@ public class Game {
 				activeQuest.startQuest();
 				activeQuest.getNextPlayer();
 				currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
+				if(activeQuest.isPlayingTest()) activeQuest.startBidding();
 			} else {
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 			}
@@ -448,6 +454,7 @@ public class Game {
 			currentStatus = GameStatus.BID_DISCARD;
 			if (p == null)
 				p = activeQuest.getNextPlayer();
+			logger.info("Player "+p.getPlayerNumber()+": Won test");
 			for (int i = 0; i < numPlayers; i++) {
 				if (players[i] == p && activeQuest.getBids() > p.getBids(questName)) {
 					toDiscard[i] = activeQuest.getBids() - p.getBids(questName);
