@@ -252,6 +252,7 @@ public class Game {
 					activeQuest.startQuest();
 					activeQuest.getNextPlayer();
 					currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
+					if(activeQuest.isPlayingTest()) activeQuest.startBidding();
 				} else {
 					logger.info("Quest Has No Participants");
 					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
