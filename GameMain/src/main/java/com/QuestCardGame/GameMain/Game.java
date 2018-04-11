@@ -166,7 +166,7 @@ public class Game {
 				activeTournaments.startTournaments();
 				activeTournaments.getNextPlayer();
 			} else if (activeTournaments.getPlayers().size() == 1) {
-				logger.info("Player " + activeTournaments.getPlayers().get(0)
+				logger.info("Player " + activeTournaments.getPlayers().get(0).getPlayerNumber()
 						+ " is the only participant in tournament and wins by default");
 				activeTournaments.getPlayers().get(0).addShields(1 + activeTournaments.getBonus());
 				endTurn();
