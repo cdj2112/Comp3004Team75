@@ -6,6 +6,11 @@
 	</head>
 	<body>
 		<h1>Quest</h1>
+		<script th:inline="javascript">
+			/*<![CDATA[*/
+			    var isHost = /*[[${(joined && player==0)}]]*/ 0;
+			/*]]>*/
+		</script>
 		<ol id="playerList"></ol>
 		<button id="addAIButton" th:style="'display:'+ ${(joined && player==0) ? 'block' : 'none'}">Add Ai Player</button>
 		<button id="startGame" th:style="'display:'+ ${(joined && player==0) ? 'block' : 'none'}">Start Game</button>
