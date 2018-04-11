@@ -763,7 +763,7 @@ public class Game {
 	public int getExtraShield() {return extraShield;}
 	public void setExtraShield(int e) {
 		logger.info("Next Quest is worth "+e+" extra shields");
-		extraShield = e;
+		extraShield += e;
 	}
 	public void clearAllAllies(){
 		logger.info("All allies in play are discarded");
