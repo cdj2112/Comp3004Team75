@@ -73,4 +73,12 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 		}
 		return cardsToDiscard;
 	}
+	
+	protected String buildCardListForLogger(ArrayList<AdventureCard> cards) {
+		String cardList = " ";
+		for(AdventureCard c : cards) {
+			cardList += "[" + c.getName() + "] ";
+		}
+		return cardList;
+	}
 }
