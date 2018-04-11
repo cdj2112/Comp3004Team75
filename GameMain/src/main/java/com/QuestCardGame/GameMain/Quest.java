@@ -178,7 +178,7 @@ public class Quest {
 	
 	public void startBidding() {
 		biddingRound = 0;
-		currentBids = stages[currentStage].getMinBid() - 1; //Bids to beat is one less than min bids
+		currentBids = stages[currentStage].getMinBid(name) - 1; //Bids to beat is one less than min bids
 		if(players.size() == 1 && currentBids < 2) currentBids = 2; //If only one person have min of 3 bids
 	}
 	

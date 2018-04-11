@@ -47,13 +47,13 @@ public class CardList {
 		}
 		foeScanner.close();
 		
-		//Format Test_Name;Amount;MinBids
+		//Format Test_Name;Amount;MinBids;BonusMinBids;Target
 		Scanner testScanner = new Scanner(new File("./src/resources/TestList.txt"));
 		while(testScanner.hasNext()) {
 			String[] cardInfo = testScanner.next().split(";");
 			int amount = Integer.parseInt(cardInfo[1]);
 			for(int i = 0; i<amount; i++) {
-				Test t = new Test(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				Test t = new Test(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]), Integer.parseInt(cardInfo[3]), cardInfo[4].replace('_', ' '));
 				adventureDeck.addCard(t);
 			}
 		}
@@ -193,11 +193,11 @@ public class CardList {
 		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
 		adventureDeck.addCard(new Weapon("Dagger", 5));
 		adventureDeck.addCard(new Weapon("Sword", 10));
-		adventureDeck.addCard(new Test("Test of Morgan Le Fey", 3));
+		adventureDeck.addCard(new Test("Test of Morgan Le Fey", 3, 3, "NULL"));
 		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
 		adventureDeck.addCard(new Foe("Mordred", 30, 30));
 		adventureDeck.addCard(new Foe("Giant", 40, 40));
-		adventureDeck.addCard(new Test("Test of the Questing Beast", 1));
+		adventureDeck.addCard(new Test("Test of the Questing Beast", 1, 4, "Search for the Questing Beast"));
 		adventureDeck.addCard(new Weapon("Lance", 20));
 		adventureDeck.addCard(new Weapon("Horse", 10));
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
