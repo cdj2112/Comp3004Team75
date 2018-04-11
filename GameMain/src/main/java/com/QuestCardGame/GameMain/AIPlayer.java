@@ -1,6 +1,11 @@
 package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.ListIterator;
+import java.util.Set;
+
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
 
 public abstract class AIPlayer implements AIPlayerStrategy{
 	
@@ -38,6 +43,11 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 				return this.getCardsToDiscard();
 			case EVAL_TOUR:
 				return this.evalTour();
+			case EVENT_EXECUTE:
+				game.executeEvent();
+				return new ArrayList<AdventureCard>();
+			case EVENT_DISCARD:
+				return this.getSpecialDiscardCards();
 			case END_TURN_DISCARD:
 				return this.getCardsToDiscard();
 			case IDLE:
@@ -74,6 +84,33 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 		return cardsToDiscard;
 	}
 	
+	public ArrayList<AdventureCard> getSpecialDiscardCards(){
+		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
+		HashMap<AdventureType, Integer> map = game.getSpecialDiscard()[game.getPlayerIndex(player)];
+		
+		Hand playerHand = player.getHand();
+		playerHand.sortAscendingByBattlePoints();
+		
+		Set<AdventureType> types = map.keySet();
+		for(AdventureType t : types) {
+			int toDiscard = map.get(t);
+			ListIterator<AdventureCard> iter = playerHand.listIterator();
+			while(toDiscard > 0) {
+				AdventureCard c = iter.next();
+				if(c.getCardType() == t) {
+					cardsToDiscard.add(c);
+					toDiscard--;
+				}
+			}
+		}
+		
+		
+		for(AdventureCard c : cardsToDiscard) {
+			game.playerDiscardAdventrueCard(this.player, c);
+		}
+		return cardsToDiscard;
+	}
+
 	protected String buildCardListForLogger(ArrayList<AdventureCard> cards) {
 		String cardList = " ";
 		for(AdventureCard c : cards) {

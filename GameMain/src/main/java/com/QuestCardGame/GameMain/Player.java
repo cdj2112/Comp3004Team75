@@ -10,7 +10,7 @@ import org.apache.logging.log4j.LogManager;
 public class Player {
 
 	private static final Logger logger = LogManager.getLogger(Player.class);
-		
+
 	//private static final Logger logger = LogManager.getLogger(Player.class);
 	private static final String[] rankNames = {"Squire", "Knight", "Champion Knight","Knight of The Round Table"};
 	private static final int[] battlePoints = {5, 10, 20, 20};
@@ -97,18 +97,22 @@ public class Player {
 		}
 		return totalBattlePoints;
 	}
-	
+
 	public int getBattlePointsForHand(Hand h) {
 		int total = 0;
 		for(AdventureCard c: h) {
 			total += c.getBattlePoint(false);
-		}	
+		}
 		return total;
 	}
 	
 	public void addShields(int s) {
+		if(s>0)logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
+		else logger.info("Player "+getPlayerNumber()+": Loses "+Math.min(-s, numShields)+" shields");
+		
 		numShields += s;
-		logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
+		if (numShields < 0) numShields = 0;
+		
 		while(numShields >= shieldsNeeded[rank]) {
 			numShields -= shieldsNeeded[rank];
 			rank++;
@@ -116,22 +120,22 @@ public class Player {
 		}
 	}
 
+	public int getRank(){
+		return rank;
+	}
+
 	public int getNumShields() {
 		return numShields;
 	}
-	
+
 	public int getShieldsNeeded() {
 		return shieldsNeeded[rank];
-	}
-	
-	public int getRank() {
-		return rank;
 	}
 	
 	public String getRankName() {
 		return rankNames[rank];
 	}
-	
+
 	public String getRankImagePath() {
 		return "./src/resources/Cards/Rank/"+getRankName()+".png";
 	}

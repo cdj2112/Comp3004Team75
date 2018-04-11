@@ -23,6 +23,7 @@ public class Quest {
 	private int totalStages;
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
+	private int extraReward = 0;
 	private String target;
 	private String name;
 	private int biddingRound = 0;
@@ -31,7 +32,8 @@ public class Quest {
 	
 	private ArrayList<AdventureCard> questStash;
 
-	Quest(QuestCard qc) {
+
+	Quest(QuestCard qc, int e) {
 		stages = new Stage[qc.getStages()];
 		for(int i =0; i<qc.getStages();i++) {
 			stages[i] = new Stage();
@@ -40,6 +42,7 @@ public class Quest {
 		discardPile = new ArrayList<AdventureCard>();
 		players = new ArrayList<Player>();
 		isQuestOver = false;
+		extraReward = e;
 		target = qc.getTarget();
 		name = qc.getName();
 		questStash = new ArrayList<AdventureCard>();
@@ -211,7 +214,7 @@ public class Quest {
 	}
 
 	private void awardQuestWinners() {
-		int shieldsToAward = totalStages;
+		int shieldsToAward = totalStages + extraReward;
 		for(Player p : players) {
 			p.addShields(shieldsToAward);
 		}

@@ -15,8 +15,11 @@ public class Game {
 	private static final Logger logger = LogManager.getLogger(Game.class);
 
 	public static enum GameStatus {
-		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, TEST_BIDDING, BID_DISCARD, ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR
-	}
+		IDLE, END_TURN_DISCARD, 
+		SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, TEST_BIDDING, BID_DISCARD, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD,
+		ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR,
+		EVENT_EXECUTE, EVENT_DISCARD
+	};
 
 	private GameStatus currentStatus;
 
@@ -31,6 +34,7 @@ public class Game {
 	// Turn Variables
 	private int activePlayer;
 	private int[] toDiscard;
+	private HashMap<AdventureType, Integer>[] specialDiscard;
 	// Quests
 	private Player sponsor;
 	private int sponsorIndex;
@@ -38,6 +42,9 @@ public class Game {
 
 	// tour
 	private Tournaments activeTournaments;
+
+	// Events
+	private int extraShield = 0;
 
 	public Game(int nP, int nAIP, boolean rigged) {
 		numPlayers = nP;
@@ -50,6 +57,11 @@ public class Game {
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;
 		toDiscard = new int[numPlayers];
+		
+		specialDiscard = new HashMap[numPlayers];
+		for(int i = 0; i<numPlayers; i++) {
+			specialDiscard[i] = new HashMap<AdventureType, Integer>();
+		}
 		currentStoryCard = null;
 		if (!rigged) {
 			initStoryDeck();
@@ -69,10 +81,14 @@ public class Game {
 		Card storyCard = getStoryCard();
 		currentStoryCard = storyCard;
 		if (storyCard instanceof QuestCard) {
-			activeQuest = new Quest((QuestCard) storyCard);
+			activeQuest = new Quest((QuestCard) storyCard, extraShield);
+			extraShield = 0;
 			currentStatus = GameStatus.SPONSORING;
-		}
-		if (storyCard instanceof TournamentCard) {
+		}else if (storyCard instanceof EventCard){
+			//EventFactory event = new EventFactory((EventCard)storyCard, this);
+			currentStatus =  GameStatus.EVENT_EXECUTE;
+			checkHandSizes();
+		} else if (storyCard instanceof TournamentCard) {
 			activeTournaments = new Tournaments((TournamentCard) storyCard);
 			currentStatus = GameStatus.ENTERING_TOUR;
 		}
@@ -369,11 +385,11 @@ public class Game {
 	}
 
 	public void playerDiscardAdventrueCard(Player p, Card c) {
-		p.useCard(c);
-		adventureDeck.discard(c);
-		logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 		if (currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.END_TURN_DISCARD
 				|| currentStatus == GameStatus.PRE_TOUR_DISCARD) {
+			p.useCard(c);
+			adventureDeck.discard(c);
+			logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 			checkHandSizes();
 		} else if (currentStatus == GameStatus.BID_DISCARD) {
 			int playerIndex = -1;
@@ -390,6 +406,26 @@ public class Game {
 				activeQuest.closeBidding();
 				getNextActiveQuestPlayer();
 			}
+		} else if (currentStatus == GameStatus.EVENT_DISCARD) {
+			int idx = getPlayerIndex(p);
+			HashMap<AdventureType, Integer> discardMap = specialDiscard[idx];
+			AdventureType at = ((AdventureCard)c).getCardType();
+			if(discardMap.keySet().contains(at)) {
+				p.useCard(c);
+				adventureDeck.discard(c);
+				logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
+				int tD = discardMap.get(at);
+				if(tD > 1) {
+					discardMap.put(at, tD - 1);
+				} else {
+					discardMap.remove(at);
+				}
+				checkSpecialDiscard();
+			}
+		} else {
+			p.useCard(c);
+			adventureDeck.discard(c);
+			logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 		}
 	}
 
@@ -445,7 +481,7 @@ public class Game {
 	 * Return the next player to play cards if there is one The next player then
 	 * becomes the current player and can be retrieved anytime using
 	 * getCurrentActiveQuestPlayer() Returns null if the round is over
-	 * 
+	 *
 	 * This is separate from the game's active player because not all players may be
 	 * in a quest
 	 */
@@ -549,7 +585,7 @@ public class Game {
 
 	/**
 	 * To get the current active quest player.
-	 * 
+	 *
 	 * @return index of the activeQuestPlayer if it exists -1 otherwise
 	 */
 	private int getCurrentActiveQuestPlayer() {
@@ -563,7 +599,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the specified player
-	 * 
+	 *
 	 * @param player:
 	 *            0, 1, 2, 3
 	 * @return returns battle points of the player if exists -1 otherwise
@@ -578,7 +614,7 @@ public class Game {
 
 	/**
 	 * Gets the battle points of the current stage
-	 * 
+	 *
 	 * @return the battle points of the current stage
 	 */
 	public int getQuestCurrentStageBattlePoints() {
@@ -587,13 +623,13 @@ public class Game {
 
 	/**
 	 * Determines if a player advances onto the next stage of a quest
-	 * 
+	 *
 	 * @param player
 	 *            to evaluate
 	 * @return true if player wins stage false otherwise
 	 */
 	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
-		boolean result = activeQuest.evaluatePlayer(players[player]);
+		activeQuest.evaluatePlayer(players[player]);
 
 		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
 		for (AdventureCard c : questDiscard) {
@@ -623,7 +659,7 @@ public class Game {
 		storyDeck = new Deck();
 
 		try {
-			CardList.populateStoryCards(storyDeck);
+			CardList.populateStoryCards(storyDeck, this);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -653,7 +689,7 @@ public class Game {
 		storyDeck = new Deck();
 		try {
 			logger.info("Rigged Story Deck Created");
-			CardList.populateRiggedStoryCards(storyDeck);
+			CardList.populateRiggedStoryCards(storyDeck, this);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -734,4 +770,48 @@ public class Game {
 		return currentStoryCard;
 	}
 
+//Event Functions
+	public int getExtraShield() {return extraShield;}
+	public void setExtraShield(int e) {
+		logger.info("Next Quest is worth "+e+" extra shields");
+		extraShield += e;
+	}
+	public void clearAllAllies(){
+		logger.info("All allies in play are discarded");
+		for (int i = 0; i < numPlayers; i++){
+			for (AdventureCard c: players[i].getPlay()){
+				if (c.getCardType() == AdventureCard.AdventureType.ALLY) 
+					playerDiscardAdventrueCard(players[i],(AdventureCard) c);
+			}
+		}
+	}
+	public void setSpecialDiscard(int p, AdventureType type, int amount) {
+		logger.info("Player "+p+": Must discard "+amount+" "+type+" card"+(amount==1?"":"s"));
+		specialDiscard[p].put(type, amount);
+	}
+	public HashMap<AdventureType, Integer>[] getSpecialDiscard(){
+		return specialDiscard;
+	}
+	public void executeEvent() {
+		if(currentStatus == GameStatus.EVENT_EXECUTE) {
+			logger.info("Event card "+currentStoryCard.getName()+": Executes");
+			boolean discard = ((EventCard)currentStoryCard).execute();
+			if(!discard) {
+				endTurn();
+			} else {
+				currentStatus = GameStatus.EVENT_DISCARD;
+				checkSpecialDiscard();
+			}
+		}
+	}
+	private void checkSpecialDiscard() {
+		for(int i=0; i<numPlayers; i++) {
+			Set<AdventureType> keys = specialDiscard[i].keySet();
+			for(AdventureType k : keys) {
+				if(specialDiscard[i].get(k)==0) specialDiscard[i].remove(k);
+			}
+			if(specialDiscard[i].keySet().size()>0) return;
+		}
+		endTurn();
+	}
 }

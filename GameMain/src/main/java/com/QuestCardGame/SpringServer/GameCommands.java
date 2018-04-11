@@ -150,6 +150,14 @@ public class GameCommands {
 		}
 		return buildGameStatus();
 	}
+	
+	@MessageMapping("/executeEvent")
+	@SendTo("/status/gameStatus")
+	public GameTransit executeEvent() {
+		Game game = QuestSpringApplication.getGame();
+		game.executeEvent();
+		return buildGameStatus();
+	}
 
 	@RequestMapping(value = "/gameStatus", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

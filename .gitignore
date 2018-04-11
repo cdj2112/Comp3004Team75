@@ -5,3 +5,5 @@
 GameMain/logs/
 
 GameMain/src/resources/Cards/Tournament/Thumbs\.db
+
+*.db

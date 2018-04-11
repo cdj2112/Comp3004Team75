@@ -1,6 +1,10 @@
 package com.QuestCardGame.SpringServer;
 
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.Set;
+
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
 import com.QuestCardGame.GameMain.Game;
 import com.QuestCardGame.GameMain.Game.GameStatus;
 
@@ -13,6 +17,7 @@ public class GameTransit implements Serializable{
 	private TournamentTransit currentTournament = null;
 	private int activePlayer;
 	private int[] toDiscard;
+	private HashMap<String, Integer>[] specialDiscard;
 	private boolean[] canPlay;
 	private boolean aiPlaying;
 
@@ -53,6 +58,15 @@ public class GameTransit implements Serializable{
 		}
 		
 		toDiscard = g.getAllDiscard();
+		specialDiscard = new HashMap[g.getNumPlayers()];
+		for(int i=0; i<g.getNumPlayers(); i++) {
+			HashMap<AdventureType, Integer> map = g.getSpecialDiscard()[i];
+			specialDiscard[i] = new HashMap<String, Integer>();
+			Set<AdventureType> keys = map.keySet();
+			for(AdventureType k : keys) {
+				specialDiscard[i].put(k.toString(), map.get(k));
+			}
+		}
 	}
 	
 	public GameStatus getCurrentStatus() {
@@ -81,6 +95,10 @@ public class GameTransit implements Serializable{
 	
 	public int[] getToDiscard() {
 		return toDiscard;
+	}
+	
+	public HashMap<String, Integer>[] getSpecialDiscard(){
+		return specialDiscard;
 	}
 	
 	public boolean[] getCanPlay() {
