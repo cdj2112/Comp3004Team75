@@ -273,10 +273,14 @@ public class Hand extends ArrayList<AdventureCard>{
 	
 	public int getNumDuplicates(ArrayList<AdventureCard> without) {
 		TreeSet<AdventureCard> uniqueCards = new TreeSet<AdventureCard>(new AdventureCardComparator());
+		int numInWithoutAndHand = 0; 
 		for(AdventureCard c : this) {
-			if(!without.contains(c))uniqueCards.add(c);
+			if(!without.contains(c))
+				uniqueCards.add(c);
+			else
+				numInWithoutAndHand++;
 		}
-		return this.size() - uniqueCards.size();
+		return this.size() - uniqueCards.size() - numInWithoutAndHand;
 	}
 	
 	
