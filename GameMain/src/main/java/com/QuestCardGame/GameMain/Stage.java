@@ -15,6 +15,10 @@ public class Stage {
 	}
 
 	public boolean addCard(AdventureCard newCard) {
+		if(newCard.getCardType() == AdventureType.ALLY || newCard.getCardType() == AdventureType.AMOURS) {
+			return false;
+		}
+		
 		
 		if(isTest) {
 			return false;
@@ -36,10 +40,11 @@ public class Stage {
 		return true;
 	}
 
-	public int getBattlePoints() {
+	public int getBattlePoints(String target) {
 		int total = 0;
 		for (AdventureCard c : cards) {
-			total+=c.getBattlePoint(false); //no special bp for now
+			boolean bonus = target != null && c.getName().contains(target);
+			total+=c.getBattlePoint(bonus); 
 		}
 		return total;
 	}

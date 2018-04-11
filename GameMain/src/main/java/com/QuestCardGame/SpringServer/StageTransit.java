@@ -10,13 +10,13 @@ public class StageTransit implements Serializable {
 	private CardTransit[] cards;
 	private int battlePoints;
 	
-	public StageTransit(Stage s) {
+	public StageTransit(Stage s, String target) {
 		ArrayList<AdventureCard> c = s.getCards();
 		cards = new CardTransit[c.size()];
 		for(int i=0; i<cards.length; i++) {
 			cards[i] = new CardTransit(c.get(i));
 		}
-		battlePoints = s.getBattlePoints();
+		battlePoints = s.getBattlePoints(target);
 	}
 	
 	public CardTransit[] getCards(){

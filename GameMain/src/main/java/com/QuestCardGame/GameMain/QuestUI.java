@@ -258,7 +258,9 @@ public class QuestUI extends Group {
 		inactivePlayerGroup.arrangeShieldLine();
 		inactivePlayerGroup.setShields(p.getNumShields());
 
-		inactivePlayerGroup.setBP(p.getBattlePoints());
+		Card sc = game.getActiveStoryCard();
+		String n = sc==null ? null : sc.getName();
+		inactivePlayerGroup.setBP(p.getBattlePoints(n));
 		Text bp = inactivePlayerGroup.getBP();
 		bp.setTranslateX(0);
 		bp.setTranslateY(140);
@@ -319,7 +321,9 @@ public class QuestUI extends Group {
 		activePlayerGroup.arrangeShieldsGrid();
 		activePlayerGroup.setShields(p.getNumShields());
 
-		activePlayerGroup.setBP(p.getBattlePoints());
+		Card sc = game.getActiveStoryCard();
+		String n = sc==null ? null : sc.getName();
+		activePlayerGroup.setBP(p.getBattlePoints(n));
 		Text bp = activePlayerGroup.getBP();
 		bp.setVisible(!ai || GS == GameStatus.EVAL_QUEST_STAGE || GS == GameStatus.EVAL_TOUR);
 		bp.setTranslateX(1050);

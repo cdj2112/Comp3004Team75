@@ -236,10 +236,14 @@ public class Game {
 	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean played = activeQuest.addCardToStage(c, s);
+			boolean bonus = activeQuest.getTarget() != null && c.getName().contains(activeQuest.getTarget());		
+				
 			if (played) {
 				logger.info("Player " + sponsor.getPlayerNumber() + ": Played Card " + c.getName() + " to Stage " + s);
 				sponsor.useCard(c);
 			}
+			if(played && bonus)
+				logger.info("Card [" + c.getName() +"] will use bonus battle points of [" + c.getBattlePoint(bonus) + "]");
 			return played;
 		}
 		return false;
@@ -314,7 +318,9 @@ public class Game {
 
 	public void placeBid(int bid) {
 		Player p = getCurrentActivePlayerObj();
-		int maxBids = p.getBids() + p.getHand().size();
+		String questName = currentStoryCard.getName();
+		
+		int maxBids = p.getBids(questName) + p.getHand().size();
 		if (bid > maxBids)
 			return;
 		boolean accepted = activeQuest.makeBid(bid);
@@ -481,6 +487,7 @@ public class Game {
 	 */
 	public Player getNextActiveQuestPlayer() {
 		Player p = activeQuest.getNextPlayer();
+		String questName = currentStoryCard.getName();
 
 		// play has looped a full circle - change status accordingly
 		if (currentStatus == GameStatus.TEST_BIDDING && activeQuest.getPlayers().size() == 1 && activeQuest.bidMade()) {
@@ -489,8 +496,8 @@ public class Game {
 				p = activeQuest.getNextPlayer();
 			logger.info("Player "+p.getPlayerNumber()+": Won test");
 			for (int i = 0; i < numPlayers; i++) {
-				if (players[i] == p && activeQuest.getBids() > p.getBids()) {
-					toDiscard[i] = activeQuest.getBids() - p.getBids();
+				if (players[i] == p && activeQuest.getBids() > p.getBids(questName)) {
+					toDiscard[i] = activeQuest.getBids() - p.getBids(questName);
 				} else if (players[i] == p) {
 					currentStatus = GameStatus.PLAYING_QUEST;
 					activeQuest.closeBidding();
@@ -598,8 +605,10 @@ public class Game {
 	 * @return returns battle points of the player if exists -1 otherwise
 	 */
 	public int getPlayerBattlePoints(int player) {
-		if (player < numPlayers && player >= 0)
-			return players[player].getBattlePoints();
+		if (player < numPlayers && player >= 0) {
+			String currentStoryName = currentStoryCard == null ? null : currentStoryCard.getName();
+			return players[player].getBattlePoints(currentStoryName);
+		}
 		return -1;
 	}
 
@@ -662,7 +671,7 @@ public class Game {
 		adventureDeck = new Deck();
 
 		try {
-			CardList.populateAdventureCards(adventureDeck);
+			CardList.populateAdventureCards(adventureDeck, this);
 		} catch (Exception e) {
 			System.out.println(e);
 		}
@@ -745,12 +754,14 @@ public class Game {
 			if (pc.cardName.equals(c.getName()))
 				return false;
 		}
+
+		boolean alliesOnly = !(currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.PLAYING_TOUR);
 		
-		boolean onlyAllies = currentStatus != GameStatus.PLAYING_TOUR && currentStatus != GameStatus.PLAYING_QUEST;
-		if (c.getCardType() == AdventureType.FOE || c.getCardType() == AdventureType.TEST)
+		if (c.getCardType() == AdventureType.FOE || c.getCardType() == AdventureType.TEST) {
 			return false;
-		else if(onlyAllies && c.getCardType() != AdventureType.ALLY)
+		} else if (alliesOnly && c.getCardType() != AdventureType.ALLY) {
 			return false;
+		}
 
 		return true;
 	}

@@ -13,7 +13,7 @@ public class PlayerTransit implements Serializable {
 	private int shields;
 	private String rank;
 
-	public PlayerTransit(Player p) {
+	public PlayerTransit(Player p, String storyName) {
 		Hand h = p.getHand();
 		hand = new CardTransit[h.size()];
 		for (int i = 0; i < h.size(); i++) {
@@ -26,7 +26,7 @@ public class PlayerTransit implements Serializable {
 			play[i] = new CardTransit(pl.get(i));
 		}
 
-		battlePoints = p.getBattlePoints();
+		battlePoints = p.getBattlePoints(storyName);
 		shields = p.getNumShields();
 		rank = p.getRankUrlPath();
 	}

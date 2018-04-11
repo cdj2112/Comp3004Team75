@@ -2,6 +2,9 @@ package com.QuestCardGame.GameMain;
 
 import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
+
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Player {
@@ -73,10 +76,24 @@ public class Player {
 		return playerNumber;
 	}
 
-	public int getBattlePoints() {
+	public int getBattlePoints(String storyName) {
 		int totalBattlePoints = battlePoints[rank];
 		for(AdventureCard c : play) {
-			totalBattlePoints += c.getBattlePoint(false); //no special ability
+			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
+			totalBattlePoints += c.getBattlePoint(bonus); //no special ability
+			if(bonus)
+				logger.info("Player "+getPlayerNumber()+" gets [" + c.getBid(bonus) + "] bonus battle points from [" + c.getName() + "]");
+		}
+		return totalBattlePoints;
+	}
+	
+	public int getBids(String storyName) {
+		int totalBattlePoints = 0;
+		for(AdventureCard c : play) {
+			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
+			totalBattlePoints += c.getBid(bonus); //no special ability
+			if(bonus)
+				logger.info("Player "+getPlayerNumber()+" gets [" + c.getBid(bonus) + "] bonus bids from [" + c.getName() + "]");
 		}
 		return totalBattlePoints;
 	}
@@ -85,14 +102,6 @@ public class Player {
 		int total = 0;
 		for(AdventureCard c: h) {
 			total += c.getBattlePoint(false);
-		}
-		return total;
-	}
-	
-	public int getBids() {
-		int total = 0;
-		for(AdventureCard c : play) {
-			total += c.getBid(false);
 		}
 		return total;
 	}

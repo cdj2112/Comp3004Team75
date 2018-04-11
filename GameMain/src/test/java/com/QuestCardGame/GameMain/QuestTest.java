@@ -7,8 +7,8 @@ public class QuestTest extends TestCase{
 	
 	
 	public void testIsValidQuestIncreasingBattlePoints() {			
-		QuestCard c = new QuestCard("OneStageQuest", 2);
-		Quest quest = new Quest(c,0);
+		QuestCard c = new QuestCard("OneStageQuest", 2, null);
+		Quest quest = new Quest(c, 0);
 		AdventureCard f1 = new Foe("TestFoe1", 1);
 		AdventureCard w1 = new Weapon("Dagger", 1);
 		AdventureCard f2 = new Foe("TestFoe2", 2);
@@ -22,8 +22,8 @@ public class QuestTest extends TestCase{
 	}
 	
 	public void testIsValidQuestDecreasingBattlePoints() {			
-		QuestCard c = new QuestCard("OneStageQuest", 2);
-		Quest quest = new Quest(c,0);
+		QuestCard c = new QuestCard("OneStageQuest", 2, null);
+		Quest quest = new Quest(c, 0);
 		AdventureCard f1 = new Foe("TestFoe1", 10);
 		AdventureCard w1 = new Weapon("Dagger", 1);
 		AdventureCard f2 = new Foe("TestFoe2", 2);
@@ -42,8 +42,8 @@ public class QuestTest extends TestCase{
 	 * P2 is eliminated first round
 	 */
 	public void testEvaluateStage() {
-		QuestCard c = new QuestCard("OneStageQuest", 2);
-		Quest quest = new Quest(c,0);
+		QuestCard c = new QuestCard("OneStageQuest", 2, null);
+		Quest quest = new Quest(c, 0);
 		AdventureCard f1 = new Foe("TestFoe1", 6);
 		AdventureCard w1 = new Weapon("Dagger", 1);
 		AdventureCard f2 = new Foe("TestFoe2", 10);

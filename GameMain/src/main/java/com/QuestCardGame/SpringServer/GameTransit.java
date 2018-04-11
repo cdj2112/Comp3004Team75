@@ -25,14 +25,17 @@ public class GameTransit implements Serializable{
 		currentStatus = g.getGameStatus();
 		activePlayer = g.getCurrentActivePlayer();
 		aiPlaying = g.getCurrentActivePlayerObj().isAIPlayer();
+		String storyName;
+		if(g.getActiveStoryCard()!=null) {
+			storyCard = new CardTransit(g.getActiveStoryCard());
+			storyName = storyCard.getName();
+		} else {
+			storyName = null;
+		}
 
 		playerStatus = new PlayerTransit[g.getNumPlayers()];
 		for (int i = 0; i < g.getNumPlayers(); i++) {
-			playerStatus[i] = new PlayerTransit(g.getPlayer(i));
-		}
-		
-		if(g.getActiveStoryCard()!=null) {
-			storyCard = new CardTransit(g.getActiveStoryCard());
+			playerStatus[i] = new PlayerTransit(g.getPlayer(i), storyName);
 		}
 		
 		canPlay = new boolean[g.getNumPlayers()];
