@@ -10,11 +10,11 @@ public class Amours extends AdventureCard {
 		bid = 1;
 	}
 
-	public int getBid() {
+	public int getBid(boolean bonus) {
 		return bid;
 	}
 
-	public int getBattlePoint(Boolean b) {
+	public int getBattlePoint(boolean b) {
 		return battlePoint;
 	}
 

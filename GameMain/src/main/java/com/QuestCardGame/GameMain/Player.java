@@ -88,7 +88,15 @@ public class Player {
 		}
 		return total;
 	}
-
+	
+	public int getBids() {
+		int total = 0;
+		for(AdventureCard c : play) {
+			total += c.getBid(false);
+		}
+		return total;
+	}
+	
 	public void addShields(int s) {
 		if(s>0)logger.info("Player "+getPlayerNumber()+": Gains "+s+" shields");
 		else logger.info("Player "+getPlayerNumber()+": Loses "+Math.min(-s, numShields)+" shields");

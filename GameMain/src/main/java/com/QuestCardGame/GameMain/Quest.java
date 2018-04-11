@@ -5,6 +5,9 @@ import java.util.ListIterator;
 import java.util.Iterator;
 import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
+
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 import org.apache.logging.log4j.LogManager;
 
 public class Quest {
@@ -16,11 +19,17 @@ public class Quest {
 	private ListIterator<Player> iter;
 	private Player currentPlayer;
 	private ArrayList<AdventureCard> discardPile;
-	private int currentStage;
+	private int currentStage = -1;
 	private int totalStages;
 	private boolean isQuestOver;
 	private int numCardsUsed = 0;
 	private int extraReward = 0;
+	private int biddingRound = 0;
+	private int currentBids = 0;
+	private boolean bidMade = false;
+	
+	private ArrayList<AdventureCard> questStash;
+
 
 	Quest(QuestCard qc, int e) {
 		stages = new Stage[qc.getStages()];
@@ -32,12 +41,19 @@ public class Quest {
 		players = new ArrayList<Player>();
 		isQuestOver = false;
 		extraReward = e;
+		questStash = new ArrayList<AdventureCard>();
 		logger.info("Quest {" + qc.getName() +"} started: " + totalStages + " stages.");
 	}
 
 	public boolean validateQuest() {
 		int previousBP = -1;
+		int tests = 0;
 		for(Stage s: stages) {
+			if(s.getIsTest() && tests == 0) {
+				tests++;
+				continue;
+			}
+			
 			if(s.getBattlePoints() <= previousBP) {
 				return false;
 			}
@@ -49,8 +65,13 @@ public class Quest {
 		return true;
 
 	}
-
+	
 	public boolean addCardToStage(AdventureCard newCard, int s) {
+		if(newCard.getCardType() == AdventureType.TEST) {
+			for(Stage st : stages) {
+				if(st.getIsTest()) return false;
+			}
+		}
 		boolean isAdded = stages[s].addCard(newCard);
 		if(isAdded)
 			numCardsUsed++;
@@ -78,6 +99,14 @@ public class Quest {
 		else {
 			currentPlayer = null;
 			iter = players.listIterator(); //reset to beginning
+			if(currentStage >= 0 && currentStage < totalStages && stages[currentStage].getIsTest()){
+				biddingRound++;
+			}
+			if(players.size() == 0) {
+				logger.info("Quest no longer has any participants and is over");
+				isQuestOver = true;
+				clearQuest();
+			}
 			return null;
 		}
 	}
@@ -138,6 +167,35 @@ public class Quest {
 		if(currentStage == totalStages) removeCardsOfType(p, AdventureCard.AdventureType.AMOURS);
 		return playerWins;
 	}
+	
+	public void startBidding() {
+		biddingRound = 0;
+		currentBids = stages[currentStage].getMinBid() - 1; //Bids to beat is one less than min bids
+		if(players.size() == 1 && currentBids < 2) currentBids = 2; //If only one person have min of 3 bids
+	}
+	
+	public boolean makeBid(int b) {
+		if(b > currentBids) {
+			currentBids = b;
+			bidMade = true;
+			return true;
+		}
+		return false;
+	}
+	
+	public void playerDropout() {
+		iter.remove();
+	}
+	
+	public void closeBidding() {
+		currentBids = 0;
+		biddingRound = 0;
+		currentStage++;
+		if(currentStage >= totalStages) {
+			isQuestOver = true;
+			awardQuestWinners();
+		}
+	}
 
 	public boolean isQuestOver() {
 		return isQuestOver;
@@ -184,7 +242,15 @@ public class Quest {
 	public ArrayList<Player> getPlayers() {
 		return players;
 	}
-
+	
+	public boolean isPlayingTest() {
+		return stages[currentStage].getIsTest();
+	}
+	
+	public int getBids() {
+		return currentBids;
+	}
+	
 	public void clearQuest() {
 		for(Stage s: stages) {
 			ArrayList<AdventureCard> cards = s.getCards();
@@ -192,5 +258,25 @@ public class Quest {
 				discardPile.add(c);
 			}
 		}
+	}
+	
+	public boolean bidMade() {
+		return bidMade;
+	}
+	
+	public int getBiddingRound() {
+		return biddingRound;
+	}
+	
+	public void addToStash(AdventureCard c) {
+		questStash.add(c);
+	}
+	
+	public ArrayList<AdventureCard> getStash(){
+		return questStash;
+	}
+	
+	public void clearStash() {
+		questStash.clear();
 	}
 }
