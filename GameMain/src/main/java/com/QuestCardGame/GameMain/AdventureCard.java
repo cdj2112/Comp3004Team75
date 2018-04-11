@@ -25,6 +25,7 @@ public abstract class AdventureCard extends Card {
 		return "/Cards/Backs/Adventure.png";
 	}
 
-	public abstract int getBattlePoint(Boolean b);
+	public abstract int getBattlePoint(boolean b);
+	public abstract int getBid(boolean bonus);
 
 }

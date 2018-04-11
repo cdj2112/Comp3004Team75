@@ -21,12 +21,13 @@ public class Ally extends AdventureCard {
 	public String getTarget() {
 		return target;
 	}
-	public int getBid(Boolean bonus) {
+
+	public int getBid(boolean bonus) {
 		int temp = bids;
 		if(bonus) temp = temp + effectBonusForBid;	
 		return temp;
 	}
-	public int getBattlePoint(Boolean bonus) {
+	public int getBattlePoint(boolean bonus) {
 		int temp = battlePoints;
 		if(bonus) temp = temp + effectBonusForBP;	
 		return temp;

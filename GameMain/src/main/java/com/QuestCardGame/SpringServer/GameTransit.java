@@ -38,12 +38,14 @@ public class GameTransit implements Serializable{
 			for (int i = 0; i < g.getNumPlayers(); i++) {
 				canPlay[i] = g.getActiveQuest().hasPlayer(g.getPlayer(i));
 			}
-		}
-		
-		if(g.getActiveTournament()!=null) {
+		} else if(g.getActiveTournament()!=null) {
 			currentTournament = new TournamentTransit(g.getActiveTournament());
 			for (int i = 0; i < g.getNumPlayers(); i++) {
 				canPlay[i] = g.getActiveTournament().hasPlayer(g.getPlayer(i));
+			}
+		} else {
+			for (int i = 0; i < g.getNumPlayers(); i++) {
+				canPlay[i] = true;
 			}
 		}
 		

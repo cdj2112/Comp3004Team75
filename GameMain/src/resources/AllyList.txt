@@ -2,7 +2,7 @@ Sir_Galahad;1;15;0;0;0;NULL
 Sir_Lancelot;1;15;0;0;25;Defend_the_Queen's_Honor
 King_Arthur;1;10;2;0;0;NULL
 Sir_Tristan;1;10;0;0;20;Queen_Iseult
-Sir_Pellinore;1;10;0;4;0;Search_for_the_Questing_Beast
+King_Pellinore;1;10;0;4;0;Search_for_the_Questing_Beast
 Sir_Gawain;1;10;0;0;20;Test_of_the_Green_Knight
 Sir_Percival;1;5;0;0;20;Search_for_the_Holy_Grail
 Queen_Guinevere;1;0;3;0;0;NULL

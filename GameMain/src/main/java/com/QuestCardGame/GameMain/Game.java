@@ -8,13 +8,15 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.util.SystemPropertiesPropertySource;
 
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 public class Game {
 
 	private static final Logger logger = LogManager.getLogger(Game.class);
 
 	public static enum GameStatus {
-		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR
-	};
+		IDLE, END_TURN_DISCARD, SPONSORING, BUILDING_QUEST, ACCEPTING_QUEST, PLAYING_QUEST, EVAL_QUEST_STAGE, PRE_QUEST_DISCARD, TEST_BIDDING, BID_DISCARD, ENTERING_TOUR, PLAYING_TOUR, PRE_TOUR_DISCARD, EVAL_TOUR
+	}
 
 	private GameStatus currentStatus;
 
@@ -33,6 +35,7 @@ public class Game {
 	private Player sponsor;
 	private int sponsorIndex;
 	private Quest activeQuest;
+
 	// tour
 	private Tournaments activeTournaments;
 
@@ -40,8 +43,8 @@ public class Game {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
-			//temporary fix to keep this working with java fx UI.
-			//will just need int[] behaviour instead of nP/nAIP
+			// temporary fix to keep this working with java fx UI.
+			// will just need int[] behaviour instead of nP/nAIP
 			players[i] = (numPlayers - i) > nAIP ? new Player(this, 0) : new Player(this, 2);
 		}
 		currentStatus = GameStatus.IDLE;
@@ -87,7 +90,7 @@ public class Game {
 		sponsor = null;
 		activeQuest = null;
 		activeTournaments = null;
-		if(currentStoryCard != null) {
+		if (currentStoryCard != null) {
 			logger.info("Story Card " + currentStoryCard.getName() + ": Discarded");
 		}
 		storyDeck.discard(currentStoryCard);
@@ -128,7 +131,6 @@ public class Game {
 				currentStatus = GameStatus.PRE_TOUR_DISCARD;
 				toDiscard[activePlayer] = p.getHand().size() - 12;
 			}
-			
 
 		}
 		return null;
@@ -163,9 +165,10 @@ public class Game {
 				currentStatus = GameStatus.PLAYING_TOUR;
 				activeTournaments.startTournaments();
 				activeTournaments.getNextPlayer();
-			} else if(activeTournaments.getPlayers().size() == 1){
-				logger.info("Player "+activeTournaments.getPlayers().get(0)+" is the only participant in tournament and wins by default");
-				activeTournaments.getPlayers().get(0).addShields(1+activeTournaments.getBonus());
+			} else if (activeTournaments.getPlayers().size() == 1) {
+				logger.info("Player " + activeTournaments.getPlayers().get(0).getPlayerNumber()
+						+ " is the only participant in tournament and wins by default");
+				activeTournaments.getPlayers().get(0).addShields(1 + activeTournaments.getBonus());
 				endTurn();
 			} else {
 				logger.info("Tournament Has No Participants");
@@ -185,7 +188,7 @@ public class Game {
 			adventureDeck.discard(c);
 		}
 
-		if(activeTournaments.isTournamentsOver()) {
+		if (activeTournaments.isTournamentsOver()) {
 			endTurn();
 		} else {
 			currentStatus = GameStatus.PLAYING_TOUR;
@@ -206,7 +209,7 @@ public class Game {
 
 	public void declineSponsor() {
 		if (currentStatus == GameStatus.SPONSORING) {
-			logger.info("Player " + players[activePlayer].getPlayerNumber() + ": Declined Sponsored Quest");
+			logger.info("Player " + getCurrentActivePlayerObj().getPlayerNumber() + ": Declined Sponsored Quest");
 			activePlayer = (activePlayer + 1) % numPlayers;
 			if (activePlayer == playerTurn) {
 				endTurn();
@@ -246,9 +249,10 @@ public class Game {
 			if (activePlayer == sponsorIndex) {
 				if (activeQuest.getPlayers().size() > 0) {
 					logger.info("Quest Begin");
-					currentStatus = GameStatus.PLAYING_QUEST;
 					activeQuest.startQuest();
 					activeQuest.getNextPlayer();
+					currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
+					if(activeQuest.isPlayingTest()) activeQuest.startBidding();
 				} else {
 					logger.info("Quest Has No Participants");
 					int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
@@ -292,6 +296,25 @@ public class Game {
 		return true;
 	}
 
+	public void placeBid(int bid) {
+		Player p = getCurrentActivePlayerObj();
+		int maxBids = p.getBids() + p.getHand().size();
+		if (bid > maxBids)
+			return;
+		boolean accepted = activeQuest.makeBid(bid);
+		if (accepted) {
+			logger.info("Player " + p.getPlayerNumber() +": Bid "+bid+" cards");
+			getNextActiveQuestPlayer();
+		}
+	}
+
+	public void playerDropOut() {
+		Player p = getCurrentActivePlayerObj();
+		logger.info("Player " + p.getPlayerNumber() +": Droped out of Quest");
+		activeQuest.playerDropout();
+		getNextActiveQuestPlayer();
+	}
+
 	public boolean[] playerPlayCards(Player p, ArrayList<AdventureCard> cards) {
 		boolean[] played = new boolean[cards.size()];
 		int i = 0;
@@ -300,7 +323,13 @@ public class Game {
 				played[i] = false;
 			} else {
 				p.playCard(c);
-				if(activeTournaments != null) activeTournaments.addToStash(c);
+				if(currentStatus == GameStatus.END_TURN_DISCARD || currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.PRE_TOUR_DISCARD) {
+					checkHandSizes();
+				}
+				if (activeTournaments != null)
+					activeTournaments.addToStash(c);
+				if(currentStatus == GameStatus.PLAYING_QUEST)
+					activeQuest.addToStash(c);
 				played[i] = true;
 			}
 		}
@@ -311,8 +340,14 @@ public class Game {
 		if (!isValidCardPlay(p, c))
 			return false;
 
-		if(activeTournaments != null) activeTournaments.addToStash(c);
+		if (activeTournaments != null)
+			activeTournaments.addToStash(c);
+		if(currentStatus == GameStatus.PLAYING_QUEST)
+			activeQuest.addToStash(c);
 		p.playCard(c);
+		if(currentStatus == GameStatus.END_TURN_DISCARD || currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.PRE_TOUR_DISCARD) {
+			checkHandSizes();
+		}
 
 		return true;
 	}
@@ -333,12 +368,22 @@ public class Game {
 		logger.info("Player " + p.getPlayerNumber() + ": DISCARD [" + c.getName() + "]");
 		if (currentStatus == GameStatus.PRE_QUEST_DISCARD || currentStatus == GameStatus.END_TURN_DISCARD
 				|| currentStatus == GameStatus.PRE_TOUR_DISCARD) {
+			checkHandSizes();
+		} else if (currentStatus == GameStatus.BID_DISCARD) {
 			int playerIndex = -1;
 			for (int i = 0; i < numPlayers; i++) {
 				if (players[i] == p)
 					playerIndex = i;
 			}
-			checkHandSizes();
+			toDiscard[playerIndex] = Math.max(0, toDiscard[playerIndex] - 1);
+			boolean done = true;
+			for (int d : toDiscard) {
+				done = done && d == 0;
+			}
+			if (done) {
+				activeQuest.closeBidding();
+				getNextActiveQuestPlayer();
+			}
 		}
 	}
 
@@ -351,16 +396,18 @@ public class Game {
 		if (done && currentStatus == GameStatus.PRE_QUEST_DISCARD) {
 			activePlayer = getNextActivePlayer();
 			if (activePlayer == sponsorIndex) {
-				currentStatus = GameStatus.PLAYING_QUEST;
 				activeQuest.startQuest();
 				activeQuest.getNextPlayer();
+				currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
+				if(activeQuest.isPlayingTest()) activeQuest.startBidding();
 			} else {
 				currentStatus = GameStatus.ACCEPTING_QUEST;
 			}
 		} else if (done && currentStatus == GameStatus.PRE_TOUR_DISCARD) {
 			activePlayer = getNextActivePlayer();
 			boolean start = shouldStartTournament();
-			if(!start) currentStatus = GameStatus.ENTERING_TOUR;
+			if (!start)
+				currentStatus = GameStatus.ENTERING_TOUR;
 		} else if (done && currentStatus == GameStatus.END_TURN_DISCARD) {
 			endTurn();
 		} else if (currentStatus == GameStatus.END_TURN_DISCARD) {
@@ -400,20 +447,44 @@ public class Game {
 		Player p = activeQuest.getNextPlayer();
 
 		// play has looped a full circle - change status accordingly
-		if (p == null && !activeQuest.isQuestOver()) {
-			if (currentStatus == GameStatus.PLAYING_QUEST)
+		if (currentStatus == GameStatus.TEST_BIDDING && activeQuest.getPlayers().size() == 1 && activeQuest.bidMade()) {
+			currentStatus = GameStatus.BID_DISCARD;
+			if (p == null)
+				p = activeQuest.getNextPlayer();
+			logger.info("Player "+p.getPlayerNumber()+": Won test");
+			for (int i = 0; i < numPlayers; i++) {
+				if (players[i] == p && activeQuest.getBids() > p.getBids()) {
+					toDiscard[i] = activeQuest.getBids() - p.getBids();
+				} else if (players[i] == p) {
+					currentStatus = GameStatus.PLAYING_QUEST;
+					activeQuest.closeBidding();
+				}
+			}
+		} else if (p == null && !activeQuest.isQuestOver()) {
+			if (currentStatus == GameStatus.PLAYING_QUEST) {
 				currentStatus = GameStatus.EVAL_QUEST_STAGE;
-			else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
-				currentStatus = GameStatus.PLAYING_QUEST;
+				activeQuest.clearStash();
+			} else if (currentStatus == GameStatus.EVAL_QUEST_STAGE && !activeQuest.isQuestOver()) {
+				currentStatus = activeQuest.isPlayingTest() ? GameStatus.TEST_BIDDING : GameStatus.PLAYING_QUEST;
 				ArrayList<Player> questPlayers = activeQuest.getPlayers();
 				for (Player qP : questPlayers) {
 					playerDrawAdventureCard(qP);
 				}
-			} else {
-				currentStatus = GameStatus.IDLE;
-				return null;
+			} else if (currentStatus == GameStatus.BID_DISCARD) {
+				currentStatus = GameStatus.PLAYING_QUEST;
 			}
 			return getNextActiveQuestPlayer();
+		} else if (activeQuest.isQuestOver()) {
+			// TODO: perhaps the game should award winners? for now in quest
+			// game should remove any cards left except allies?
+			// game should award adventure cards
+			// handle max cards, force discard
+			int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
+			for (int i = 0; i < backToSponsor; i++) {
+				playerDrawAdventureCard(sponsor);
+			}
+			endTurn();
+			return null;
 		}
 
 		return p;
@@ -455,7 +526,8 @@ public class Game {
 	 *         game has done a full circle
 	 */
 	public int getCurrentActivePlayer() {
-		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE) {
+		if (currentStatus == GameStatus.PLAYING_QUEST || currentStatus == GameStatus.EVAL_QUEST_STAGE
+				|| currentStatus == GameStatus.TEST_BIDDING || currentStatus == GameStatus.BID_DISCARD) {
 			return getCurrentActiveQuestPlayer();
 		} else if (currentStatus == GameStatus.PLAYING_TOUR) {
 			return getCurrentActiveTourPlayer();
@@ -514,25 +586,22 @@ public class Game {
 	public ArrayList<AdventureCard> evaluatePlayerEndOfStage(int player) {
 		boolean result = activeQuest.evaluatePlayer(players[player]);
 
-		getNextActiveQuestPlayer();
-
 		ArrayList<AdventureCard> questDiscard = activeQuest.getDiscardPile();
 		for (AdventureCard c : questDiscard) {
 			logger.info("Card " + c.getName() + ": Discarded");
 			adventureDeck.discard(c);
 		}
 
-		if (activeQuest.isQuestOver()) {
-			// TODO: perhaps the game should award winners? for now in quest
-			// game should remove any cards left except allies?
-			// game should award adventure cards
-			// handle max cards, force discard
-			int backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages();
-			for (int i = 0; i < backToSponsor; i++) {
-				playerDrawAdventureCard(sponsor);
-			}
-			endTurn();
-		}
+		getNextActiveQuestPlayer();
+
+		/*
+		 * if (activeQuest.isQuestOver()) { // TODO: perhaps the game should award
+		 * winners? for now in quest // game should remove any cards left except allies?
+		 * // game should award adventure cards // handle max cards, force discard int
+		 * backToSponsor = activeQuest.getCardsUsed() + activeQuest.getNumStages(); for
+		 * (int i = 0; i < backToSponsor; i++) { playerDrawAdventureCard(sponsor); }
+		 * endTurn(); }
+		 */
 
 		return questDiscard;
 	}
@@ -592,21 +661,22 @@ public class Game {
 	public Quest getActiveQuest() {
 		return activeQuest;
 	}
-	
+
 	public int getSponsorIndex() {
 		return getPlayerIndex(sponsor);
 	}
-	
+
 	public int getPlayerIndex(Player p) {
-		if(p == null) {
+		if (p == null) {
 			return -1;
 		}
-		for(int i = 0; i<players.length; i++) {
-			if(players[i]==p) return i;
+		for (int i = 0; i < players.length; i++) {
+			if (players[i] == p)
+				return i;
 		}
 		return -1;
 	}
-	
+
 	public Tournaments getActiveTournament() {
 		return activeTournaments;
 	}
@@ -618,19 +688,18 @@ public class Game {
 			return 0;
 		}
 	}
-	
-	public ArrayList<AdventureCard> getTournamentStash(){
-		if(activeTournaments != null) {
+
+	public ArrayList<AdventureCard> getTournamentStash() {
+		if (activeTournaments != null) {
 			return activeTournaments.getStash();
 		}
 		return null;
 	}
 
 	public int getPlayerDiscard(int i) {
-		toDiscard[i] = Math.max(players[i].getHand().size() - 12, 0);
 		return toDiscard[i];
 	}
-	
+
 	public int[] getAllDiscard() {
 		return toDiscard;
 	}
@@ -640,8 +709,11 @@ public class Game {
 			if (pc.cardName.equals(c.getName()))
 				return false;
 		}
-
-		if (c.getCardType() == AdventureCard.AdventureType.FOE)
+		
+		boolean onlyAllies = currentStatus != GameStatus.PLAYING_TOUR && currentStatus != GameStatus.PLAYING_QUEST;
+		if (c.getCardType() == AdventureType.FOE || c.getCardType() == AdventureType.TEST)
+			return false;
+		else if(onlyAllies && c.getCardType() != AdventureType.ALLY)
 			return false;
 
 		return true;

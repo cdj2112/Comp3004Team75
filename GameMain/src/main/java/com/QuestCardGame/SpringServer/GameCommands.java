@@ -99,6 +99,22 @@ public class GameCommands {
 		return buildGameStatus();
 	}
 	
+	@MessageMapping("/placeBid")
+	@SendTo("/status/gameStatus")
+	public GameTransit placeBid(PlayerDecisionRequest pdr) {
+		Game game = QuestSpringApplication.getGame();
+		game.placeBid(pdr.getBid());
+		return buildGameStatus();
+	}
+	
+	@MessageMapping("/dropOut")
+	@SendTo("/status/gameStatus")
+	public GameTransit dropOut() {
+		Game game = QuestSpringApplication.getGame();
+		game.playerDropOut();
+		return buildGameStatus();
+	}
+	
 	@MessageMapping("/acceptTournament")
 	@SendTo("/status/gameStatus")
 	public GameTransit acceptDeclineTournament(PlayerDecisionRequest pdr) {

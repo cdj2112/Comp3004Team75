@@ -167,25 +167,50 @@ public class AIStrategyTwo extends AIPlayer {
 
 	public int getBidForTest() {
 		int numToBid = 0;
-		int currentTestRound = 0; //g.getActiveQuest().getTestRound();
+		int currentTestRound = game.getActiveQuest().getBiddingRound();
 		Hand playerHand = player.getHand();
 		
+		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] has cards:" + buildCardListForLogger(player.getHand()));
+		
 		if(currentTestRound == 0) {
-			numToBid = playerHand.getNumFoesToDiscard(25);
+			numToBid = playerHand.getNumFoesToDiscard(25) + player.getBids();
+			int currentBid = game.getActiveQuest().getBids();
 			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 battle points.");
-			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
+			if(numToBid > currentBid) {
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
+				game.placeBid(numToBid);
+			} else {
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid is too low and will drop out");
+				game.playerDropOut();
+			}
 		}
 		else if(currentTestRound == 1) {
-			numToBid = playerHand.getNumFoesToDiscard(25) + playerHand.getNumDuplicates();
+			ArrayList<AdventureCard> canDiscard = new ArrayList<AdventureCard>();
+			for(AdventureCard c : player.getHand()) {
+				if(c.getCardType() == AdventureCard.AdventureType.FOE && c.getBattlePoint(false) <= 25)
+					canDiscard.add(c);
+			}
+			numToBid = canDiscard.size() + playerHand.getNumDuplicates(canDiscard) + player.getBids();
+			int currentBid = game.getActiveQuest().getBids();
 			logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will bid number of foes < 25 and number of duplicate cards.");
-			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
+			if(numToBid > currentBid) {
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid [" + numToBid + "]");
+				game.placeBid(numToBid);
+			} else {
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] bid is too low and will drop out");
+				game.playerDropOut();
+			}
+		} else {
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] will drop out in third round");
+			game.playerDropOut();
 		}
 		
 		return numToBid;
 	}
 
 	public ArrayList<AdventureCard> discardAfterWinningTest() {
-		int numRoundsPlayed = 0; //g.getActiveQuest().getTestRound(); 
+		int bid = game.getActiveQuest().getBids();
+		
 		ArrayList<AdventureCard> cardsToDiscard = new ArrayList<AdventureCard>();
 		
 		//foes 25 and below are discarded for the first round
@@ -195,8 +220,8 @@ public class AIStrategyTwo extends AIPlayer {
 		}
 		
 		//if we played two rounds, also discard the duplicates
-		if(numRoundsPlayed == 1) {
-			cardsToDiscard.addAll(player.getHand().getDuplicateCards());
+		if(bid - cardsToDiscard.size() > 0) {
+			cardsToDiscard.addAll(player.getHand().getDuplicateCards(cardsToDiscard));
 		}
 		
 		logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [TWO] won the test.");

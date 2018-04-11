@@ -22,6 +22,11 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 				return this.createQuest();
 			case PLAYING_QUEST:
 				return this.playCardsForQuestStage();
+			case TEST_BIDDING:
+				this.getBidForTest();
+				return new ArrayList<AdventureCard>();
+			case BID_DISCARD:
+				return this.discardAfterWinningTest();
 			case EVAL_QUEST_STAGE:
 				return this.evalQuestStage();
 			case ENTERING_TOUR:
@@ -67,5 +72,13 @@ public abstract class AIPlayer implements AIPlayerStrategy{
 			game.playerDiscardAdventrueCard(this.player, c);
 		}
 		return cardsToDiscard;
+	}
+	
+	protected String buildCardListForLogger(ArrayList<AdventureCard> cards) {
+		String cardList = " ";
+		for(AdventureCard c : cards) {
+			cardList += "[" + c.getName() + "] ";
+		}
+		return cardList;
 	}
 }

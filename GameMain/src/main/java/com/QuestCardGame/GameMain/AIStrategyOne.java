@@ -164,18 +164,25 @@ public class AIStrategyOne extends AIPlayer {
 
 	public int getBidForTest() {
 		int numToBid = 0;
-		int currentRound = 0; //g.getActiveQuest().getTestRound();
+		int currentRound = game.getActiveQuest().getBiddingRound();
 		
 		//don't bid unless first round
 		if(currentRound == 0) {
-			numToBid = player.getHand().getNumFoesToDiscard(20);
+			numToBid = player.getHand().getNumFoesToDiscard(20) + player.getBids();
+			int currentBid = game.getActiveQuest().getBids();
 			logger.info("First round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will bid number of foes < 20 battle points");
-			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] bid [" + numToBid + "]");
+			if(numToBid > currentBid) {
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] bid [" + numToBid + "]");
+				game.placeBid(numToBid);
+			} else {
+				logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] bid is too low and will drop out");
+				game.playerDropOut();
+			}
 		}
 		else {
 			numToBid = 0;
-			logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will bid 0");
-			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] bid [" + numToBid + "]");
+			//logger.info("Second round of test. AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will bid 0");
+			logger.info("AI Player [" + player.getPlayerNumber() + "] with strategy [ONE] will drop out in second round");
 		}
 				
 		return numToBid;
