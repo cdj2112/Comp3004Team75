@@ -46,13 +46,13 @@ public class Game {
 	// Events
 	private int extraShield = 0;
 
-	public Game(int nP, int nAIP, boolean rigged) {
+	public Game(int nP, int[] aiStrat, boolean rigged) {
 		numPlayers = nP;
 		players = new Player[numPlayers];
 		for (int i = 0; i < numPlayers; i++) {
 			// temporary fix to keep this working with java fx UI.
 			// will just need int[] behaviour instead of nP/nAIP
-			players[i] = (numPlayers - i) > nAIP ? new Player(this, 0) : new Player(this, 2);
+			players[i] = new Player(this, aiStrat[i]);
 		}
 		currentStatus = GameStatus.IDLE;
 		activePlayer = 0;

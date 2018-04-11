@@ -39,7 +39,7 @@ public class QuestSpringApplication {
 			userNames.add("CP "+numAI);
 		}
 	}
-	
+
 	public static void changeAiStrategy(int idx, int newStrat) {
 		if(aiStrategy[idx]!=0) aiStrategy[idx] = newStrat;
 	}
@@ -49,7 +49,7 @@ public class QuestSpringApplication {
 	}
 
 	public static void startGame() {
-		game = new Game(userNames.size(), numAI, false);
+		game = new Game(userNames.size(), aiStrategy, false);
 	}
 
 	public static void main(String[] args) {
