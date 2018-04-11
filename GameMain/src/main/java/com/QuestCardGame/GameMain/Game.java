@@ -682,7 +682,7 @@ public class Game {
 	private void initRiggedAdventureDeck() {
 		adventureDeck = new Deck();
 		logger.info("Rigged Adventure Deck Created");
-		CardList.populateRiggedAdventureCards(adventureDeck);
+		CardList.populateRiggedAdventureCards(adventureDeck, this);
 	}
 
 	private void initRiggedStoryDeck() {

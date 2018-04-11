@@ -47,19 +47,19 @@ public class CardList {
 		}
 		foeScanner.close();
 		
-		//Format Test_Name;Amount;MinBids
+		//Format Test_Name;Amount;MinBids;BonusMinBids;Target
 		Scanner testScanner = new Scanner(new File("./src/resources/TestList.txt"));
 		while(testScanner.hasNext()) {
 			String[] cardInfo = testScanner.next().split(";");
 			int amount = Integer.parseInt(cardInfo[1]);
 			for(int i = 0; i<amount; i++) {
-				Test t = new Test(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]));
+				Test t = new Test(cardInfo[0].replace('_', ' '), Integer.parseInt(cardInfo[2]), Integer.parseInt(cardInfo[3]), cardInfo[4].replace('_', ' '));
 				adventureDeck.addCard(t);
 			}
 		}
 		testScanner.close();
 
-		// Format Foe_Name;Amount;BattlePoints;Bids;AlternateBids;AlternateBattlePoints;Target;UseFinder
+		// Format Ally_Name;Amount;BattlePoints;Bids;AlternateBids;AlternateBattlePoints;Target;UseFinder
 		Scanner AllyScanner = new Scanner(new File("./src/resources/AllyList.txt"));
 		while (AllyScanner.hasNext()) {
 			String[] cardInfo = AllyScanner.next().split(";");
@@ -131,53 +131,23 @@ public class CardList {
 		eventScanner.close();
 }
 	
-	public static void populateRiggedAdventureCards(Deck adventureDeck) {
+	public static void populateRiggedAdventureCards(Deck adventureDeck, Game g) {
 		
-		//Extra
-		adventureDeck.addCard(new Foe("Giant", 40, 40));
-		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
-		adventureDeck.addCard(new Weapon("Excalibur", 30));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
-		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
-		adventureDeck.addCard(new Foe("Giant", 15, 15));
-		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
-		adventureDeck.addCard(new Weapon("Excalibur", 30));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
-		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
-
-		//Player 1 Draw 6
-		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
-		adventureDeck.addCard(new Foe("Mordred", 30, 30));
-		adventureDeck.addCard(new Foe("Saxon Knight", 20, 30));
-		adventureDeck.addCard(new Weapon("Excalibur", 30));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
-
-		//Player 4 Draw 1
-		adventureDeck.addCard(new Weapon("Sword", 10));
-
-		//Player 3 Draw 1
-		adventureDeck.addCard(new Foe("Thieves", 5, 5));
-
-		//Player 4 Draw 1
-		adventureDeck.addCard(new Weapon("Lance", 20));
-
-		//Player 3 Draw 1
-		adventureDeck.addCard(new Foe("Giant", 40, 40));
-		
-		//Player 2 Draw 1
-		adventureDeck.addCard(new Weapon("Dagger", 5));
+		try {
+			populateAdventureCards(adventureDeck, g);
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		adventureDeck.shuffleDeck();
 
 		//Player 4 Hand
-		adventureDeck.addCard(new Foe("Dragon", 50, 70));
-		adventureDeck.addCard(new Foe("Saxon Knight", 20, 30));
-		adventureDeck.addCard(new Weapon("Excalibur", 30));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
-		adventureDeck.addCard(new Foe("Mordred", 30, 30));
+		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
+		adventureDeck.addCard(new Ally("King Pellinore", 10, 0, 4, 10, "Search for the Questing Beast"));
+		adventureDeck.addCard(new Ally("Sir Gawain", 10, 0, 0, 20, "Test of the Green Knight"));
+		adventureDeck.addCard(new Amours());
+		adventureDeck.addCard(new Amours());
+		adventureDeck.addCard(new Amours());
 		adventureDeck.addCard(new Foe("Saxon Knight", 20, 30));
 		adventureDeck.addCard(new Weapon("Excalibur", 30));
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
@@ -185,13 +155,16 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Horse", 10));
 
 		//Player 3 Hand
-		adventureDeck.addCard(new Foe("Giant", 40, 40));
-		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
-		adventureDeck.addCard(new Weapon("Excalibur", 30));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
-		adventureDeck.addCard(new Foe("Giant", 15, 15));
+		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
+		adventureDeck.addCard(new Ally("Sir Gawain", 10, 0, 0, 20, "Test of the Green Knight"));
+		Ally sT = new Ally("Sir Tristan", 10, 0, 0, 20, "Queen Iseult");
+		PlayFinder pf = new PlayFinder(g, "Queen Iseult");
+		sT.setFinder(pf);
+		adventureDeck.addCard(sT);
+		adventureDeck.addCard(new Amours());
+		adventureDeck.addCard(new Ally("Sir Galahad", 15, 0, 0, 15, "NULL"));
+		adventureDeck.addCard(new Amours());
 		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
 		adventureDeck.addCard(new Weapon("Excalibur", 30));
 		adventureDeck.addCard(new Weapon("Battle-ax", 15));
@@ -199,45 +172,84 @@ public class CardList {
 		adventureDeck.addCard(new Weapon("Horse", 10));
 
 		//Player 2 Hand
-		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
-		adventureDeck.addCard(new Foe("Evil Knight", 20, 30));
-		adventureDeck.addCard(new Weapon("Lance", 20));
-		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
-		adventureDeck.addCard(new Weapon("Horse", 10));
 		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
-		adventureDeck.addCard(new Foe("Evil Knight", 20, 30));
-		adventureDeck.addCard(new Weapon("Lance", 20));
+		adventureDeck.addCard(new Ally("King Arthur", 10, 2, 2, 10, "NULL"));
+		Ally qI = new Ally("Queen Iseult", 0, 2, 4, 0, "Sir Tristan");
+		pf = new PlayFinder(g, "Sir Tristan");
+		qI.setFinder(pf);
+		adventureDeck.addCard(qI);
+		adventureDeck.addCard(new Ally("Sir Percival", 5, 0, 0, 20, "Search for the Holy Grail"));
+		adventureDeck.addCard(new Ally("Sir Lancelot", 15, 0, 0, 25, "Defend the Queen's Honor"));
 		adventureDeck.addCard(new Amours());
-		adventureDeck.addCard(new Ally("Sir Lancelot", 15, 0, 0, 25, "Defend_the_Queen's_Honor"));
-		adventureDeck.addCard(new Ally("King Arthur", 10, 2, 0, 0, "NULL"));
+		adventureDeck.addCard(new Foe("Dragon", 50, 70));
+		adventureDeck.addCard(new Weapon("Dagger", 5));
+		adventureDeck.addCard(new Weapon("Lance", 20));
+		adventureDeck.addCard(new Weapon("Horse", 10));
+		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 
 		// Player 1 hand
-		adventureDeck.addCard(new Ally("Sir Lancelot", 15, 0, 0, 25, "Defend_the_Queen's_Honor"));
-		adventureDeck.addCard(new Ally("King Arthur", 10, 2, 0, 0, "NULL"));
-		adventureDeck.addCard(new Weapon("Sword", 10));
-		adventureDeck.addCard(new Weapon("Dagger", 5));
-		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
-		adventureDeck.addCard(new Weapon("Horse", 10));
-		adventureDeck.addCard(new Foe("Saxons", 10, 20));
 		adventureDeck.addCard(new Foe("Boar", 5, 15));
+		adventureDeck.addCard(new Foe("Robber Knight", 15, 15));
+		adventureDeck.addCard(new Weapon("Dagger", 5));
 		adventureDeck.addCard(new Weapon("Sword", 10));
-		adventureDeck.addCard(new Amours());
-		adventureDeck.addCard(new Foe("Black Knight", 25, 35));
-		adventureDeck.addCard(new Amours());
+		adventureDeck.addCard(new Test("Test of Morgan Le Fey", 3, 3, "NULL"));
+		adventureDeck.addCard(new Foe("Saxon Knight", 15, 25));
+		adventureDeck.addCard(new Foe("Mordred", 30, 30));
+		adventureDeck.addCard(new Foe("Giant", 40, 40));
+		adventureDeck.addCard(new Test("Test of the Questing Beast", 1, 4, "Search for the Questing Beast"));
+		adventureDeck.addCard(new Weapon("Lance", 20));
+		adventureDeck.addCard(new Weapon("Horse", 10));
+		adventureDeck.addCard(new Weapon("Battle-ax", 15));
 	}
 		
 	public static void populateRiggedStoryCards(Deck storyDeck, Game g) throws FileNotFoundException {
 		populateStoryCards(storyDeck, g);
+		storyDeck.shuffleDeck();
+		
+		EventFactory factory = new EventFactory(g);
+		
+		EventCard cctc = new EventCard("Court Called to Camelot");
+		factory.effectCard(cctc);
+		storyDeck.addCard(cctc);
+		
+		EventCard qf = new EventCard("Queens Favor");
+		factory.effectCard(qf);
+		storyDeck.addCard(qf);
+		
+		EventCard kcta = new EventCard("King's Call to Arms");
+		factory.effectCard(kcta);
+		storyDeck.addCard(kcta);
+		
+		EventCard kr = new EventCard("King's Recognition");
+		factory.effectCard(kr);
+		storyDeck.addCard(kr);
+		
+		EventCard pl = new EventCard("Plague");
+		factory.effectCard(pl);
+		storyDeck.addCard(pl);
+		
+		EventCard po = new EventCard("Pox");
+		factory.effectCard(po);
+		storyDeck.addCard(po);
+		
+		storyDeck.addCard(new QuestCard("Defend the Queen's Honor", 4, ""));
+		storyDeck.addCard(new QuestCard("Search for the Questing Beast", 4, null));
+		storyDeck.addCard(new QuestCard("Search for the Holy Grail", 5, ""));
+		storyDeck.addCard(new QuestCard("Search for the Questing Beast", 4, null));
+		storyDeck.addCard(new QuestCard("Test of the Green Knight", 4, "Green Knight"));
+		storyDeck.addCard(new QuestCard("Slay the Dragon", 3, "Dragon"));
+		storyDeck.addCard(new TournamentCard("Camelot", 3));
+		
+		EventCard pttr = new EventCard("Prosperity Throughout the Realm");
+		factory.effectCard(pttr);
+		storyDeck.addCard(pttr);
+		
+		EventCard cd = new EventCard("Chivalrous Deed");
+		factory.effectCard(cd);
+		storyDeck.addCard(cd);
+		
 		storyDeck.addCard(new QuestCard("Boar Hunt", 2, "Boar"));
-		storyDeck.addCard(new EventCard("Court Called to Camelot"));
-		storyDeck.addCard(new EventCard("King's Call to Arms"));
-		storyDeck.addCard(new EventCard("King's Recognition"));
-		storyDeck.addCard(new EventCard("Plague"));
-		storyDeck.addCard(new EventCard("Pox"));
-		storyDeck.addCard(new EventCard("Prosperity Throughout the Realm"));
-		storyDeck.addCard(new EventCard("Queen's Favor"));
-		storyDeck.addCard(new EventCard("Chivalrous Deed"));
 	}
 
 }

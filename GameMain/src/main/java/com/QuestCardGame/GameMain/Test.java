@@ -3,25 +3,18 @@ package com.QuestCardGame.GameMain;
 public class Test extends AdventureCard {
 	private int minBid;
 	private String target;
+	private int bonusMinBid;
 
-	public Test(String name) {
-		super(name, AdventureType.TEST);
-		minBid = 0;
-		target = null;
-	}
-	public Test(String name, int mb) {
-		super(name, AdventureType.TEST);
-		minBid = mb;
-		target = null;
-	}
-	public Test(String name, String targetQuest) {
+	public Test(String name, int mb, int bmb, String targetQuest) {
 		super(name, AdventureType.TEST);
 		target = targetQuest;
+		minBid = mb;
+		bonusMinBid = bmb;
 	}
 
-  public int getMinBid(boolean bouns){
+  public int getMinBid(String test){
     //only for the "Searching for the questing beast"
-    if (target != null && bouns) return 4;
+    if (target != null && target.equals(test)) return bonusMinBid;
     return minBid;
   }
   
