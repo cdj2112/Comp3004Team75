@@ -220,10 +220,14 @@ public class Game {
 	public boolean sponsorAddCardToStage(AdventureCard c, int s) {
 		if (currentStatus == GameStatus.BUILDING_QUEST) {
 			boolean played = activeQuest.addCardToStage(c, s);
+			boolean bonus = activeQuest.getTarget() != null && c.getName().contains(activeQuest.getTarget());		
+				
 			if (played) {
 				logger.info("Player " + sponsor.getPlayerNumber() + ": Played Card " + c.getName() + " to Stage " + s);
 				sponsor.useCard(c);
 			}
+			if(played && bonus)
+				logger.info("Card [" + c.getName() +"] will use bonus battle points of [" + c.getBattlePoint(bonus) + "]");
 			return played;
 		}
 		return false;
