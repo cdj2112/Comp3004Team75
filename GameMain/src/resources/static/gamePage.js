@@ -348,7 +348,7 @@
             prompt.innerHTML = active === playerIdx ? 'Build Quest' : 'Waiting For Sponsor';
         } else if (status === 'ACCEPTING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Accept Quest?' : 'Waiting For Other Player';
-        } else if(status === 'PRE_QUEST_DISCARD' || status === 'END_TURN_DISCARD' || status==='PRE_TOUR_DISCARD') {
+        } else if(status === 'PRE_QUEST_DISCARD' || status === 'END_TURN_DISCARD' || status==='PRE_TOUR_DISCARD' || status==='BID_DISCARD') {
             prompt.innerHTML = toDiscard[playerIdx]>0 ? 'Discard '+toDiscard[playerIdx]+' card'+(toDiscard[playerIdx]>1?'s':'') : 'Waiting For Other Player';
         } else if(status === 'PLAYING_QUEST') {
             prompt.innerHTML = active === playerIdx ? 'Play Cards for Stage' : 'Waiting For Other Player';
