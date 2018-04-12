@@ -1,0 +1,181 @@
+2018-04-11 23:33:43.660  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: created
+2018-04-11 23:33:43.661  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: created
+2018-04-11 23:33:43.661  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: created
+2018-04-11 23:33:43.704  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Story Deck Created
+2018-04-11 23:33:43.719  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Adventure Deck Created
+2018-04-11 23:33:43.719  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Queen Guinevere]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Thieves]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Amour]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Evil Knight]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Boar]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Amour]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Thieves]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Battle-ax]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Battle-ax]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Battle-ax]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Amour]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Merlin]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Dagger]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Test of Morgan Le Fey]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Excalibur]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Giant]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Saxons]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 23:33:43.720  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sword]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Excalibur]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Saxon Knight]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Saxon Knight]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Horse]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Horse]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Thieves]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Lance]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Test of the Questing Beast]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sword]
+2018-04-11 23:33:43.721  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Saxons]
+2018-04-11 23:33:47.816  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Event card King's Recognition: Executes
+2018-04-11 23:33:47.816  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Next Quest is worth 2 extra shields
+2018-04-11 23:33:47.816  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Story Card King's Recognition: Discarded
+2018-04-11 23:33:48.858  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Quest         : Quest {Slay the Dragon} started: 3 stages.
+2018-04-11 23:33:49.875  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 2: Sponsored Quest
+2018-04-11 23:33:49.876  INFO 528 --- [nboundChannel-9] AILogger                                 : AI Player 2 with strategy [ONE] SPONSORED the quest [Slay the Dragon]
+2018-04-11 23:33:50.882  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] needs stage n battle points >= 50. n-1 a test. Else strongest foe and any duplicate weapons.
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] plays strongest foe: Giant in last stage
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] adds weapon: Battle-ax to get battle points over 50
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Giant to Stage 2
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] added [Giant] to stage [2]
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Battle-ax to Stage 2
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] added [Battle-ax] to stage [2]
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] played total battle points [55] for stage [2]
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] plays test: Test of Morgan Le Fey in second to last stage
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Test of Morgan Le Fey to Stage 1
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] added [Test of Morgan Le Fey] to stage [1]
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] played total battle points [0] for stage [1]
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] plays next strongest foe: Saxons to stage 1
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Saxons to Stage 0
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] added [Saxons] to stage [0]
+2018-04-11 23:33:50.886  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [2] with strategy [ONE] played total battle points [10] for stage [0]
+2018-04-11 23:33:50.887  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Finshed Quest
+2018-04-11 23:33:51.902  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] ACCEPTED quest [Slay the Dragon]
+2018-04-11 23:33:51.902  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Game          : Player 3: Entered Quest
+2018-04-11 23:33:51.903  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Lance]
+2018-04-11 23:33:52.910  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Game          : Player 3: DISCARD [Test of the Questing Beast]
+2018-04-11 23:33:59.010  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 1: Did Not Entered Quest
+2018-04-11 23:33:59.010  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Quest Begin
+2018-04-11 23:34:00.020  INFO 528 --- [nboundChannel-1] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] will play 10 higher than previous stage of [0]
+2018-04-11 23:34:00.020  INFO 528 --- [nboundChannel-1] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played [Sword]
+2018-04-11 23:34:00.020  INFO 528 --- [nboundChannel-1] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played battle point total [10]
+2018-04-11 23:34:00.020  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sword]
+2018-04-11 23:34:00.020  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 23:34:01.026  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 15 BP to 10 BP
+2018-04-11 23:34:01.026  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Sword: Discarded
+2018-04-11 23:34:01.026  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 23:34:02.033  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [3] with strategy [TWO] has cards: [Thieves] [Saxons] [Horse] [Horse] [Sword] [Robber Knight] [Saxon Knight] [Saxon Knight] [Lance] [Lance] [Excalibur] [Robber Knight] 
+2018-04-11 23:34:02.033  INFO 528 --- [boundChannel-11] AILogger                                 : Second round of test. AI Player [3] with strategy [TWO] will bid number of foes < 25 and number of duplicate cards.
+2018-04-11 23:34:02.033  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player [3] with strategy [TWO] bid [8]
+2018-04-11 23:34:02.033  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: Bid 8 cards
+2018-04-11 23:34:02.033  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: Won test
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] won the test.
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Thieves]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Saxons]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Robber Knight]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Saxon Knight]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Saxon Knight]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Robber Knight]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Horse]
+2018-04-11 23:34:03.040  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player [3] with strategy [TWO] discarded [Lance]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] AILogger                                 : Final quest stage. AI Player [3] with strategy [TWO] will play best hand.
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played [Excalibur]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played [Lance]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played [Horse]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played [Sword]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] AILogger                                 : Not final quest stage. AI Player [3] with strategy [TWO] played battle point total [70]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Excalibur]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Lance]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Horse]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sword]
+2018-04-11 23:34:04.048  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 75 BP to 55 BP
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 3: Gains 5 shields
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 3: Promoted to Knight with 0 shields
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Excalibur: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Lance: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Horse: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Sword: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Saxons: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Test of Morgan Le Fey: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Giant: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Card Battle-ax: Discarded
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Lance]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Test of the Questing Beast]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Thieves]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Thieves]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Tristan]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Queen Iseult]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Boar]
+2018-04-11 23:34:05.055  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Story Card Slay the Dragon: Discarded
+2018-04-11 23:34:06.063  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Merlin]
+2018-04-11 23:34:06.063  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Test of the Questing Beast]
+2018-04-11 23:34:06.063  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Queen Iseult]
+2018-04-11 23:34:08.076  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Event card Chivalrous Deed: Executes
+2018-04-11 23:34:08.076  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 1: Gains 3 shields
+2018-04-11 23:34:08.076  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 2: Gains 3 shields
+2018-04-11 23:34:08.076  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Story Card Chivalrous Deed: Discarded
+2018-04-11 23:34:11.025  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Tournaments   : Tournament [Tintagel] started. This tournament has [1] bonus shield(s).
+2018-04-11 23:34:13.230  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Game          : Player 1: Entered Tournaments
+2018-04-11 23:34:13.230  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Dagger]
+2018-04-11 23:34:20.771  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Sword]
+2018-04-11 23:34:21.780  INFO 528 --- [nboundChannel-1] AILogger                                 : No player can win or evolve. AI [ONE] will NOT enter the tournament
+2018-04-11 23:34:21.780  INFO 528 --- [nboundChannel-1] AILogger                                 : AI Player 2 with strategy [ONE] did NOT ENTER the tournament
+2018-04-11 23:34:22.188  INFO 528 --- [MessageBroker-7] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[1 current WS(1)-HttpStream(0)-HttpPoll(0), 3 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(3)-CONNECTED(3)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 16, active threads = 0, queued tasks = 0, completed tasks = 108], outboundChannelpool size = 16, active threads = 0, queued tasks = 0, completed tasks = 30], sockJsScheduler[pool size = 8, active threads = 1, queued tasks = 2, completed tasks = 10]
+2018-04-11 23:34:22.786  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 3: Entered Tournaments
+2018-04-11 23:34:22.786  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Test of Valor]
+2018-04-11 23:34:22.786  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Begin Tournament
+2018-04-11 23:34:22.786  INFO 528 --- [nboundChannel-9] AILogger                                 : AI strategy [TWO] always enters a tournament
+2018-04-11 23:34:22.786  INFO 528 --- [nboundChannel-9] AILogger                                 : AI Player 3 with strategy [TWO] ENTERED the tournament
+2018-04-11 23:34:30.255  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 1: PLAYED [Amour]
+2018-04-11 23:34:31.740  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 1: PLAYED [Sword]
+2018-04-11 23:34:32.670  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 1: PLAYED [Battle-ax]
+2018-04-11 23:34:33.744  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 1: Finished Playing for Tournament
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] AILogger                                 : AI Player 3 with strategy [TWO] will try to play a hand with >= 50 pts.
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] AILogger                                 : AI Player 3 with strategy [TWO] played [Lance] for tournament.
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] AILogger                                 : AI Player 3 with strategy [TWO] played [Horse] for tournament.
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] AILogger                                 : AI Player 3 with strategy [TWO] played [30] battle points for tournament
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Lance]
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Horse]
+2018-04-11 23:34:34.751  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Tournament
+2018-04-11 23:34:35.757  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Tournaments   : Player 1 plays tournament with 40 battle points
+2018-04-11 23:34:35.757  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Tournaments   : Player 3 plays tournament with 40 battle points
+2018-04-11 23:34:35.757  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Sword: Discarded
+2018-04-11 23:34:35.757  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Battle-ax: Discarded
+2018-04-11 23:34:35.757  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Lance: Discarded
+2018-04-11 23:34:35.757  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Horse: Discarded
+2018-04-11 23:34:46.840  INFO 528 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 1: PLAYED [Sword]
+2018-04-11 23:34:48.134  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 1: PLAYED [Dagger]
+2018-04-11 23:34:49.123  INFO 528 --- [boundChannel-10] com.QuestCardGame.GameMain.Game          : Player 1: Finished Playing for Tournament
+2018-04-11 23:34:50.129  INFO 528 --- [boundChannel-14] AILogger                                 : AI Player 3 with strategy [TWO] will try to play a hand with >= 50 pts.
+2018-04-11 23:34:50.129  INFO 528 --- [boundChannel-14] AILogger                                 : AI Player 3 with strategy [TWO] failed to make a 50 pt hand. Will now play best possible hand.
+2018-04-11 23:34:50.129  INFO 528 --- [boundChannel-14] AILogger                                 : AI Player 3 with strategy [TWO] played [0] battle points for tournament
+2018-04-11 23:34:50.129  INFO 528 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Tournament
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Tournaments   : Player 1 plays tournament with 30 battle points
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Tournaments   : Player 3 plays tournament with 10 battle points
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Tournaments   : Player 3 eliminated from tournament
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: Gains 3 shields
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: Promoted to Knight with 1 shields
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Card Sword: Discarded
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Card Dagger: Discarded
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Card Amour: Discarded
+2018-04-11 23:34:51.135  INFO 528 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Story Card Tintagel: Discarded
+2018-04-11 23:34:52.140  INFO 528 --- [nboundChannel-9] com.QuestCardGame.GameMain.Tournaments   : Tournament [York] started. This tournament has [0] bonus shield(s).
+2018-04-11 23:34:53.145  INFO 528 --- [boundChannel-11] AILogger                                 : No player can win or evolve. AI [ONE] will NOT enter the tournament
+2018-04-11 23:34:53.145  INFO 528 --- [boundChannel-11] AILogger                                 : AI Player 2 with strategy [ONE] did NOT ENTER the tournament
+2018-04-11 23:34:54.151  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Game          : Player 3: Entered Tournaments
+2018-04-11 23:34:54.151  INFO 528 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Horse]
+2018-04-11 23:34:54.151  INFO 528 --- [boundChannel-15] AILogger                                 : AI strategy [TWO] always enters a tournament
+2018-04-11 23:34:54.151  INFO 528 --- [boundChannel-15] AILogger                                 : AI Player 3 with strategy [TWO] ENTERED the tournament
