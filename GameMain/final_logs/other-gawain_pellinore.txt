@@ -1,0 +1,331 @@
+2018-04-11 21:57:42.039  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: created
+2018-04-11 21:57:42.039  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: created
+2018-04-11 21:57:42.039  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: created
+2018-04-11 21:57:42.039  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: created
+2018-04-11 21:57:42.040  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Rigged Story Deck Created
+2018-04-11 21:57:42.047  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Rigged Adventure Deck Created
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Battle-ax]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Horse]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Lance]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of the Questing Beast]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Giant]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Saxon Knight]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of Morgan Le Fey]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Dagger]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Robber Knight]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Boar]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Battle-ax]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Lance]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Test of Morgan Le Fey]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Dragon]
+2018-04-11 21:57:42.049  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Amour]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Lancelot]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Percival]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Queen Iseult]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [King Arthur]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Robber Knight]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Boar]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Horse]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Battle-ax]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Excalibur]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Saxon Knight]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Galahad]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Tristan]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Gawain]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Horse]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Battle-ax]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Excalibur]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Saxon Knight]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Sir Gawain]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [King Pellinore]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Robber Knight]
+2018-04-11 21:57:42.050  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 21:57:46.197  INFO 4060 --- [nboundChannel-1] com.QuestCardGame.GameMain.Quest         : Quest {Test of the Green Knight} started: 4 stages.
+2018-04-11 21:57:50.883  INFO 4060 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 1: Sponsored Quest
+2018-04-11 21:58:11.241  INFO 4060 --- [MessageBroker-2] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[4 current WS(4)-HttpStream(0)-HttpPoll(0), 14 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(14)-CONNECTED(14)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 8, active threads = 0, queued tasks = 0, completed tasks = 168], outboundChannelpool size = 8, active threads = 0, queued tasks = 0, completed tasks = 46], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 5, completed tasks = 9]
+2018-04-11 22:01:04.308  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Boar to Stage 0
+2018-04-11 22:01:14.176  INFO 4060 --- [boundChannel-12] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Robber Knight to Stage 1
+2018-04-11 22:01:18.810  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Mordred to Stage 2
+2018-04-11 22:01:20.173  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Giant to Stage 3
+2018-04-11 22:01:41.690  INFO 4060 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 1: Finshed Quest
+2018-04-11 22:01:46.045  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Game          : Player 2: Entered Quest
+2018-04-11 22:01:46.045  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Thieves]
+2018-04-11 22:01:58.050  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Sir Lancelot]
+2018-04-11 22:01:59.217  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Sir Percival]
+2018-04-11 22:02:00.421  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Queen Iseult]
+2018-04-11 22:02:01.837  INFO 4060 --- [boundChannel-12] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [King Arthur]
+2018-04-11 22:02:08.510  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Game          : Player 3: Entered Quest
+2018-04-11 22:02:08.510  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Gawain]
+2018-04-11 22:02:17.662  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: DISCARD [Boar]
+2018-04-11 22:02:27.814  INFO 4060 --- [boundChannel-12] com.QuestCardGame.GameMain.Game          : Player 4: Entered Quest
+2018-04-11 22:02:27.814  INFO 4060 --- [boundChannel-12] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Horse]
+2018-04-11 22:02:35.012  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Game          : Player 4: DISCARD [Horse]
+2018-04-11 22:02:42.717  INFO 4060 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:02:46.820  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sir Gawain]
+2018-04-11 22:02:46.821  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:02:49.868  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sir Tristan]
+2018-04-11 22:02:49.868  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:02:51.643  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sir Galahad]
+2018-04-11 22:02:51.643  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:02:54.887  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:02:54.888  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:01.281  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 4: PLAYED [King Pellinore]
+2018-04-11 22:03:01.281  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:48.148  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:03:48.148  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:49.210  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 35 BP to 5 BP
+2018-04-11 22:03:49.210  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:51.209  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:51.209  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:51.209  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 60 BP to 5 BP
+2018-04-11 22:03:51.209  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:03:52.214  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 15 BP to 5 BP
+2018-04-11 22:03:52.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Dagger]
+2018-04-11 22:03:52.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 22:03:52.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 22:03:52.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:21.619  INFO 4060 --- [boundChannel-18] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:04:21.619  INFO 4060 --- [boundChannel-18] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:27.809  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:04:27.809  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:30.360  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:04:30.360  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:32.210  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 35 BP to 15 BP
+2018-04-11 22:04:32.210  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:34.211  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:34.211  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:34.211  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 60 BP to 15 BP
+2018-04-11 22:04:34.211  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:35.218  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 15 BP to 15 BP
+2018-04-11 22:04:35.218  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sword]
+2018-04-11 22:04:35.218  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 22:04:35.218  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Thieves]
+2018-04-11 22:04:35.218  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:40.628  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:04:40.628  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:42.962  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:04:42.962  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:44.400  INFO 4060 --- [boundChannel-18] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:04:48.975  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:06.770  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 4: PLAYED [Battle-ax]
+2018-04-11 22:05:06.771  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:09.065  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 4: PLAYED [Excalibur]
+2018-04-11 22:05:09.065  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:10.539  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:05:10.540  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:12.209  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 35 BP to 30 BP
+2018-04-11 22:05:12.209  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:14.210  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:14.210  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:14.210  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 60 BP to 30 BP
+2018-04-11 22:05:14.210  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:15.214  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 60 BP to 30 BP
+2018-04-11 22:05:15.214  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Game          : Card Battle-ax: Discarded
+2018-04-11 22:05:15.214  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Game          : Card Excalibur: Discarded
+2018-04-11 22:05:15.214  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 22:05:15.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sword]
+2018-04-11 22:05:15.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Robber Knight]
+2018-04-11 22:05:15.215  INFO 4060 --- [boundChannel-16] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:23.983  INFO 4060 --- [boundChannel-18] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:05:23.984  INFO 4060 --- [boundChannel-18] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:26.588  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sword]
+2018-04-11 22:05:26.588  INFO 4060 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:27.546  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:05:27.546  INFO 4060 --- [boundChannel-17] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:30.782  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:05:30.782  INFO 4060 --- [boundChannel-15] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:32.210  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Quest         : Player 2 loses stage 35 BP to 40 BP
+2018-04-11 22:05:32.211  INFO 4060 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:34.210  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:34.211  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:34.211  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 70 BP to 40 BP
+2018-04-11 22:05:34.211  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Game          : Card Sword: Discarded
+2018-04-11 22:05:34.211  INFO 4060 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 3 gets [0] bonus battle points from [Sir Gawain]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Quest         : Player 4 loses stage 15 BP to 40 BP
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 3: Gains 4 shields
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Boar: Discarded
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Robber Knight: Discarded
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Mordred: Discarded
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Card Giant: Discarded
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Horse]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [King Pellinore]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Thieves]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Lance]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of Temptation]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Thieves]
+2018-04-11 22:05:35.216  INFO 4060 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Story Card Test of the Green Knight: Discarded
+2018-04-11 22:08:02.100  INFO 4060 --- [boundChannel-19] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Sword]
+2018-04-11 22:08:05.435  INFO 4060 --- [boundChannel-22] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Dagger]
+2018-04-11 22:08:08.018  INFO 4060 --- [boundChannel-25] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Lance]
+2018-04-11 22:08:14.113  INFO 4060 --- [boundChannel-21] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Battle-ax]
+2018-04-11 22:08:22.420  INFO 4060 --- [boundChannel-23] com.QuestCardGame.GameMain.Quest         : Quest {Search for the Questing Beast} started: 4 stages.
+2018-04-11 22:08:22.420  INFO 4060 --- [boundChannel-23] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:08:34.277  INFO 4060 --- [boundChannel-26] com.QuestCardGame.GameMain.Game          : Player 2: Declined Sponsored Quest
+2018-04-11 22:08:34.277  INFO 4060 --- [boundChannel-26] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:08:36.397  INFO 4060 --- [boundChannel-24] com.QuestCardGame.GameMain.Game          : Player 3: Declined Sponsored Quest
+2018-04-11 22:08:36.397  INFO 4060 --- [boundChannel-24] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:08:37.785  INFO 4060 --- [boundChannel-20] com.QuestCardGame.GameMain.Game          : Player 4: Declined Sponsored Quest
+2018-04-11 22:08:37.785  INFO 4060 --- [boundChannel-20] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:08:40.624  INFO 4060 --- [boundChannel-25] com.QuestCardGame.GameMain.Game          : Player 1: Sponsored Quest
+2018-04-11 22:08:40.624  INFO 4060 --- [boundChannel-25] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:09:40.551  INFO 4060 --- [io-8080-exec-10] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:09:42.467  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Thieves to Stage 0
+2018-04-11 22:09:42.467  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:09:55.523  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Thieves to Stage 1
+2018-04-11 22:09:55.523  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:09:57.217  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Saxon Knight to Stage 2
+2018-04-11 22:09:57.218  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:09:59.796  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Mordred to Stage 3
+2018-04-11 22:09:59.796  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:06.790  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Sword to Stage 1
+2018-04-11 22:10:06.790  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:09.010  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Horse to Stage 2
+2018-04-11 22:10:09.010  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:09.685  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Game          : Player 1: Finshed Quest
+2018-04-11 22:10:09.685  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:17.053  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Game          : Player 2: Entered Quest
+2018-04-11 22:10:17.054  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Excalibur]
+2018-04-11 22:10:17.054  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:19.151  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Excalibur]
+2018-04-11 22:10:19.151  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:21.488  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Game          : Player 3: Entered Quest
+2018-04-11 22:10:21.488  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Test of Morgan Le Fey]
+2018-04-11 22:10:21.489  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:27.040  INFO 4060 --- [nio-8080-exec-7] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:39.185  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Game          : Player 4: Entered Quest
+2018-04-11 22:10:39.186  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Lance]
+2018-04-11 22:10:39.186  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:41.332  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Game          : Player 4: DISCARD [Lance]
+2018-04-11 22:10:41.332  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:47.379  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:10:47.379  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:49.996  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:10:49.997  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:51.704  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:10:51.704  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:53.211  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 35 BP to 5 BP
+2018-04-11 22:10:53.211  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:55.211  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 50 BP to 5 BP
+2018-04-11 22:10:55.211  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:56.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:56.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:10:56.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 15 BP to 5 BP
+2018-04-11 22:10:56.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 22:10:56.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Test of Temptation]
+2018-04-11 22:10:56.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Saxons]
+2018-04-11 22:10:56.216  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:01.966  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:04.561  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Horse]
+2018-04-11 22:11:04.562  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:05.228  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:11:05.228  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:12.826  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Battle-ax]
+2018-04-11 22:11:12.826  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:13.635  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:11:13.635  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:18.035  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:19.206  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4: PLAYED [Horse]
+2018-04-11 22:11:19.206  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:19.924  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:11:19.924  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:21.210  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 45 BP to 15 BP
+2018-04-11 22:11:21.210  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Game          : Card Horse: Discarded
+2018-04-11 22:11:21.210  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:23.211  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 65 BP to 15 BP
+2018-04-11 22:11:23.211  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Game          : Card Battle-ax: Discarded
+2018-04-11 22:11:23.211  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 25 BP to 15 BP
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Game          : Card Horse: Discarded
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Amour]
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Saxon Knight]
+2018-04-11 22:11:24.216  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:31.372  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:34.032  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Dagger]
+2018-04-11 22:11:34.032  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:34.822  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:11:34.823  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:39.456  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Horse]
+2018-04-11 22:11:39.456  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:40.261  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:11:40.261  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:51.824  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Player        : Player 4: PLAYED [Amour]
+2018-04-11 22:11:51.824  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:52.848  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:11:52.849  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:54.210  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 40 BP to 25 BP
+2018-04-11 22:11:54.210  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Game          : Card Dagger: Discarded
+2018-04-11 22:11:54.210  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:56.210  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 60 BP to 25 BP
+2018-04-11 22:11:56.210  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Game          : Card Horse: Discarded
+2018-04-11 22:11:56.210  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 25 BP to 25 BP
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Merlin]
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Dagger]
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 22:11:57.215  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:08.118  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Lance]
+2018-04-11 22:12:08.118  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:08.811  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:12:08.812  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:11.498  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Dagger]
+2018-04-11 22:12:11.498  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:12.243  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:12:12.243  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:18.632  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Player        : Player 4: PLAYED [Sir Gawain]
+2018-04-11 22:12:18.632  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:21.158  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:12:21.158  INFO 4060 --- [boundChannel-27] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:22.209  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 55 BP to 30 BP
+2018-04-11 22:12:22.209  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Game          : Card Lance: Discarded
+2018-04-11 22:12:22.209  INFO 4060 --- [boundChannel-32] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:24.210  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 55 BP to 30 BP
+2018-04-11 22:12:24.210  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Game          : Card Dagger: Discarded
+2018-04-11 22:12:24.210  INFO 4060 --- [boundChannel-31] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4 gets [4] bonus battle points from [King Pellinore]
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Quest         : Player 4 wins stage 35 BP to 30 BP
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 2: Gains 4 shields
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 3: Gains 4 shields
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 3: Promoted to Knight with 3 shields
+2018-04-11 22:12:25.214  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 4: Gains 4 shields
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Thieves: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Thieves: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Sword: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Saxon Knight: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Horse: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Mordred: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Card Amour: Discarded
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Amour]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of Morgan Le Fey]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Horse]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Black Knight]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Horse]
+2018-04-11 22:12:25.215  INFO 4060 --- [boundChannel-33] com.QuestCardGame.GameMain.Game          : Story Card Search for the Questing Beast: Discarded
+2018-04-11 22:12:35.323  INFO 4060 --- [boundChannel-34] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Sword]
+2018-04-11 22:12:41.952  INFO 4060 --- [boundChannel-29] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Lance]
+2018-04-11 22:12:44.110  INFO 4060 --- [boundChannel-30] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Horse]
+2018-04-11 22:12:48.968  INFO 4060 --- [boundChannel-28] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Amour]

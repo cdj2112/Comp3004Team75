@@ -149,24 +149,3 @@
 2018-04-11 20:56:26.210  INFO 11008 --- [boundChannel-58] com.QuestCardGame.GameMain.Game          : Card Lance: Discarded
 2018-04-11 20:56:26.210  INFO 11008 --- [boundChannel-58] com.QuestCardGame.GameMain.Game          : Card Excalibur: Discarded
 2018-04-11 20:56:26.210  INFO 11008 --- [boundChannel-58] com.QuestCardGame.GameMain.Game          : Story Card Camelot: Discarded
-2018-04-11 20:56:57.052  INFO 11008 --- [boundChannel-56] com.QuestCardGame.GameMain.Quest         : Quest {Slay the Dragon} started: 3 stages.
-2018-04-11 20:57:11.448  INFO 11008 --- [boundChannel-54] com.QuestCardGame.GameMain.Game          : Player 1: Sponsored Quest
-2018-04-11 20:59:46.964  INFO 11008 --- [boundChannel-64] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Test of Morgan Le Fey to Stage 0
-2018-04-11 21:00:04.982  INFO 11008 --- [boundChannel-65] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Boar to Stage 1
-2018-04-11 21:00:06.757  INFO 11008 --- [boundChannel-68] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Robber Knight to Stage 2
-2018-04-11 21:00:13.481  INFO 11008 --- [boundChannel-67] com.QuestCardGame.GameMain.Game          : Player 1: Finshed Quest
-2018-04-11 21:00:19.381  INFO 11008 --- [boundChannel-62] com.QuestCardGame.GameMain.Game          : Player 2: Entered Quest
-2018-04-11 21:00:19.381  INFO 11008 --- [boundChannel-62] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Test of the Questing Beast]
-2018-04-11 21:00:22.772  INFO 11008 --- [boundChannel-63] com.QuestCardGame.GameMain.Game          : Player 3: Entered Quest
-2018-04-11 21:00:22.772  INFO 11008 --- [boundChannel-63] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Battle-ax]
-2018-04-11 21:00:31.412  INFO 11008 --- [boundChannel-66] com.QuestCardGame.GameMain.Game          : Player 3: DISCARD [Boar]
-2018-04-11 21:00:33.796  INFO 11008 --- [boundChannel-69] com.QuestCardGame.GameMain.Game          : Player 4: Entered Quest
-2018-04-11 21:00:33.796  INFO 11008 --- [boundChannel-69] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Saxons]
-2018-04-11 21:00:33.796  INFO 11008 --- [boundChannel-69] com.QuestCardGame.GameMain.Game          : Quest Begin
-2018-04-11 21:02:14.448  INFO 11008 --- [boundChannel-70] com.QuestCardGame.GameMain.Game          : Player 2: Bid 3 cards
-2018-04-11 21:02:58.383  INFO 11008 --- [boundChannel-73] com.QuestCardGame.GameMain.Game          : Player 3: Bid 4 cards
-2018-04-11 21:03:04.298  INFO 11008 --- [boundChannel-76] com.QuestCardGame.GameMain.Game          : Player 4: Bid 5 cards
-2018-04-11 21:03:09.423  INFO 11008 --- [boundChannel-72] com.QuestCardGame.GameMain.Game          : Player 2: Bid 6 cards
-2018-04-11 21:03:11.153  INFO 11008 --- [boundChannel-74] com.QuestCardGame.GameMain.Game          : Player 3: Droped out of Quest
-2018-04-11 21:03:12.822  INFO 11008 --- [boundChannel-77] com.QuestCardGame.GameMain.Game          : Player 4: Droped out of Quest
-2018-04-11 21:03:12.823  INFO 11008 --- [boundChannel-77] com.QuestCardGame.GameMain.Game          : Player 2: Won test
