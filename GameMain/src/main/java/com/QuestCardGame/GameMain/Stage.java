@@ -70,8 +70,8 @@ public class Stage {
 		return isTest;
 	}
 	
-	public int getMinBid() {
+	public int getMinBid(String name) {
 		Test t = (Test)(cards.get(0));
-		return t.getMinBid(false);
+		return t.getMinBid(name);
 	}
 }

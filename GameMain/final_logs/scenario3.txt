@@ -1,0 +1,78 @@
+2018-04-11 21:43:12.791  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: created
+2018-04-11 21:43:12.791  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: created
+2018-04-11 21:43:12.791  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: created
+2018-04-11 21:43:12.791  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: created
+2018-04-11 21:43:12.792  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Rigged Story Deck Created
+2018-04-11 21:43:12.797  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Rigged Adventure Deck Created
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Battle-ax]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Horse]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Lance]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of the Questing Beast]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Giant]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Saxon Knight]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of Morgan Le Fey]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Dagger]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Robber Knight]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Boar]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Battle-ax]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Lance]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Test of Morgan Le Fey]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Dragon]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Amour]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Lancelot]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Percival]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Queen Iseult]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [King Arthur]
+2018-04-11 21:43:12.799  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Robber Knight]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Boar]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Horse]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Battle-ax]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Excalibur]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Saxon Knight]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Galahad]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Tristan]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Gawain]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Horse]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Battle-ax]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Excalibur]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Saxon Knight]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Sir Gawain]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [King Pellinore]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Robber Knight]
+2018-04-11 21:43:12.800  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 21:43:13.813  INFO 22144 --- [nboundChannel-1] com.QuestCardGame.GameMain.Quest         : Quest {Slay the Dragon} started: 3 stages.
+2018-04-11 21:43:15.084  INFO 22144 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 1: Declined Sponsored Quest
+2018-04-11 21:43:17.217  INFO 22144 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[4 current WS(4)-HttpStream(0)-HttpPoll(0), 16 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(16)-CONNECTED(16)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 8, active threads = 0, queued tasks = 0, completed tasks = 192], outboundChannelpool size = 8, active threads = 0, queued tasks = 0, completed tasks = 44], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 5, completed tasks = 4]
+2018-04-11 21:43:30.269  INFO 22144 --- [nboundChannel-6] com.QuestCardGame.GameMain.Game          : Player 2: Sponsored Quest
+2018-04-11 21:43:36.543  INFO 22144 --- [nboundChannel-5] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Test of Morgan Le Fey to Stage 0
+2018-04-11 21:43:41.702  INFO 22144 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Boar to Stage 1
+2018-04-11 21:43:42.946  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Player 2: Played Card Robber Knight to Stage 2
+2018-04-11 21:43:43.845  INFO 22144 --- [nboundChannel-7] com.QuestCardGame.GameMain.Game          : Player 2: Finshed Quest
+2018-04-11 21:43:51.759  INFO 22144 --- [nboundChannel-3] com.QuestCardGame.GameMain.Game          : Player 3: Entered Quest
+2018-04-11 21:43:51.759  INFO 22144 --- [nboundChannel-3] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Lance]
+2018-04-11 21:43:53.331  INFO 22144 --- [nboundChannel-2] com.QuestCardGame.GameMain.Game          : Player 3: DISCARD [Lance]
+2018-04-11 21:43:54.550  INFO 22144 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 4: Entered Quest
+2018-04-11 21:43:54.550  INFO 22144 --- [nboundChannel-4] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 21:44:02.289  INFO 22144 --- [nboundChannel-6] com.QuestCardGame.GameMain.Game          : Player 4: DISCARD [Amour]
+2018-04-11 21:44:05.936  INFO 22144 --- [nboundChannel-5] com.QuestCardGame.GameMain.Game          : Player 1: Entered Quest
+2018-04-11 21:44:05.936  INFO 22144 --- [nboundChannel-5] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Evil Knight]
+2018-04-11 21:44:08.174  INFO 22144 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Evil Knight]
+2018-04-11 21:44:37.514  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Player 3: Bid 3 cards
+2018-04-11 21:44:39.453  INFO 22144 --- [nboundChannel-7] com.QuestCardGame.GameMain.Game          : Player 4: Bid 4 cards
+2018-04-11 21:44:41.702  INFO 22144 --- [nboundChannel-3] com.QuestCardGame.GameMain.Game          : Player 1: Bid 5 cards
+2018-04-11 21:44:44.780  INFO 22144 --- [nboundChannel-6] com.QuestCardGame.GameMain.Game          : Player 3: Bid 6 cards
+2018-04-11 21:44:46.203  INFO 22144 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 4: Droped out of Quest
+2018-04-11 21:44:48.150  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Player 1: Droped out of Quest
+2018-04-11 21:44:48.150  INFO 22144 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Player 3: Won test

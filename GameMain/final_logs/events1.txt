@@ -1,0 +1,160 @@
+2018-04-11 22:56:04.506  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: created
+2018-04-11 22:56:04.506  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: created
+2018-04-11 22:56:04.506  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: created
+2018-04-11 22:56:04.506  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: created
+2018-04-11 22:56:04.507  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Game          : Rigged Story Deck Created
+2018-04-11 22:56:04.513  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Game          : Rigged Adventure Deck Created
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Battle-ax]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Horse]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Lance]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of the Questing Beast]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Giant]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Saxon Knight]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of Morgan Le Fey]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Dagger]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Robber Knight]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Boar]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Battle-ax]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Lance]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Test of Morgan Le Fey]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Dragon]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Amour]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Lancelot]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Percival]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Queen Iseult]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [King Arthur]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Robber Knight]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Boar]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Horse]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Battle-ax]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Excalibur]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Saxon Knight]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Galahad]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 22:56:04.516  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Tristan]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Sir Gawain]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Robber Knight]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Boar]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Sir Lancelot]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Battle-ax]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Excalibur]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Saxon Knight]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Amour]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Sir Gawain]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [King Pellinore]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Robber Knight]
+2018-04-11 22:56:04.517  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Boar]
+2018-04-11 22:56:05.585  INFO 7184 --- [nboundChannel-7] com.QuestCardGame.GameMain.Quest         : Quest {Defend the Queen's Honor} started: 4 stages.
+2018-04-11 22:56:08.546  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Game          : Player 1: Sponsored Quest
+2018-04-11 22:56:19.783  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Test of Morgan Le Fey to Stage 1
+2018-04-11 22:56:19.783  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Card [Test of Morgan Le Fey] will use bonus battle points of [0]
+2018-04-11 22:56:21.518  INFO 7184 --- [nboundChannel-6] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Boar to Stage 0
+2018-04-11 22:56:21.518  INFO 7184 --- [nboundChannel-6] com.QuestCardGame.GameMain.Game          : Card [Boar] will use bonus battle points of [15]
+2018-04-11 22:56:23.770  INFO 7184 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Mordred to Stage 2
+2018-04-11 22:56:23.770  INFO 7184 --- [nboundChannel-8] com.QuestCardGame.GameMain.Game          : Card [Mordred] will use bonus battle points of [30]
+2018-04-11 22:56:25.068  INFO 7184 --- [nboundChannel-3] com.QuestCardGame.GameMain.Game          : Player 1: Played Card Giant to Stage 3
+2018-04-11 22:56:25.068  INFO 7184 --- [nboundChannel-3] com.QuestCardGame.GameMain.Game          : Card [Giant] will use bonus battle points of [40]
+2018-04-11 22:56:26.380  INFO 7184 --- [nboundChannel-5] com.QuestCardGame.GameMain.Game          : Player 1: Finshed Quest
+2018-04-11 22:56:31.463  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Player 2: Entered Quest
+2018-04-11 22:56:31.463  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Robber Knight]
+2018-04-11 22:56:34.012  INFO 7184 --- [nboundChannel-7] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Robber Knight]
+2018-04-11 22:56:36.364  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Game          : Player 3: Entered Quest
+2018-04-11 22:56:36.365  INFO 7184 --- [nboundChannel-2] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Amour]
+2018-04-11 22:56:39.458  INFO 7184 --- [MessageBroker-4] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[4 current WS(4)-HttpStream(0)-HttpPoll(0), 13 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(13)-CONNECTED(13)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 8, active threads = 0, queued tasks = 0, completed tasks = 180], outboundChannelpool size = 8, active threads = 0, queued tasks = 0, completed tasks = 73], sockJsScheduler[pool size = 4, active threads = 1, queued tasks = 5, completed tasks = 10]
+2018-04-11 22:56:50.699  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 3: DISCARD [Boar]
+2018-04-11 22:57:35.795  INFO 7184 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 4: Entered Quest
+2018-04-11 22:57:35.795  INFO 7184 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 4: DREW [Sword]
+2018-04-11 22:57:38.083  INFO 7184 --- [boundChannel-12] com.QuestCardGame.GameMain.Game          : Player 4: DISCARD [Sword]
+2018-04-11 22:57:47.150  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Queen Iseult]
+2018-04-11 22:58:06.043  INFO 7184 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [Sir Lancelot]
+2018-04-11 22:58:06.043  INFO 7184 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:08.652  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2: PLAYED [King Arthur]
+2018-04-11 22:58:08.652  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:14.377  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:58:14.377  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:19.305  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Amour]
+2018-04-11 22:58:19.306  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:22.678  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Player        : Player 3: PLAYED [Sir Tristan]
+2018-04-11 22:58:22.678  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:25.655  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: Finished Playing for Stage
+2018-04-11 22:58:25.655  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:32.297  INFO 7184 --- [boundChannel-12] com.QuestCardGame.GameMain.Game          : Player 4: Finished Playing for Stage
+2018-04-11 22:58:32.297  INFO 7184 --- [boundChannel-12] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:34.217  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:34.218  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:34.218  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 40 BP to 15 BP
+2018-04-11 22:58:34.218  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:36.210  INFO 7184 --- [boundChannel-10] com.QuestCardGame.GameMain.Quest         : Player 3 wins stage 35 BP to 15 BP
+2018-04-11 22:58:36.210  INFO 7184 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:37.216  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Quest         : Player 4 loses stage 5 BP to 15 BP
+2018-04-11 22:58:37.216  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Horse]
+2018-04-11 22:58:37.216  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 3: DREW [Evil Knight]
+2018-04-11 22:58:37.216  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:58:58.993  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Player        : Player 2 gets [0] bonus bids from [Sir Lancelot]
+2018-04-11 22:58:58.993  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 2: Bid 1 cards
+2018-04-11 22:58:58.993  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:03.957  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 3: Bid 2 cards
+2018-04-11 22:59:03.957  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:08.657  INFO 7184 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 2 gets [0] bonus bids from [Sir Lancelot]
+2018-04-11 22:59:08.657  INFO 7184 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 2: Bid 3 cards
+2018-04-11 22:59:08.657  INFO 7184 --- [nboundChannel-9] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:11.932  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: Droped out of Quest
+2018-04-11 22:59:11.932  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: Won test
+2018-04-11 22:59:11.932  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 2 gets [0] bonus bids from [Sir Lancelot]
+2018-04-11 22:59:11.932  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:16.823  INFO 7184 --- [boundChannel-12] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:59:16.823  INFO 7184 --- [boundChannel-12] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:17.834  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:17.834  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:17.834  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 40 BP to 30 BP
+2018-04-11 22:59:17.834  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2: DREW [Sir Percival]
+2018-04-11 22:59:17.834  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:19.170  INFO 7184 --- [boundChannel-10] com.QuestCardGame.GameMain.Game          : Player 2: Finished Playing for Stage
+2018-04-11 22:59:19.170  INFO 7184 --- [boundChannel-10] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2 gets [25] bonus battle points from [Sir Lancelot]
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Quest         : Player 2 wins stage 40 BP to 40 BP
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 2: Gains 4 shields
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Card Boar: Discarded
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Card Test of Morgan Le Fey: Discarded
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Card Mordred: Discarded
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Card Giant: Discarded
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Saxons]
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Mordred]
+2018-04-11 22:59:20.175  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Battle-ax]
+2018-04-11 22:59:20.176  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Test of Morgan Le Fey]
+2018-04-11 22:59:20.176  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Battle-ax]
+2018-04-11 22:59:20.176  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [King Arthur]
+2018-04-11 22:59:20.176  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Sword]
+2018-04-11 22:59:20.176  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 1: DREW [Amour]
+2018-04-11 22:59:20.176  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Story Card Defend the Queen's Honor: Discarded
+2018-04-11 22:59:37.441  INFO 7184 --- [nboundChannel-4] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Amour]
+2018-04-11 22:59:38.705  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Sword]
+2018-04-11 22:59:42.089  INFO 7184 --- [nboundChannel-9] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [King Arthur]
+2018-04-11 22:59:43.432  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 1: DISCARD [Battle-ax]
+2018-04-11 22:59:48.303  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Event card Pox: Executes
+2018-04-11 22:59:48.303  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 1: Loses 0 shields
+2018-04-11 22:59:48.303  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 3: Loses 0 shields
+2018-04-11 22:59:48.303  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Player        : Player 4: Loses 0 shields
+2018-04-11 22:59:48.303  INFO 7184 --- [nboundChannel-1] com.QuestCardGame.GameMain.Game          : Story Card Pox: Discarded
+2018-04-11 23:00:33.954  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Event card Plague: Executes
+2018-04-11 23:00:33.954  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Player        : Player 3: Loses 0 shields
+2018-04-11 23:00:33.954  INFO 7184 --- [boundChannel-13] com.QuestCardGame.GameMain.Game          : Story Card Plague: Discarded
+2018-04-11 23:00:42.478  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Event card King's Recognition: Executes
+2018-04-11 23:00:42.478  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Next Quest is worth 2 extra shields
+2018-04-11 23:00:42.478  INFO 7184 --- [boundChannel-14] com.QuestCardGame.GameMain.Game          : Story Card King's Recognition: Discarded
+2018-04-11 23:00:49.267  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Event card King's Call to Arms: Executes
+2018-04-11 23:00:49.267  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : All allies in play are discarded
+2018-04-11 23:00:49.267  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Queen Iseult]
+2018-04-11 23:00:49.267  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [Sir Lancelot]
+2018-04-11 23:00:49.268  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 2: DISCARD [King Arthur]
+2018-04-11 23:00:49.268  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Player 3: DISCARD [Sir Tristan]
+2018-04-11 23:00:49.268  INFO 7184 --- [boundChannel-11] com.QuestCardGame.GameMain.Game          : Story Card King's Call to Arms: Discarded

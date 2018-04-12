@@ -6,16 +6,34 @@
     function updatePlayerList(playerList){
         if(playerList.length===0) return;
         var list = document.getElementById('playerList');
-        for(var i=0; i<playerList.length; i++){
-            var name = playerList[i];
+        for(var i=0; i<playerList.userNames.length; i++){
+            var name = playerList.userNames[i];
+            var strategy = playerList.strategies[i];
             if(list.children[i]){
-                list.children[i].innerHTML = name;
+                list.children[i].children[0].innerHTML = name;
             } else {
                 var oli = document.createElement('li');
-                oli.innerHTML = name;
+                var span = document.createElement('span');
+                span.innerHTML = name;
+                oli.appendChild(span);
+                if(strategy!=0 && isHost){
+                    var select = document.createElement('select');
+                    var option1 = document.createElement('option');
+                    option1.innerHTML = "Strategy 1";
+                    option1.value = 1;
+                    select.appendChild(option1);
+                    var option2 = document.createElement('option');
+                    option2.innerHTML = "Strategy 2";
+                    option2.value = 2;
+                    select.appendChild(option2);
+                    select.value = strategy;
+                    select.onchange = changeAIStrategy(i);
+                    oli.appendChild(select);
+                }
                 list.appendChild(oli);
             }
         }
+        document.getElementById('rigged').checked = playerList.rigged;
     }
 
     function addNewPlayer(){
@@ -46,6 +64,16 @@
         xhr.send();
     }
 
+    function changeAIStrategy(index) {
+        return function(ev){
+            console.log(index, ev.target.value);
+            stompClient.send('/command/changeAIStrategy', {}, JSON.stringify({
+                index: index,
+                newStrategy: parseInt(ev.target.value),
+            }))
+        }
+    }
+
     function startGame(){
         stompClient.send('/command/startGame', {}, {});
     }
@@ -53,6 +81,11 @@
     function redirectToGamePage(){
         location.pathname = '/gamePage';
     }
+
+    function changeRigged(ev) {
+        stompClient.send('/command/changeRigged', {}, ev.target.checked);
+    }
+    document.getElementById('rigged').onchange = changeRigged;
 
     function connect(){
         var socket = new SockJS('/gs-guide-websocket');
