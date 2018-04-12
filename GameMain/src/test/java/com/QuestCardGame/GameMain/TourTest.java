@@ -118,6 +118,10 @@ public class TourTest extends TestCase {
 		// p1 should win and get shield
 		nextPlayer = tour.getNextPlayer();
 		tour.evaluatePlayers();
+		
+		if(tour.getPlayers().size()>1) {
+			tour.evaluatePlayers();
+		}
 
 		Assert.assertEquals(2, p1.getNumShields());
 		Assert.assertEquals(2, p2.getNumShields());

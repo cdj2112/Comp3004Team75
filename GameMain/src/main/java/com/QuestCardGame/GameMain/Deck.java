@@ -16,8 +16,9 @@ public class Deck {
 	public Card drawCard() {
 		if (cards.size() > 0) {
 			return cards.pop();
-		}
-		else {
+		} else if(discard.size() == 0) {
+			return null;
+		} else {
 			handleEmptyDeck();
 			return cards.pop();
 		}
