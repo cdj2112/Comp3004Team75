@@ -1,0 +1,189 @@
+.invisible {
+	display: none !important;
+}
+
+.visible {
+	display: block;
+}
+
+.gameContainer {
+	position: absolute;
+	top: 0;
+	left:0;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+}
+
+.secondaryPlayers {
+	position: absolute;
+	top: 20px;
+	width: 25%;
+	bottom: 33%;
+}
+
+.sidePlayer {
+	width: 100%;
+	height: 33%;
+}
+
+.lowerPlayer {
+	position: absolute;
+	top: 67%;
+	height: 33%;
+	width: 100%;
+}
+
+.playerHand{
+	display:inline-block;
+	position: relative;
+	width: 100%;
+	height: 50%;
+}
+
+.lowerPlayer > .playerPlay {
+	position: relative;
+	width: 74%;
+	height: 50%;
+	z-index: 1;
+	float: left;
+}
+
+.sidePlayer .playerPlay {
+	height: 50%;
+	width: auto;
+	overflow: hidden;
+}
+
+.lowerPlayer > .playerInfo {
+	display:inline-block;
+	position: relative;
+	width: 25%;
+	height: 50%;
+}
+
+.sidePlayer .playerInfo {
+	display: flex;
+	flex-flow: column;
+	height: 50%;
+	width: 100%;
+}
+
+.rank {
+	width: auto;
+	float: left;
+}
+
+.lowerPlayer .rank {
+	height: 100%;
+}
+
+.sidePlayer .rank {
+	height: 50%;
+}
+
+.lowerPlayer .shields {
+	height: 75%;
+	width: auto;
+	overflow: hidden;
+}
+
+.sidePlayer .shields {
+	width: 100%;
+	flex: 1 1 auto;
+	display: flex;
+}
+
+.imgCont {
+	position: relative;
+	width: auto;
+	flex: 1 1 auto;
+}
+
+.end {
+	display: block;
+	float : none !important;
+}
+
+
+.lowerPlayer .sImg {
+	height: 33%;
+	width: auto;
+	float : left;
+}
+
+.sidePlayer .sImg {
+	position: absolute;
+	height: 100%;
+	width: auto;
+}
+
+.battlePoints {
+	font: 20px arial, sans-serif;
+}
+
+.cardsInfo {
+	display: block;
+	font: 20px arial, sans-serif;
+}
+
+.card {
+	width: 7%;
+	height: auto;
+	max-height: 100%;
+	max-width: 88px;
+}
+
+.playCard {
+	height: 100%;
+	width: auto;
+}
+
+.sideCard {
+	height: 50%;
+	width: auto;
+}
+
+.storyContainer{
+	position: absolute;
+	top: 20px;
+	width: 7%;
+	height: auto;
+	left: 30%;
+}
+
+.storyCard {
+	width:100%;
+}
+
+.questContainer {
+	position: absolute;
+	top: 20px;
+	left: 40%;
+	width: calc(50% - 10px);
+	bottom: 35%;
+}
+
+.stageContainer {
+	width: calc(100% - 10px);
+	height: 20%;
+}
+
+.active {
+	border: 1px solid red;
+}
+
+.stageCard {
+	height: 100%;
+	width: auto;
+}
+
+#discard {
+	position: absolute;
+	top: 20px;
+	height: 17%;
+	left: 90%;
+	width: calc(10% - 5px);
+	max-width: 87px;
+	border: 1px solid red;
+}
