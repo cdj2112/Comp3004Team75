@@ -82,7 +82,7 @@ public class Player {
 			boolean bonus = (c.getCardType() == AdventureType.ALLY && storyName != null) ? storyName.equals(((Ally)c).getTarget()):false;
 			totalBattlePoints += c.getBattlePoint(bonus); //no special ability
 			if(bonus)
-				logger.info("Player "+getPlayerNumber()+" gets [" + c.getBid(bonus) + "] bonus battle points from [" + c.getName() + "]");
+				logger.info("Player "+getPlayerNumber()+" gets [" + c.getBattlePoint(bonus) + "] bonus battle points from [" + c.getName() + "]");
 		}
 		return totalBattlePoints;
 	}
