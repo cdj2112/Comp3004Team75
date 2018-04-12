@@ -6,6 +6,8 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.TreeSet;
 
+import com.QuestCardGame.GameMain.AdventureCard.AdventureType;
+
 public class Hand extends ArrayList<AdventureCard> {
 
 	public void sortAscendingByBattlePoints() {
